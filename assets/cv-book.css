@@ -1,0 +1,67 @@
+/* 现代计算机视觉技术书籍样式 */
+
+/* 改进中文字体渲染 */
+body {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+}
+
+/* 改进标题层次 */
+h1 {
+  color: #2c3e50;
+  border-bottom: 3px solid #3498db;
+  padding-bottom: 0.5em;
+  font-weight: 600;
+}
+
+h2 {
+  color: #34495e;
+  border-left: 4px solid #e74c3c;
+  padding-left: 1em;
+  font-weight: 600;
+}
+
+h3 {
+  color: #2980b9;
+  font-weight: 500;
+}
+
+/* 简洁代码块样式 - 移除所有嵌套问题 */
+div.sourceCode {
+  margin: 1.5em 0;
+  overflow-x: auto;
+}
+
+.sourceCode {
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* Python 代码特殊标识 - 已移除左边框避免视觉干扰 */
+/* .sourceCode.python {
+  border-left: 4px solid #306998;
+} */
+
+/* 改进图片展示 */
+.figure {
+  text-align: center;
+  margin: 2.5em 0;
+  padding: 1.5em;
+  background: #fafbfc;
+  border-radius: 12px;
+  border: 1px solid #e1e4e8;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+}
+
+.figure img {
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* 目录改进 */
+.sidebar-navigation .sidebar-item:hover {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  transform: translateX(2px);
+}

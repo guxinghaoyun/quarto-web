@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="AI Assistant &amp; You">
 
 <title>5&nbsp; 点云基础与处理 – 现代计算机视觉</title>
 <style>
@@ -74,14 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c1f63da3e08f13bc72dc17e92cfd001d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e25bb2ec88b96ab004d13ad1d1924df4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c1f63da3e08f13bc72dc17e92cfd001d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0348920b7671f696dc9078d39bff215e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-44846edcafbe86808dcaec689102c8b3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-603b5228b8d253aece00f2e62deeb1ae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-44846edcafbe86808dcaec689102c8b3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-43a518227082ac35b3113d490d8c8312.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-6ba6813c27d4e98062636b1311a23212.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-43a518227082ac35b3113d490d8c8312.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -109,13 +108,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "搜索"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 <meta name="mermaid-theme" content="default">
 <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -144,6 +158,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="../assets/cv-book.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -334,6 +349,7 @@ window.Quarto = {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">现代计算机视觉</a> 
         <div class="sidebar-tools-main">
+    <a href="https://github.com/guxinghaoyun/quarto-web" title="源代码" class="quarto-navigation-tool px-1" aria-label="源代码"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="切换深色模式"><i class="bi"></i></a>
 </div>
     </div>
@@ -451,7 +467,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">5.6</span> 小结</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.4_点云基础与处理.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -466,12 +482,6 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">作者</div>
-    <div class="quarto-title-meta-contents">
-             <p>AI Assistant &amp; You </p>
-          </div>
-  </div>
     
   
     
@@ -636,7 +646,7 @@ window.Quarto = {
 <h3 data-number="5.3.1" class="anchored" data-anchor-id="kd-tree的理论基础"><span class="header-section-number">5.3.1</span> KD-Tree的理论基础</h3>
 <p>KD-Tree（K-Dimensional Tree）是一种用于组织k维空间中点的二叉搜索树。对于三维点云，k=3。KD-Tree的构建过程是递归的：</p>
 <p><strong>1. 构建算法</strong></p>
-<p>给定点集<span class="math inline">\(P = \{p_1, p_2, ..., p_n\}\)</span>，其中<span class="math inline">\(p_i = (x_i, y_i, z_i)\)</span>，KD-Tree的构建过程如下：</p>
+<p>给定点集<span class="math inline">P = \{p_1, p_2, ..., p_n\}</span>，其中<span class="math inline">p_i = (x_i, y_i, z_i)</span>，KD-Tree的构建过程如下：</p>
 <ul>
 <li>选择分割维度：通常选择方差最大的维度，或者循环选择x、y、z维度</li>
 <li>选择分割点：通常选择该维度上的中位数点</li>
@@ -644,65 +654,65 @@ window.Quarto = {
 </ul>
 <p><strong>2. 搜索算法</strong></p>
 <p>KD-Tree支持多种查询操作，最重要的是最近邻搜索（Nearest Neighbor Search）：</p>
-<p>对于查询点<span class="math inline">\(q\)</span>，最近邻搜索的时间复杂度为<span class="math inline">\(O(\log n)\)</span>（平均情况）。搜索过程包括：</p>
+<p>对于查询点<span class="math inline">q</span>，最近邻搜索的时间复杂度为<span class="math inline">O(\log n)</span>（平均情况）。搜索过程包括：</p>
 <ul>
 <li><strong>向下搜索</strong>：从根节点开始，根据分割维度选择子树</li>
 <li><strong>回溯搜索</strong>：检查是否需要搜索另一个子树</li>
 <li><strong>剪枝优化</strong>：利用当前最佳距离进行剪枝</li>
 </ul>
-<p>最近邻距离的计算公式为： <span class="math display">\[d(p, q) = \sqrt{(p_x - q_x)^2 + (p_y - q_y)^2 + (p_z - q_z)^2}\]</span></p>
+<p>最近邻距离的计算公式为： <span class="math display">d(p, q) = \sqrt{(p_x - q_x)^2 + (p_y - q_y)^2 + (p_z - q_z)^2}</span></p>
 <p><strong>3. 范围搜索</strong></p>
-<p>KD-Tree还支持范围搜索，即查找指定区域内的所有点。对于球形范围搜索，给定中心点<span class="math inline">\(c\)</span>和半径<span class="math inline">\(r\)</span>，需要找到所有满足<span class="math inline">\(d(p, c) \leq r\)</span>的点<span class="math inline">\(p\)</span>。</p>
+<p>KD-Tree还支持范围搜索，即查找指定区域内的所有点。对于球形范围搜索，给定中心点<span class="math inline">c</span>和半径<span class="math inline">r</span>，需要找到所有满足<span class="math inline">d(p, c) \leq r</span>的点<span class="math inline">p</span>。</p>
 </section>
 <section id="体素化的理论基础" class="level3" data-number="5.3.2">
 <h3 data-number="5.3.2" class="anchored" data-anchor-id="体素化的理论基础"><span class="header-section-number">5.3.2</span> 体素化的理论基础</h3>
 <p>体素化（Voxelization）是将连续的三维空间离散化为规则网格的过程。每个体素（Voxel）是一个立方体单元，类似于二维图像中的像素。</p>
 <p><strong>1. 体素网格定义</strong></p>
-<p>给定点云的边界框<span class="math inline">\([x_{min}, x_{max}] \times [y_{min}, y_{max}] \times [z_{min}, z_{max}]\)</span>和体素大小<span class="math inline">\(v\)</span>，体素网格的尺寸为：</p>
-<p><span class="math display">\[N_x = \lceil \frac{x_{max} - x_{min}}{v} \rceil\]</span> <span class="math display">\[N_y = \lceil \frac{y_{max} - y_{min}}{v} \rceil\]</span> <span class="math display">\[N_z = \lceil \frac{z_{max} - z_{min}}{v} \rceil\]</span></p>
+<p>给定点云的边界框<span class="math inline">[x_{min}, x_{max}] \times [y_{min}, y_{max}] \times [z_{min}, z_{max}]</span>和体素大小<span class="math inline">v</span>，体素网格的尺寸为：</p>
+<p><span class="math display">N_x = \lceil \frac{x_{max} - x_{min}}{v} \rceil</span> <span class="math display">N_y = \lceil \frac{y_{max} - y_{min}}{v} \rceil</span> <span class="math display">N_z = \lceil \frac{z_{max} - z_{min}}{v} \rceil</span></p>
 <p><strong>2. 点到体素的映射</strong></p>
-<p>对于点<span class="math inline">\(p = (x, y, z)\)</span>，其对应的体素索引为：</p>
-<p><span class="math display">\[i = \lfloor \frac{x - x_{min}}{v} \rfloor\]</span> <span class="math display">\[j = \lfloor \frac{y - y_{min}}{v} \rfloor\]</span> <span class="math display">\[k = \lfloor \frac{z - z_{min}}{v} \rfloor\]</span></p>
+<p>对于点<span class="math inline">p = (x, y, z)</span>，其对应的体素索引为：</p>
+<p><span class="math display">i = \lfloor \frac{x - x_{min}}{v} \rfloor</span> <span class="math display">j = \lfloor \frac{y - y_{min}}{v} \rfloor</span> <span class="math display">k = \lfloor \frac{z - z_{min}}{v} \rfloor</span></p>
 <p><strong>3. 体素特征计算</strong></p>
-<p>每个体素可以计算多种特征： - <strong>点数量</strong>：<span class="math inline">\(N_{ijk} = |\{p \in P : p \text{ 属于体素 } (i,j,k)\}|\)</span> - <strong>质心坐标</strong>：<span class="math inline">\(\bar{p}_{ijk} = \frac{1}{N_{ijk}} \sum_{p \in V_{ijk}} p\)</span> - <strong>协方差矩阵</strong>：<span class="math inline">\(C_{ijk} = \frac{1}{N_{ijk}} \sum_{p \in V_{ijk}} (p - \bar{p}_{ijk})(p - \bar{p}_{ijk})^T\)</span></p>
+<p>每个体素可以计算多种特征： - <strong>点数量</strong>：<span class="math inline">N_{ijk} = |\{p \in P : p \text{ 属于体素 } (i,j,k)\}|</span> - <strong>质心坐标</strong>：<span class="math inline">\bar{p}_{ijk} = \frac{1}{N_{ijk}} \sum_{p \in V_{ijk}} p</span> - <strong>协方差矩阵</strong>：<span class="math inline">C_{ijk} = \frac{1}{N_{ijk}} \sum_{p \in V_{ijk}} (p - \bar{p}_{ijk})(p - \bar{p}_{ijk})^T</span></p>
 </section>
 <section id="聚类算法的理论基础" class="level3" data-number="5.3.3">
 <h3 data-number="5.3.3" class="anchored" data-anchor-id="聚类算法的理论基础"><span class="header-section-number">5.3.3</span> 聚类算法的理论基础</h3>
 <p>点云聚类旨在将点云分割为若干个具有相似特性的子集。常用的聚类算法包括：</p>
 <p><strong>1. 欧几里得聚类</strong></p>
-<p>基于距离的聚类方法，将距离小于阈值<span class="math inline">\(\epsilon\)</span>的点归为同一类：</p>
-<p><span class="math display">\[C_i = \{p \in P : \exists q \in C_i, d(p, q) &lt; \epsilon\}\]</span></p>
+<p>基于距离的聚类方法，将距离小于阈值<span class="math inline">\epsilon</span>的点归为同一类：</p>
+<p><span class="math display">C_i = \{p \in P : \exists q \in C_i, d(p, q) &lt; \epsilon\}</span></p>
 <p>这等价于在点云上构建邻接图，然后寻找连通分量。</p>
 <p><strong>2. 区域生长聚类</strong></p>
 <p>从种子点开始，根据几何特征（如法向量）逐步扩展区域：</p>
 <ul>
-<li>选择种子点<span class="math inline">\(p_0\)</span></li>
-<li>计算邻域点的法向量角度差：<span class="math inline">\(\theta = \arccos(n_i \cdot n_j)\)</span></li>
-<li>如果<span class="math inline">\(\theta &lt; \theta_{threshold}\)</span>，则将邻域点加入当前区域</li>
+<li>选择种子点<span class="math inline">p_0</span></li>
+<li>计算邻域点的法向量角度差：<span class="math inline">\theta = \arccos(n_i \cdot n_j)</span></li>
+<li>如果<span class="math inline">\theta &lt; \theta_{threshold}</span>，则将邻域点加入当前区域</li>
 <li>递归处理新加入的点</li>
 </ul>
 <p><strong>3. DBSCAN聚类</strong></p>
 <p>基于密度的聚类算法，能够发现任意形状的聚类并识别噪声点：</p>
 <ul>
-<li><strong>核心点</strong>：半径<span class="math inline">\(\epsilon\)</span>内至少有<span class="math inline">\(MinPts\)</span>个邻居的点</li>
+<li><strong>核心点</strong>：半径<span class="math inline">\epsilon</span>内至少有<span class="math inline">MinPts</span>个邻居的点</li>
 <li><strong>边界点</strong>：不是核心点但在某个核心点的邻域内的点</li>
 <li><strong>噪声点</strong>：既不是核心点也不是边界点的点</li>
 </ul>
-<p>DBSCAN的时间复杂度为<span class="math inline">\(O(n \log n)\)</span>（使用空间索引）。</p>
+<p>DBSCAN的时间复杂度为<span class="math inline">O(n \log n)</span>（使用空间索引）。</p>
 </section>
 <section id="统计滤波的理论基础" class="level3" data-number="5.3.4">
 <h3 data-number="5.3.4" class="anchored" data-anchor-id="统计滤波的理论基础"><span class="header-section-number">5.3.4</span> 统计滤波的理论基础</h3>
 <p>统计滤波基于点云的统计特性识别和移除异常值。</p>
 <p><strong>1. 统计异常值移除（SOR）</strong></p>
-<p>对于每个点<span class="math inline">\(p_i\)</span>，计算其k近邻的平均距离：</p>
-<p><span class="math display">\[\bar{d}_i = \frac{1}{k} \sum_{j=1}^{k} d(p_i, p_{i,j})\]</span></p>
-<p>其中<span class="math inline">\(p_{i,j}\)</span>是<span class="math inline">\(p_i\)</span>的第<span class="math inline">\(j\)</span>个最近邻。</p>
-<p>假设距离分布为正态分布<span class="math inline">\(N(\mu, \sigma^2)\)</span>，其中： <span class="math display">\[\mu = \frac{1}{n} \sum_{i=1}^{n} \bar{d}_i\]</span> <span class="math display">\[\sigma^2 = \frac{1}{n-1} \sum_{i=1}^{n} (\bar{d}_i - \mu)^2\]</span></p>
-<p>如果<span class="math inline">\(\bar{d}_i &gt; \mu + \alpha \sigma\)</span>（其中<span class="math inline">\(\alpha\)</span>是标准差倍数），则认为<span class="math inline">\(p_i\)</span>是异常值。</p>
+<p>对于每个点<span class="math inline">p_i</span>，计算其k近邻的平均距离：</p>
+<p><span class="math display">\bar{d}_i = \frac{1}{k} \sum_{j=1}^{k} d(p_i, p_{i,j})</span></p>
+<p>其中<span class="math inline">p_{i,j}</span>是<span class="math inline">p_i</span>的第<span class="math inline">j</span>个最近邻。</p>
+<p>假设距离分布为正态分布<span class="math inline">N(\mu, \sigma^2)</span>，其中： <span class="math display">\mu = \frac{1}{n} \sum_{i=1}^{n} \bar{d}_i</span> <span class="math display">\sigma^2 = \frac{1}{n-1} \sum_{i=1}^{n} (\bar{d}_i - \mu)^2</span></p>
+<p>如果<span class="math inline">\bar{d}_i &gt; \mu + \alpha \sigma</span>（其中<span class="math inline">\alpha</span>是标准差倍数），则认为<span class="math inline">p_i</span>是异常值。</p>
 <p><strong>2. 半径滤波</strong></p>
-<p>对于每个点<span class="math inline">\(p_i\)</span>，统计半径<span class="math inline">\(r\)</span>内的邻居数量：</p>
-<p><span class="math display">\[N_i = |\{p_j \in P : d(p_i, p_j) &lt; r\}|\]</span></p>
-<p>如果<span class="math inline">\(N_i &lt; N_{min}\)</span>，则认为<span class="math inline">\(p_i\)</span>是孤立点并移除。</p>
+<p>对于每个点<span class="math inline">p_i</span>，统计半径<span class="math inline">r</span>内的邻居数量：</p>
+<p><span class="math display">N_i = |\{p_j \in P : d(p_i, p_j) &lt; r\}|</span></p>
+<p>如果<span class="math inline">N_i &lt; N_{min}</span>，则认为<span class="math inline">p_i</span>是孤立点并移除。</p>
 <p>这些理论为点云处理算法提供了坚实的数学基础，确保了算法的正确性和效率。</p>
 </section>
 </section>
@@ -712,229 +722,229 @@ window.Quarto = {
 <section id="kd-tree的核心实现" class="level3" data-number="5.4.1">
 <h3 data-number="5.4.1" class="anchored" data-anchor-id="kd-tree的核心实现"><span class="header-section-number">5.4.1</span> KD-Tree的核心实现</h3>
 <p>KD-Tree是点云处理中最重要的空间索引结构，以下是其核心实现：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> namedtuple</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> KDTreeNode:</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""KD-Tree节点定义"""</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, point<span class="op">=</span><span class="va">None</span>, left<span class="op">=</span><span class="va">None</span>, right<span class="op">=</span><span class="va">None</span>, axis<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.point <span class="op">=</span> point      <span class="co"># 节点存储的点</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.left <span class="op">=</span> left        <span class="co"># 左子树</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.right <span class="op">=</span> right      <span class="co"># 右子树</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.axis <span class="op">=</span> axis        <span class="co"># 分割维度</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> KDTree:</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""KD-Tree核心实现"""</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, points):</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.root <span class="op">=</span> <span class="va">self</span>._build_tree(points, depth<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _build_tree(<span class="va">self</span>, points, depth):</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""递归构建KD-Tree"""</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> points:</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 选择分割维度（循环选择x,y,z）</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        axis <span class="op">=</span> depth <span class="op">%</span> <span class="dv">3</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 按当前维度排序并选择中位数</span></span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        points.sort(key<span class="op">=</span><span class="kw">lambda</span> p: p[axis])</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        median_idx <span class="op">=</span> <span class="bu">len</span>(points) <span class="op">//</span> <span class="dv">2</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 创建节点并递归构建子树</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        node <span class="op">=</span> KDTreeNode(</span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>            point<span class="op">=</span>points[median_idx],</span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            axis<span class="op">=</span>axis,</span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>            left<span class="op">=</span><span class="va">self</span>._build_tree(points[:median_idx], depth <span class="op">+</span> <span class="dv">1</span>),</span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>            right<span class="op">=</span><span class="va">self</span>._build_tree(points[median_idx <span class="op">+</span> <span class="dv">1</span>:], depth <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> node</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> nearest_neighbor(<span class="va">self</span>, query_point):</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""最近邻搜索核心算法"""</span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        best <span class="op">=</span> [<span class="va">None</span>, <span class="bu">float</span>(<span class="st">'inf'</span>)]</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> search(node, depth):</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> node <span class="kw">is</span> <span class="va">None</span>:</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 计算当前节点距离</span></span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>            dist <span class="op">=</span> np.linalg.norm(np.array(node.point) <span class="op">-</span> np.array(query_point))</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> dist <span class="op">&lt;</span> best[<span class="dv">1</span>]:</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>                best[<span class="dv">0</span>], best[<span class="dv">1</span>] <span class="op">=</span> node.point, dist</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 选择搜索方向</span></span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>            axis <span class="op">=</span> node.axis</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> query_point[axis] <span class="op">&lt;</span> node.point[axis]:</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>                search(node.left, depth <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>                <span class="co"># 检查是否需要搜索另一侧</span></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="bu">abs</span>(query_point[axis] <span class="op">-</span> node.point[axis]) <span class="op">&lt;</span> best[<span class="dv">1</span>]:</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>                    search(node.right, depth <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>                search(node.right, depth <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="bu">abs</span>(query_point[axis] <span class="op">-</span> node.point[axis]) <span class="op">&lt;</span> best[<span class="dv">1</span>]:</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>                    search(node.left, depth <span class="op">+</span> <span class="dv">1</span>)</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        search(<span class="va">self</span>.root, <span class="dv">0</span>)</span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> best[<span class="dv">0</span>], best[<span class="dv">1</span>]</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">from</span> collections <span class="im">import</span> namedtuple</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">class</span> KDTreeNode:</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="co">"""KD-Tree节点定义"""</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, point<span class="op">=</span><span class="va">None</span>, left<span class="op">=</span><span class="va">None</span>, right<span class="op">=</span><span class="va">None</span>, axis<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb1-7"><a href="#cb1-7"></a>        <span class="va">self</span>.point <span class="op">=</span> point      <span class="co"># 节点存储的点</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>        <span class="va">self</span>.left <span class="op">=</span> left        <span class="co"># 左子树</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>        <span class="va">self</span>.right <span class="op">=</span> right      <span class="co"># 右子树</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>        <span class="va">self</span>.axis <span class="op">=</span> axis        <span class="co"># 分割维度</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="kw">class</span> KDTree:</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    <span class="co">"""KD-Tree核心实现"""</span></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, points):</span>
+<span id="cb1-15"><a href="#cb1-15"></a>        <span class="va">self</span>.root <span class="op">=</span> <span class="va">self</span>._build_tree(points, depth<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="kw">def</span> _build_tree(<span class="va">self</span>, points, depth):</span>
+<span id="cb1-18"><a href="#cb1-18"></a>        <span class="co">"""递归构建KD-Tree"""</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>        <span class="cf">if</span> <span class="kw">not</span> points:</span>
+<span id="cb1-20"><a href="#cb1-20"></a>            <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a></span>
+<span id="cb1-22"><a href="#cb1-22"></a>        <span class="co"># 选择分割维度（循环选择x,y,z）</span></span>
+<span id="cb1-23"><a href="#cb1-23"></a>        axis <span class="op">=</span> depth <span class="op">%</span> <span class="dv">3</span></span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a>        <span class="co"># 按当前维度排序并选择中位数</span></span>
+<span id="cb1-26"><a href="#cb1-26"></a>        points.sort(key<span class="op">=</span><span class="kw">lambda</span> p: p[axis])</span>
+<span id="cb1-27"><a href="#cb1-27"></a>        median_idx <span class="op">=</span> <span class="bu">len</span>(points) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a></span>
+<span id="cb1-29"><a href="#cb1-29"></a>        <span class="co"># 创建节点并递归构建子树</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a>        node <span class="op">=</span> KDTreeNode(</span>
+<span id="cb1-31"><a href="#cb1-31"></a>            point<span class="op">=</span>points[median_idx],</span>
+<span id="cb1-32"><a href="#cb1-32"></a>            axis<span class="op">=</span>axis,</span>
+<span id="cb1-33"><a href="#cb1-33"></a>            left<span class="op">=</span><span class="va">self</span>._build_tree(points[:median_idx], depth <span class="op">+</span> <span class="dv">1</span>),</span>
+<span id="cb1-34"><a href="#cb1-34"></a>            right<span class="op">=</span><span class="va">self</span>._build_tree(points[median_idx <span class="op">+</span> <span class="dv">1</span>:], depth <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-35"><a href="#cb1-35"></a>        )</span>
+<span id="cb1-36"><a href="#cb1-36"></a>        <span class="cf">return</span> node</span>
+<span id="cb1-37"><a href="#cb1-37"></a></span>
+<span id="cb1-38"><a href="#cb1-38"></a>    <span class="kw">def</span> nearest_neighbor(<span class="va">self</span>, query_point):</span>
+<span id="cb1-39"><a href="#cb1-39"></a>        <span class="co">"""最近邻搜索核心算法"""</span></span>
+<span id="cb1-40"><a href="#cb1-40"></a>        best <span class="op">=</span> [<span class="va">None</span>, <span class="bu">float</span>(<span class="st">'inf'</span>)]</span>
+<span id="cb1-41"><a href="#cb1-41"></a></span>
+<span id="cb1-42"><a href="#cb1-42"></a>        <span class="kw">def</span> search(node, depth):</span>
+<span id="cb1-43"><a href="#cb1-43"></a>            <span class="cf">if</span> node <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb1-44"><a href="#cb1-44"></a>                <span class="cf">return</span></span>
+<span id="cb1-45"><a href="#cb1-45"></a></span>
+<span id="cb1-46"><a href="#cb1-46"></a>            <span class="co"># 计算当前节点距离</span></span>
+<span id="cb1-47"><a href="#cb1-47"></a>            dist <span class="op">=</span> np.linalg.norm(np.array(node.point) <span class="op">-</span> np.array(query_point))</span>
+<span id="cb1-48"><a href="#cb1-48"></a>            <span class="cf">if</span> dist <span class="op">&lt;</span> best[<span class="dv">1</span>]:</span>
+<span id="cb1-49"><a href="#cb1-49"></a>                best[<span class="dv">0</span>], best[<span class="dv">1</span>] <span class="op">=</span> node.point, dist</span>
+<span id="cb1-50"><a href="#cb1-50"></a></span>
+<span id="cb1-51"><a href="#cb1-51"></a>            <span class="co"># 选择搜索方向</span></span>
+<span id="cb1-52"><a href="#cb1-52"></a>            axis <span class="op">=</span> node.axis</span>
+<span id="cb1-53"><a href="#cb1-53"></a>            <span class="cf">if</span> query_point[axis] <span class="op">&lt;</span> node.point[axis]:</span>
+<span id="cb1-54"><a href="#cb1-54"></a>                search(node.left, depth <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-55"><a href="#cb1-55"></a>                <span class="co"># 检查是否需要搜索另一侧</span></span>
+<span id="cb1-56"><a href="#cb1-56"></a>                <span class="cf">if</span> <span class="bu">abs</span>(query_point[axis] <span class="op">-</span> node.point[axis]) <span class="op">&lt;</span> best[<span class="dv">1</span>]:</span>
+<span id="cb1-57"><a href="#cb1-57"></a>                    search(node.right, depth <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-58"><a href="#cb1-58"></a>            <span class="cf">else</span>:</span>
+<span id="cb1-59"><a href="#cb1-59"></a>                search(node.right, depth <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-60"><a href="#cb1-60"></a>                <span class="cf">if</span> <span class="bu">abs</span>(query_point[axis] <span class="op">-</span> node.point[axis]) <span class="op">&lt;</span> best[<span class="dv">1</span>]:</span>
+<span id="cb1-61"><a href="#cb1-61"></a>                    search(node.left, depth <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-62"><a href="#cb1-62"></a></span>
+<span id="cb1-63"><a href="#cb1-63"></a>        search(<span class="va">self</span>.root, <span class="dv">0</span>)</span>
+<span id="cb1-64"><a href="#cb1-64"></a>        <span class="cf">return</span> best[<span class="dv">0</span>], best[<span class="dv">1</span>]</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="体素化处理的核心实现" class="level3" data-number="5.4.2">
 <h3 data-number="5.4.2" class="anchored" data-anchor-id="体素化处理的核心实现"><span class="header-section-number">5.4.2</span> 体素化处理的核心实现</h3>
 <p>体素化是点云下采样和特征提取的重要方法：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> open3d <span class="im">as</span> o3d</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> VoxelGrid:</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""体素网格核心实现"""</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, voxel_size):</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.voxel_size <span class="op">=</span> voxel_size</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.voxel_dict <span class="op">=</span> {}</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> voxelize(<span class="va">self</span>, points):</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""点云体素化核心算法"""</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 计算边界框</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        min_bound <span class="op">=</span> np.<span class="bu">min</span>(points, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        max_bound <span class="op">=</span> np.<span class="bu">max</span>(points, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 点到体素索引的映射</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        voxel_indices <span class="op">=</span> np.floor((points <span class="op">-</span> min_bound) <span class="op">/</span> <span class="va">self</span>.voxel_size).astype(<span class="bu">int</span>)</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 构建体素字典</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, point <span class="kw">in</span> <span class="bu">enumerate</span>(points):</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            voxel_key <span class="op">=</span> <span class="bu">tuple</span>(voxel_indices[i])</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> voxel_key <span class="kw">not</span> <span class="kw">in</span> <span class="va">self</span>.voxel_dict:</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.voxel_dict[voxel_key] <span class="op">=</span> []</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.voxel_dict[voxel_key].append(point)</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.voxel_dict</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> downsample(<span class="va">self</span>, points):</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""体素下采样：每个体素用质心代表"""</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        voxel_dict <span class="op">=</span> <span class="va">self</span>.voxelize(points)</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        downsampled_points <span class="op">=</span> []</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> voxel_points <span class="kw">in</span> voxel_dict.values():</span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 计算体素内点的质心</span></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>            centroid <span class="op">=</span> np.mean(voxel_points, axis<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>            downsampled_points.append(centroid)</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.array(downsampled_points)</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用Open3D的高效实现</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> voxel_downsample_open3d(points, voxel_size):</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""使用Open3D进行体素下采样"""</span></span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    pcd <span class="op">=</span> o3d.geometry.PointCloud()</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    pcd.points <span class="op">=</span> o3d.utility.Vector3dVector(points)</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 体素下采样</span></span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    downsampled_pcd <span class="op">=</span> pcd.voxel_down_sample(voxel_size)</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.asarray(downsampled_pcd.points)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> open3d <span class="im">as</span> o3d</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">class</span> VoxelGrid:</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="co">"""体素网格核心实现"""</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, voxel_size):</span>
+<span id="cb2-7"><a href="#cb2-7"></a>        <span class="va">self</span>.voxel_size <span class="op">=</span> voxel_size</span>
+<span id="cb2-8"><a href="#cb2-8"></a>        <span class="va">self</span>.voxel_dict <span class="op">=</span> {}</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="kw">def</span> voxelize(<span class="va">self</span>, points):</span>
+<span id="cb2-11"><a href="#cb2-11"></a>        <span class="co">"""点云体素化核心算法"""</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>        <span class="co"># 计算边界框</span></span>
+<span id="cb2-13"><a href="#cb2-13"></a>        min_bound <span class="op">=</span> np.<span class="bu">min</span>(points, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>        max_bound <span class="op">=</span> np.<span class="bu">max</span>(points, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-15"><a href="#cb2-15"></a></span>
+<span id="cb2-16"><a href="#cb2-16"></a>        <span class="co"># 点到体素索引的映射</span></span>
+<span id="cb2-17"><a href="#cb2-17"></a>        voxel_indices <span class="op">=</span> np.floor((points <span class="op">-</span> min_bound) <span class="op">/</span> <span class="va">self</span>.voxel_size).astype(<span class="bu">int</span>)</span>
+<span id="cb2-18"><a href="#cb2-18"></a></span>
+<span id="cb2-19"><a href="#cb2-19"></a>        <span class="co"># 构建体素字典</span></span>
+<span id="cb2-20"><a href="#cb2-20"></a>        <span class="cf">for</span> i, point <span class="kw">in</span> <span class="bu">enumerate</span>(points):</span>
+<span id="cb2-21"><a href="#cb2-21"></a>            voxel_key <span class="op">=</span> <span class="bu">tuple</span>(voxel_indices[i])</span>
+<span id="cb2-22"><a href="#cb2-22"></a>            <span class="cf">if</span> voxel_key <span class="kw">not</span> <span class="kw">in</span> <span class="va">self</span>.voxel_dict:</span>
+<span id="cb2-23"><a href="#cb2-23"></a>                <span class="va">self</span>.voxel_dict[voxel_key] <span class="op">=</span> []</span>
+<span id="cb2-24"><a href="#cb2-24"></a>            <span class="va">self</span>.voxel_dict[voxel_key].append(point)</span>
+<span id="cb2-25"><a href="#cb2-25"></a></span>
+<span id="cb2-26"><a href="#cb2-26"></a>        <span class="cf">return</span> <span class="va">self</span>.voxel_dict</span>
+<span id="cb2-27"><a href="#cb2-27"></a></span>
+<span id="cb2-28"><a href="#cb2-28"></a>    <span class="kw">def</span> downsample(<span class="va">self</span>, points):</span>
+<span id="cb2-29"><a href="#cb2-29"></a>        <span class="co">"""体素下采样：每个体素用质心代表"""</span></span>
+<span id="cb2-30"><a href="#cb2-30"></a>        voxel_dict <span class="op">=</span> <span class="va">self</span>.voxelize(points)</span>
+<span id="cb2-31"><a href="#cb2-31"></a>        downsampled_points <span class="op">=</span> []</span>
+<span id="cb2-32"><a href="#cb2-32"></a></span>
+<span id="cb2-33"><a href="#cb2-33"></a>        <span class="cf">for</span> voxel_points <span class="kw">in</span> voxel_dict.values():</span>
+<span id="cb2-34"><a href="#cb2-34"></a>            <span class="co"># 计算体素内点的质心</span></span>
+<span id="cb2-35"><a href="#cb2-35"></a>            centroid <span class="op">=</span> np.mean(voxel_points, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-36"><a href="#cb2-36"></a>            downsampled_points.append(centroid)</span>
+<span id="cb2-37"><a href="#cb2-37"></a></span>
+<span id="cb2-38"><a href="#cb2-38"></a>        <span class="cf">return</span> np.array(downsampled_points)</span>
+<span id="cb2-39"><a href="#cb2-39"></a></span>
+<span id="cb2-40"><a href="#cb2-40"></a><span class="co"># 使用Open3D的高效实现</span></span>
+<span id="cb2-41"><a href="#cb2-41"></a><span class="kw">def</span> voxel_downsample_open3d(points, voxel_size):</span>
+<span id="cb2-42"><a href="#cb2-42"></a>    <span class="co">"""使用Open3D进行体素下采样"""</span></span>
+<span id="cb2-43"><a href="#cb2-43"></a>    pcd <span class="op">=</span> o3d.geometry.PointCloud()</span>
+<span id="cb2-44"><a href="#cb2-44"></a>    pcd.points <span class="op">=</span> o3d.utility.Vector3dVector(points)</span>
+<span id="cb2-45"><a href="#cb2-45"></a></span>
+<span id="cb2-46"><a href="#cb2-46"></a>    <span class="co"># 体素下采样</span></span>
+<span id="cb2-47"><a href="#cb2-47"></a>    downsampled_pcd <span class="op">=</span> pcd.voxel_down_sample(voxel_size)</span>
+<span id="cb2-48"><a href="#cb2-48"></a>    <span class="cf">return</span> np.asarray(downsampled_pcd.points)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="点云滤波的核心实现" class="level3" data-number="5.4.3">
 <h3 data-number="5.4.3" class="anchored" data-anchor-id="点云滤波的核心实现"><span class="header-section-number">5.4.3</span> 点云滤波的核心实现</h3>
 <p>点云滤波是预处理的重要步骤，以下是核心滤波算法：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> statistical_outlier_removal(points, k<span class="op">=</span><span class="dv">20</span>, std_ratio<span class="op">=</span><span class="fl">2.0</span>):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""统计异常值移除核心算法"""</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 构建k近邻搜索</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    nbrs <span class="op">=</span> NearestNeighbors(n_neighbors<span class="op">=</span>k<span class="op">+</span><span class="dv">1</span>).fit(points)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    distances, indices <span class="op">=</span> nbrs.kneighbors(points)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 计算每个点到其k近邻的平均距离（排除自身）</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    mean_distances <span class="op">=</span> np.mean(distances[:, <span class="dv">1</span>:], axis<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 计算全局统计量</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    global_mean <span class="op">=</span> np.mean(mean_distances)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    global_std <span class="op">=</span> np.std(mean_distances)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 识别异常值</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    threshold <span class="op">=</span> global_mean <span class="op">+</span> std_ratio <span class="op">*</span> global_std</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    inlier_mask <span class="op">=</span> mean_distances <span class="op">&lt;</span> threshold</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points[inlier_mask], inlier_mask</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> radius_outlier_removal(points, radius<span class="op">=</span><span class="fl">0.05</span>, min_neighbors<span class="op">=</span><span class="dv">10</span>):</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""半径异常值移除核心算法"""</span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 构建半径邻域搜索</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    nbrs <span class="op">=</span> NearestNeighbors(radius<span class="op">=</span>radius).fit(points)</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    distances, indices <span class="op">=</span> nbrs.radius_neighbors(points)</span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 统计每个点的邻居数量</span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    neighbor_counts <span class="op">=</span> np.array([<span class="bu">len</span>(neighbors) <span class="op">-</span> <span class="dv">1</span> <span class="cf">for</span> neighbors <span class="kw">in</span> indices])  <span class="co"># 排除自身</span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 过滤邻居数量不足的点</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    inlier_mask <span class="op">=</span> neighbor_counts <span class="op">&gt;=</span> min_neighbors</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points[inlier_mask], inlier_mask</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> passthrough_filter(points, axis<span class="op">=</span><span class="st">'z'</span>, min_val<span class="op">=-</span>np.inf, max_val<span class="op">=</span>np.inf):</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""直通滤波核心算法"""</span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    axis_map <span class="op">=</span> {<span class="st">'x'</span>: <span class="dv">0</span>, <span class="st">'y'</span>: <span class="dv">1</span>, <span class="st">'z'</span>: <span class="dv">2</span>}</span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    axis_idx <span class="op">=</span> axis_map[axis]</span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 根据坐标范围过滤点</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    mask <span class="op">=</span> (points[:, axis_idx] <span class="op">&gt;=</span> min_val) <span class="op">&amp;</span> (points[:, axis_idx] <span class="op">&lt;=</span> max_val)</span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points[mask], mask</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">def</span> statistical_outlier_removal(points, k<span class="op">=</span><span class="dv">20</span>, std_ratio<span class="op">=</span><span class="fl">2.0</span>):</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="co">"""统计异常值移除核心算法"""</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
+<span id="cb3-4"><a href="#cb3-4"></a></span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="co"># 构建k近邻搜索</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    nbrs <span class="op">=</span> NearestNeighbors(n_neighbors<span class="op">=</span>k<span class="op">+</span><span class="dv">1</span>).fit(points)</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    distances, indices <span class="op">=</span> nbrs.kneighbors(points)</span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="co"># 计算每个点到其k近邻的平均距离（排除自身）</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>    mean_distances <span class="op">=</span> np.mean(distances[:, <span class="dv">1</span>:], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a>    <span class="co"># 计算全局统计量</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>    global_mean <span class="op">=</span> np.mean(mean_distances)</span>
+<span id="cb3-14"><a href="#cb3-14"></a>    global_std <span class="op">=</span> np.std(mean_distances)</span>
+<span id="cb3-15"><a href="#cb3-15"></a></span>
+<span id="cb3-16"><a href="#cb3-16"></a>    <span class="co"># 识别异常值</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>    threshold <span class="op">=</span> global_mean <span class="op">+</span> std_ratio <span class="op">*</span> global_std</span>
+<span id="cb3-18"><a href="#cb3-18"></a>    inlier_mask <span class="op">=</span> mean_distances <span class="op">&lt;</span> threshold</span>
+<span id="cb3-19"><a href="#cb3-19"></a></span>
+<span id="cb3-20"><a href="#cb3-20"></a>    <span class="cf">return</span> points[inlier_mask], inlier_mask</span>
+<span id="cb3-21"><a href="#cb3-21"></a></span>
+<span id="cb3-22"><a href="#cb3-22"></a><span class="kw">def</span> radius_outlier_removal(points, radius<span class="op">=</span><span class="fl">0.05</span>, min_neighbors<span class="op">=</span><span class="dv">10</span>):</span>
+<span id="cb3-23"><a href="#cb3-23"></a>    <span class="co">"""半径异常值移除核心算法"""</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a>    <span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
+<span id="cb3-25"><a href="#cb3-25"></a></span>
+<span id="cb3-26"><a href="#cb3-26"></a>    <span class="co"># 构建半径邻域搜索</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a>    nbrs <span class="op">=</span> NearestNeighbors(radius<span class="op">=</span>radius).fit(points)</span>
+<span id="cb3-28"><a href="#cb3-28"></a>    distances, indices <span class="op">=</span> nbrs.radius_neighbors(points)</span>
+<span id="cb3-29"><a href="#cb3-29"></a></span>
+<span id="cb3-30"><a href="#cb3-30"></a>    <span class="co"># 统计每个点的邻居数量</span></span>
+<span id="cb3-31"><a href="#cb3-31"></a>    neighbor_counts <span class="op">=</span> np.array([<span class="bu">len</span>(neighbors) <span class="op">-</span> <span class="dv">1</span> <span class="cf">for</span> neighbors <span class="kw">in</span> indices])  <span class="co"># 排除自身</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a></span>
+<span id="cb3-33"><a href="#cb3-33"></a>    <span class="co"># 过滤邻居数量不足的点</span></span>
+<span id="cb3-34"><a href="#cb3-34"></a>    inlier_mask <span class="op">=</span> neighbor_counts <span class="op">&gt;=</span> min_neighbors</span>
+<span id="cb3-35"><a href="#cb3-35"></a>    <span class="cf">return</span> points[inlier_mask], inlier_mask</span>
+<span id="cb3-36"><a href="#cb3-36"></a></span>
+<span id="cb3-37"><a href="#cb3-37"></a><span class="kw">def</span> passthrough_filter(points, axis<span class="op">=</span><span class="st">'z'</span>, min_val<span class="op">=-</span>np.inf, max_val<span class="op">=</span>np.inf):</span>
+<span id="cb3-38"><a href="#cb3-38"></a>    <span class="co">"""直通滤波核心算法"""</span></span>
+<span id="cb3-39"><a href="#cb3-39"></a>    axis_map <span class="op">=</span> {<span class="st">'x'</span>: <span class="dv">0</span>, <span class="st">'y'</span>: <span class="dv">1</span>, <span class="st">'z'</span>: <span class="dv">2</span>}</span>
+<span id="cb3-40"><a href="#cb3-40"></a>    axis_idx <span class="op">=</span> axis_map[axis]</span>
+<span id="cb3-41"><a href="#cb3-41"></a></span>
+<span id="cb3-42"><a href="#cb3-42"></a>    <span class="co"># 根据坐标范围过滤点</span></span>
+<span id="cb3-43"><a href="#cb3-43"></a>    mask <span class="op">=</span> (points[:, axis_idx] <span class="op">&gt;=</span> min_val) <span class="op">&amp;</span> (points[:, axis_idx] <span class="op">&lt;=</span> max_val)</span>
+<span id="cb3-44"><a href="#cb3-44"></a>    <span class="cf">return</span> points[mask], mask</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="点云聚类的核心实现" class="level3" data-number="5.4.4">
 <h3 data-number="5.4.4" class="anchored" data-anchor-id="点云聚类的核心实现"><span class="header-section-number">5.4.4</span> 点云聚类的核心实现</h3>
 <p>聚类算法用于点云分割和目标识别：</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> euclidean_clustering(points, tolerance<span class="op">=</span><span class="fl">0.02</span>, min_cluster_size<span class="op">=</span><span class="dv">100</span>, max_cluster_size<span class="op">=</span><span class="dv">25000</span>):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""欧几里得聚类核心算法"""</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 构建邻域搜索</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    nbrs <span class="op">=</span> NearestNeighbors(radius<span class="op">=</span>tolerance).fit(points)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    visited <span class="op">=</span> np.zeros(<span class="bu">len</span>(points), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    clusters <span class="op">=</span> []</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(points)):</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> visited[i]:</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 区域生长</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        cluster <span class="op">=</span> []</span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        queue <span class="op">=</span> [i]</span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> queue:</span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            current_idx <span class="op">=</span> queue.pop(<span class="dv">0</span>)</span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> visited[current_idx]:</span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            visited[current_idx] <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            cluster.append(current_idx)</span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 查找邻居</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>            neighbors <span class="op">=</span> nbrs.radius_neighbors([points[current_idx]], return_distance<span class="op">=</span><span class="va">False</span>)[<span class="dv">0</span>]</span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> neighbor_idx <span class="kw">in</span> neighbors:</span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="kw">not</span> visited[neighbor_idx]:</span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                    queue.append(neighbor_idx)</span>
-<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 检查聚类大小</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> min_cluster_size <span class="op">&lt;=</span> <span class="bu">len</span>(cluster) <span class="op">&lt;=</span> max_cluster_size:</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>            clusters.append(cluster)</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> clusters</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dbscan_clustering(points, eps<span class="op">=</span><span class="fl">0.02</span>, min_samples<span class="op">=</span><span class="dv">10</span>):</span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""DBSCAN聚类核心算法"""</span></span>
-<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
-<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 使用sklearn的高效实现</span></span>
-<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    clustering <span class="op">=</span> DBSCAN(eps<span class="op">=</span>eps, min_samples<span class="op">=</span>min_samples).fit(points)</span>
-<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 提取聚类结果</span></span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> clustering.labels_</span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    n_clusters <span class="op">=</span> <span class="bu">len</span>(<span class="bu">set</span>(labels)) <span class="op">-</span> (<span class="dv">1</span> <span class="cf">if</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">in</span> labels <span class="cf">else</span> <span class="dv">0</span>)</span>
-<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    clusters <span class="op">=</span> []</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cluster_id <span class="kw">in</span> <span class="bu">range</span>(n_clusters):</span>
-<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        cluster_indices <span class="op">=</span> np.where(labels <span class="op">==</span> cluster_id)[<span class="dv">0</span>]</span>
-<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        clusters.append(cluster_indices.tolist())</span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> clusters, labels</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> euclidean_clustering(points, tolerance<span class="op">=</span><span class="fl">0.02</span>, min_cluster_size<span class="op">=</span><span class="dv">100</span>, max_cluster_size<span class="op">=</span><span class="dv">25000</span>):</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    <span class="co">"""欧几里得聚类核心算法"""</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="co"># 构建邻域搜索</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    nbrs <span class="op">=</span> NearestNeighbors(radius<span class="op">=</span>tolerance).fit(points)</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a>    visited <span class="op">=</span> np.zeros(<span class="bu">len</span>(points), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
+<span id="cb4-9"><a href="#cb4-9"></a>    clusters <span class="op">=</span> []</span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(points)):</span>
+<span id="cb4-12"><a href="#cb4-12"></a>        <span class="cf">if</span> visited[i]:</span>
+<span id="cb4-13"><a href="#cb4-13"></a>            <span class="cf">continue</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a></span>
+<span id="cb4-15"><a href="#cb4-15"></a>        <span class="co"># 区域生长</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>        cluster <span class="op">=</span> []</span>
+<span id="cb4-17"><a href="#cb4-17"></a>        queue <span class="op">=</span> [i]</span>
+<span id="cb4-18"><a href="#cb4-18"></a></span>
+<span id="cb4-19"><a href="#cb4-19"></a>        <span class="cf">while</span> queue:</span>
+<span id="cb4-20"><a href="#cb4-20"></a>            current_idx <span class="op">=</span> queue.pop(<span class="dv">0</span>)</span>
+<span id="cb4-21"><a href="#cb4-21"></a>            <span class="cf">if</span> visited[current_idx]:</span>
+<span id="cb4-22"><a href="#cb4-22"></a>                <span class="cf">continue</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a></span>
+<span id="cb4-24"><a href="#cb4-24"></a>            visited[current_idx] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a>            cluster.append(current_idx)</span>
+<span id="cb4-26"><a href="#cb4-26"></a></span>
+<span id="cb4-27"><a href="#cb4-27"></a>            <span class="co"># 查找邻居</span></span>
+<span id="cb4-28"><a href="#cb4-28"></a>            neighbors <span class="op">=</span> nbrs.radius_neighbors([points[current_idx]], return_distance<span class="op">=</span><span class="va">False</span>)[<span class="dv">0</span>]</span>
+<span id="cb4-29"><a href="#cb4-29"></a>            <span class="cf">for</span> neighbor_idx <span class="kw">in</span> neighbors:</span>
+<span id="cb4-30"><a href="#cb4-30"></a>                <span class="cf">if</span> <span class="kw">not</span> visited[neighbor_idx]:</span>
+<span id="cb4-31"><a href="#cb4-31"></a>                    queue.append(neighbor_idx)</span>
+<span id="cb4-32"><a href="#cb4-32"></a></span>
+<span id="cb4-33"><a href="#cb4-33"></a>        <span class="co"># 检查聚类大小</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a>        <span class="cf">if</span> min_cluster_size <span class="op">&lt;=</span> <span class="bu">len</span>(cluster) <span class="op">&lt;=</span> max_cluster_size:</span>
+<span id="cb4-35"><a href="#cb4-35"></a>            clusters.append(cluster)</span>
+<span id="cb4-36"><a href="#cb4-36"></a></span>
+<span id="cb4-37"><a href="#cb4-37"></a>    <span class="cf">return</span> clusters</span>
+<span id="cb4-38"><a href="#cb4-38"></a></span>
+<span id="cb4-39"><a href="#cb4-39"></a><span class="kw">def</span> dbscan_clustering(points, eps<span class="op">=</span><span class="fl">0.02</span>, min_samples<span class="op">=</span><span class="dv">10</span>):</span>
+<span id="cb4-40"><a href="#cb4-40"></a>    <span class="co">"""DBSCAN聚类核心算法"""</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a>    <span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
+<span id="cb4-42"><a href="#cb4-42"></a></span>
+<span id="cb4-43"><a href="#cb4-43"></a>    <span class="co"># 使用sklearn的高效实现</span></span>
+<span id="cb4-44"><a href="#cb4-44"></a>    clustering <span class="op">=</span> DBSCAN(eps<span class="op">=</span>eps, min_samples<span class="op">=</span>min_samples).fit(points)</span>
+<span id="cb4-45"><a href="#cb4-45"></a></span>
+<span id="cb4-46"><a href="#cb4-46"></a>    <span class="co"># 提取聚类结果</span></span>
+<span id="cb4-47"><a href="#cb4-47"></a>    labels <span class="op">=</span> clustering.labels_</span>
+<span id="cb4-48"><a href="#cb4-48"></a>    n_clusters <span class="op">=</span> <span class="bu">len</span>(<span class="bu">set</span>(labels)) <span class="op">-</span> (<span class="dv">1</span> <span class="cf">if</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">in</span> labels <span class="cf">else</span> <span class="dv">0</span>)</span>
+<span id="cb4-49"><a href="#cb4-49"></a></span>
+<span id="cb4-50"><a href="#cb4-50"></a>    clusters <span class="op">=</span> []</span>
+<span id="cb4-51"><a href="#cb4-51"></a>    <span class="cf">for</span> cluster_id <span class="kw">in</span> <span class="bu">range</span>(n_clusters):</span>
+<span id="cb4-52"><a href="#cb4-52"></a>        cluster_indices <span class="op">=</span> np.where(labels <span class="op">==</span> cluster_id)[<span class="dv">0</span>]</span>
+<span id="cb4-53"><a href="#cb4-53"></a>        clusters.append(cluster_indices.tolist())</span>
+<span id="cb4-54"><a href="#cb4-54"></a></span>
+<span id="cb4-55"><a href="#cb4-55"></a>    <span class="cf">return</span> clusters, labels</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>这些核心算法实现展示了点云处理的基本思想：通过空间数据结构实现高效查询，通过统计方法进行数据清理，通过几何算法进行结构分析。每个算法都针对点云数据的特点进行了优化，为后续的高级处理奠定了基础。</p>
 </section>
 </section>
@@ -1306,6 +1316,13 @@ window.Quarto = {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -1632,8 +1649,22 @@ window.Quarto = {
   </div>
 </nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2024 现代计算机视觉教程</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.4_点云基础与处理.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>使用 <a href="https://quarto.org/">Quarto</a> 构建</p>
+</div>
+  </div>
+</footer>
 
 
 
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

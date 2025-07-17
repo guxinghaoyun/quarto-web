@@ -6,7 +6,6 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="AI Assistant &amp; You">
 
 <title>6&nbsp; PointNet系列网络 – 现代计算机视觉</title>
 <style>
@@ -74,14 +73,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c1f63da3e08f13bc72dc17e92cfd001d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e25bb2ec88b96ab004d13ad1d1924df4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c1f63da3e08f13bc72dc17e92cfd001d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0348920b7671f696dc9078d39bff215e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-44846edcafbe86808dcaec689102c8b3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-603b5228b8d253aece00f2e62deeb1ae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-44846edcafbe86808dcaec689102c8b3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-43a518227082ac35b3113d490d8c8312.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-6ba6813c27d4e98062636b1311a23212.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-43a518227082ac35b3113d490d8c8312.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -109,13 +108,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "搜索"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 <meta name="mermaid-theme" content="default">
 <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
 <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
 <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -144,6 +158,7 @@ window.Quarto = {
 };
 </script>
 
+<link rel="stylesheet" href="../assets/cv-book.css">
 </head>
 
 <body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -334,6 +349,7 @@ window.Quarto = {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">现代计算机视觉</a> 
         <div class="sidebar-tools-main">
+    <a href="https://github.com/guxinghaoyun/quarto-web" title="源代码" class="quarto-navigation-tool px-1" aria-label="源代码"><i class="bi bi-github"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="切换深色模式"><i class="bi"></i></a>
 </div>
     </div>
@@ -453,7 +469,7 @@ window.Quarto = {
   </ul></li>
   <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">6.6</span> 小结</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.5_PointNet系列网络.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -468,12 +484,6 @@ window.Quarto = {
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">作者</div>
-    <div class="quarto-title-meta-contents">
-             <p>AI Assistant &amp; You </p>
-          </div>
-  </div>
     
   
     
@@ -493,7 +503,7 @@ window.Quarto = {
 </section>
 <section id="核心概念" class="level2" data-number="6.2">
 <h2 data-number="6.2" class="anchored" data-anchor-id="核心概念"><span class="header-section-number">6.2</span> 核心概念</h2>
-<p><strong>对称函数与置换不变性</strong>是PointNet系列网络的核心设计原则。点云数据的一个重要特性是其无序性：同一个物体的点云可以有多种不同的点排列方式，但它们应该被识别为同一个物体。这要求网络具有置换不变性，即对于点集<span class="math inline">\(\{p_1, p_2, ..., p_n\}\)</span>的任意排列<span class="math inline">\(\{p_{\sigma(1)}, p_{\sigma(2)}, ..., p_{\sigma(n)}\}\)</span>，网络的输出应该保持不变。</p>
+<p><strong>对称函数与置换不变性</strong>是PointNet系列网络的核心设计原则。点云数据的一个重要特性是其无序性：同一个物体的点云可以有多种不同的点排列方式，但它们应该被识别为同一个物体。这要求网络具有置换不变性，即对于点集<span class="math inline">\{p_1, p_2, ..., p_n\}</span>的任意排列<span class="math inline">\{p_{\sigma(1)}, p_{\sigma(2)}, ..., p_{\sigma(n)}\}</span>，网络的输出应该保持不变。</p>
 <div class="cell" data-layout-align="default">
 <div class="cell-output-display">
 <div>
@@ -689,59 +699,59 @@ window.Quarto = {
 <section id="pointnet的理论基础" class="level3" data-number="6.3.1">
 <h3 data-number="6.3.1" class="anchored" data-anchor-id="pointnet的理论基础"><span class="header-section-number">6.3.1</span> PointNet的理论基础</h3>
 <p><strong>1. 对称函数与万能逼近定理</strong></p>
-<p>PointNet的核心思想是使用对称函数来处理无序点集。对于点集<span class="math inline">\(S = \{x_1, x_2, ..., x_n\}\)</span>，其中<span class="math inline">\(x_i \in \mathbb{R}^d\)</span>，我们希望学习一个函数<span class="math inline">\(f: 2^{\mathbb{R}^d} \rightarrow \mathbb{R}^k\)</span>，使得对于<span class="math inline">\(S\)</span>的任意排列<span class="math inline">\(\pi(S)\)</span>，都有<span class="math inline">\(f(S) = f(\pi(S))\)</span>。</p>
-<p>PointNet将这个函数分解为： <span class="math display">\[f(\{x_1, ..., x_n\}) = \rho \left( \max_{i=1,...,n} \{h(x_i)\} \right)\]</span></p>
-<p>其中： - <span class="math inline">\(h: \mathbb{R}^d \rightarrow \mathbb{R}^K\)</span>是一个多层感知机，对每个点独立应用 - <span class="math inline">\(\max\)</span>是逐元素的最大值操作，保证置换不变性 - <span class="math inline">\(\rho: \mathbb{R}^K \rightarrow \mathbb{R}^k\)</span>是另一个多层感知机，处理聚合后的特征</p>
-<p><strong>理论保证</strong>：Zaheer等人证明了，任何连续的置换不变函数都可以表示为上述形式，其中<span class="math inline">\(h\)</span>和<span class="math inline">\(\rho\)</span>是连续函数。这为PointNet的设计提供了理论依据。</p>
+<p>PointNet的核心思想是使用对称函数来处理无序点集。对于点集<span class="math inline">S = \{x_1, x_2, ..., x_n\}</span>，其中<span class="math inline">x_i \in \mathbb{R}^d</span>，我们希望学习一个函数<span class="math inline">f: 2^{\mathbb{R}^d} \rightarrow \mathbb{R}^k</span>，使得对于<span class="math inline">S</span>的任意排列<span class="math inline">\pi(S)</span>，都有<span class="math inline">f(S) = f(\pi(S))</span>。</p>
+<p>PointNet将这个函数分解为： <span class="math display">f(\{x_1, ..., x_n\}) = \rho \left( \max_{i=1,...,n} \{h(x_i)\} \right)</span></p>
+<p>其中： - <span class="math inline">h: \mathbb{R}^d \rightarrow \mathbb{R}^K</span>是一个多层感知机，对每个点独立应用 - <span class="math inline">\max</span>是逐元素的最大值操作，保证置换不变性 - <span class="math inline">\rho: \mathbb{R}^K \rightarrow \mathbb{R}^k</span>是另一个多层感知机，处理聚合后的特征</p>
+<p><strong>理论保证</strong>：Zaheer等人证明了，任何连续的置换不变函数都可以表示为上述形式，其中<span class="math inline">h</span>和<span class="math inline">\rho</span>是连续函数。这为PointNet的设计提供了理论依据。</p>
 <p><strong>2. 变换网络（T-Net）</strong></p>
-<p>为了提高网络对几何变换的鲁棒性，PointNet引入了变换网络T-Net，学习一个变换矩阵<span class="math inline">\(T \in \mathbb{R}^{k \times k}\)</span>：</p>
-<p><span class="math display">\[T = \text{T-Net}(\{x_1, ..., x_n\})\]</span></p>
-<p>变换后的特征为： <span class="math display">\[x_i' = T \cdot h(x_i)\]</span></p>
-<p>为了保证变换矩阵接近正交矩阵，添加了正则化项： <span class="math display">\[L_{reg} = \|I - TT^T\|_F^2\]</span></p>
-<p>其中<span class="math inline">\(\|\cdot\|_F\)</span>是Frobenius范数。</p>
+<p>为了提高网络对几何变换的鲁棒性，PointNet引入了变换网络T-Net，学习一个变换矩阵<span class="math inline">T \in \mathbb{R}^{k \times k}</span>：</p>
+<p><span class="math display">T = \text{T-Net}(\{x_1, ..., x_n\})</span></p>
+<p>变换后的特征为： <span class="math display">x_i' = T \cdot h(x_i)</span></p>
+<p>为了保证变换矩阵接近正交矩阵，添加了正则化项： <span class="math display">L_{reg} = \|I - TT^T\|_F^2</span></p>
+<p>其中<span class="math inline">\|\cdot\|_F</span>是Frobenius范数。</p>
 </section>
 <section id="pointnet的理论基础-1" class="level3" data-number="6.3.2">
 <h3 data-number="6.3.2" class="anchored" data-anchor-id="pointnet的理论基础-1"><span class="header-section-number">6.3.2</span> PointNet++的理论基础</h3>
 <p><strong>1. 层次化特征学习</strong></p>
-<p>PointNet++的核心思想是构建层次化的点特征表示。设第<span class="math inline">\(l\)</span>层有<span class="math inline">\(N_l\)</span>个点，每个点<span class="math inline">\(p_i^{(l)}\)</span>有特征<span class="math inline">\(f_i^{(l)} \in \mathbb{R}^{C_l}\)</span>。</p>
-<p><strong>Set Abstraction层</strong>的数学表示为： <span class="math display">\[\{p_i^{(l+1)}, f_i^{(l+1)}\}_{i=1}^{N_{l+1}} = \text{SA}(\{p_i^{(l)}, f_i^{(l)}\}_{i=1}^{N_l})\]</span></p>
+<p>PointNet++的核心思想是构建层次化的点特征表示。设第<span class="math inline">l</span>层有<span class="math inline">N_l</span>个点，每个点<span class="math inline">p_i^{(l)}</span>有特征<span class="math inline">f_i^{(l)} \in \mathbb{R}^{C_l}</span>。</p>
+<p><strong>Set Abstraction层</strong>的数学表示为： <span class="math display">\{p_i^{(l+1)}, f_i^{(l+1)}\}_{i=1}^{N_{l+1}} = \text{SA}(\{p_i^{(l)}, f_i^{(l)}\}_{i=1}^{N_l})</span></p>
 <p>具体包含三个步骤：</p>
 <ul>
-<li><strong>采样</strong>：使用最远点采样（FPS）选择<span class="math inline">\(N_{l+1}\)</span>个中心点</li>
-<li><strong>分组</strong>：对每个中心点<span class="math inline">\(p_i^{(l+1)}\)</span>，找到半径<span class="math inline">\(r\)</span>内的邻居点集合： <span class="math display">\[\mathcal{N}_i = \{j : \|p_j^{(l)} - p_i^{(l+1)}\| \leq r\}\]</span></li>
-<li><strong>特征聚合</strong>：对每个局部区域应用PointNet： <span class="math display">\[f_i^{(l+1)} = \max_{j \in \mathcal{N}_i} \{h(p_j^{(l)} - p_i^{(l+1)}, f_j^{(l)})\}\]</span></li>
+<li><strong>采样</strong>：使用最远点采样（FPS）选择<span class="math inline">N_{l+1}</span>个中心点</li>
+<li><strong>分组</strong>：对每个中心点<span class="math inline">p_i^{(l+1)}</span>，找到半径<span class="math inline">r</span>内的邻居点集合： <span class="math display">\mathcal{N}_i = \{j : \|p_j^{(l)} - p_i^{(l+1)}\| \leq r\}</span></li>
+<li><strong>特征聚合</strong>：对每个局部区域应用PointNet： <span class="math display">f_i^{(l+1)} = \max_{j \in \mathcal{N}_i} \{h(p_j^{(l)} - p_i^{(l+1)}, f_j^{(l)})\}</span></li>
 </ul>
 <p><strong>2. 多尺度分组</strong></p>
 <p>为了处理点云密度不均匀的问题，PointNet++采用多尺度分组策略：</p>
-<p><span class="math display">\[f_i^{(l+1)} = \text{Concat}[f_i^{(l+1,1)}, f_i^{(l+1,2)}, ..., f_i^{(l+1,M)}]\]</span></p>
-<p>其中<span class="math inline">\(f_i^{(l+1,m)}\)</span>是在尺度<span class="math inline">\(m\)</span>下的特征，通过不同半径<span class="math inline">\(r_m\)</span>的分组得到。</p>
+<p><span class="math display">f_i^{(l+1)} = \text{Concat}[f_i^{(l+1,1)}, f_i^{(l+1,2)}, ..., f_i^{(l+1,M)}]</span></p>
+<p>其中<span class="math inline">f_i^{(l+1,m)}</span>是在尺度<span class="math inline">m</span>下的特征，通过不同半径<span class="math inline">r_m</span>的分组得到。</p>
 </section>
 <section id="point-transformer的理论基础" class="level3" data-number="6.3.3">
 <h3 data-number="6.3.3" class="anchored" data-anchor-id="point-transformer的理论基础"><span class="header-section-number">6.3.3</span> Point-Transformer的理论基础</h3>
 <p><strong>1. 自注意力机制</strong></p>
-<p>Point-Transformer将Transformer的自注意力机制扩展到点云数据。对于点<span class="math inline">\(i\)</span>，其更新后的特征为：</p>
-<p><span class="math display">\[y_i = \sum_{j \in \mathcal{N}(i)} \alpha_{ij} (W_v x_j + \delta_{ij})\]</span></p>
-<p>其中注意力权重<span class="math inline">\(\alpha_{ij}\)</span>计算为： <span class="math display">\[\alpha_{ij} = \text{softmax}_j(\phi(W_q x_i, W_k x_j + \delta_{ij}))\]</span></p>
-<p>这里： - <span class="math inline">\(W_q, W_k, W_v\)</span>是查询、键、值的线性变换矩阵 - <span class="math inline">\(\delta_{ij}\)</span>是位置编码，捕获点<span class="math inline">\(i\)</span>和<span class="math inline">\(j\)</span>之间的几何关系 - <span class="math inline">\(\phi\)</span>是位置编码函数，通常使用MLP实现</p>
+<p>Point-Transformer将Transformer的自注意力机制扩展到点云数据。对于点<span class="math inline">i</span>，其更新后的特征为：</p>
+<p><span class="math display">y_i = \sum_{j \in \mathcal{N}(i)} \alpha_{ij} (W_v x_j + \delta_{ij})</span></p>
+<p>其中注意力权重<span class="math inline">\alpha_{ij}</span>计算为： <span class="math display">\alpha_{ij} = \text{softmax}_j(\phi(W_q x_i, W_k x_j + \delta_{ij}))</span></p>
+<p>这里： - <span class="math inline">W_q, W_k, W_v</span>是查询、键、值的线性变换矩阵 - <span class="math inline">\delta_{ij}</span>是位置编码，捕获点<span class="math inline">i</span>和<span class="math inline">j</span>之间的几何关系 - <span class="math inline">\phi</span>是位置编码函数，通常使用MLP实现</p>
 <p><strong>2. 位置编码</strong></p>
-<p>位置编码<span class="math inline">\(\delta_{ij}\)</span>对于点云处理至关重要，它编码了点之间的几何关系：</p>
-<p><span class="math display">\[\delta_{ij} = \text{MLP}(p_i - p_j)\]</span></p>
-<p>其中<span class="math inline">\(p_i - p_j\)</span>是两点之间的相对位置向量。</p>
+<p>位置编码<span class="math inline">\delta_{ij}</span>对于点云处理至关重要，它编码了点之间的几何关系：</p>
+<p><span class="math display">\delta_{ij} = \text{MLP}(p_i - p_j)</span></p>
+<p>其中<span class="math inline">p_i - p_j</span>是两点之间的相对位置向量。</p>
 <p><strong>3. 向量注意力</strong></p>
 <p>为了更好地处理几何信息，Point-Transformer使用向量注意力：</p>
-<p><span class="math display">\[\alpha_{ij} = \text{softmax}_j(\gamma(\psi(W_q x_i) - \psi(W_k x_j) + \delta_{ij}))\]</span></p>
-<p>其中<span class="math inline">\(\gamma\)</span>和<span class="math inline">\(\psi\)</span>是非线性变换函数。</p>
+<p><span class="math display">\alpha_{ij} = \text{softmax}_j(\gamma(\psi(W_q x_i) - \psi(W_k x_j) + \delta_{ij}))</span></p>
+<p>其中<span class="math inline">\gamma</span>和<span class="math inline">\psi</span>是非线性变换函数。</p>
 </section>
 <section id="损失函数设计" class="level3" data-number="6.3.4">
 <h3 data-number="6.3.4" class="anchored" data-anchor-id="损失函数设计"><span class="header-section-number">6.3.4</span> 损失函数设计</h3>
 <p><strong>1. 分类任务</strong></p>
-<p>对于点云分类，使用交叉熵损失： <span class="math display">\[L_{cls} = -\sum_{c=1}^C y_c \log(\hat{y}_c)\]</span></p>
-<p>其中<span class="math inline">\(y_c\)</span>是真实标签，<span class="math inline">\(\hat{y}_c\)</span>是预测概率。</p>
+<p>对于点云分类，使用交叉熵损失： <span class="math display">L_{cls} = -\sum_{c=1}^C y_c \log(\hat{y}_c)</span></p>
+<p>其中<span class="math inline">y_c</span>是真实标签，<span class="math inline">\hat{y}_c</span>是预测概率。</p>
 <p><strong>2. 分割任务</strong></p>
-<p>对于点云分割，对每个点计算交叉熵损失： <span class="math display">\[L_{seg} = -\frac{1}{N} \sum_{i=1}^N \sum_{c=1}^C y_{i,c} \log(\hat{y}_{i,c})\]</span></p>
+<p>对于点云分割，对每个点计算交叉熵损失： <span class="math display">L_{seg} = -\frac{1}{N} \sum_{i=1}^N \sum_{c=1}^C y_{i,c} \log(\hat{y}_{i,c})</span></p>
 <p><strong>3. 正则化项</strong></p>
-<p>为了提高网络的泛化能力，通常添加正则化项： <span class="math display">\[L_{total} = L_{task} + \lambda_1 L_{reg} + \lambda_2 \|W\|_2^2\]</span></p>
-<p>其中<span class="math inline">\(L_{task}\)</span>是任务相关的损失，<span class="math inline">\(L_{reg}\)</span>是变换网络的正则化项，<span class="math inline">\(\|W\|_2^2\)</span>是权重衰减项。</p>
+<p>为了提高网络的泛化能力，通常添加正则化项： <span class="math display">L_{total} = L_{task} + \lambda_1 L_{reg} + \lambda_2 \|W\|_2^2</span></p>
+<p>其中<span class="math inline">L_{task}</span>是任务相关的损失，<span class="math inline">L_{reg}</span>是变换网络的正则化项，<span class="math inline">\|W\|_2^2</span>是权重衰减项。</p>
 <p>这些理论为PointNet系列网络的设计提供了坚实的数学基础，确保了网络能够有效处理点云数据的特殊性质。</p>
 </section>
 </section>
@@ -751,241 +761,241 @@ window.Quarto = {
 <section id="pointnet的核心实现" class="level3" data-number="6.4.1">
 <h3 data-number="6.4.1" class="anchored" data-anchor-id="pointnet的核心实现"><span class="header-section-number">6.4.1</span> PointNet的核心实现</h3>
 <p>PointNet的核心是通过共享MLP和对称函数实现置换不变性：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> pointnet_forward(x):</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""PointNet前向传播核心逻辑"""</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 1. 输入变换：T-Net学习3×3变换矩阵</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    trans_input <span class="op">=</span> input_transform_net(x)  <span class="co"># 学习输入空间的对齐变换</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> apply_transformation(x, trans_input)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. 逐点特征提取：共享MLP处理每个点</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> shared_mlp(x)  <span class="co"># [B, N, 3] -&gt; [B, N, 64]</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. 特征变换：T-Net学习64×64变换矩阵</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    trans_feat <span class="op">=</span> feature_transform_net(x)  <span class="co"># 学习特征空间的对齐变换</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> apply_transformation(x, trans_feat)</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 4. 深层特征提取：提取高维特征</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> deep_shared_mlp(x)  <span class="co"># [B, N, 64] -&gt; [B, N, 1024]</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 5. 对称函数聚合：实现置换不变性</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    global_feature <span class="op">=</span> max_pooling(x)  <span class="co"># [B, N, 1024] -&gt; [B, 1024]</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 6. 分类预测：全连接层输出类别</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> classification_mlp(global_feature)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> output, trans_feat</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> t_net_core(x, k):</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""T-Net变换网络核心逻辑"""</span></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 特征提取：逐点MLP + 全局池化</span></span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    features <span class="op">=</span> shared_mlp_layers(x)  <span class="co"># [B, N, k] -&gt; [B, N, 1024]</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    global_feat <span class="op">=</span> max_pooling(features)  <span class="co"># [B, N, 1024] -&gt; [B, 1024]</span></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 变换矩阵预测：MLP输出k×k矩阵</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    transform_matrix <span class="op">=</span> mlp_to_matrix(global_feat, k)  <span class="co"># [B, 1024] -&gt; [B, k, k]</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 正则化：初始化为单位矩阵</span></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    identity <span class="op">=</span> torch.eye(k)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    transform_matrix <span class="op">=</span> transform_matrix <span class="op">+</span> identity</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transform_matrix</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> feature_transform_regularizer(trans_matrix):</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""特征变换正则化：约束变换矩阵接近正交"""</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 计算 T^T * T - I 的Frobenius范数</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    should_be_identity <span class="op">=</span> torch.bmm(trans_matrix.transpose(<span class="dv">2</span>,<span class="dv">1</span>), trans_matrix)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    identity <span class="op">=</span> torch.eye(trans_matrix.size(<span class="dv">1</span>))</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    regularization_loss <span class="op">=</span> torch.norm(should_be_identity <span class="op">-</span> identity, dim<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> torch.mean(regularization_loss)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> pointnet_forward(x):</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    <span class="co">"""PointNet前向传播核心逻辑"""</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a>    <span class="co"># 1. 输入变换：T-Net学习3×3变换矩阵</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>    trans_input <span class="op">=</span> input_transform_net(x)  <span class="co"># 学习输入空间的对齐变换</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>    x <span class="op">=</span> apply_transformation(x, trans_input)</span>
+<span id="cb1-6"><a href="#cb1-6"></a></span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="co"># 2. 逐点特征提取：共享MLP处理每个点</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>    x <span class="op">=</span> shared_mlp(x)  <span class="co"># [B, N, 3] -&gt; [B, N, 64]</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    <span class="co"># 3. 特征变换：T-Net学习64×64变换矩阵</span></span>
+<span id="cb1-11"><a href="#cb1-11"></a>    trans_feat <span class="op">=</span> feature_transform_net(x)  <span class="co"># 学习特征空间的对齐变换</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>    x <span class="op">=</span> apply_transformation(x, trans_feat)</span>
+<span id="cb1-13"><a href="#cb1-13"></a></span>
+<span id="cb1-14"><a href="#cb1-14"></a>    <span class="co"># 4. 深层特征提取：提取高维特征</span></span>
+<span id="cb1-15"><a href="#cb1-15"></a>    x <span class="op">=</span> deep_shared_mlp(x)  <span class="co"># [B, N, 64] -&gt; [B, N, 1024]</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a></span>
+<span id="cb1-17"><a href="#cb1-17"></a>    <span class="co"># 5. 对称函数聚合：实现置换不变性</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>    global_feature <span class="op">=</span> max_pooling(x)  <span class="co"># [B, N, 1024] -&gt; [B, 1024]</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a></span>
+<span id="cb1-20"><a href="#cb1-20"></a>    <span class="co"># 6. 分类预测：全连接层输出类别</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a>    output <span class="op">=</span> classification_mlp(global_feature)</span>
+<span id="cb1-22"><a href="#cb1-22"></a></span>
+<span id="cb1-23"><a href="#cb1-23"></a>    <span class="cf">return</span> output, trans_feat</span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a><span class="kw">def</span> t_net_core(x, k):</span>
+<span id="cb1-26"><a href="#cb1-26"></a>    <span class="co">"""T-Net变换网络核心逻辑"""</span></span>
+<span id="cb1-27"><a href="#cb1-27"></a>    <span class="co"># 特征提取：逐点MLP + 全局池化</span></span>
+<span id="cb1-28"><a href="#cb1-28"></a>    features <span class="op">=</span> shared_mlp_layers(x)  <span class="co"># [B, N, k] -&gt; [B, N, 1024]</span></span>
+<span id="cb1-29"><a href="#cb1-29"></a>    global_feat <span class="op">=</span> max_pooling(features)  <span class="co"># [B, N, 1024] -&gt; [B, 1024]</span></span>
+<span id="cb1-30"><a href="#cb1-30"></a></span>
+<span id="cb1-31"><a href="#cb1-31"></a>    <span class="co"># 变换矩阵预测：MLP输出k×k矩阵</span></span>
+<span id="cb1-32"><a href="#cb1-32"></a>    transform_matrix <span class="op">=</span> mlp_to_matrix(global_feat, k)  <span class="co"># [B, 1024] -&gt; [B, k, k]</span></span>
+<span id="cb1-33"><a href="#cb1-33"></a></span>
+<span id="cb1-34"><a href="#cb1-34"></a>    <span class="co"># 正则化：初始化为单位矩阵</span></span>
+<span id="cb1-35"><a href="#cb1-35"></a>    identity <span class="op">=</span> torch.eye(k)</span>
+<span id="cb1-36"><a href="#cb1-36"></a>    transform_matrix <span class="op">=</span> transform_matrix <span class="op">+</span> identity</span>
+<span id="cb1-37"><a href="#cb1-37"></a></span>
+<span id="cb1-38"><a href="#cb1-38"></a>    <span class="cf">return</span> transform_matrix</span>
+<span id="cb1-39"><a href="#cb1-39"></a></span>
+<span id="cb1-40"><a href="#cb1-40"></a><span class="kw">def</span> feature_transform_regularizer(trans_matrix):</span>
+<span id="cb1-41"><a href="#cb1-41"></a>    <span class="co">"""特征变换正则化：约束变换矩阵接近正交"""</span></span>
+<span id="cb1-42"><a href="#cb1-42"></a>    <span class="co"># 计算 T^T * T - I 的Frobenius范数</span></span>
+<span id="cb1-43"><a href="#cb1-43"></a>    should_be_identity <span class="op">=</span> torch.bmm(trans_matrix.transpose(<span class="dv">2</span>,<span class="dv">1</span>), trans_matrix)</span>
+<span id="cb1-44"><a href="#cb1-44"></a>    identity <span class="op">=</span> torch.eye(trans_matrix.size(<span class="dv">1</span>))</span>
+<span id="cb1-45"><a href="#cb1-45"></a>    regularization_loss <span class="op">=</span> torch.norm(should_be_identity <span class="op">-</span> identity, dim<span class="op">=</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb1-46"><a href="#cb1-46"></a>    <span class="cf">return</span> torch.mean(regularization_loss)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="pointnet的核心实现-1" class="level3" data-number="6.4.2">
 <h3 data-number="6.4.2" class="anchored" data-anchor-id="pointnet的核心实现-1"><span class="header-section-number">6.4.2</span> PointNet++的核心实现</h3>
 <p>PointNet++通过Set Abstraction层实现层次化特征学习：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> farthest_point_sample(xyz, npoint):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""最远点采样算法"""</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    device <span class="op">=</span> xyz.device</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    B, N, C <span class="op">=</span> xyz.shape</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    centroids <span class="op">=</span> torch.zeros(B, npoint, dtype<span class="op">=</span>torch.<span class="bu">long</span>).to(device)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    distance <span class="op">=</span> torch.ones(B, N).to(device) <span class="op">*</span> <span class="fl">1e10</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    farthest <span class="op">=</span> torch.randint(<span class="dv">0</span>, N, (B,), dtype<span class="op">=</span>torch.<span class="bu">long</span>).to(device)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    batch_indices <span class="op">=</span> torch.arange(B, dtype<span class="op">=</span>torch.<span class="bu">long</span>).to(device)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(npoint):</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        centroids[:, i] <span class="op">=</span> farthest</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        centroid <span class="op">=</span> xyz[batch_indices, farthest, :].view(B, <span class="dv">1</span>, <span class="dv">3</span>)</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        dist <span class="op">=</span> torch.<span class="bu">sum</span>((xyz <span class="op">-</span> centroid) <span class="op">**</span> <span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        mask <span class="op">=</span> dist <span class="op">&lt;</span> distance</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        distance[mask] <span class="op">=</span> dist[mask]</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        farthest <span class="op">=</span> torch.<span class="bu">max</span>(distance, <span class="op">-</span><span class="dv">1</span>)[<span class="dv">1</span>]</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> centroids</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> query_ball_point(radius, nsample, xyz, new_xyz):</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""球形邻域查询"""</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    device <span class="op">=</span> xyz.device</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>    B, N, C <span class="op">=</span> xyz.shape</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    _, S, _ <span class="op">=</span> new_xyz.shape</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>    group_idx <span class="op">=</span> torch.arange(N, dtype<span class="op">=</span>torch.<span class="bu">long</span>).to(device).view(<span class="dv">1</span>, <span class="dv">1</span>, N).repeat([B, S, <span class="dv">1</span>])</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    sqrdists <span class="op">=</span> square_distance(new_xyz, xyz)</span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    group_idx[sqrdists <span class="op">&gt;</span> radius <span class="op">**</span> <span class="dv">2</span>] <span class="op">=</span> N</span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>    group_idx <span class="op">=</span> group_idx.sort(dim<span class="op">=-</span><span class="dv">1</span>)[<span class="dv">0</span>][:, :, :nsample]</span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>    group_first <span class="op">=</span> group_idx[:, :, <span class="dv">0</span>].view(B, S, <span class="dv">1</span>).repeat([<span class="dv">1</span>, <span class="dv">1</span>, nsample])</span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    mask <span class="op">=</span> group_idx <span class="op">==</span> N</span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    group_idx[mask] <span class="op">=</span> group_first[mask]</span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> group_idx</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SetAbstraction(nn.Module):</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Set Abstraction层：PointNet++的核心组件"""</span></span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, npoint, radius, nsample, in_channel, mlp, group_all):</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(SetAbstraction, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.npoint <span class="op">=</span> npoint</span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.radius <span class="op">=</span> radius</span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.nsample <span class="op">=</span> nsample</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.mlp_convs <span class="op">=</span> nn.ModuleList()</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.mlp_bns <span class="op">=</span> nn.ModuleList()</span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>        last_channel <span class="op">=</span> in_channel</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> out_channel <span class="kw">in</span> mlp:</span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.mlp_convs.append(nn.Conv2d(last_channel, out_channel, <span class="dv">1</span>))</span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.mlp_bns.append(nn.BatchNorm2d(out_channel))</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>            last_channel <span class="op">=</span> out_channel</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.group_all <span class="op">=</span> group_all</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, xyz, points):</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="co">        xyz: 点坐标 (B, N, 3)</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a><span class="co">        points: 点特征 (B, N, C)</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>        xyz <span class="op">=</span> xyz.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> points <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>            points <span class="op">=</span> points.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.group_all:</span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>            new_xyz, new_points <span class="op">=</span> sample_and_group_all(xyz, points)</span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>            new_xyz, new_points <span class="op">=</span> sample_and_group(</span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.npoint, <span class="va">self</span>.radius, <span class="va">self</span>.nsample, xyz, points)</span>
-<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 对每个局部区域应用PointNet</span></span>
-<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>        new_points <span class="op">=</span> new_points.permute(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)  <span class="co"># [B, C+D, nsample, npoint]</span></span>
-<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, conv <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.mlp_convs):</span>
-<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>            bn <span class="op">=</span> <span class="va">self</span>.mlp_bns[i]</span>
-<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a>            new_points <span class="op">=</span> F.relu(bn(conv(new_points)))</span>
-<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 局部特征聚合</span></span>
-<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>        new_points <span class="op">=</span> torch.<span class="bu">max</span>(new_points, <span class="dv">2</span>)[<span class="dv">0</span>]</span>
-<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>        new_xyz <span class="op">=</span> new_xyz.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
-<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> new_xyz, new_points</span>
-<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PointNetPlusPlus(nn.Module):</span>
-<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""PointNet++网络架构"""</span></span>
-<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_classes):</span>
-<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(PointNetPlusPlus, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
-<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 编码器</span></span>
-<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.sa1 <span class="op">=</span> SetAbstraction(<span class="dv">512</span>, <span class="fl">0.2</span>, <span class="dv">32</span>, <span class="dv">3</span>, [<span class="dv">64</span>, <span class="dv">64</span>, <span class="dv">128</span>], <span class="va">False</span>)</span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.sa2 <span class="op">=</span> SetAbstraction(<span class="dv">128</span>, <span class="fl">0.4</span>, <span class="dv">64</span>, <span class="dv">128</span> <span class="op">+</span> <span class="dv">3</span>, [<span class="dv">128</span>, <span class="dv">128</span>, <span class="dv">256</span>], <span class="va">False</span>)</span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.sa3 <span class="op">=</span> SetAbstraction(<span class="va">None</span>, <span class="va">None</span>, <span class="va">None</span>, <span class="dv">256</span> <span class="op">+</span> <span class="dv">3</span>, [<span class="dv">256</span>, <span class="dv">512</span>, <span class="dv">1024</span>], <span class="va">True</span>)</span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 分类头</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fc1 <span class="op">=</span> nn.Linear(<span class="dv">1024</span>, <span class="dv">512</span>)</span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.bn1 <span class="op">=</span> nn.BatchNorm1d(<span class="dv">512</span>)</span>
-<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.drop1 <span class="op">=</span> nn.Dropout(<span class="fl">0.4</span>)</span>
-<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fc2 <span class="op">=</span> nn.Linear(<span class="dv">512</span>, <span class="dv">256</span>)</span>
-<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.bn2 <span class="op">=</span> nn.BatchNorm1d(<span class="dv">256</span>)</span>
-<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.drop2 <span class="op">=</span> nn.Dropout(<span class="fl">0.4</span>)</span>
-<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.fc3 <span class="op">=</span> nn.Linear(<span class="dv">256</span>, num_classes)</span>
-<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, xyz):</span>
-<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a>        B, _, _ <span class="op">=</span> xyz.shape</span>
-<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 层次化特征提取</span></span>
-<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>        l1_xyz, l1_points <span class="op">=</span> <span class="va">self</span>.sa1(xyz, <span class="va">None</span>)</span>
-<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>        l2_xyz, l2_points <span class="op">=</span> <span class="va">self</span>.sa2(l1_xyz, l1_points)</span>
-<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>        l3_xyz, l3_points <span class="op">=</span> <span class="va">self</span>.sa3(l2_xyz, l2_points)</span>
-<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 全局特征</span></span>
-<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> l3_points.view(B, <span class="dv">1024</span>)</span>
-<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 分类预测</span></span>
-<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.drop1(F.relu(<span class="va">self</span>.bn1(<span class="va">self</span>.fc1(x))))</span>
-<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.drop2(F.relu(<span class="va">self</span>.bn2(<span class="va">self</span>.fc2(x))))</span>
-<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.fc3(x)</span>
-<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> F.log_softmax(x, <span class="op">-</span><span class="dv">1</span>)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="kw">def</span> farthest_point_sample(xyz, npoint):</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    <span class="co">"""最远点采样算法"""</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a>    device <span class="op">=</span> xyz.device</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    B, N, C <span class="op">=</span> xyz.shape</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    centroids <span class="op">=</span> torch.zeros(B, npoint, dtype<span class="op">=</span>torch.<span class="bu">long</span>).to(device)</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    distance <span class="op">=</span> torch.ones(B, N).to(device) <span class="op">*</span> <span class="fl">1e10</span></span>
+<span id="cb2-7"><a href="#cb2-7"></a>    farthest <span class="op">=</span> torch.randint(<span class="dv">0</span>, N, (B,), dtype<span class="op">=</span>torch.<span class="bu">long</span>).to(device)</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    batch_indices <span class="op">=</span> torch.arange(B, dtype<span class="op">=</span>torch.<span class="bu">long</span>).to(device)</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(npoint):</span>
+<span id="cb2-11"><a href="#cb2-11"></a>        centroids[:, i] <span class="op">=</span> farthest</span>
+<span id="cb2-12"><a href="#cb2-12"></a>        centroid <span class="op">=</span> xyz[batch_indices, farthest, :].view(B, <span class="dv">1</span>, <span class="dv">3</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a>        dist <span class="op">=</span> torch.<span class="bu">sum</span>((xyz <span class="op">-</span> centroid) <span class="op">**</span> <span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>        mask <span class="op">=</span> dist <span class="op">&lt;</span> distance</span>
+<span id="cb2-15"><a href="#cb2-15"></a>        distance[mask] <span class="op">=</span> dist[mask]</span>
+<span id="cb2-16"><a href="#cb2-16"></a>        farthest <span class="op">=</span> torch.<span class="bu">max</span>(distance, <span class="op">-</span><span class="dv">1</span>)[<span class="dv">1</span>]</span>
+<span id="cb2-17"><a href="#cb2-17"></a></span>
+<span id="cb2-18"><a href="#cb2-18"></a>    <span class="cf">return</span> centroids</span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="kw">def</span> query_ball_point(radius, nsample, xyz, new_xyz):</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    <span class="co">"""球形邻域查询"""</span></span>
+<span id="cb2-22"><a href="#cb2-22"></a>    device <span class="op">=</span> xyz.device</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    B, N, C <span class="op">=</span> xyz.shape</span>
+<span id="cb2-24"><a href="#cb2-24"></a>    _, S, _ <span class="op">=</span> new_xyz.shape</span>
+<span id="cb2-25"><a href="#cb2-25"></a>    group_idx <span class="op">=</span> torch.arange(N, dtype<span class="op">=</span>torch.<span class="bu">long</span>).to(device).view(<span class="dv">1</span>, <span class="dv">1</span>, N).repeat([B, S, <span class="dv">1</span>])</span>
+<span id="cb2-26"><a href="#cb2-26"></a></span>
+<span id="cb2-27"><a href="#cb2-27"></a>    sqrdists <span class="op">=</span> square_distance(new_xyz, xyz)</span>
+<span id="cb2-28"><a href="#cb2-28"></a>    group_idx[sqrdists <span class="op">&gt;</span> radius <span class="op">**</span> <span class="dv">2</span>] <span class="op">=</span> N</span>
+<span id="cb2-29"><a href="#cb2-29"></a>    group_idx <span class="op">=</span> group_idx.sort(dim<span class="op">=-</span><span class="dv">1</span>)[<span class="dv">0</span>][:, :, :nsample]</span>
+<span id="cb2-30"><a href="#cb2-30"></a>    group_first <span class="op">=</span> group_idx[:, :, <span class="dv">0</span>].view(B, S, <span class="dv">1</span>).repeat([<span class="dv">1</span>, <span class="dv">1</span>, nsample])</span>
+<span id="cb2-31"><a href="#cb2-31"></a>    mask <span class="op">=</span> group_idx <span class="op">==</span> N</span>
+<span id="cb2-32"><a href="#cb2-32"></a>    group_idx[mask] <span class="op">=</span> group_first[mask]</span>
+<span id="cb2-33"><a href="#cb2-33"></a></span>
+<span id="cb2-34"><a href="#cb2-34"></a>    <span class="cf">return</span> group_idx</span>
+<span id="cb2-35"><a href="#cb2-35"></a></span>
+<span id="cb2-36"><a href="#cb2-36"></a><span class="kw">class</span> SetAbstraction(nn.Module):</span>
+<span id="cb2-37"><a href="#cb2-37"></a>    <span class="co">"""Set Abstraction层：PointNet++的核心组件"""</span></span>
+<span id="cb2-38"><a href="#cb2-38"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, npoint, radius, nsample, in_channel, mlp, group_all):</span>
+<span id="cb2-39"><a href="#cb2-39"></a>        <span class="bu">super</span>(SetAbstraction, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb2-40"><a href="#cb2-40"></a>        <span class="va">self</span>.npoint <span class="op">=</span> npoint</span>
+<span id="cb2-41"><a href="#cb2-41"></a>        <span class="va">self</span>.radius <span class="op">=</span> radius</span>
+<span id="cb2-42"><a href="#cb2-42"></a>        <span class="va">self</span>.nsample <span class="op">=</span> nsample</span>
+<span id="cb2-43"><a href="#cb2-43"></a>        <span class="va">self</span>.mlp_convs <span class="op">=</span> nn.ModuleList()</span>
+<span id="cb2-44"><a href="#cb2-44"></a>        <span class="va">self</span>.mlp_bns <span class="op">=</span> nn.ModuleList()</span>
+<span id="cb2-45"><a href="#cb2-45"></a></span>
+<span id="cb2-46"><a href="#cb2-46"></a>        last_channel <span class="op">=</span> in_channel</span>
+<span id="cb2-47"><a href="#cb2-47"></a>        <span class="cf">for</span> out_channel <span class="kw">in</span> mlp:</span>
+<span id="cb2-48"><a href="#cb2-48"></a>            <span class="va">self</span>.mlp_convs.append(nn.Conv2d(last_channel, out_channel, <span class="dv">1</span>))</span>
+<span id="cb2-49"><a href="#cb2-49"></a>            <span class="va">self</span>.mlp_bns.append(nn.BatchNorm2d(out_channel))</span>
+<span id="cb2-50"><a href="#cb2-50"></a>            last_channel <span class="op">=</span> out_channel</span>
+<span id="cb2-51"><a href="#cb2-51"></a></span>
+<span id="cb2-52"><a href="#cb2-52"></a>        <span class="va">self</span>.group_all <span class="op">=</span> group_all</span>
+<span id="cb2-53"><a href="#cb2-53"></a></span>
+<span id="cb2-54"><a href="#cb2-54"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, xyz, points):</span>
+<span id="cb2-55"><a href="#cb2-55"></a>        <span class="co">"""</span></span>
+<span id="cb2-56"><a href="#cb2-56"></a><span class="co">        xyz: 点坐标 (B, N, 3)</span></span>
+<span id="cb2-57"><a href="#cb2-57"></a><span class="co">        points: 点特征 (B, N, C)</span></span>
+<span id="cb2-58"><a href="#cb2-58"></a><span class="co">        """</span></span>
+<span id="cb2-59"><a href="#cb2-59"></a>        xyz <span class="op">=</span> xyz.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb2-60"><a href="#cb2-60"></a>        <span class="cf">if</span> points <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span>:</span>
+<span id="cb2-61"><a href="#cb2-61"></a>            points <span class="op">=</span> points.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb2-62"><a href="#cb2-62"></a></span>
+<span id="cb2-63"><a href="#cb2-63"></a>        <span class="cf">if</span> <span class="va">self</span>.group_all:</span>
+<span id="cb2-64"><a href="#cb2-64"></a>            new_xyz, new_points <span class="op">=</span> sample_and_group_all(xyz, points)</span>
+<span id="cb2-65"><a href="#cb2-65"></a>        <span class="cf">else</span>:</span>
+<span id="cb2-66"><a href="#cb2-66"></a>            new_xyz, new_points <span class="op">=</span> sample_and_group(</span>
+<span id="cb2-67"><a href="#cb2-67"></a>                <span class="va">self</span>.npoint, <span class="va">self</span>.radius, <span class="va">self</span>.nsample, xyz, points)</span>
+<span id="cb2-68"><a href="#cb2-68"></a></span>
+<span id="cb2-69"><a href="#cb2-69"></a>        <span class="co"># 对每个局部区域应用PointNet</span></span>
+<span id="cb2-70"><a href="#cb2-70"></a>        new_points <span class="op">=</span> new_points.permute(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>)  <span class="co"># [B, C+D, nsample, npoint]</span></span>
+<span id="cb2-71"><a href="#cb2-71"></a>        <span class="cf">for</span> i, conv <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="va">self</span>.mlp_convs):</span>
+<span id="cb2-72"><a href="#cb2-72"></a>            bn <span class="op">=</span> <span class="va">self</span>.mlp_bns[i]</span>
+<span id="cb2-73"><a href="#cb2-73"></a>            new_points <span class="op">=</span> F.relu(bn(conv(new_points)))</span>
+<span id="cb2-74"><a href="#cb2-74"></a></span>
+<span id="cb2-75"><a href="#cb2-75"></a>        <span class="co"># 局部特征聚合</span></span>
+<span id="cb2-76"><a href="#cb2-76"></a>        new_points <span class="op">=</span> torch.<span class="bu">max</span>(new_points, <span class="dv">2</span>)[<span class="dv">0</span>]</span>
+<span id="cb2-77"><a href="#cb2-77"></a>        new_xyz <span class="op">=</span> new_xyz.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb2-78"><a href="#cb2-78"></a>        <span class="cf">return</span> new_xyz, new_points</span>
+<span id="cb2-79"><a href="#cb2-79"></a></span>
+<span id="cb2-80"><a href="#cb2-80"></a><span class="kw">class</span> PointNetPlusPlus(nn.Module):</span>
+<span id="cb2-81"><a href="#cb2-81"></a>    <span class="co">"""PointNet++网络架构"""</span></span>
+<span id="cb2-82"><a href="#cb2-82"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_classes):</span>
+<span id="cb2-83"><a href="#cb2-83"></a>        <span class="bu">super</span>(PointNetPlusPlus, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb2-84"><a href="#cb2-84"></a></span>
+<span id="cb2-85"><a href="#cb2-85"></a>        <span class="co"># 编码器</span></span>
+<span id="cb2-86"><a href="#cb2-86"></a>        <span class="va">self</span>.sa1 <span class="op">=</span> SetAbstraction(<span class="dv">512</span>, <span class="fl">0.2</span>, <span class="dv">32</span>, <span class="dv">3</span>, [<span class="dv">64</span>, <span class="dv">64</span>, <span class="dv">128</span>], <span class="va">False</span>)</span>
+<span id="cb2-87"><a href="#cb2-87"></a>        <span class="va">self</span>.sa2 <span class="op">=</span> SetAbstraction(<span class="dv">128</span>, <span class="fl">0.4</span>, <span class="dv">64</span>, <span class="dv">128</span> <span class="op">+</span> <span class="dv">3</span>, [<span class="dv">128</span>, <span class="dv">128</span>, <span class="dv">256</span>], <span class="va">False</span>)</span>
+<span id="cb2-88"><a href="#cb2-88"></a>        <span class="va">self</span>.sa3 <span class="op">=</span> SetAbstraction(<span class="va">None</span>, <span class="va">None</span>, <span class="va">None</span>, <span class="dv">256</span> <span class="op">+</span> <span class="dv">3</span>, [<span class="dv">256</span>, <span class="dv">512</span>, <span class="dv">1024</span>], <span class="va">True</span>)</span>
+<span id="cb2-89"><a href="#cb2-89"></a></span>
+<span id="cb2-90"><a href="#cb2-90"></a>        <span class="co"># 分类头</span></span>
+<span id="cb2-91"><a href="#cb2-91"></a>        <span class="va">self</span>.fc1 <span class="op">=</span> nn.Linear(<span class="dv">1024</span>, <span class="dv">512</span>)</span>
+<span id="cb2-92"><a href="#cb2-92"></a>        <span class="va">self</span>.bn1 <span class="op">=</span> nn.BatchNorm1d(<span class="dv">512</span>)</span>
+<span id="cb2-93"><a href="#cb2-93"></a>        <span class="va">self</span>.drop1 <span class="op">=</span> nn.Dropout(<span class="fl">0.4</span>)</span>
+<span id="cb2-94"><a href="#cb2-94"></a>        <span class="va">self</span>.fc2 <span class="op">=</span> nn.Linear(<span class="dv">512</span>, <span class="dv">256</span>)</span>
+<span id="cb2-95"><a href="#cb2-95"></a>        <span class="va">self</span>.bn2 <span class="op">=</span> nn.BatchNorm1d(<span class="dv">256</span>)</span>
+<span id="cb2-96"><a href="#cb2-96"></a>        <span class="va">self</span>.drop2 <span class="op">=</span> nn.Dropout(<span class="fl">0.4</span>)</span>
+<span id="cb2-97"><a href="#cb2-97"></a>        <span class="va">self</span>.fc3 <span class="op">=</span> nn.Linear(<span class="dv">256</span>, num_classes)</span>
+<span id="cb2-98"><a href="#cb2-98"></a></span>
+<span id="cb2-99"><a href="#cb2-99"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, xyz):</span>
+<span id="cb2-100"><a href="#cb2-100"></a>        B, _, _ <span class="op">=</span> xyz.shape</span>
+<span id="cb2-101"><a href="#cb2-101"></a></span>
+<span id="cb2-102"><a href="#cb2-102"></a>        <span class="co"># 层次化特征提取</span></span>
+<span id="cb2-103"><a href="#cb2-103"></a>        l1_xyz, l1_points <span class="op">=</span> <span class="va">self</span>.sa1(xyz, <span class="va">None</span>)</span>
+<span id="cb2-104"><a href="#cb2-104"></a>        l2_xyz, l2_points <span class="op">=</span> <span class="va">self</span>.sa2(l1_xyz, l1_points)</span>
+<span id="cb2-105"><a href="#cb2-105"></a>        l3_xyz, l3_points <span class="op">=</span> <span class="va">self</span>.sa3(l2_xyz, l2_points)</span>
+<span id="cb2-106"><a href="#cb2-106"></a></span>
+<span id="cb2-107"><a href="#cb2-107"></a>        <span class="co"># 全局特征</span></span>
+<span id="cb2-108"><a href="#cb2-108"></a>        x <span class="op">=</span> l3_points.view(B, <span class="dv">1024</span>)</span>
+<span id="cb2-109"><a href="#cb2-109"></a></span>
+<span id="cb2-110"><a href="#cb2-110"></a>        <span class="co"># 分类预测</span></span>
+<span id="cb2-111"><a href="#cb2-111"></a>        x <span class="op">=</span> <span class="va">self</span>.drop1(F.relu(<span class="va">self</span>.bn1(<span class="va">self</span>.fc1(x))))</span>
+<span id="cb2-112"><a href="#cb2-112"></a>        x <span class="op">=</span> <span class="va">self</span>.drop2(F.relu(<span class="va">self</span>.bn2(<span class="va">self</span>.fc2(x))))</span>
+<span id="cb2-113"><a href="#cb2-113"></a>        x <span class="op">=</span> <span class="va">self</span>.fc3(x)</span>
+<span id="cb2-114"><a href="#cb2-114"></a></span>
+<span id="cb2-115"><a href="#cb2-115"></a>        <span class="cf">return</span> F.log_softmax(x, <span class="op">-</span><span class="dv">1</span>)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="point-transformer的核心实现" class="level3" data-number="6.4.3">
 <h3 data-number="6.4.3" class="anchored" data-anchor-id="point-transformer的核心实现"><span class="header-section-number">6.4.3</span> Point-Transformer的核心实现</h3>
 <p>Point-Transformer引入自注意力机制处理点云：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PointTransformerLayer(nn.Module):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""Point-Transformer层：自注意力机制"""</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, in_planes, out_planes<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(PointTransformerLayer, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.in_planes <span class="op">=</span> in_planes</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.out_planes <span class="op">=</span> out_planes <span class="kw">or</span> in_planes</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 线性变换层</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.q_conv <span class="op">=</span> nn.Conv1d(in_planes, in_planes, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.k_conv <span class="op">=</span> nn.Conv1d(in_planes, in_planes, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.v_conv <span class="op">=</span> nn.Conv1d(in_planes, <span class="va">self</span>.out_planes, <span class="dv">1</span>)</span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 位置编码网络</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.pos_mlp <span class="op">=</span> nn.Sequential(</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            nn.Conv2d(<span class="dv">3</span>, in_planes, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            nn.BatchNorm2d(in_planes),</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>            nn.ReLU(inplace<span class="op">=</span><span class="va">True</span>),</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            nn.Conv2d(in_planes, in_planes, <span class="dv">1</span>)</span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 注意力权重网络</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.attn_mlp <span class="op">=</span> nn.Sequential(</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>            nn.Conv2d(in_planes, in_planes, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            nn.BatchNorm2d(in_planes),</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>            nn.ReLU(inplace<span class="op">=</span><span class="va">True</span>),</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>            nn.Conv2d(in_planes, in_planes, <span class="dv">1</span>)</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.softmax <span class="op">=</span> nn.Softmax(dim<span class="op">=-</span><span class="dv">1</span>)</span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, xyz, features, neighbor_idx):</span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">        xyz: 点坐标 (B, N, 3)</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">        features: 点特征 (B, C, N)</span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">        neighbor_idx: 邻居索引 (B, N, K)</span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        B, C, N <span class="op">=</span> features.shape</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>        _, _, K <span class="op">=</span> neighbor_idx.shape</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 计算查询、键、值</span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>        q <span class="op">=</span> <span class="va">self</span>.q_conv(features)  <span class="co"># (B, C, N)</span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>        k <span class="op">=</span> <span class="va">self</span>.k_conv(features)  <span class="co"># (B, C, N)</span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        v <span class="op">=</span> <span class="va">self</span>.v_conv(features)  <span class="co"># (B, C', N)</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 获取邻居特征</span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>        k_neighbors <span class="op">=</span> index_points(k.transpose(<span class="dv">1</span>, <span class="dv">2</span>), neighbor_idx)  <span class="co"># (B, N, K, C)</span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>        v_neighbors <span class="op">=</span> index_points(v.transpose(<span class="dv">1</span>, <span class="dv">2</span>), neighbor_idx)  <span class="co"># (B, N, K, C')</span></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 计算相对位置</span></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>        xyz_neighbors <span class="op">=</span> index_points(xyz, neighbor_idx)  <span class="co"># (B, N, K, 3)</span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>        relative_pos <span class="op">=</span> xyz.unsqueeze(<span class="dv">2</span>) <span class="op">-</span> xyz_neighbors  <span class="co"># (B, N, K, 3)</span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 位置编码</span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>        pos_encoding <span class="op">=</span> <span class="va">self</span>.pos_mlp(relative_pos.permute(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>))  <span class="co"># (B, C, N, K)</span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>        pos_encoding <span class="op">=</span> pos_encoding.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>)  <span class="co"># (B, N, K, C)</span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 计算注意力权重</span></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>        q_expanded <span class="op">=</span> q.transpose(<span class="dv">1</span>, <span class="dv">2</span>).unsqueeze(<span class="dv">2</span>)  <span class="co"># (B, N, 1, C)</span></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>        attention_input <span class="op">=</span> q_expanded <span class="op">-</span> k_neighbors <span class="op">+</span> pos_encoding  <span class="co"># (B, N, K, C)</span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>        attention_weights <span class="op">=</span> <span class="va">self</span>.attn_mlp(attention_input.permute(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>))  <span class="co"># (B, C, N, K)</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>        attention_weights <span class="op">=</span> <span class="va">self</span>.softmax(attention_weights.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>))  <span class="co"># (B, N, K, C)</span></span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 加权聚合</span></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>        output <span class="op">=</span> torch.<span class="bu">sum</span>(attention_weights <span class="op">*</span> (v_neighbors <span class="op">+</span> pos_encoding), dim<span class="op">=</span><span class="dv">2</span>)  <span class="co"># (B, N, C')</span></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> output.transpose(<span class="dv">1</span>, <span class="dv">2</span>)  <span class="co"># (B, C', N)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">class</span> PointTransformerLayer(nn.Module):</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="co">"""Point-Transformer层：自注意力机制"""</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, in_planes, out_planes<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb3-4"><a href="#cb3-4"></a>        <span class="bu">super</span>(PointTransformerLayer, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb3-5"><a href="#cb3-5"></a>        <span class="va">self</span>.in_planes <span class="op">=</span> in_planes</span>
+<span id="cb3-6"><a href="#cb3-6"></a>        <span class="va">self</span>.out_planes <span class="op">=</span> out_planes <span class="kw">or</span> in_planes</span>
+<span id="cb3-7"><a href="#cb3-7"></a></span>
+<span id="cb3-8"><a href="#cb3-8"></a>        <span class="co"># 线性变换层</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>        <span class="va">self</span>.q_conv <span class="op">=</span> nn.Conv1d(in_planes, in_planes, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>        <span class="va">self</span>.k_conv <span class="op">=</span> nn.Conv1d(in_planes, in_planes, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-11"><a href="#cb3-11"></a>        <span class="va">self</span>.v_conv <span class="op">=</span> nn.Conv1d(in_planes, <span class="va">self</span>.out_planes, <span class="dv">1</span>)</span>
+<span id="cb3-12"><a href="#cb3-12"></a></span>
+<span id="cb3-13"><a href="#cb3-13"></a>        <span class="co"># 位置编码网络</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>        <span class="va">self</span>.pos_mlp <span class="op">=</span> nn.Sequential(</span>
+<span id="cb3-15"><a href="#cb3-15"></a>            nn.Conv2d(<span class="dv">3</span>, in_planes, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="cb3-16"><a href="#cb3-16"></a>            nn.BatchNorm2d(in_planes),</span>
+<span id="cb3-17"><a href="#cb3-17"></a>            nn.ReLU(inplace<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb3-18"><a href="#cb3-18"></a>            nn.Conv2d(in_planes, in_planes, <span class="dv">1</span>)</span>
+<span id="cb3-19"><a href="#cb3-19"></a>        )</span>
+<span id="cb3-20"><a href="#cb3-20"></a></span>
+<span id="cb3-21"><a href="#cb3-21"></a>        <span class="co"># 注意力权重网络</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>        <span class="va">self</span>.attn_mlp <span class="op">=</span> nn.Sequential(</span>
+<span id="cb3-23"><a href="#cb3-23"></a>            nn.Conv2d(in_planes, in_planes, <span class="dv">1</span>, bias<span class="op">=</span><span class="va">False</span>),</span>
+<span id="cb3-24"><a href="#cb3-24"></a>            nn.BatchNorm2d(in_planes),</span>
+<span id="cb3-25"><a href="#cb3-25"></a>            nn.ReLU(inplace<span class="op">=</span><span class="va">True</span>),</span>
+<span id="cb3-26"><a href="#cb3-26"></a>            nn.Conv2d(in_planes, in_planes, <span class="dv">1</span>)</span>
+<span id="cb3-27"><a href="#cb3-27"></a>        )</span>
+<span id="cb3-28"><a href="#cb3-28"></a></span>
+<span id="cb3-29"><a href="#cb3-29"></a>        <span class="va">self</span>.softmax <span class="op">=</span> nn.Softmax(dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb3-30"><a href="#cb3-30"></a></span>
+<span id="cb3-31"><a href="#cb3-31"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, xyz, features, neighbor_idx):</span>
+<span id="cb3-32"><a href="#cb3-32"></a>        <span class="co">"""</span></span>
+<span id="cb3-33"><a href="#cb3-33"></a><span class="co">        xyz: 点坐标 (B, N, 3)</span></span>
+<span id="cb3-34"><a href="#cb3-34"></a><span class="co">        features: 点特征 (B, C, N)</span></span>
+<span id="cb3-35"><a href="#cb3-35"></a><span class="co">        neighbor_idx: 邻居索引 (B, N, K)</span></span>
+<span id="cb3-36"><a href="#cb3-36"></a><span class="co">        """</span></span>
+<span id="cb3-37"><a href="#cb3-37"></a>        B, C, N <span class="op">=</span> features.shape</span>
+<span id="cb3-38"><a href="#cb3-38"></a>        _, _, K <span class="op">=</span> neighbor_idx.shape</span>
+<span id="cb3-39"><a href="#cb3-39"></a></span>
+<span id="cb3-40"><a href="#cb3-40"></a>        <span class="co"># 计算查询、键、值</span></span>
+<span id="cb3-41"><a href="#cb3-41"></a>        q <span class="op">=</span> <span class="va">self</span>.q_conv(features)  <span class="co"># (B, C, N)</span></span>
+<span id="cb3-42"><a href="#cb3-42"></a>        k <span class="op">=</span> <span class="va">self</span>.k_conv(features)  <span class="co"># (B, C, N)</span></span>
+<span id="cb3-43"><a href="#cb3-43"></a>        v <span class="op">=</span> <span class="va">self</span>.v_conv(features)  <span class="co"># (B, C', N)</span></span>
+<span id="cb3-44"><a href="#cb3-44"></a></span>
+<span id="cb3-45"><a href="#cb3-45"></a>        <span class="co"># 获取邻居特征</span></span>
+<span id="cb3-46"><a href="#cb3-46"></a>        k_neighbors <span class="op">=</span> index_points(k.transpose(<span class="dv">1</span>, <span class="dv">2</span>), neighbor_idx)  <span class="co"># (B, N, K, C)</span></span>
+<span id="cb3-47"><a href="#cb3-47"></a>        v_neighbors <span class="op">=</span> index_points(v.transpose(<span class="dv">1</span>, <span class="dv">2</span>), neighbor_idx)  <span class="co"># (B, N, K, C')</span></span>
+<span id="cb3-48"><a href="#cb3-48"></a></span>
+<span id="cb3-49"><a href="#cb3-49"></a>        <span class="co"># 计算相对位置</span></span>
+<span id="cb3-50"><a href="#cb3-50"></a>        xyz_neighbors <span class="op">=</span> index_points(xyz, neighbor_idx)  <span class="co"># (B, N, K, 3)</span></span>
+<span id="cb3-51"><a href="#cb3-51"></a>        relative_pos <span class="op">=</span> xyz.unsqueeze(<span class="dv">2</span>) <span class="op">-</span> xyz_neighbors  <span class="co"># (B, N, K, 3)</span></span>
+<span id="cb3-52"><a href="#cb3-52"></a></span>
+<span id="cb3-53"><a href="#cb3-53"></a>        <span class="co"># 位置编码</span></span>
+<span id="cb3-54"><a href="#cb3-54"></a>        pos_encoding <span class="op">=</span> <span class="va">self</span>.pos_mlp(relative_pos.permute(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>))  <span class="co"># (B, C, N, K)</span></span>
+<span id="cb3-55"><a href="#cb3-55"></a>        pos_encoding <span class="op">=</span> pos_encoding.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>)  <span class="co"># (B, N, K, C)</span></span>
+<span id="cb3-56"><a href="#cb3-56"></a></span>
+<span id="cb3-57"><a href="#cb3-57"></a>        <span class="co"># 计算注意力权重</span></span>
+<span id="cb3-58"><a href="#cb3-58"></a>        q_expanded <span class="op">=</span> q.transpose(<span class="dv">1</span>, <span class="dv">2</span>).unsqueeze(<span class="dv">2</span>)  <span class="co"># (B, N, 1, C)</span></span>
+<span id="cb3-59"><a href="#cb3-59"></a>        attention_input <span class="op">=</span> q_expanded <span class="op">-</span> k_neighbors <span class="op">+</span> pos_encoding  <span class="co"># (B, N, K, C)</span></span>
+<span id="cb3-60"><a href="#cb3-60"></a>        attention_weights <span class="op">=</span> <span class="va">self</span>.attn_mlp(attention_input.permute(<span class="dv">0</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">2</span>))  <span class="co"># (B, C, N, K)</span></span>
+<span id="cb3-61"><a href="#cb3-61"></a>        attention_weights <span class="op">=</span> <span class="va">self</span>.softmax(attention_weights.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>))  <span class="co"># (B, N, K, C)</span></span>
+<span id="cb3-62"><a href="#cb3-62"></a></span>
+<span id="cb3-63"><a href="#cb3-63"></a>        <span class="co"># 加权聚合</span></span>
+<span id="cb3-64"><a href="#cb3-64"></a>        output <span class="op">=</span> torch.<span class="bu">sum</span>(attention_weights <span class="op">*</span> (v_neighbors <span class="op">+</span> pos_encoding), dim<span class="op">=</span><span class="dv">2</span>)  <span class="co"># (B, N, C')</span></span>
+<span id="cb3-65"><a href="#cb3-65"></a></span>
+<span id="cb3-66"><a href="#cb3-66"></a>        <span class="cf">return</span> output.transpose(<span class="dv">1</span>, <span class="dv">2</span>)  <span class="co"># (B, C', N)</span></span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>这些核心实现展示了PointNet系列网络的关键设计思想：PointNet通过对称函数保证置换不变性，PointNet++通过层次化采样捕获局部结构，Point-Transformer通过自注意力机制建模长距离依赖关系。</p>
 </section>
 </section>
@@ -1373,6 +1383,13 @@ window.Quarto = {
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+            // default icon
+            link.classList.add("external");
         }
       }
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
@@ -1699,8 +1716,22 @@ window.Quarto = {
   </div>
 </nav>
 </div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© 2024 现代计算机视觉教程</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.5_PointNet系列网络.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="nav-footer-right">
+<p>使用 <a href="https://quarto.org/">Quarto</a> 构建</p>
+</div>
+  </div>
+</footer>
 
 
 
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
