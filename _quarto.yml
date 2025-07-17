@@ -2,20 +2,15 @@ project:
   type: book
   title: "现代计算机视觉"
 
-# Thesis-specific metadata
-thesis-title: "现代计算机视觉"
-author: 
-  - name: "AI Assistant & You"
-supervisor: 
-  - name: "Supervisor Name"
-degree: "Doctor of Philosophy"
-degree-year: "2025"
-declaration-text: "This is my declaration."
-acknowledgements-text: "I want to thank..."
-
 book:
+  title: "现代计算机视觉"
   author: "AI Assistant & You"
   date: "today"
+  repo-url: "https://github.com/guxinghaoyun/quarto-web"
+  repo-actions: [edit, issue]
+  page-footer: 
+    left: "© 2024 现代计算机视觉教程"
+    right: "使用 [Quarto](https://quarto.org/) 构建"
   chapters:
     - index.qmd
     - part: "第十一章：三维视觉与点云处理"
@@ -31,23 +26,48 @@ book:
     - references.qmd
 
 lang: zh-CN
-
 bibliography: references.bib
 
 format:
   html:
     theme:
-      light: flatly
-      dark: cyborg
-    highlight-style: atom-one
-    mainfont: "WenQuanYi Micro Hei"
-  pdf:
-    documentclass: scrreprt
+      light: cosmo
+      dark: darkly
+    highlight-style: github
+    code-copy: true
+    code-fold: show
+    code-line-numbers: true
+    code-overflow: scroll
     mainfont: "PingFang SC"
-    mermaid-format: png
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    number-sections: true
+    fig-cap-location: bottom
+    search: true
+    html-math-method: katex
+    css: assets/cv-book.css
+    # 页面导航增强
+    page-navigation: true
+    # 图片与图表优化
+    fig-responsive: true
+    lightbox: true
+    # 交互体验改进
+    smooth-scroll: true
+    anchor-sections: true
+    link-external-icon: true
+    link-external-newwindow: true
+    # 引用和脚注增强
+    citations-hover: true
+    footnotes-hover: true
+    # 图表格式优化
+    fig-format: retina
+    # 阅读体验增强
+    reading-time: true
 
 mermaid:
   theme: default
 
-
-
+execute:
+  freeze: false
+  cache: false

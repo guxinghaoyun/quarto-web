@@ -1,0 +1,49 @@
+# 计算机视觉书籍中文翻译
+book:
+  label-part: "部分"
+  label-chapter: "第"
+  label-appendix: "附录"
+  label-references: "参考文献"
+  label-glossary: "术语表"
+  label-toc: "目录"
+  label-lof: "图目录"
+  label-lot: "表目录"
+
+Abstract: "摘要"
+preface: "前言"
+acknowledgements: "致谢"
+
+callout-tip-title: "💡 提示"
+callout-note-title: "📝 注意"
+callout-warning-title: "⚠️ 警告"
+callout-important-title: "🔥 重要"
+callout-caution-title: "⚠️ 谨慎"
+
+fig: "图"
+tbl: "表"
+lst: "列表"
+eqn: "公式"
+thm: "定理"
+sec: "节"
+
+see: "见"
+see-also: "另见"
+example: "示例"
+examples: "示例"
+
+# 搜索和导航
+search:
+  no-results-text: "没有找到相关内容"
+  matching-documents-text: "匹配的文档"
+  clear-button-title: "清除搜索"
+  text-placeholder: "搜索计算机视觉内容..."
+  label: "搜索"
+
+# 交叉引用
+crossref:
+  fig-title: "图"
+  tbl-title: "表"
+  exm-title: "示例"
+  eqn-title: "公式"
+  thm-title: "定理"
+  sec-title: "节"
