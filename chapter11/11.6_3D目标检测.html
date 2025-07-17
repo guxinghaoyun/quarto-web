@@ -1,0 +1,1804 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="AI Assistant &amp; You">
+
+<title>7&nbsp; 3D目标检测 – 现代计算机视觉</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapter11/11.7_应用案例分析.html" rel="next">
+<link href="../chapter11/11.5_PointNet系列网络.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c1f63da3e08f13bc72dc17e92cfd001d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e25bb2ec88b96ab004d13ad1d1924df4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c1f63da3e08f13bc72dc17e92cfd001d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-44846edcafbe86808dcaec689102c8b3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-603b5228b8d253aece00f2e62deeb1ae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-44846edcafbe86808dcaec689102c8b3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<meta name="mermaid-theme" content="default">
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.6_3D目标检测.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">3D目标检测</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">现代计算机视觉</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="切换深色模式"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">第十一章：三维视觉与点云处理</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">概述</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.1_相机标定与几何.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.2_立体匹配与深度估计.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.3_三维重建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">三维重建</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.4_点云基础与处理.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">点云基础与处理</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.5_PointNet系列网络.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PointNet系列网络</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.6_3D目标检测.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">3D目标检测</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.7_应用案例分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">应用案例分析</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目录</h2>
+   
+  <ul>
+  <li><a href="#引言从2d到3d的检测范式转变" id="toc-引言从2d到3d的检测范式转变" class="nav-link active" data-scroll-target="#引言从2d到3d的检测范式转变"><span class="header-section-number">7.1</span> 引言：从2D到3D的检测范式转变</a></li>
+  <li><a href="#核心概念" id="toc-核心概念" class="nav-link" data-scroll-target="#核心概念"><span class="header-section-number">7.2</span> 核心概念</a></li>
+  <li><a href="#理论基础从体素化到点-体素融合" id="toc-理论基础从体素化到点-体素融合" class="nav-link" data-scroll-target="#理论基础从体素化到点-体素融合"><span class="header-section-number">7.3</span> 理论基础：从体素化到点-体素融合</a>
+  <ul class="collapse">
+  <li><a href="#voxelnet的核心思想与理论基础" id="toc-voxelnet的核心思想与理论基础" class="nav-link" data-scroll-target="#voxelnet的核心思想与理论基础"><span class="header-section-number">7.3.1</span> VoxelNet的核心思想与理论基础</a></li>
+  <li><a href="#voxelnet的理论基础" id="toc-voxelnet的理论基础" class="nav-link" data-scroll-target="#voxelnet的理论基础"><span class="header-section-number">7.3.2</span> VoxelNet的理论基础</a></li>
+  <li><a href="#pointpillars的理论基础" id="toc-pointpillars的理论基础" class="nav-link" data-scroll-target="#pointpillars的理论基础"><span class="header-section-number">7.3.3</span> PointPillars的理论基础</a></li>
+  <li><a href="#pv-rcnn的理论基础" id="toc-pv-rcnn的理论基础" class="nav-link" data-scroll-target="#pv-rcnn的理论基础"><span class="header-section-number">7.3.4</span> PV-RCNN的理论基础</a></li>
+  <li><a href="#损失函数设计" id="toc-损失函数设计" class="nav-link" data-scroll-target="#损失函数设计"><span class="header-section-number">7.3.5</span> 损失函数设计</a></li>
+  </ul></li>
+  <li><a href="#算法实现" id="toc-算法实现" class="nav-link" data-scroll-target="#算法实现"><span class="header-section-number">7.4</span> 算法实现</a>
+  <ul class="collapse">
+  <li><a href="#voxelnet的核心实现" id="toc-voxelnet的核心实现" class="nav-link" data-scroll-target="#voxelnet的核心实现"><span class="header-section-number">7.4.1</span> VoxelNet的核心实现</a></li>
+  <li><a href="#pointpillars的核心实现" id="toc-pointpillars的核心实现" class="nav-link" data-scroll-target="#pointpillars的核心实现"><span class="header-section-number">7.4.2</span> PointPillars的核心实现</a></li>
+  <li><a href="#pv-rcnn的核心实现" id="toc-pv-rcnn的核心实现" class="nav-link" data-scroll-target="#pv-rcnn的核心实现"><span class="header-section-number">7.4.3</span> PV-RCNN的核心实现</a></li>
+  </ul></li>
+  <li><a href="#检测效果分析" id="toc-检测效果分析" class="nav-link" data-scroll-target="#检测效果分析"><span class="header-section-number">7.5</span> 检测效果分析</a>
+  <ul class="collapse">
+  <li><a href="#算法性能对比分析" id="toc-算法性能对比分析" class="nav-link" data-scroll-target="#算法性能对比分析"><span class="header-section-number">7.5.1</span> 算法性能对比分析</a></li>
+  <li><a href="#技术演进与创新点分析" id="toc-技术演进与创新点分析" class="nav-link" data-scroll-target="#技术演进与创新点分析"><span class="header-section-number">7.5.2</span> 技术演进与创新点分析</a></li>
+  <li><a href="#应用场景与挑战分析" id="toc-应用场景与挑战分析" class="nav-link" data-scroll-target="#应用场景与挑战分析"><span class="header-section-number">7.5.3</span> 应用场景与挑战分析</a></li>
+  <li><a href="#未来发展趋势" id="toc-未来发展趋势" class="nav-link" data-scroll-target="#未来发展趋势"><span class="header-section-number">7.5.4</span> 未来发展趋势</a></li>
+  </ul></li>
+  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">7.6</span> 小结</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.6_3D目标检测.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">3D目标检测</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">3D目标检测</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-contents">
+             <p>AI Assistant &amp; You </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言从2d到3d的检测范式转变" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="引言从2d到3d的检测范式转变"><span class="header-section-number">7.1</span> 引言：从2D到3D的检测范式转变</h2>
+<p>3D目标检测是计算机视觉和自动驾驶领域的核心任务之一，它要求系统不仅能够识别物体的类别，还要准确估计物体在三维空间中的位置、尺寸和朝向。与传统的2D目标检测相比，3D检测面临着更大的挑战：三维空间的复杂性、点云数据的稀疏性、以及对精确几何信息的严格要求。</p>
+<p>传统的3D目标检测方法主要依赖手工设计的特征和几何约束，如基于滑动窗口的方法和基于模板匹配的方法。这些方法虽然在特定场景下有效，但泛化能力有限，难以处理复杂的真实世界场景。深度学习的兴起，特别是PointNet系列网络的成功，为3D目标检测带来了革命性的变化。</p>
+<p>现代3D目标检测方法可以分为几个主要类别：<strong>基于体素的方法</strong>（如VoxelNet）将点云转换为规则的3D网格，利用3D卷积进行特征提取；<strong>基于柱状投影的方法</strong>（如PointPillars）将点云投影到鸟瞰图，结合2D卷积的效率优势；<strong>点-体素融合方法</strong>（如PV-RCNN）则结合了点表示和体素表示的优势，实现更精确的检测。</p>
+<p>这些方法的发展不仅推动了学术研究的进步，也在自动驾驶、机器人导航、智能监控等实际应用中发挥着关键作用。本节将系统介绍3D目标检测的核心技术、算法原理和实现细节，展示这一领域的最新进展。</p>
+</section>
+<section id="核心概念" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="核心概念"><span class="header-section-number">7.2</span> 核心概念</h2>
+<p><strong>3D边界框表示</strong>是3D目标检测的基础。与2D检测中的矩形框不同，3D边界框需要表示物体在三维空间中的完整几何信息。常用的3D边界框表示包括：</p>
+<ul>
+<li><strong>中心点表示</strong>：<span class="math inline">\((x, y, z, l, w, h, \theta)\)</span>，其中<span class="math inline">\((x,y,z)\)</span>是中心坐标，<span class="math inline">\((l,w,h)\)</span>是长宽高，<span class="math inline">\(\theta\)</span>是朝向角</li>
+<li><strong>角点表示</strong>：使用8个角点的3D坐标来完全描述边界框</li>
+<li><strong>参数化表示</strong>：结合物体的几何先验，使用更紧凑的参数表示</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph 3D检测数据流
+        A[原始点云&lt;br/&gt;LiDAR/RGB-D]
+        B[数据预处理&lt;br/&gt;滤波、下采样]
+        C[特征表示&lt;br/&gt;体素/柱状/点]
+        D[特征提取&lt;br/&gt;CNN/PointNet]
+        E[检测头&lt;br/&gt;分类+回归]
+        F[后处理&lt;br/&gt;NMS/聚合]
+    end
+    
+    subgraph 表示方法
+        G[体素表示&lt;br/&gt;VoxelNet]
+        H[柱状表示&lt;br/&gt;PointPillars]
+        I[点表示&lt;br/&gt;PointRCNN]
+        J[融合表示&lt;br/&gt;PV-RCNN]
+    end
+    
+    subgraph 检测结果
+        K[3D边界框&lt;br/&gt;x,y,z,l,w,h,θ]
+        L[置信度分数&lt;br/&gt;Classification]
+        M[类别标签&lt;br/&gt;Car/Pedestrian/Cyclist]
+    end
+    
+    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F
+    
+    C --&gt; G
+    C --&gt; H
+    C --&gt; I
+    C --&gt; J
+    
+    F --&gt; K
+    F --&gt; L
+    F --&gt; M
+    
+    classDef dataNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef methodNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef resultNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    
+    class A,B,C,D,E,F dataNode
+    class G,H,I,J methodNode
+    class K,L,M resultNode
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.29：3D目标检测的数据流程与表示方法</em></p>
+<p><strong>锚框机制</strong>在3D检测中发挥重要作用。与2D检测类似，3D检测也使用预定义的锚框来简化检测问题。3D锚框的设计需要考虑：</p>
+<ul>
+<li><strong>尺寸先验</strong>：根据不同类别物体的典型尺寸设计锚框</li>
+<li><strong>朝向先验</strong>：考虑物体的常见朝向，如车辆通常沿道路方向</li>
+<li><strong>密度分布</strong>：在可能出现物体的区域密集放置锚框</li>
+</ul>
+<p><strong>多模态融合</strong>是提高3D检测性能的重要策略。现代自动驾驶系统通常配备多种传感器：</p>
+<ul>
+<li><strong>LiDAR点云</strong>：提供精确的几何信息和距离测量</li>
+<li><strong>RGB图像</strong>：提供丰富的纹理和语义信息</li>
+<li><strong>雷达数据</strong>：提供速度信息和恶劣天气下的鲁棒性</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    subgraph 传感器输入
+        A["LiDAR点云&lt;br/&gt;几何精确"]
+        B["RGB图像&lt;br/&gt;语义丰富"]
+        C["雷达数据&lt;br/&gt;速度信息"]
+    end
+    
+    subgraph 特征提取
+        D["3D CNN&lt;br/&gt;空间特征"]
+        E["2D CNN&lt;br/&gt;视觉特征"]
+        F["时序网络&lt;br/&gt;运动特征"]
+    end
+    
+    subgraph 融合策略
+        G["早期融合&lt;br/&gt;数据级融合"]
+        H["中期融合&lt;br/&gt;特征级融合"]
+        I["后期融合&lt;br/&gt;决策级融合"]
+    end
+    
+    A --&gt; D
+    B --&gt; E
+    C --&gt; F
+    
+    D --&gt; G
+    E --&gt; H
+    F --&gt; I
+    
+    G --&gt; J["融合检测结果"]
+    H --&gt; J
+    I --&gt; J
+    
+    classDef sensorNode fill:#4db6ac,stroke:#00796b,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef featureNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef fusionNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef resultNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    
+    classDef sensorSubgraph fill:#e0f2f1,stroke:#00796b,stroke-width:2px,color:#004d40,font-weight:bold
+    classDef featureSubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold
+    classDef fusionSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold
+    
+    class A,B,C sensorNode
+    class D,E,F featureNode
+    class G,H,I fusionNode
+    class J resultNode
+    
+    class 传感器输入 sensorSubgraph
+    class 特征提取 featureSubgraph
+    class 融合策略 fusionSubgraph
+    
+    linkStyle 0,1,2,3,4,5,6,7,8 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.30：多模态传感器融合在3D目标检测中的应用</em></p>
+</section>
+<section id="理论基础从体素化到点-体素融合" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="理论基础从体素化到点-体素融合"><span class="header-section-number">7.3</span> 理论基础：从体素化到点-体素融合</h2>
+<p>3D目标检测的理论基础涉及三维数据表示、深度网络架构设计和损失函数优化。下面我们详细介绍这些核心理论。</p>
+<section id="voxelnet的核心思想与理论基础" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="voxelnet的核心思想与理论基础"><span class="header-section-number">7.3.1</span> VoxelNet的核心思想与理论基础</h3>
+<p><strong>VoxelNet的创新突破</strong>： VoxelNet是首个端到端的3D目标检测网络，解决了点云数据在深度学习中的三个关键挑战： 1. <strong>不规则性问题</strong>：点云数据稀疏且不规则，传统CNN无法直接处理 2. <strong>特征学习问题</strong>：如何从原始点云中学习有效的特征表示 3. <strong>端到端优化</strong>：如何实现从点云到检测结果的端到端训练</p>
+<p><strong>技术创新</strong>： - <strong>体素化表示</strong>：将不规则点云转换为规则的3D网格，使CNN可以处理 - <strong>VFE层设计</strong>：体素特征编码层，将体素内的点集转换为固定维度特征 - <strong>3D卷积骨干</strong>：使用3D CNN提取空间特征，保持三维几何信息</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph VoxelNet完整架构
+        A["原始点云&lt;br/&gt;N × 4 (x,y,z,r)"] --&gt; B["体素化&lt;br/&gt;D×H×W网格"]
+        B --&gt; C["VFE层&lt;br/&gt;体素特征编码"]
+        C --&gt; D["3D卷积&lt;br/&gt;特征提取"]
+        D --&gt; E["RPN&lt;br/&gt;区域提议网络"]
+        E --&gt; F["3D检测结果&lt;br/&gt;(x,y,z,l,w,h,θ)"]
+    end
+
+    subgraph VFE层详细结构
+        G["体素内点集&lt;br/&gt;T × 7"] --&gt; H["逐点MLP&lt;br/&gt;特征变换"]
+        H --&gt; I["局部聚合&lt;br/&gt;Max Pooling"]
+        I --&gt; J["体素特征&lt;br/&gt;固定维度"]
+    end
+
+    subgraph 关键创新
+        K["端到端学习&lt;br/&gt;点云到检测"]
+        L["体素表示&lt;br/&gt;规则化数据"]
+        M["VFE设计&lt;br/&gt;点集编码"]
+    end
+
+    C --&gt; G
+    J --&gt; D
+
+    A --&gt; K
+    B --&gt; L
+    C --&gt; M
+
+    classDef archNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef vfeNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef innovationNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+
+    classDef archSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold
+    classDef vfeSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+    classDef innovationSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold
+
+    class A,B,C,D,E,F archNode
+    class G,H,I,J vfeNode
+    class K,L,M innovationNode
+
+    class VoxelNet完整架构 archSubgraph
+    class VFE层详细结构 vfeSubgraph
+    class 关键创新 innovationSubgraph
+
+    linkStyle 0,1,2,3,4,5,6,7,8,9,10,11 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.30a：VoxelNet网络架构与VFE层设计</em></p>
+</section>
+<section id="voxelnet的理论基础" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="voxelnet的理论基础"><span class="header-section-number">7.3.2</span> VoxelNet的理论基础</h3>
+<p><strong>1. 体素化表示</strong></p>
+<p>VoxelNet将不规则的点云数据转换为规则的3D体素网格。给定点云<span class="math inline">\(P = \{p_i\}_{i=1}^N\)</span>，其中<span class="math inline">\(p_i = (x_i, y_i, z_i, r_i)\)</span>包含坐标和反射强度，体素化过程将3D空间划分为<span class="math inline">\(D \times H \times W\)</span>的网格。</p>
+<p>每个体素<span class="math inline">\(V_{d,h,w}\)</span>包含落入其中的点集： <span class="math display">\[V_{d,h,w} = \{p_i \in P : \lfloor \frac{x_i - x_{min}}{v_x} \rfloor = w, \lfloor \frac{y_i - y_{min}}{v_y} \rfloor = h, \lfloor \frac{z_i - z_{min}}{v_z} \rfloor = d\}\]</span></p>
+<p>其中<span class="math inline">\((v_x, v_y, v_z)\)</span>是体素的尺寸。</p>
+<p><strong>2. 体素特征编码（VFE）</strong></p>
+<p>VoxelNet的核心创新是体素特征编码层，它将体素内的点集转换为固定维度的特征向量。对于包含<span class="math inline">\(T\)</span>个点的体素，VFE层的计算过程为：</p>
+<ul>
+<li><p><strong>点特征增强</strong>：为每个点添加相对于体素中心的偏移量 <span class="math display">\[\tilde{p}_i = [x_i, y_i, z_i, r_i, x_i - v_x, y_i - v_y, z_i - v_z]\]</span></p></li>
+<li><p><strong>逐点特征变换</strong>：使用全连接层提取点特征 <span class="math display">\[f_i = \text{FCN}(\tilde{p}_i)\]</span></p></li>
+<li><p><strong>局部聚合</strong>：使用最大池化聚合体素内所有点的特征 <span class="math display">\[f_{voxel} = \max_{i=1,...,T} f_i\]</span></p></li>
+</ul>
+<p><strong>3. 3D卷积骨干网络</strong></p>
+<p>体素特征经过3D CNN进行层次化特征提取： <span class="math display">\[F^{(l+1)} = \text{Conv3D}(\text{BN}(\text{ReLU}(F^{(l)})))\]</span></p>
+<p>其中<span class="math inline">\(F^{(l)}\)</span>是第<span class="math inline">\(l\)</span>层的特征图。</p>
+</section>
+<section id="pointpillars的理论基础" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="pointpillars的理论基础"><span class="header-section-number">7.3.3</span> PointPillars的理论基础</h3>
+<p><strong>1. 柱状投影</strong></p>
+<p>PointPillars将3D点云投影到2D鸟瞰图（Bird’s Eye View, BEV），将垂直方向的信息编码到特征中。点云被划分为<span class="math inline">\(H \times W\)</span>的柱状网格，每个柱子包含垂直方向上的所有点。</p>
+<p><strong>2. 柱状特征编码</strong></p>
+<p>对于柱子<span class="math inline">\((i,j)\)</span>中的点集<span class="math inline">\(\{p_k\}\)</span>，PointPillars计算增强特征： <span class="math display">\[\tilde{p}_k = [x_k, y_k, z_k, r_k, x_k - x_c, y_k - y_c, z_k - z_c, x_k - x_p, y_k - y_p]\]</span></p>
+<p>其中<span class="math inline">\((x_c, y_c, z_c)\)</span>是柱子中所有点的质心，<span class="math inline">\((x_p, y_p)\)</span>是柱子的几何中心。</p>
+<p>柱状特征通过PointNet-like网络提取： <span class="math display">\[f_{pillar} = \max_{k} \text{MLP}(\tilde{p}_k)\]</span></p>
+<p><strong>3. 伪图像生成</strong></p>
+<p>柱状特征被重新排列为伪图像格式，然后使用2D CNN进行处理： <span class="math display">\[F_{BEV} = \text{CNN2D}(\text{Scatter}(f_{pillar}))\]</span></p>
+</section>
+<section id="pv-rcnn的理论基础" class="level3" data-number="7.3.4">
+<h3 data-number="7.3.4" class="anchored" data-anchor-id="pv-rcnn的理论基础"><span class="header-section-number">7.3.4</span> PV-RCNN的理论基础</h3>
+<p><strong>1. 点-体素融合</strong></p>
+<p>PV-RCNN结合了点表示的精确性和体素表示的效率。网络包含两个并行分支：</p>
+<ul>
+<li><strong>体素分支</strong>：使用3D稀疏卷积处理体素化点云</li>
+<li><strong>点分支</strong>：使用PointNet++处理原始点云</li>
+</ul>
+<p><strong>2. 体素到点的特征传播</strong></p>
+<p>体素特征通过三线性插值传播到点： <span class="math display">\[f_p = \sum_{v \in \mathcal{N}(p)} w(p,v) \cdot f_v\]</span></p>
+<p>其中<span class="math inline">\(\mathcal{N}(p)\)</span>是点<span class="math inline">\(p\)</span>周围的8个体素，<span class="math inline">\(w(p,v)\)</span>是插值权重。</p>
+<p><strong>3. 关键点采样</strong></p>
+<p>PV-RCNN使用前景点分割网络识别关键点： <span class="math display">\[s_i = \text{MLP}(f_i^{point})\]</span></p>
+<p>其中<span class="math inline">\(s_i\)</span>是点<span class="math inline">\(i\)</span>的前景概率。选择前景概率最高的点作为关键点。</p>
+<p><strong>4. RoI网格池化</strong></p>
+<p>对于每个候选区域，PV-RCNN在其内部规律采样网格点，并聚合周围点的特征： <span class="math display">\[f_{grid} = \text{Aggregate}(\{f_j : \|p_j - p_{grid}\| &lt; r\})\]</span></p>
+</section>
+<section id="损失函数设计" class="level3" data-number="7.3.5">
+<h3 data-number="7.3.5" class="anchored" data-anchor-id="损失函数设计"><span class="header-section-number">7.3.5</span> 损失函数设计</h3>
+<p><strong>1. 分类损失</strong></p>
+<p>使用Focal Loss处理类别不平衡问题： <span class="math display">\[L_{cls} = -\alpha_t (1-p_t)^\gamma \log(p_t)\]</span></p>
+<p>其中<span class="math inline">\(p_t\)</span>是预测概率，<span class="math inline">\(\alpha_t\)</span>和<span class="math inline">\(\gamma\)</span>是超参数。</p>
+<p><strong>2. 回归损失</strong></p>
+<p>3D边界框回归使用Smooth L1损失： <span class="math display">\[L_{reg} = \sum_{i \in \{x,y,z,l,w,h,\theta\}} \text{SmoothL1}(\Delta_i)\]</span></p>
+<p>其中<span class="math inline">\(\Delta_i\)</span>是预测值与真值的差异。</p>
+<p><strong>3. 朝向损失</strong></p>
+<p>由于角度的周期性，朝向回归使用特殊的损失函数： <span class="math display">\[L_{dir} = \sum_{bin} \text{CrossEntropy}(cls_{bin}) + \sum_{bin} \text{SmoothL1}(res_{bin})\]</span></p>
+<p>其中角度被分解为分类和回归两部分。</p>
+<p><strong>4. 总损失</strong></p>
+<p>总损失是各项损失的加权和： <span class="math display">\[L_{total} = \lambda_{cls} L_{cls} + \lambda_{reg} L_{reg} + \lambda_{dir} L_{dir}\]</span></p>
+<p>这些理论为现代3D目标检测算法提供了坚实的数学基础，确保了算法的有效性和可靠性。</p>
+</section>
+</section>
+<section id="算法实现" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="算法实现"><span class="header-section-number">7.4</span> 算法实现</h2>
+<p>下面我们介绍3D目标检测的核心算法实现，重点展示不同方法的关键组件和设计思想。</p>
+<section id="voxelnet的核心实现" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="voxelnet的核心实现"><span class="header-section-number">7.4.1</span> VoxelNet的核心实现</h3>
+<p>VoxelNet通过体素特征编码和3D卷积实现端到端的3D检测：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> VoxelFeatureExtractor(nn.Module):</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""体素特征编码层（VFE）"""</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_input_features<span class="op">=</span><span class="dv">4</span>):</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(VoxelFeatureExtractor, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.num_input_features <span class="op">=</span> num_input_features</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># VFE层：逐点特征变换</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.vfe1 <span class="op">=</span> VFELayer(num_input_features, <span class="dv">32</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.vfe2 <span class="op">=</span> VFELayer(<span class="dv">32</span>, <span class="dv">128</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, features, num_voxels, coords):</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co">        features: (N, max_points, num_features) 体素内点的特征</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co">        num_voxels: (N,) 每个体素的点数量</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co">        coords: (N, 3) 体素坐标</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 第一层VFE</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        voxel_features <span class="op">=</span> <span class="va">self</span>.vfe1(features, num_voxels)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        voxel_features <span class="op">=</span> <span class="va">self</span>.vfe2(voxel_features, num_voxels)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> voxel_features</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> VFELayer(nn.Module):</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""单个VFE层实现"""</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, in_channels, out_channels):</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(VFELayer, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.in_channels <span class="op">=</span> in_channels</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.out_channels <span class="op">=</span> out_channels</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 逐点全连接层</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.linear <span class="op">=</span> nn.Linear(in_channels, out_channels)</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.norm <span class="op">=</span> nn.BatchNorm1d(out_channels)</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, inputs, num_voxels):</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># inputs: (N, max_points, in_channels)</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        N, max_points, _ <span class="op">=</span> inputs.shape</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 逐点特征变换</span></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> inputs.view(<span class="op">-</span><span class="dv">1</span>, <span class="va">self</span>.in_channels)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> F.relu(<span class="va">self</span>.norm(<span class="va">self</span>.linear(x)))</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x.view(N, max_points, <span class="va">self</span>.out_channels)</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 局部聚合：最大池化</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        voxel_features <span class="op">=</span> torch.<span class="bu">max</span>(x, dim<span class="op">=</span><span class="dv">1</span>)[<span class="dv">0</span>]  <span class="co"># (N, out_channels)</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> voxel_features</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> MiddleExtractor(nn.Module):</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""3D卷积骨干网络"""</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, input_channels<span class="op">=</span><span class="dv">128</span>):</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(MiddleExtractor, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 3D卷积层</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.conv3d1 <span class="op">=</span> nn.Conv3d(input_channels, <span class="dv">64</span>, <span class="dv">3</span>, padding<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.conv3d2 <span class="op">=</span> nn.Conv3d(<span class="dv">64</span>, <span class="dv">64</span>, <span class="dv">3</span>, padding<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.conv3d3 <span class="op">=</span> nn.Conv3d(<span class="dv">64</span>, <span class="dv">64</span>, <span class="dv">3</span>, padding<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 批归一化</span></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.bn1 <span class="op">=</span> nn.BatchNorm3d(<span class="dv">64</span>)</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.bn2 <span class="op">=</span> nn.BatchNorm3d(<span class="dv">64</span>)</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.bn3 <span class="op">=</span> nn.BatchNorm3d(<span class="dv">64</span>)</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, voxel_features, coords, batch_size, input_shape):</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a><span class="co">        将稀疏体素特征转换为密集特征图</span></span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 创建密集特征图</span></span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>        device <span class="op">=</span> voxel_features.device</span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>        sparse_shape <span class="op">=</span> input_shape</span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>        dense_features <span class="op">=</span> torch.zeros(</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>            batch_size, <span class="va">self</span>.conv3d1.in_channels, <span class="op">*</span>sparse_shape,</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a>            dtype<span class="op">=</span>voxel_features.dtype, device<span class="op">=</span>device)</span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 填充稀疏特征</span></span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>        dense_features[coords[:, <span class="dv">0</span>], :, coords[:, <span class="dv">1</span>], coords[:, <span class="dv">2</span>], coords[:, <span class="dv">3</span>]] <span class="op">=</span> voxel_features</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 3D卷积特征提取</span></span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> F.relu(<span class="va">self</span>.bn1(<span class="va">self</span>.conv3d1(dense_features)))</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> F.relu(<span class="va">self</span>.bn2(<span class="va">self</span>.conv3d2(x)))</span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> F.relu(<span class="va">self</span>.bn3(<span class="va">self</span>.conv3d3(x)))</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> VoxelNet(nn.Module):</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""VoxelNet完整网络架构"""</span></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_classes<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(VoxelNet, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 体素特征提取</span></span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.voxel_feature_extractor <span class="op">=</span> VoxelFeatureExtractor()</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 3D卷积骨干</span></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.middle_extractor <span class="op">=</span> MiddleExtractor()</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>        <span class="co"># RPN检测头</span></span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.rpn <span class="op">=</span> RPN(num_classes)</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, voxels, num_points, coords):</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 体素特征编码</span></span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>        voxel_features <span class="op">=</span> <span class="va">self</span>.voxel_feature_extractor(voxels, num_points, coords)</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 3D卷积特征提取</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>        spatial_features <span class="op">=</span> <span class="va">self</span>.middle_extractor(voxel_features, coords,</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>                                                batch_size, input_shape)</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>        <span class="co"># RPN检测</span></span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a>        cls_preds, box_preds, dir_preds <span class="op">=</span> <span class="va">self</span>.rpn(spatial_features)</span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> cls_preds, box_preds, dir_preds</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="pointpillars的核心实现" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="pointpillars的核心实现"><span class="header-section-number">7.4.2</span> PointPillars的核心实现</h3>
+<p>PointPillars通过柱状投影和2D卷积实现高效的3D检测：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PillarFeatureNet(nn.Module):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""柱状特征编码网络"""</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_input_features<span class="op">=</span><span class="dv">4</span>, num_filters<span class="op">=</span>[<span class="dv">64</span>]):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(PillarFeatureNet, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.num_input_features <span class="op">=</span> num_input_features</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 特征增强：添加相对位置信息</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        num_input_features <span class="op">+=</span> <span class="dv">5</span>  <span class="co"># x, y, z, r + xc, yc, zc, xp, yp</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># PointNet-like网络</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.pfn_layers <span class="op">=</span> nn.ModuleList()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(num_filters)):</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            in_filters <span class="op">=</span> num_input_features <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span> <span class="cf">else</span> num_filters[i<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            out_filters <span class="op">=</span> num_filters[i]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.pfn_layers.append(</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                PFNLayer(in_filters, out_filters, use_norm<span class="op">=</span><span class="va">True</span>, last_layer<span class="op">=</span>(i <span class="op">==</span> <span class="bu">len</span>(num_filters)<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, features, num_voxels, coords):</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">        features: (N, max_points, num_features)</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="co">        num_voxels: (N,) 每个柱子的点数量</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">        coords: (N, 3) 柱子坐标</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 特征增强</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        features_ls <span class="op">=</span> [features]</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 计算柱子中心</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        voxel_mean <span class="op">=</span> features[:, :, :<span class="dv">3</span>].<span class="bu">sum</span>(dim<span class="op">=</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>) <span class="op">/</span> num_voxels.type_as(features).view(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        features_ls.append(features[:, :, :<span class="dv">3</span>] <span class="op">-</span> voxel_mean)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 添加柱子几何中心偏移</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        f_cluster <span class="op">=</span> features[:, :, :<span class="dv">3</span>] <span class="op">-</span> coords[:, :<span class="dv">3</span>].unsqueeze(<span class="dv">1</span>).type_as(features)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>        features_ls.append(f_cluster)</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 拼接所有特征</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        features <span class="op">=</span> torch.cat(features_ls, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 逐层特征提取</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> pfn <span class="kw">in</span> <span class="va">self</span>.pfn_layers:</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>            features <span class="op">=</span> pfn(features, num_voxels)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> features</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PFNLayer(nn.Module):</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""柱状特征网络层"""</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, in_channels, out_channels, use_norm<span class="op">=</span><span class="va">True</span>, last_layer<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(PFNLayer, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.last_vfe <span class="op">=</span> last_layer</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.use_norm <span class="op">=</span> use_norm</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.linear <span class="op">=</span> nn.Linear(in_channels, out_channels, bias<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.use_norm:</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.norm <span class="op">=</span> nn.BatchNorm1d(out_channels, eps<span class="op">=</span><span class="fl">1e-3</span>, momentum<span class="op">=</span><span class="fl">0.01</span>)</span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, inputs, num_voxels):</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.linear(inputs)</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>).contiguous()  <span class="co"># (N, C, max_points)</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.use_norm:</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>            x <span class="op">=</span> <span class="va">self</span>.norm(x)</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> F.relu(x)</span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 最大池化聚合</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>        x_max <span class="op">=</span> torch.<span class="bu">max</span>(x, dim<span class="op">=</span><span class="dv">2</span>, keepdim<span class="op">=</span><span class="va">True</span>)[<span class="dv">0</span>]  <span class="co"># (N, C, 1)</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.last_vfe:</span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> x_max.squeeze(<span class="op">-</span><span class="dv">1</span>)  <span class="co"># (N, C)</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>            x_repeat <span class="op">=</span> x_max.repeat(<span class="dv">1</span>, <span class="dv">1</span>, inputs.shape[<span class="dv">1</span>])  <span class="co"># (N, C, max_points)</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a>            x_concatenated <span class="op">=</span> torch.cat([x, x_repeat], dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> x_concatenated.permute(<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">1</span>).contiguous()</span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PointPillars(nn.Module):</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""PointPillars完整网络架构"""</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_classes<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(PointPillars, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 柱状特征编码</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.pillar_feature_net <span class="op">=</span> PillarFeatureNet()</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 伪图像生成和2D骨干网络</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.backbone_2d <span class="op">=</span> Backbone2D()</span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 检测头</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.dense_head <span class="op">=</span> DenseHead(num_classes)</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, pillars, num_points, coords):</span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 柱状特征编码</span></span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>        pillar_features <span class="op">=</span> <span class="va">self</span>.pillar_feature_net(pillars, num_points, coords)</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 生成伪图像</span></span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a>        spatial_features <span class="op">=</span> <span class="va">self</span>.scatter_features(pillar_features, coords)</span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 2D骨干网络</span></span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a>        spatial_features <span class="op">=</span> <span class="va">self</span>.backbone_2d(spatial_features)</span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 检测预测</span></span>
+<span id="cb2-99"><a href="#cb2-99" aria-hidden="true" tabindex="-1"></a>        cls_preds, box_preds, dir_preds <span class="op">=</span> <span class="va">self</span>.dense_head(spatial_features)</span>
+<span id="cb2-100"><a href="#cb2-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-101"><a href="#cb2-101" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> cls_preds, box_preds, dir_preds</span>
+<span id="cb2-102"><a href="#cb2-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> scatter_features(<span class="va">self</span>, pillar_features, coords):</span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""将柱状特征散布到伪图像中"""</span></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a>        batch_size <span class="op">=</span> coords[:, <span class="dv">0</span>].<span class="bu">max</span>().<span class="bu">int</span>().item() <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>        ny, nx <span class="op">=</span> <span class="va">self</span>.grid_size[:<span class="dv">2</span>]</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>        batch_canvas <span class="op">=</span> []</span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> batch_idx <span class="kw">in</span> <span class="bu">range</span>(batch_size):</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>            canvas <span class="op">=</span> torch.zeros(</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>                pillar_features.shape[<span class="op">-</span><span class="dv">1</span>], ny, nx,</span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>                dtype<span class="op">=</span>pillar_features.dtype, device<span class="op">=</span>pillar_features.device)</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>            batch_mask <span class="op">=</span> coords[:, <span class="dv">0</span>] <span class="op">==</span> batch_idx</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>            this_coords <span class="op">=</span> coords[batch_mask, :]</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>            indices <span class="op">=</span> this_coords[:, <span class="dv">2</span>] <span class="op">*</span> nx <span class="op">+</span> this_coords[:, <span class="dv">3</span>]</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>            indices <span class="op">=</span> indices.<span class="bu">long</span>()</span>
+<span id="cb2-118"><a href="#cb2-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-119"><a href="#cb2-119" aria-hidden="true" tabindex="-1"></a>            canvas[:, this_coords[:, <span class="dv">1</span>], this_coords[:, <span class="dv">2</span>]] <span class="op">=</span> pillar_features[batch_mask].t()</span>
+<span id="cb2-120"><a href="#cb2-120" aria-hidden="true" tabindex="-1"></a>            batch_canvas.append(canvas)</span>
+<span id="cb2-121"><a href="#cb2-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-122"><a href="#cb2-122" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> torch.stack(batch_canvas, <span class="dv">0</span>)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="pv-rcnn的核心实现" class="level3" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="pv-rcnn的核心实现"><span class="header-section-number">7.4.3</span> PV-RCNN的核心实现</h3>
+<p>PV-RCNN结合点表示和体素表示的优势：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PVRCNN(nn.Module):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""PV-RCNN点-体素融合网络"""</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, num_classes<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(PVRCNN, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 体素分支</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.voxel_encoder <span class="op">=</span> VoxelEncoder()</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.backbone_3d <span class="op">=</span> Backbone3D()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 点分支</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.point_encoder <span class="op">=</span> PointEncoder()</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 体素到点特征传播</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.voxel_to_point <span class="op">=</span> VoxelToPointModule()</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 关键点采样</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.keypoint_detector <span class="op">=</span> KeypointDetector()</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># RoI头</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.roi_head <span class="op">=</span> RoIHead(num_classes)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, batch_dict):</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 体素分支处理</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>        voxel_features <span class="op">=</span> <span class="va">self</span>.voxel_encoder(batch_dict[<span class="st">'voxels'</span>],</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                                          batch_dict[<span class="st">'num_points'</span>],</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                                          batch_dict[<span class="st">'coordinates'</span>])</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>        spatial_features <span class="op">=</span> <span class="va">self</span>.backbone_3d(voxel_features)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 点分支处理</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>        point_features <span class="op">=</span> <span class="va">self</span>.point_encoder(batch_dict[<span class="st">'points'</span>])</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 体素特征传播到点</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>        point_features <span class="op">=</span> <span class="va">self</span>.voxel_to_point(spatial_features, point_features)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 关键点检测</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        keypoints, keypoint_features <span class="op">=</span> <span class="va">self</span>.keypoint_detector(point_features)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>        <span class="co"># RoI处理</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>        rois, roi_scores <span class="op">=</span> <span class="va">self</span>.generate_proposals(spatial_features)</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>        rcnn_cls, rcnn_reg <span class="op">=</span> <span class="va">self</span>.roi_head(rois, keypoint_features)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> {</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>            <span class="st">'cls_preds'</span>: rcnn_cls,</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>            <span class="st">'box_preds'</span>: rcnn_reg,</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>            <span class="st">'rois'</span>: rois,</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>            <span class="st">'roi_scores'</span>: roi_scores</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> VoxelToPointModule(nn.Module):</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""体素到点的特征传播"""</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>(VoxelToPointModule, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, voxel_features, point_coords):</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="co">        使用三线性插值将体素特征传播到点</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="co">        """</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 计算点在体素网格中的位置</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>        voxel_coords <span class="op">=</span> <span class="va">self</span>.get_voxel_coords(point_coords)</span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 三线性插值</span></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>        interpolated_features <span class="op">=</span> <span class="va">self</span>.trilinear_interpolation(</span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>            voxel_features, voxel_coords)</span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> interpolated_features</span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> trilinear_interpolation(<span class="va">self</span>, voxel_features, coords):</span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""三线性插值实现"""</span></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 获取8个邻近体素的坐标和权重</span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>        x, y, z <span class="op">=</span> coords[..., <span class="dv">0</span>], coords[..., <span class="dv">1</span>], coords[..., <span class="dv">2</span>]</span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>        x0, y0, z0 <span class="op">=</span> torch.floor(x).<span class="bu">long</span>(), torch.floor(y).<span class="bu">long</span>(), torch.floor(z).<span class="bu">long</span>()</span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>        x1, y1, z1 <span class="op">=</span> x0 <span class="op">+</span> <span class="dv">1</span>, y0 <span class="op">+</span> <span class="dv">1</span>, z0 <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 计算插值权重</span></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>        xd, yd, zd <span class="op">=</span> x <span class="op">-</span> x0.<span class="bu">float</span>(), y <span class="op">-</span> y0.<span class="bu">float</span>(), z <span class="op">-</span> z0.<span class="bu">float</span>()</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 获取8个角点的特征并进行插值</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a>        c000 <span class="op">=</span> voxel_features[x0, y0, z0] <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>xd) <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>yd) <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>zd)</span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>        c001 <span class="op">=</span> voxel_features[x0, y0, z1] <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>xd) <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>yd) <span class="op">*</span> zd</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>        c010 <span class="op">=</span> voxel_features[x0, y1, z0] <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>xd) <span class="op">*</span> yd <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>zd)</span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>        c011 <span class="op">=</span> voxel_features[x0, y1, z1] <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>xd) <span class="op">*</span> yd <span class="op">*</span> zd</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a>        c100 <span class="op">=</span> voxel_features[x1, y0, z0] <span class="op">*</span> xd <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>yd) <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>zd)</span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>        c101 <span class="op">=</span> voxel_features[x1, y0, z1] <span class="op">*</span> xd <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>yd) <span class="op">*</span> zd</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>        c110 <span class="op">=</span> voxel_features[x1, y1, z0] <span class="op">*</span> xd <span class="op">*</span> yd <span class="op">*</span> (<span class="dv">1</span><span class="op">-</span>zd)</span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a>        c111 <span class="op">=</span> voxel_features[x1, y1, z1] <span class="op">*</span> xd <span class="op">*</span> yd <span class="op">*</span> zd</span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>        interpolated <span class="op">=</span> c000 <span class="op">+</span> c001 <span class="op">+</span> c010 <span class="op">+</span> c011 <span class="op">+</span> c100 <span class="op">+</span> c101 <span class="op">+</span> c110 <span class="op">+</span> c111</span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> interpolated</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>这些核心实现展示了3D目标检测的关键技术：VoxelNet通过体素化和3D卷积处理点云，PointPillars通过柱状投影结合2D卷积的效率，PV-RCNN则融合了点表示和体素表示的优势，实现更精确的检测。</p>
+</section>
+</section>
+<section id="检测效果分析" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="检测效果分析"><span class="header-section-number">7.5</span> 检测效果分析</h2>
+<p>3D目标检测算法在多个基准数据集上取得了显著的性能提升，推动了自动驾驶等应用的发展。</p>
+<section id="算法性能对比分析" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="算法性能对比分析"><span class="header-section-number">7.5.1</span> 算法性能对比分析</h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph KITTI数据集性能
+        A["传统方法&lt;br/&gt;mAP: 60-70%&lt;br/&gt;特点: 手工特征"]
+        B["VoxelNet&lt;br/&gt;mAP: 77.5%&lt;br/&gt;特点: 端到端学习"]
+        C["PointPillars&lt;br/&gt;mAP: 82.6%&lt;br/&gt;特点: 高效推理"]
+        D["PV-RCNN&lt;br/&gt;mAP: 85.3%&lt;br/&gt;特点: 点体素融合"]
+    end
+
+    subgraph nuScenes数据集性能
+        E["传统方法&lt;br/&gt;NDS: 0.45&lt;br/&gt;局限: 复杂场景"]
+        F["VoxelNet&lt;br/&gt;NDS: 0.52&lt;br/&gt;改进: 3D表示"]
+        G["PointPillars&lt;br/&gt;NDS: 0.58&lt;br/&gt;改进: 实时性"]
+        H["PV-RCNN&lt;br/&gt;NDS: 0.64&lt;br/&gt;改进: 精度提升"]
+    end
+
+    subgraph 计算效率对比
+        I["推理速度&lt;br/&gt;FPS"]
+        J["内存占用&lt;br/&gt;GPU Memory"]
+        K["训练时间&lt;br/&gt;Convergence"]
+    end
+
+    A --&gt; E
+    B --&gt; F
+    C --&gt; G
+    D --&gt; H
+
+    B --&gt; I
+    C --&gt; J
+    D --&gt; K
+
+    classDef tradNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef voxelNode fill:#64b5f6,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef pillarNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef pvNode fill:#4caf50,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef metricNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+
+    classDef kittiSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold
+    classDef nuscenesSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+    classDef efficiencySubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold
+
+    class A,E tradNode
+    class B,F,I voxelNode
+    class C,G,J pillarNode
+    class D,H,K pvNode
+    class I,J,K metricNode
+
+    class KITTI数据集性能 kittiSubgraph
+    class nuScenes数据集性能 nuscenesSubgraph
+    class 计算效率对比 efficiencySubgraph
+
+    linkStyle 0,1,2,3,4,5,6 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.31：3D目标检测算法在主要数据集上的性能对比</em></p>
+</section>
+<section id="技术演进与创新点分析" class="level3" data-number="7.5.2">
+<h3 data-number="7.5.2" class="anchored" data-anchor-id="技术演进与创新点分析"><span class="header-section-number">7.5.2</span> 技术演进与创新点分析</h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    subgraph 技术演进路径
+        A["VoxelNet&lt;br/&gt;(2018)"]
+        B["PointPillars&lt;br/&gt;(2019)"]
+        C["PV-RCNN&lt;br/&gt;(2020)"]
+    end
+
+    subgraph 关键创新
+        D["体素化表示&lt;br/&gt;规则化点云"]
+        E["柱状投影&lt;br/&gt;降维处理"]
+        F["点体素融合&lt;br/&gt;优势互补"]
+    end
+
+    subgraph 性能提升
+        G["精度改善&lt;br/&gt;mAP +15%"]
+        H["速度优化&lt;br/&gt;FPS +3x"]
+        I["鲁棒性增强&lt;br/&gt;复杂场景"]
+    end
+
+    A --&gt; B --&gt; C
+    A --&gt; D
+    B --&gt; E
+    C --&gt; F
+
+    D --&gt; G
+    E --&gt; H
+    F --&gt; I
+
+    classDef evolutionNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef innovationNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef improvementNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+
+    classDef evolutionSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold
+    classDef innovationSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+    classDef improvementSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold
+
+    class A,B,C evolutionNode
+    class D,E,F innovationNode
+    class G,H,I improvementNode
+
+    class 技术演进路径 evolutionSubgraph
+    class 关键创新 innovationSubgraph
+    class 性能提升 improvementSubgraph
+
+    linkStyle 0,1,2,3,4,5,6,7 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.32：3D目标检测技术的演进路径与性能提升</em></p>
+</section>
+<section id="应用场景与挑战分析" class="level3" data-number="7.5.3">
+<h3 data-number="7.5.3" class="anchored" data-anchor-id="应用场景与挑战分析"><span class="header-section-number">7.5.3</span> 应用场景与挑战分析</h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph 自动驾驶应用
+        A["车辆检测&lt;br/&gt;高精度要求"]
+        B["行人检测&lt;br/&gt;安全关键"]
+        C["骑行者检测&lt;br/&gt;复杂运动"]
+    end
+
+    subgraph 机器人应用
+        D["室内导航&lt;br/&gt;实时性要求"]
+        E["物体抓取&lt;br/&gt;精确定位"]
+        F["场景理解&lt;br/&gt;语义分析"]
+    end
+
+    subgraph 技术挑战
+        G["远距离检测&lt;br/&gt;点云稀疏"]
+        H["小目标检测&lt;br/&gt;特征不足"]
+        I["遮挡处理&lt;br/&gt;部分可见"]
+        J["实时性要求&lt;br/&gt;计算约束"]
+    end
+
+    subgraph 解决方案
+        K["多尺度特征&lt;br/&gt;FPN架构"]
+        L["数据增强&lt;br/&gt;样本扩充"]
+        M["注意力机制&lt;br/&gt;特征增强"]
+        N["模型压缩&lt;br/&gt;效率优化"]
+    end
+
+    A --&gt; G
+    B --&gt; H
+    C --&gt; I
+    D --&gt; J
+    E --&gt; G
+    F --&gt; H
+
+    G --&gt; K
+    H --&gt; L
+    I --&gt; M
+    J --&gt; N
+
+    classDef autoNode fill:#4db6ac,stroke:#00796b,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef robotNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef challengeNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef solutionNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+
+    classDef autoSubgraph fill:#e0f2f1,stroke:#00796b,stroke-width:2px,color:#004d40,font-weight:bold
+    classDef robotSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+    classDef challengeSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold
+    classDef solutionSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold
+
+    class A,B,C autoNode
+    class D,E,F robotNode
+    class G,H,I,J challengeNode
+    class K,L,M,N solutionNode
+
+    class 自动驾驶应用 autoSubgraph
+    class 机器人应用 robotSubgraph
+    class 技术挑战 challengeSubgraph
+    class 解决方案 solutionSubgraph
+
+    linkStyle 0,1,2,3,4,5,6,7,8,9 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.33：3D目标检测在不同应用场景中的挑战与解决方案</em></p>
+</section>
+<section id="未来发展趋势" class="level3" data-number="7.5.4">
+<h3 data-number="7.5.4" class="anchored" data-anchor-id="未来发展趋势"><span class="header-section-number">7.5.4</span> 未来发展趋势</h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph 当前技术水平
+        A["单模态检测&lt;br/&gt;LiDAR为主"]
+        B["离线处理&lt;br/&gt;批量推理"]
+        C["固定架构&lt;br/&gt;人工设计"]
+    end
+
+    subgraph 发展趋势
+        D["多模态融合&lt;br/&gt;LiDAR+Camera+Radar"]
+        E["实时检测&lt;br/&gt;边缘计算"]
+        F["自适应架构&lt;br/&gt;神经架构搜索"]
+        G["端到端学习&lt;br/&gt;感知-规划一体化"]
+    end
+
+    subgraph 技术突破点
+        H["Transformer架构&lt;br/&gt;长距离建模"]
+        I["自监督学习&lt;br/&gt;减少标注依赖"]
+        J["联邦学习&lt;br/&gt;数据隐私保护"]
+        K["量化压缩&lt;br/&gt;移动端部署"]
+    end
+
+    A --&gt; D
+    B --&gt; E
+    C --&gt; F
+    A --&gt; G
+
+    D --&gt; H
+    E --&gt; I
+    F --&gt; J
+    G --&gt; K
+
+    classDef currentNode fill:#64b5f6,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef trendNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef breakthroughNode fill:#4caf50,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+
+    classDef currentSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold
+    classDef trendSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+    classDef breakthroughSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold
+
+    class A,B,C currentNode
+    class D,E,F,G trendNode
+    class H,I,J,K breakthroughNode
+
+    class 当前技术水平 currentSubgraph
+    class 发展趋势 trendSubgraph
+    class 技术突破点 breakthroughSubgraph
+
+    linkStyle 0,1,2,3,4,5,6,7 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.34：3D目标检测技术的未来发展趋势</em></p>
+</section>
+</section>
+<section id="小结" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="小结"><span class="header-section-number">7.6</span> 小结</h2>
+<p>3D目标检测是三维视觉技术栈的重要应用，代表了从基础点云处理到高级场景理解的技术集成。本节系统介绍了从VoxelNet到PV-RCNN的技术演进，展示了深度学习在3D检测中的重要突破。</p>
+<p>本节的核心贡献在于：<strong>理论层面</strong>，阐述了体素化、柱状投影和点-体素融合的数学原理；<strong>技术层面</strong>，详细分析了不同网络架构的设计思想和关键组件；<strong>应用层面</strong>，展示了3D检测在自动驾驶等领域的重要价值和发展前景。</p>
+<p>3D目标检测技术与前面章节形成了完整的技术链条：相机标定提供了几何基础，立体匹配和三维重建生成了点云数据，点云处理提供了数据预处理，PointNet系列网络提供了特征学习基础，而3D目标检测则将这些技术整合为实用的检测系统。</p>
+<p>随着自动驾驶、机器人等应用的快速发展，3D目标检测正朝着更高精度、更强实时性、更好泛化能力的方向发展。未来的研究将继续探索多模态融合、端到端学习、自适应架构等前沿技术，推动三维视觉在更广泛领域的应用。这些技术的发展不仅提升了检测性能，也为构建更智能、更安全的自主系统奠定了基础。</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapter11/11.5_PointNet系列网络.html" class="pagination-link" aria-label="PointNet系列网络">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PointNet系列网络</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapter11/11.7_应用案例分析.html" class="pagination-link" aria-label="应用案例分析">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">应用案例分析</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

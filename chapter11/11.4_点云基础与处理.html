@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="AI Assistant &amp; You">
+
+<title>5&nbsp; 点云基础与处理 – 现代计算机视觉</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapter11/11.5_PointNet系列网络.html" rel="next">
+<link href="../chapter11/11.3_三维重建.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c1f63da3e08f13bc72dc17e92cfd001d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-e25bb2ec88b96ab004d13ad1d1924df4.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-c1f63da3e08f13bc72dc17e92cfd001d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-44846edcafbe86808dcaec689102c8b3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-603b5228b8d253aece00f2e62deeb1ae.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-44846edcafbe86808dcaec689102c8b3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "没有结果",
+    "search-matching-documents-text": "匹配的文档",
+    "search-copy-link-title": "复制搜索链接",
+    "search-hide-matches-text": "隐藏其它匹配结果",
+    "search-more-match-text": "更多匹配结果",
+    "search-more-matches-text": "更多匹配结果",
+    "search-clear-button-title": "清除",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "取消",
+    "search-submit-button-title": "提交",
+    "search-label": "搜索"
+  }
+}</script>
+<meta name="mermaid-theme" content="default">
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.4_点云基础与处理.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">点云基础与处理</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">现代计算机视觉</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="切换深色模式"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="搜索"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">第十一章：三维视觉与点云处理</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">概述</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.1_相机标定与几何.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.2_立体匹配与深度估计.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.3_三维重建.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">三维重建</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.4_点云基础与处理.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">点云基础与处理</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.5_PointNet系列网络.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PointNet系列网络</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.6_3D目标检测.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">3D目标检测</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.7_应用案例分析.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">应用案例分析</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">目录</h2>
+   
+  <ul>
+  <li><a href="#引言点云数据的重要性与挑战" id="toc-引言点云数据的重要性与挑战" class="nav-link active" data-scroll-target="#引言点云数据的重要性与挑战"><span class="header-section-number">5.1</span> 引言：点云数据的重要性与挑战</a></li>
+  <li><a href="#核心概念" id="toc-核心概念" class="nav-link" data-scroll-target="#核心概念"><span class="header-section-number">5.2</span> 核心概念</a></li>
+  <li><a href="#理论基础空间数据结构与算法" id="toc-理论基础空间数据结构与算法" class="nav-link" data-scroll-target="#理论基础空间数据结构与算法"><span class="header-section-number">5.3</span> 理论基础：空间数据结构与算法</a>
+  <ul class="collapse">
+  <li><a href="#kd-tree的理论基础" id="toc-kd-tree的理论基础" class="nav-link" data-scroll-target="#kd-tree的理论基础"><span class="header-section-number">5.3.1</span> KD-Tree的理论基础</a></li>
+  <li><a href="#体素化的理论基础" id="toc-体素化的理论基础" class="nav-link" data-scroll-target="#体素化的理论基础"><span class="header-section-number">5.3.2</span> 体素化的理论基础</a></li>
+  <li><a href="#聚类算法的理论基础" id="toc-聚类算法的理论基础" class="nav-link" data-scroll-target="#聚类算法的理论基础"><span class="header-section-number">5.3.3</span> 聚类算法的理论基础</a></li>
+  <li><a href="#统计滤波的理论基础" id="toc-统计滤波的理论基础" class="nav-link" data-scroll-target="#统计滤波的理论基础"><span class="header-section-number">5.3.4</span> 统计滤波的理论基础</a></li>
+  </ul></li>
+  <li><a href="#算法实现" id="toc-算法实现" class="nav-link" data-scroll-target="#算法实现"><span class="header-section-number">5.4</span> 算法实现</a>
+  <ul class="collapse">
+  <li><a href="#kd-tree的核心实现" id="toc-kd-tree的核心实现" class="nav-link" data-scroll-target="#kd-tree的核心实现"><span class="header-section-number">5.4.1</span> KD-Tree的核心实现</a></li>
+  <li><a href="#体素化处理的核心实现" id="toc-体素化处理的核心实现" class="nav-link" data-scroll-target="#体素化处理的核心实现"><span class="header-section-number">5.4.2</span> 体素化处理的核心实现</a></li>
+  <li><a href="#点云滤波的核心实现" id="toc-点云滤波的核心实现" class="nav-link" data-scroll-target="#点云滤波的核心实现"><span class="header-section-number">5.4.3</span> 点云滤波的核心实现</a></li>
+  <li><a href="#点云聚类的核心实现" id="toc-点云聚类的核心实现" class="nav-link" data-scroll-target="#点云聚类的核心实现"><span class="header-section-number">5.4.4</span> 点云聚类的核心实现</a></li>
+  </ul></li>
+  <li><a href="#处理效率分析" id="toc-处理效率分析" class="nav-link" data-scroll-target="#处理效率分析"><span class="header-section-number">5.5</span> 处理效率分析</a>
+  <ul class="collapse">
+  <li><a href="#空间索引结构性能对比" id="toc-空间索引结构性能对比" class="nav-link" data-scroll-target="#空间索引结构性能对比"><span class="header-section-number">5.5.1</span> 空间索引结构性能对比</a></li>
+  <li><a href="#滤波算法效果分析" id="toc-滤波算法效果分析" class="nav-link" data-scroll-target="#滤波算法效果分析"><span class="header-section-number">5.5.2</span> 滤波算法效果分析</a></li>
+  <li><a href="#聚类算法适应性分析" id="toc-聚类算法适应性分析" class="nav-link" data-scroll-target="#聚类算法适应性分析"><span class="header-section-number">5.5.3</span> 聚类算法适应性分析</a></li>
+  <li><a href="#处理流程优化策略" id="toc-处理流程优化策略" class="nav-link" data-scroll-target="#处理流程优化策略"><span class="header-section-number">5.5.4</span> 处理流程优化策略</a></li>
+  </ul></li>
+  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">5.6</span> 小结</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.4_点云基础与处理.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">点云基础与处理</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">点云基础与处理</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">作者</div>
+    <div class="quarto-title-meta-contents">
+             <p>AI Assistant &amp; You </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="引言点云数据的重要性与挑战" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="引言点云数据的重要性与挑战"><span class="header-section-number">5.1</span> 引言：点云数据的重要性与挑战</h2>
+<p>点云是三维空间中点的集合，每个点通常包含三维坐标(x, y, z)以及可能的附加属性（如颜色、强度、法向量等）。作为三维数据的重要表示形式，点云在激光雷达扫描、深度相机采集、三维重建等应用中发挥着核心作用。与传统的二维图像相比，点云直接表示了物体的三维几何结构，为机器人导航、自动驾驶、工业检测等应用提供了丰富的空间信息。</p>
+<p>然而，点云数据也带来了独特的挑战。首先是<strong>数据的无序性</strong>：点云中的点没有固定的排列顺序，这与图像的规则网格结构形成鲜明对比。其次是<strong>数据的稀疏性和不均匀性</strong>：点云密度在不同区域可能差异很大，远处物体的点密度通常较低。此外，点云数据还面临<strong>噪声和异常值</strong>的问题，传感器误差和环境干扰会产生不准确的测量点。</p>
+<p>现代点云处理技术需要解决这些挑战，从基础的数据结构设计到高级的语义理解，形成了完整的技术体系。传统方法主要基于几何特征和统计分析，如KD-Tree空间索引、体素化表示、聚类分析等；现代深度学习方法则直接学习点云的特征表示，如PointNet系列网络。本节将重点介绍点云处理的基础理论和核心算法，为后续的深度学习方法奠定基础。</p>
+</section>
+<section id="核心概念" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="核心概念"><span class="header-section-number">5.2</span> 核心概念</h2>
+<p><strong>点云数据结构</strong>是点云处理的基础。最简单的点云表示是一个N×3的矩阵，其中N是点的数量，每行表示一个点的三维坐标。在实际应用中，点云通常还包含额外的属性信息：</p>
+<ul>
+<li><strong>几何属性</strong>：坐标(x,y,z)、法向量(nx,ny,nz)、曲率等</li>
+<li><strong>外观属性</strong>：颜色(R,G,B)、反射强度、材质信息等<br>
+</li>
+<li><strong>语义属性</strong>：类别标签、实例ID、置信度等</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph 点云数据表示
+        A["原始点云&lt;br/&gt;N × 3坐标矩阵"]
+        B["带属性点云&lt;br/&gt;N × (3+K)扩展矩阵"]
+        C["结构化点云&lt;br/&gt;有序点集合"]
+    end
+    
+    subgraph 空间数据结构
+        D["KD-Tree&lt;br/&gt;二分空间划分"]
+        E["Octree&lt;br/&gt;八叉树分割"]
+        F["Voxel Grid&lt;br/&gt;体素网格"]
+        G["Hash Table&lt;br/&gt;空间哈希"]
+    end
+    
+    subgraph 处理算法
+        H["邻域搜索&lt;br/&gt;最近邻查询"]
+        I["滤波降噪&lt;br/&gt;统计滤波"]
+        J["特征提取&lt;br/&gt;几何描述子"]
+        K["分割聚类&lt;br/&gt;区域生长"]
+    end
+    
+    A --&gt; D
+    B --&gt; E
+    C --&gt; F
+    A --&gt; G
+    
+    D --&gt; H
+    E --&gt; I
+    F --&gt; J
+    G --&gt; K
+    
+    classDef dataNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef structNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef algoNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    
+    classDef dataSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold
+    classDef structSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold
+    classDef algoSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+    
+    class A,B,C dataNode
+    class D,E,F,G structNode
+    class H,I,J,K algoNode
+    
+    class 点云数据表示 dataSubgraph
+    class 空间数据结构 structSubgraph
+    class 处理算法 algoSubgraph
+    
+    linkStyle 0,1,2,3,4,5,6,7 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.17：点云数据结构与处理算法的层次关系</em></p>
+<p><strong>空间索引结构</strong>是高效点云处理的关键。由于点云数据量通常很大（数万到数百万个点），直接的线性搜索效率极低。常用的空间索引结构包括：</p>
+<ul>
+<li><strong>KD-Tree（K维树）</strong>：通过递归地沿不同维度分割空间来组织点云数据，支持高效的最近邻搜索和范围查询</li>
+<li><strong>Octree（八叉树）</strong>：将三维空间递归分割为8个子立方体，适合处理稀疏和不均匀分布的点云</li>
+<li><strong>Voxel Grid（体素网格）</strong>：将空间划分为规则的立方体网格，每个体素包含落入其中的所有点</li>
+<li><strong>空间哈希</strong>：使用哈希函数将空间坐标映射到哈希表，实现常数时间的空间查询</li>
+</ul>
+<p><strong>点云滤波与预处理</strong>是点云分析的重要步骤。原始点云数据通常包含噪声、异常值和冗余信息，需要通过滤波算法进行清理：</p>
+<ul>
+<li><strong>统计滤波</strong>：基于邻域点的统计特性识别和移除异常值</li>
+<li><strong>半径滤波</strong>：移除指定半径内邻居数量过少的孤立点</li>
+<li><strong>直通滤波</strong>：根据坐标范围过滤点云，移除感兴趣区域外的点</li>
+<li><strong>下采样</strong>：减少点云密度以降低计算复杂度，常用体素网格下采样</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    subgraph 滤波前处理
+        A["原始点云&lt;br/&gt;含噪声异常值"]
+        B["密度不均匀&lt;br/&gt;冗余信息多"]
+    end
+    
+    subgraph 滤波算法
+        C["统计滤波&lt;br/&gt;SOR Filter"]
+        D["半径滤波&lt;br/&gt;Radius Filter"]
+        E["直通滤波&lt;br/&gt;PassThrough"]
+        F["体素下采样&lt;br/&gt;VoxelGrid"]
+    end
+    
+    subgraph 滤波后结果
+        G["去噪点云&lt;br/&gt;质量提升"]
+        H["均匀采样&lt;br/&gt;计算高效"]
+    end
+    
+    A --&gt; C
+    A --&gt; D
+    B --&gt; E
+    B --&gt; F
+    
+    C --&gt; G
+    D --&gt; G
+    E --&gt; H
+    F --&gt; H
+    
+    classDef rawNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef filterNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef cleanNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    
+    classDef rawSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold
+    classDef filterSubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold
+    classDef cleanSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold
+    
+    class A,B rawNode
+    class C,D,E,F filterNode
+    class G,H cleanNode
+    
+    class 滤波前处理 rawSubgraph
+    class 滤波算法 filterSubgraph
+    class 滤波后结果 cleanSubgraph
+    
+    linkStyle 0,1,2,3,4,5,6,7 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.18：点云滤波处理的完整流程</em></p>
+</section>
+<section id="理论基础空间数据结构与算法" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="理论基础空间数据结构与算法"><span class="header-section-number">5.3</span> 理论基础：空间数据结构与算法</h2>
+<p>点云处理的理论基础主要涉及空间数据结构、几何算法和统计分析方法。下面我们详细介绍这些核心理论。</p>
+<section id="kd-tree的理论基础" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="kd-tree的理论基础"><span class="header-section-number">5.3.1</span> KD-Tree的理论基础</h3>
+<p>KD-Tree（K-Dimensional Tree）是一种用于组织k维空间中点的二叉搜索树。对于三维点云，k=3。KD-Tree的构建过程是递归的：</p>
+<p><strong>1. 构建算法</strong></p>
+<p>给定点集<span class="math inline">\(P = \{p_1, p_2, ..., p_n\}\)</span>，其中<span class="math inline">\(p_i = (x_i, y_i, z_i)\)</span>，KD-Tree的构建过程如下：</p>
+<ul>
+<li>选择分割维度：通常选择方差最大的维度，或者循环选择x、y、z维度</li>
+<li>选择分割点：通常选择该维度上的中位数点</li>
+<li>递归构建：将点集分为两部分，分别构建左右子树</li>
+</ul>
+<p><strong>2. 搜索算法</strong></p>
+<p>KD-Tree支持多种查询操作，最重要的是最近邻搜索（Nearest Neighbor Search）：</p>
+<p>对于查询点<span class="math inline">\(q\)</span>，最近邻搜索的时间复杂度为<span class="math inline">\(O(\log n)\)</span>（平均情况）。搜索过程包括：</p>
+<ul>
+<li><strong>向下搜索</strong>：从根节点开始，根据分割维度选择子树</li>
+<li><strong>回溯搜索</strong>：检查是否需要搜索另一个子树</li>
+<li><strong>剪枝优化</strong>：利用当前最佳距离进行剪枝</li>
+</ul>
+<p>最近邻距离的计算公式为： <span class="math display">\[d(p, q) = \sqrt{(p_x - q_x)^2 + (p_y - q_y)^2 + (p_z - q_z)^2}\]</span></p>
+<p><strong>3. 范围搜索</strong></p>
+<p>KD-Tree还支持范围搜索，即查找指定区域内的所有点。对于球形范围搜索，给定中心点<span class="math inline">\(c\)</span>和半径<span class="math inline">\(r\)</span>，需要找到所有满足<span class="math inline">\(d(p, c) \leq r\)</span>的点<span class="math inline">\(p\)</span>。</p>
+</section>
+<section id="体素化的理论基础" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="体素化的理论基础"><span class="header-section-number">5.3.2</span> 体素化的理论基础</h3>
+<p>体素化（Voxelization）是将连续的三维空间离散化为规则网格的过程。每个体素（Voxel）是一个立方体单元，类似于二维图像中的像素。</p>
+<p><strong>1. 体素网格定义</strong></p>
+<p>给定点云的边界框<span class="math inline">\([x_{min}, x_{max}] \times [y_{min}, y_{max}] \times [z_{min}, z_{max}]\)</span>和体素大小<span class="math inline">\(v\)</span>，体素网格的尺寸为：</p>
+<p><span class="math display">\[N_x = \lceil \frac{x_{max} - x_{min}}{v} \rceil\]</span> <span class="math display">\[N_y = \lceil \frac{y_{max} - y_{min}}{v} \rceil\]</span> <span class="math display">\[N_z = \lceil \frac{z_{max} - z_{min}}{v} \rceil\]</span></p>
+<p><strong>2. 点到体素的映射</strong></p>
+<p>对于点<span class="math inline">\(p = (x, y, z)\)</span>，其对应的体素索引为：</p>
+<p><span class="math display">\[i = \lfloor \frac{x - x_{min}}{v} \rfloor\]</span> <span class="math display">\[j = \lfloor \frac{y - y_{min}}{v} \rfloor\]</span> <span class="math display">\[k = \lfloor \frac{z - z_{min}}{v} \rfloor\]</span></p>
+<p><strong>3. 体素特征计算</strong></p>
+<p>每个体素可以计算多种特征： - <strong>点数量</strong>：<span class="math inline">\(N_{ijk} = |\{p \in P : p \text{ 属于体素 } (i,j,k)\}|\)</span> - <strong>质心坐标</strong>：<span class="math inline">\(\bar{p}_{ijk} = \frac{1}{N_{ijk}} \sum_{p \in V_{ijk}} p\)</span> - <strong>协方差矩阵</strong>：<span class="math inline">\(C_{ijk} = \frac{1}{N_{ijk}} \sum_{p \in V_{ijk}} (p - \bar{p}_{ijk})(p - \bar{p}_{ijk})^T\)</span></p>
+</section>
+<section id="聚类算法的理论基础" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="聚类算法的理论基础"><span class="header-section-number">5.3.3</span> 聚类算法的理论基础</h3>
+<p>点云聚类旨在将点云分割为若干个具有相似特性的子集。常用的聚类算法包括：</p>
+<p><strong>1. 欧几里得聚类</strong></p>
+<p>基于距离的聚类方法，将距离小于阈值<span class="math inline">\(\epsilon\)</span>的点归为同一类：</p>
+<p><span class="math display">\[C_i = \{p \in P : \exists q \in C_i, d(p, q) &lt; \epsilon\}\]</span></p>
+<p>这等价于在点云上构建邻接图，然后寻找连通分量。</p>
+<p><strong>2. 区域生长聚类</strong></p>
+<p>从种子点开始，根据几何特征（如法向量）逐步扩展区域：</p>
+<ul>
+<li>选择种子点<span class="math inline">\(p_0\)</span></li>
+<li>计算邻域点的法向量角度差：<span class="math inline">\(\theta = \arccos(n_i \cdot n_j)\)</span></li>
+<li>如果<span class="math inline">\(\theta &lt; \theta_{threshold}\)</span>，则将邻域点加入当前区域</li>
+<li>递归处理新加入的点</li>
+</ul>
+<p><strong>3. DBSCAN聚类</strong></p>
+<p>基于密度的聚类算法，能够发现任意形状的聚类并识别噪声点：</p>
+<ul>
+<li><strong>核心点</strong>：半径<span class="math inline">\(\epsilon\)</span>内至少有<span class="math inline">\(MinPts\)</span>个邻居的点</li>
+<li><strong>边界点</strong>：不是核心点但在某个核心点的邻域内的点</li>
+<li><strong>噪声点</strong>：既不是核心点也不是边界点的点</li>
+</ul>
+<p>DBSCAN的时间复杂度为<span class="math inline">\(O(n \log n)\)</span>（使用空间索引）。</p>
+</section>
+<section id="统计滤波的理论基础" class="level3" data-number="5.3.4">
+<h3 data-number="5.3.4" class="anchored" data-anchor-id="统计滤波的理论基础"><span class="header-section-number">5.3.4</span> 统计滤波的理论基础</h3>
+<p>统计滤波基于点云的统计特性识别和移除异常值。</p>
+<p><strong>1. 统计异常值移除（SOR）</strong></p>
+<p>对于每个点<span class="math inline">\(p_i\)</span>，计算其k近邻的平均距离：</p>
+<p><span class="math display">\[\bar{d}_i = \frac{1}{k} \sum_{j=1}^{k} d(p_i, p_{i,j})\]</span></p>
+<p>其中<span class="math inline">\(p_{i,j}\)</span>是<span class="math inline">\(p_i\)</span>的第<span class="math inline">\(j\)</span>个最近邻。</p>
+<p>假设距离分布为正态分布<span class="math inline">\(N(\mu, \sigma^2)\)</span>，其中： <span class="math display">\[\mu = \frac{1}{n} \sum_{i=1}^{n} \bar{d}_i\]</span> <span class="math display">\[\sigma^2 = \frac{1}{n-1} \sum_{i=1}^{n} (\bar{d}_i - \mu)^2\]</span></p>
+<p>如果<span class="math inline">\(\bar{d}_i &gt; \mu + \alpha \sigma\)</span>（其中<span class="math inline">\(\alpha\)</span>是标准差倍数），则认为<span class="math inline">\(p_i\)</span>是异常值。</p>
+<p><strong>2. 半径滤波</strong></p>
+<p>对于每个点<span class="math inline">\(p_i\)</span>，统计半径<span class="math inline">\(r\)</span>内的邻居数量：</p>
+<p><span class="math display">\[N_i = |\{p_j \in P : d(p_i, p_j) &lt; r\}|\]</span></p>
+<p>如果<span class="math inline">\(N_i &lt; N_{min}\)</span>，则认为<span class="math inline">\(p_i\)</span>是孤立点并移除。</p>
+<p>这些理论为点云处理算法提供了坚实的数学基础，确保了算法的正确性和效率。</p>
+</section>
+</section>
+<section id="算法实现" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="算法实现"><span class="header-section-number">5.4</span> 算法实现</h2>
+<p>下面我们介绍点云处理的核心算法实现，重点展示算法的核心思想和关键步骤。</p>
+<section id="kd-tree的核心实现" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1" class="anchored" data-anchor-id="kd-tree的核心实现"><span class="header-section-number">5.4.1</span> KD-Tree的核心实现</h3>
+<p>KD-Tree是点云处理中最重要的空间索引结构，以下是其核心实现：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> collections <span class="im">import</span> namedtuple</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> KDTreeNode:</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""KD-Tree节点定义"""</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, point<span class="op">=</span><span class="va">None</span>, left<span class="op">=</span><span class="va">None</span>, right<span class="op">=</span><span class="va">None</span>, axis<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.point <span class="op">=</span> point      <span class="co"># 节点存储的点</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.left <span class="op">=</span> left        <span class="co"># 左子树</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.right <span class="op">=</span> right      <span class="co"># 右子树</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.axis <span class="op">=</span> axis        <span class="co"># 分割维度</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> KDTree:</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""KD-Tree核心实现"""</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, points):</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.root <span class="op">=</span> <span class="va">self</span>._build_tree(points, depth<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _build_tree(<span class="va">self</span>, points, depth):</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""递归构建KD-Tree"""</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="kw">not</span> points:</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">None</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 选择分割维度（循环选择x,y,z）</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>        axis <span class="op">=</span> depth <span class="op">%</span> <span class="dv">3</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 按当前维度排序并选择中位数</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        points.sort(key<span class="op">=</span><span class="kw">lambda</span> p: p[axis])</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        median_idx <span class="op">=</span> <span class="bu">len</span>(points) <span class="op">//</span> <span class="dv">2</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 创建节点并递归构建子树</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        node <span class="op">=</span> KDTreeNode(</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>            point<span class="op">=</span>points[median_idx],</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>            axis<span class="op">=</span>axis,</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>            left<span class="op">=</span><span class="va">self</span>._build_tree(points[:median_idx], depth <span class="op">+</span> <span class="dv">1</span>),</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>            right<span class="op">=</span><span class="va">self</span>._build_tree(points[median_idx <span class="op">+</span> <span class="dv">1</span>:], depth <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> node</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> nearest_neighbor(<span class="va">self</span>, query_point):</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""最近邻搜索核心算法"""</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>        best <span class="op">=</span> [<span class="va">None</span>, <span class="bu">float</span>(<span class="st">'inf'</span>)]</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>        <span class="kw">def</span> search(node, depth):</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> node <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 计算当前节点距离</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>            dist <span class="op">=</span> np.linalg.norm(np.array(node.point) <span class="op">-</span> np.array(query_point))</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> dist <span class="op">&lt;</span> best[<span class="dv">1</span>]:</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>                best[<span class="dv">0</span>], best[<span class="dv">1</span>] <span class="op">=</span> node.point, dist</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 选择搜索方向</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>            axis <span class="op">=</span> node.axis</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> query_point[axis] <span class="op">&lt;</span> node.point[axis]:</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>                search(node.left, depth <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>                <span class="co"># 检查是否需要搜索另一侧</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="bu">abs</span>(query_point[axis] <span class="op">-</span> node.point[axis]) <span class="op">&lt;</span> best[<span class="dv">1</span>]:</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>                    search(node.right, depth <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>                search(node.right, depth <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="bu">abs</span>(query_point[axis] <span class="op">-</span> node.point[axis]) <span class="op">&lt;</span> best[<span class="dv">1</span>]:</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>                    search(node.left, depth <span class="op">+</span> <span class="dv">1</span>)</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>        search(<span class="va">self</span>.root, <span class="dv">0</span>)</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> best[<span class="dv">0</span>], best[<span class="dv">1</span>]</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="体素化处理的核心实现" class="level3" data-number="5.4.2">
+<h3 data-number="5.4.2" class="anchored" data-anchor-id="体素化处理的核心实现"><span class="header-section-number">5.4.2</span> 体素化处理的核心实现</h3>
+<p>体素化是点云下采样和特征提取的重要方法：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> open3d <span class="im">as</span> o3d</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> VoxelGrid:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""体素网格核心实现"""</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, voxel_size):</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.voxel_size <span class="op">=</span> voxel_size</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.voxel_dict <span class="op">=</span> {}</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> voxelize(<span class="va">self</span>, points):</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""点云体素化核心算法"""</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 计算边界框</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        min_bound <span class="op">=</span> np.<span class="bu">min</span>(points, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        max_bound <span class="op">=</span> np.<span class="bu">max</span>(points, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 点到体素索引的映射</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        voxel_indices <span class="op">=</span> np.floor((points <span class="op">-</span> min_bound) <span class="op">/</span> <span class="va">self</span>.voxel_size).astype(<span class="bu">int</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 构建体素字典</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i, point <span class="kw">in</span> <span class="bu">enumerate</span>(points):</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            voxel_key <span class="op">=</span> <span class="bu">tuple</span>(voxel_indices[i])</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> voxel_key <span class="kw">not</span> <span class="kw">in</span> <span class="va">self</span>.voxel_dict:</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.voxel_dict[voxel_key] <span class="op">=</span> []</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.voxel_dict[voxel_key].append(point)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.voxel_dict</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> downsample(<span class="va">self</span>, points):</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""体素下采样：每个体素用质心代表"""</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        voxel_dict <span class="op">=</span> <span class="va">self</span>.voxelize(points)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        downsampled_points <span class="op">=</span> []</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> voxel_points <span class="kw">in</span> voxel_dict.values():</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 计算体素内点的质心</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>            centroid <span class="op">=</span> np.mean(voxel_points, axis<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>            downsampled_points.append(centroid)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.array(downsampled_points)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用Open3D的高效实现</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> voxel_downsample_open3d(points, voxel_size):</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""使用Open3D进行体素下采样"""</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>    pcd <span class="op">=</span> o3d.geometry.PointCloud()</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    pcd.points <span class="op">=</span> o3d.utility.Vector3dVector(points)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 体素下采样</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    downsampled_pcd <span class="op">=</span> pcd.voxel_down_sample(voxel_size)</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.asarray(downsampled_pcd.points)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="点云滤波的核心实现" class="level3" data-number="5.4.3">
+<h3 data-number="5.4.3" class="anchored" data-anchor-id="点云滤波的核心实现"><span class="header-section-number">5.4.3</span> 点云滤波的核心实现</h3>
+<p>点云滤波是预处理的重要步骤，以下是核心滤波算法：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> statistical_outlier_removal(points, k<span class="op">=</span><span class="dv">20</span>, std_ratio<span class="op">=</span><span class="fl">2.0</span>):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""统计异常值移除核心算法"""</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 构建k近邻搜索</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    nbrs <span class="op">=</span> NearestNeighbors(n_neighbors<span class="op">=</span>k<span class="op">+</span><span class="dv">1</span>).fit(points)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    distances, indices <span class="op">=</span> nbrs.kneighbors(points)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 计算每个点到其k近邻的平均距离（排除自身）</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    mean_distances <span class="op">=</span> np.mean(distances[:, <span class="dv">1</span>:], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 计算全局统计量</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    global_mean <span class="op">=</span> np.mean(mean_distances)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    global_std <span class="op">=</span> np.std(mean_distances)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 识别异常值</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>    threshold <span class="op">=</span> global_mean <span class="op">+</span> std_ratio <span class="op">*</span> global_std</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    inlier_mask <span class="op">=</span> mean_distances <span class="op">&lt;</span> threshold</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points[inlier_mask], inlier_mask</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> radius_outlier_removal(points, radius<span class="op">=</span><span class="fl">0.05</span>, min_neighbors<span class="op">=</span><span class="dv">10</span>):</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""半径异常值移除核心算法"""</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 构建半径邻域搜索</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>    nbrs <span class="op">=</span> NearestNeighbors(radius<span class="op">=</span>radius).fit(points)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    distances, indices <span class="op">=</span> nbrs.radius_neighbors(points)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 统计每个点的邻居数量</span></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>    neighbor_counts <span class="op">=</span> np.array([<span class="bu">len</span>(neighbors) <span class="op">-</span> <span class="dv">1</span> <span class="cf">for</span> neighbors <span class="kw">in</span> indices])  <span class="co"># 排除自身</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 过滤邻居数量不足的点</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>    inlier_mask <span class="op">=</span> neighbor_counts <span class="op">&gt;=</span> min_neighbors</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points[inlier_mask], inlier_mask</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> passthrough_filter(points, axis<span class="op">=</span><span class="st">'z'</span>, min_val<span class="op">=-</span>np.inf, max_val<span class="op">=</span>np.inf):</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""直通滤波核心算法"""</span></span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    axis_map <span class="op">=</span> {<span class="st">'x'</span>: <span class="dv">0</span>, <span class="st">'y'</span>: <span class="dv">1</span>, <span class="st">'z'</span>: <span class="dv">2</span>}</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    axis_idx <span class="op">=</span> axis_map[axis]</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 根据坐标范围过滤点</span></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    mask <span class="op">=</span> (points[:, axis_idx] <span class="op">&gt;=</span> min_val) <span class="op">&amp;</span> (points[:, axis_idx] <span class="op">&lt;=</span> max_val)</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> points[mask], mask</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="点云聚类的核心实现" class="level3" data-number="5.4.4">
+<h3 data-number="5.4.4" class="anchored" data-anchor-id="点云聚类的核心实现"><span class="header-section-number">5.4.4</span> 点云聚类的核心实现</h3>
+<p>聚类算法用于点云分割和目标识别：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> euclidean_clustering(points, tolerance<span class="op">=</span><span class="fl">0.02</span>, min_cluster_size<span class="op">=</span><span class="dv">100</span>, max_cluster_size<span class="op">=</span><span class="dv">25000</span>):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""欧几里得聚类核心算法"""</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> sklearn.neighbors <span class="im">import</span> NearestNeighbors</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 构建邻域搜索</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    nbrs <span class="op">=</span> NearestNeighbors(radius<span class="op">=</span>tolerance).fit(points)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    visited <span class="op">=</span> np.zeros(<span class="bu">len</span>(points), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    clusters <span class="op">=</span> []</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(points)):</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> visited[i]:</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>            <span class="cf">continue</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 区域生长</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        cluster <span class="op">=</span> []</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        queue <span class="op">=</span> [i]</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> queue:</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            current_idx <span class="op">=</span> queue.pop(<span class="dv">0</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> visited[current_idx]:</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>            visited[current_idx] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>            cluster.append(current_idx)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>            <span class="co"># 查找邻居</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>            neighbors <span class="op">=</span> nbrs.radius_neighbors([points[current_idx]], return_distance<span class="op">=</span><span class="va">False</span>)[<span class="dv">0</span>]</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> neighbor_idx <span class="kw">in</span> neighbors:</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="kw">not</span> visited[neighbor_idx]:</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                    queue.append(neighbor_idx)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        <span class="co"># 检查聚类大小</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> min_cluster_size <span class="op">&lt;=</span> <span class="bu">len</span>(cluster) <span class="op">&lt;=</span> max_cluster_size:</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>            clusters.append(cluster)</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> clusters</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dbscan_clustering(points, eps<span class="op">=</span><span class="fl">0.02</span>, min_samples<span class="op">=</span><span class="dv">10</span>):</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""DBSCAN聚类核心算法"""</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    <span class="im">from</span> sklearn.cluster <span class="im">import</span> DBSCAN</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 使用sklearn的高效实现</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>    clustering <span class="op">=</span> DBSCAN(eps<span class="op">=</span>eps, min_samples<span class="op">=</span>min_samples).fit(points)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 提取聚类结果</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> clustering.labels_</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>    n_clusters <span class="op">=</span> <span class="bu">len</span>(<span class="bu">set</span>(labels)) <span class="op">-</span> (<span class="dv">1</span> <span class="cf">if</span> <span class="op">-</span><span class="dv">1</span> <span class="kw">in</span> labels <span class="cf">else</span> <span class="dv">0</span>)</span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>    clusters <span class="op">=</span> []</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cluster_id <span class="kw">in</span> <span class="bu">range</span>(n_clusters):</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>        cluster_indices <span class="op">=</span> np.where(labels <span class="op">==</span> cluster_id)[<span class="dv">0</span>]</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>        clusters.append(cluster_indices.tolist())</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> clusters, labels</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>这些核心算法实现展示了点云处理的基本思想：通过空间数据结构实现高效查询，通过统计方法进行数据清理，通过几何算法进行结构分析。每个算法都针对点云数据的特点进行了优化，为后续的高级处理奠定了基础。</p>
+</section>
+</section>
+<section id="处理效率分析" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="处理效率分析"><span class="header-section-number">5.5</span> 处理效率分析</h2>
+<p>点云处理算法的效果可以从计算效率、处理质量和应用适应性等多个维度进行评估。</p>
+<section id="空间索引结构性能对比" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="空间索引结构性能对比"><span class="header-section-number">5.5.1</span> 空间索引结构性能对比</h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph 查询性能对比
+        A["线性搜索&lt;br/&gt;时间: O(n)&lt;br/&gt;空间: O(1)&lt;br/&gt;适用: 小数据"]
+        B["KD-Tree&lt;br/&gt;时间: O(log n)&lt;br/&gt;空间: O(n)&lt;br/&gt;适用: 低维度"]
+        C["Octree&lt;br/&gt;时间: O(log n)&lt;br/&gt;空间: O(n)&lt;br/&gt;适用: 稀疏数据"]
+        D["哈希表&lt;br/&gt;时间: O(1)&lt;br/&gt;空间: O(n)&lt;br/&gt;适用: 均匀分布"]
+    end
+
+    subgraph 数据规模影响
+        E["小规模&lt;br/&gt;&lt; 10K点"]
+        F["中规模&lt;br/&gt;10K-100K点"]
+        G["大规模&lt;br/&gt;100K-1M点"]
+        H["超大规模&lt;br/&gt;&gt; 1M点"]
+    end
+
+    subgraph 推荐方案
+        I["直接搜索&lt;br/&gt;简单快速"]
+        J["KD-Tree&lt;br/&gt;平衡性能"]
+        K["Octree+并行&lt;br/&gt;分布处理"]
+        L["GPU加速&lt;br/&gt;专用硬件"]
+    end
+
+    E --&gt; I
+    F --&gt; J
+    G --&gt; K
+    H --&gt; L
+
+    A --&gt; E
+    B --&gt; F
+    C --&gt; G
+    D --&gt; H
+
+    classDef methodNode fill:#64b5f6,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef scaleNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef solutionNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+
+    classDef methodSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold
+    classDef scaleSubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold
+    classDef solutionSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold
+
+    class A,B,C,D methodNode
+    class E,F,G,H scaleNode
+    class I,J,K,L solutionNode
+
+    class 查询性能对比 methodSubgraph
+    class 数据规模影响 scaleSubgraph
+    class 推荐方案 solutionSubgraph
+
+    linkStyle 0,1,2,3,4,5,6,7 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.19：不同空间索引结构的性能对比与适用场景</em></p>
+</section>
+<section id="滤波算法效果分析" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="滤波算法效果分析"><span class="header-section-number">5.5.2</span> 滤波算法效果分析</h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph LR
+    subgraph 噪声类型
+        A["高斯噪声&lt;br/&gt;随机分布"]
+        B["异常值&lt;br/&gt;孤立点"]
+        C["系统误差&lt;br/&gt;偏移漂移"]
+    end
+
+    subgraph 滤波方法
+        D["统计滤波&lt;br/&gt;SOR"]
+        E["半径滤波&lt;br/&gt;Radius"]
+        F["双边滤波&lt;br/&gt;Bilateral"]
+        G["形态学滤波&lt;br/&gt;Morphology"]
+    end
+
+    subgraph 效果评估
+        H["噪声抑制率&lt;br/&gt;90-95%"]
+        I["边缘保持度&lt;br/&gt;85-90%"]
+        J["计算效率&lt;br/&gt;实时处理"]
+    end
+
+    A --&gt; D
+    B --&gt; E
+    C --&gt; F
+    A --&gt; G
+
+    D --&gt; H
+    E --&gt; I
+    F --&gt; J
+    G --&gt; H
+
+    classDef noiseNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef filterNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef resultNode fill:#4caf50,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+
+    classDef noiseSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold
+    classDef filterSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+    classDef resultSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold
+
+    class A,B,C noiseNode
+    class D,E,F,G filterNode
+    class H,I,J resultNode
+
+    class 噪声类型 noiseSubgraph
+    class 滤波方法 filterSubgraph
+    class 效果评估 resultSubgraph
+
+    linkStyle 0,1,2,3,4,5,6,7 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.20：不同滤波算法对各类噪声的处理效果</em></p>
+</section>
+<section id="聚类算法适应性分析" class="level3" data-number="5.5.3">
+<h3 data-number="5.5.3" class="anchored" data-anchor-id="聚类算法适应性分析"><span class="header-section-number">5.5.3</span> 聚类算法适应性分析</h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph 数据特征
+        A["密度均匀&lt;br/&gt;球形聚类"]
+        B["密度变化&lt;br/&gt;任意形状"]
+        C["噪声干扰&lt;br/&gt;异常值多"]
+        D["尺度差异&lt;br/&gt;大小不一"]
+    end
+
+    subgraph 聚类算法
+        E["K-Means&lt;br/&gt;快速简单"]
+        F["DBSCAN&lt;br/&gt;密度聚类"]
+        G["欧几里得聚类&lt;br/&gt;距离阈值"]
+        H["区域生长&lt;br/&gt;特征相似"]
+    end
+
+    subgraph 性能指标
+        I["准确率&lt;br/&gt;Precision"]
+        J["召回率&lt;br/&gt;Recall"]
+        K["计算时间&lt;br/&gt;Efficiency"]
+        L["参数敏感性&lt;br/&gt;Robustness"]
+    end
+
+    A --&gt; E
+    B --&gt; F
+    C --&gt; F
+    D --&gt; G
+    A --&gt; H
+
+    E --&gt; I
+    F --&gt; J
+    G --&gt; K
+    H --&gt; L
+
+    classDef dataNode fill:#4db6ac,stroke:#00796b,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef algoNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef metricNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+
+    classDef dataSubgraph fill:#e0f2f1,stroke:#00796b,stroke-width:2px,color:#004d40,font-weight:bold
+    classDef algoSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+    classDef metricSubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold
+
+    class A,B,C,D dataNode
+    class E,F,G,H algoNode
+    class I,J,K,L metricNode
+
+    class 数据特征 dataSubgraph
+    class 聚类算法 algoSubgraph
+    class 性能指标 metricSubgraph
+
+    linkStyle 0,1,2,3,4,5,6,7,8 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.21：聚类算法在不同数据特征下的适应性分析</em></p>
+</section>
+<section id="处理流程优化策略" class="level3" data-number="5.5.4">
+<h3 data-number="5.5.4" class="anchored" data-anchor-id="处理流程优化策略"><span class="header-section-number">5.5.4</span> 处理流程优化策略</h3>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    subgraph 传统处理流程
+        A["原始点云"] --&gt; B["滤波降噪"]
+        B --&gt; C["下采样"]
+        C --&gt; D["特征提取"]
+        D --&gt; E["分割聚类"]
+    end
+
+    subgraph 优化策略
+        F["并行处理&lt;br/&gt;多线程加速"]
+        G["内存优化&lt;br/&gt;分块处理"]
+        H["GPU加速&lt;br/&gt;CUDA并行"]
+        I["算法融合&lt;br/&gt;一体化处理"]
+    end
+
+    subgraph 性能提升
+        J["速度提升&lt;br/&gt;5-10倍"]
+        K["内存节省&lt;br/&gt;50-70%"]
+        L["精度保持&lt;br/&gt;无损处理"]
+    end
+
+    A --&gt; F
+    B --&gt; G
+    C --&gt; H
+    D --&gt; I
+
+    F --&gt; J
+    G --&gt; K
+    H --&gt; J
+    I --&gt; L
+
+    classDef processNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef optimizeNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef resultNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+
+    classDef processSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold
+    classDef optimizeSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+    classDef resultSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold
+
+    class A,B,C,D,E processNode
+    class F,G,H,I optimizeNode
+    class J,K,L resultNode
+
+    class 传统处理流程 processSubgraph
+    class 优化策略 optimizeSubgraph
+    class 性能提升 resultSubgraph
+
+    linkStyle 0,1,2,3,4,5,6,7,8,9,10,11 stroke-width:1.5px
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p><em>图11.22：点云处理流程的优化策略与性能提升</em></p>
+</section>
+</section>
+<section id="小结" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="小结"><span class="header-section-number">5.6</span> 小结</h2>
+<p>点云基础与处理是三维视觉技术栈的重要组成部分，为后续的高级分析和深度学习方法提供了坚实的基础。本节系统介绍了点云数据结构、空间索引、滤波处理和聚类分析等核心技术。</p>
+<p>本节的核心贡献在于：<strong>理论层面</strong>，阐述了KD-Tree、体素化、统计滤波等算法的数学原理；<strong>技术层面</strong>，提供了高效的算法实现和优化策略；<strong>应用层面</strong>，分析了不同算法在各类场景中的适应性和性能表现。</p>
+<p>点云处理技术与前面章节形成了完整的技术链条：相机标定提供了几何参数，立体匹配和三维重建生成了点云数据，而点云处理则对这些数据进行清理、组织和分析。这些基础处理技术为现代深度学习方法（如PointNet系列）奠定了重要基础，使得神经网络能够更好地理解和处理三维几何信息。</p>
+<p>随着激光雷达、深度相机等传感器技术的发展，点云数据的规模和复杂度不断增加。未来的点云处理技术将朝着更高效率、更强鲁棒性、更智能化的方向发展，在自动驾驶、机器人、数字孪生等应用中发挥越来越重要的作用。</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "已复制");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "已复制");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapter11/11.3_三维重建.html" class="pagination-link" aria-label="三维重建">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">三维重建</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapter11/11.5_PointNet系列网络.html" class="pagination-link" aria-label="PointNet系列网络">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PointNet系列网络</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
