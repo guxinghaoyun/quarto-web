@@ -11,9 +11,9 @@ book:
   label-lof: "图目录"
   label-lot: "表目录"
 
-section-title-abstract: "摘要"
-section-title-preface: "前言"
-section-title-acknowledgements: "致谢"
+abstract: "摘要"
+preface: "前言"
+acknowledgements: "致谢"
 
 callout-tip-title: "提示"
 callout-note-title: "注意"
