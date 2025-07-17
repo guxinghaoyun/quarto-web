@@ -1,0 +1,687 @@
+# 三维重建
+
+## 引言：从图像到三维世界的重建
+
+三维重建是计算机视觉的终极目标之一：从二维图像中恢复完整的三维场景结构。这一技术让计算机能够理解真实世界的几何形状、空间布局和物体关系，为虚拟现实、数字文化遗产保护、建筑测量等应用提供了基础支撑。
+
+传统的三维重建方法主要基于多视图几何，通过分析多张图像间的几何关系来恢复三维结构。运动恢复结构（Structure from Motion, SfM）是其中的代表性方法，它能够从无序的图像集合中同时估计相机运动轨迹和场景的三维结构。
+
+现代三维重建技术则融合了深度传感器和神经网络方法。RGB-D重建利用深度相机提供的深度信息，实现实时的三维场景重建；神经辐射场（NeRF）等深度学习方法则能够从稀疏视图中生成高质量的三维表示。这些技术的发展使得三维重建从实验室走向了实际应用。
+
+## 核心概念
+
+**运动恢复结构（SfM）**是传统三维重建的核心方法。其基本思想是：如果我们知道多张图像中特征点的对应关系，就可以通过三角测量恢复这些点的三维坐标，同时估计拍摄这些图像时的相机位置和姿态。SfM的优势在于只需要普通相机即可实现三维重建，但需要场景具有丰富的纹理特征。
+
+**RGB-D重建**利用深度相机（如Kinect、RealSense）提供的彩色图像和深度图像进行三维重建。深度信息的直接获取大大简化了重建过程，使得实时重建成为可能。TSDF（Truncated Signed Distance Function）融合是RGB-D重建的核心技术，它将多帧深度数据融合到统一的体素网格中。
+
+```{mermaid}
+graph TD
+    subgraph 传统SfM重建
+        A["多视图图像"]
+        B["特征提取与匹配"]
+        C["相机姿态估计"]
+        D["三角测量"]
+        E["束调整优化"]
+    end
+    
+    subgraph RGB-D重建
+        F["RGB-D图像序列"]
+        G["相机跟踪"]
+        H["深度图配准"]
+        I["TSDF融合"]
+        J["网格提取"]
+    end
+    
+    subgraph 神经网络重建
+        K["稀疏视图"]
+        L["神经辐射场"]
+        M["体渲染"]
+        N["新视图合成"]
+        O["几何提取"]
+    end
+    
+    A --> B --> C --> D --> E
+    F --> G --> H --> I --> J
+    K --> L --> M --> N --> O
+    
+    classDef sfmNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef rgbdNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef neuralNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    
+    classDef sfmSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold
+    classDef rgbdSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold
+    classDef neuralSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+    
+    class A,B,C,D,E sfmNode
+    class F,G,H,I,J rgbdNode
+    class K,L,M,N,O neuralNode
+    
+    class 传统SfM重建 sfmSubgraph
+    class RGB-D重建 rgbdSubgraph
+    class 神经网络重建 neuralSubgraph
+    
+    linkStyle 0,1,2,3 stroke:#1565c0,stroke-width:2px
+    linkStyle 4,5,6,7 stroke:#2e7d32,stroke-width:2px
+    linkStyle 8,9,10,11 stroke:#7b1fa2,stroke-width:2px
+```
+*图11.12：三种主要三维重建方法的技术流程对比*
+
+**神经辐射场（NeRF）**代表了三维重建的最新发展方向。它使用多层感知机（MLP）来表示三维场景，将空间坐标和视角方向映射为颜色和密度值。通过体渲染技术，NeRF能够生成任意视角的高质量图像，并隐式地表示场景的三维几何结构。
+
+**TSDF融合**是RGB-D重建中的关键技术。TSDF将三维空间划分为规则的体素网格，每个体素存储到最近表面的有符号距离。通过融合多帧深度数据，TSDF能够处理噪声和遮挡，生成平滑的三维表面。
+
+```{mermaid}
+graph LR
+    subgraph TSDF融合过程
+        A["深度图1<br/>Frame t"]
+        B["深度图2<br/>Frame t+1"]
+        C["深度图N<br/>Frame t+n"]
+    end
+    
+    subgraph 体素网格
+        D["TSDF值<br/>有符号距离"]
+        E["权重值<br/>置信度"]
+        F["颜色值<br/>RGB信息"]
+    end
+    
+    subgraph 表面重建
+        G["Marching Cubes<br/>等值面提取"]
+        H["三角网格<br/>Mesh"]
+    end
+    
+    A --> D
+    B --> D
+    C --> D
+    A --> E
+    B --> E
+    C --> E
+    A --> F
+    B --> F
+    C --> F
+    
+    D --> G
+    E --> G
+    F --> G
+    G --> H
+    
+    classDef depthNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef voxelNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    classDef meshNode fill:#4caf50,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px
+    
+    classDef depthSubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold
+    classDef voxelSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold
+    classDef meshSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold
+    
+    class A,B,C depthNode
+    class D,E,F voxelNode
+    class G,H meshNode
+    
+    class TSDF融合过程 depthSubgraph
+    class 体素网格 voxelSubgraph
+    class 表面重建 meshSubgraph
+    
+    linkStyle 0,1,2,3,4,5,6,7,8,9,10,11,12 stroke-width:1.5px
+```
+*图11.13：TSDF融合的数据流程和体素网格表示*
+
+## 理论基础：从多视图几何到神经隐式表示
+
+三维重建的理论基础涵盖了传统几何方法和现代神经网络方法，下面我们分别介绍这些方法的核心理论。
+
+### 运动恢复结构（SfM）的理论基础
+
+SfM的理论基础是多视图几何和投影模型。对于空间中的点$\mathbf{X} = (X, Y, Z, 1)^T$，其在图像$i$中的投影点$\mathbf{x}_i = (u_i, v_i, 1)^T$满足：
+
+$$\lambda_i \mathbf{x}_i = \mathbf{P}_i \mathbf{X} = \mathbf{K}_i [\mathbf{R}_i | \mathbf{t}_i] \mathbf{X}$$
+
+其中，$\mathbf{P}_i$是投影矩阵，$\mathbf{K}_i$是内参矩阵，$\mathbf{R}_i$和$\mathbf{t}_i$分别是旋转矩阵和平移向量，$\lambda_i$是尺度因子。
+
+SfM的核心问题是：已知多张图像中的对应点$\{\mathbf{x}_i\}$，如何恢复相机参数$\{\mathbf{P}_i\}$和三维点$\mathbf{X}$？这个问题可以通过以下步骤解决：
+
+**1. 特征匹配与基础矩阵估计**
+
+对于两张图像，我们首先提取特征点（如SIFT、ORB）并建立匹配。然后估计基础矩阵$\mathbf{F}$，它满足对极约束：
+
+$$\mathbf{x}_2^T \mathbf{F} \mathbf{x}_1 = 0$$
+
+基础矩阵可以通过8点法或RANSAC算法估计。
+
+**2. 相机姿态估计**
+
+从基础矩阵$\mathbf{F}$可以分解出本质矩阵$\mathbf{E}$：
+
+$$\mathbf{E} = \mathbf{K}_2^T \mathbf{F} \mathbf{K}_1$$
+
+进一步分解本质矩阵可得到相对旋转$\mathbf{R}$和平移$\mathbf{t}$：
+
+$$\mathbf{E} = [\mathbf{t}]_{\times} \mathbf{R}$$
+
+其中$[\mathbf{t}]_{\times}$是$\mathbf{t}$的反对称矩阵。
+
+**3. 三角测量**
+
+已知两个相机的投影矩阵$\mathbf{P}_1$和$\mathbf{P}_2$，以及对应点$\mathbf{x}_1$和$\mathbf{x}_2$，可以通过三角测量恢复三维点$\mathbf{X}$。这可以表示为一个线性方程组：
+
+$$
+\begin{bmatrix}
+\mathbf{x}_1 \times \mathbf{P}_1 \\
+\mathbf{x}_2 \times \mathbf{P}_2
+\end{bmatrix} \mathbf{X} = \mathbf{0}
+$$
+
+通过SVD求解这个方程组的最小二乘解。
+
+**4. 束调整优化**
+
+最后，通过束调整（Bundle Adjustment）优化相机参数和三维点坐标，最小化重投影误差：
+
+$$\min_{\{\mathbf{P}_i\}, \{\mathbf{X}_j\}} \sum_{i,j} d(\mathbf{x}_{ij}, \mathbf{P}_i \mathbf{X}_j)^2$$
+
+其中$d(\cdot, \cdot)$是欧氏距离，$\mathbf{x}_{ij}$是第$j$个三维点在第$i$个相机中的观测。
+
+### TSDF融合的理论基础
+
+TSDF（Truncated Signed Distance Function）是一种隐式表面表示方法，它将三维空间划分为规则的体素网格，每个体素存储到最近表面的有符号距离。
+
+对于空间中的点$\mathbf{p} = (x, y, z)$，其TSDF值定义为：
+
+$$TSDF(\mathbf{p}) = \begin{cases}
+\min(1, \frac{d(\mathbf{p})}{t}) & \text{if } d(\mathbf{p}) \geq 0 \\
+\max(-1, \frac{d(\mathbf{p})}{t}) & \text{if } d(\mathbf{p}) < 0
+\end{cases}$$
+
+其中，$d(\mathbf{p})$是点$\mathbf{p}$到最近表面的有符号距离，$t$是截断距离。正值表示点在表面外部，负值表示点在表面内部，零值表示点在表面上。
+
+TSDF融合的核心是将多帧深度图融合到统一的TSDF体素网格中。对于第$k$帧深度图，每个体素的TSDF值和权重更新如下：
+
+$$TSDF_k(\mathbf{p}) = \frac{W_{k-1}(\mathbf{p}) \cdot TSDF_{k-1}(\mathbf{p}) + w_k(\mathbf{p}) \cdot TSDF_k'(\mathbf{p})}{W_{k-1}(\mathbf{p}) + w_k(\mathbf{p})}$$
+
+$$W_k(\mathbf{p}) = W_{k-1}(\mathbf{p}) + w_k(\mathbf{p})$$
+
+其中，$TSDF_k'(\mathbf{p})$是从当前深度图计算的TSDF值，$w_k(\mathbf{p})$是当前测量的权重。
+
+最后，通过Marching Cubes算法从TSDF体素网格中提取等值面（零值面），得到三维表面的三角网格表示。
+
+### 神经辐射场（NeRF）的理论基础
+
+NeRF是一种基于神经网络的隐式场景表示方法。它使用多层感知机（MLP）来表示三维场景，将空间坐标$\mathbf{x} = (x, y, z)$和视角方向$\mathbf{d} = (\theta, \phi)$映射为颜色$\mathbf{c} = (r, g, b)$和密度$\sigma$：
+
+$$F_\Theta: (\mathbf{x}, \mathbf{d}) \rightarrow (\mathbf{c}, \sigma)$$
+
+其中，$F_\Theta$是参数为$\Theta$的神经网络。
+
+给定一条从相机中心出发的光线$\mathbf{r}(t) = \mathbf{o} + t\mathbf{d}$，NeRF通过体渲染方程计算该光线上的颜色：
+
+$$C(\mathbf{r}) = \int_{t_n}^{t_f} T(t) \sigma(\mathbf{r}(t)) \mathbf{c}(\mathbf{r}(t), \mathbf{d}) dt$$
+
+其中，$T(t) = \exp(-\int_{t_n}^{t} \sigma(\mathbf{r}(s)) ds)$是累积透射率，表示光线从$t_n$到$t$的透明度。
+
+在实践中，这个积分通过离散采样近似计算：
+
+$$\hat{C}(\mathbf{r}) = \sum_{i=1}^{N} T_i (1 - \exp(-\sigma_i \delta_i)) \mathbf{c}_i$$
+
+其中，$T_i = \exp(-\sum_{j=1}^{i-1} \sigma_j \delta_j)$，$\delta_i$是相邻采样点之间的距离。
+
+NeRF通过最小化渲染图像与真实图像之间的差异来优化网络参数：
+
+$$\mathcal{L} = \sum_{\mathbf{r} \in \mathcal{R}} \|\hat{C}(\mathbf{r}) - C_{gt}(\mathbf{r})\|_2^2$$
+
+其中，$\mathcal{R}$是训练集中的所有光线，$C_{gt}(\mathbf{r})$是光线$\mathbf{r}$对应的真实颜色。
+
+## 算法实现
+
+下面我们分别介绍SfM、TSDF融合和NeRF的核心算法实现。
+
+### SfM的核心算法实现
+
+SfM的实现通常基于特征匹配和几何优化。以下是使用OpenCV实现的SfM核心步骤：
+
+```python
+import cv2
+import numpy as np
+from scipy.optimize import least_squares
+
+def structure_from_motion(images):
+    """SfM核心算法实现"""
+    # 1. 特征提取与匹配
+    features = extract_features(images)
+    matches = match_features(features)
+
+    # 2. 初始化重建（从两视图开始）
+    K = estimate_camera_intrinsics()  # 假设已知或通过标定获得
+    E, mask = cv2.findEssentialMat(matches[0], matches[1], K)
+    _, R, t, _ = cv2.recoverPose(E, matches[0], matches[1], K)
+
+    # 初始相机矩阵
+    P1 = np.hstack((np.eye(3), np.zeros((3, 1))))
+    P2 = np.hstack((R, t))
+
+    # 3. 三角测量初始点云
+    points_3d = triangulate_points(matches[0], matches[1], P1, P2, K)
+
+    # 4. 增量式SfM
+    for i in range(2, len(images)):
+        # 2D-3D对应关系
+        points_2d = find_2d_3d_correspondences(features[i], points_3d)
+
+        # PnP求解相机位姿
+        _, rvec, tvec, inliers = cv2.solvePnPRansac(
+            points_3d, points_2d, K, None)
+        R_new = cv2.Rodrigues(rvec)[0]
+        t_new = tvec
+
+        # 更新点云
+        new_matches = find_new_matches(features[i-1], features[i])
+        new_points_3d = triangulate_points(
+            new_matches[0], new_matches[1],
+            P1, np.hstack((R_new, t_new)), K)
+        points_3d = np.vstack((points_3d, new_points_3d))
+
+        # 5. 束调整优化
+        camera_params, points_3d = bundle_adjustment(
+            camera_params, points_3d, observations)
+
+    return camera_params, points_3d
+
+def bundle_adjustment(camera_params, points_3d, observations):
+    """束调整核心实现"""
+    # 定义重投影误差函数
+    def reprojection_error(params, n_cameras, n_points, camera_indices,
+                          point_indices, observations):
+        camera_params = params[:n_cameras * 6].reshape((n_cameras, 6))
+        points_3d = params[n_cameras * 6:].reshape((n_points, 3))
+
+        projected = project(points_3d[point_indices], camera_params[camera_indices])
+        return (projected - observations).ravel()
+
+    # 参数打包
+    params = np.hstack((camera_params.ravel(), points_3d.ravel()))
+
+    # 最小化重投影误差
+    result = least_squares(
+        reprojection_error, params,
+        args=(n_cameras, n_points, camera_indices, point_indices, observations),
+        method='trf', ftol=1e-4, xtol=1e-4, gtol=1e-4)
+
+    # 参数解包
+    params = result.x
+    camera_params = params[:n_cameras * 6].reshape((n_cameras, 6))
+    points_3d = params[n_cameras * 6:].reshape((n_points, 3))
+
+    return camera_params, points_3d
+```
+
+### TSDF融合的核心算法实现
+
+TSDF融合算法的核心是将深度图转换为TSDF表示，并融合多帧数据：
+
+```python
+import numpy as np
+
+class TSDFVolume:
+    """TSDF体素网格表示"""
+    def __init__(self, vol_bounds, voxel_size, trunc_margin):
+        # 初始化体素网格
+        self.voxel_size = voxel_size
+        self.trunc_margin = trunc_margin
+
+        # 计算体素网格尺寸
+        vol_dim = np.ceil((vol_bounds[:, 1] - vol_bounds[:, 0]) / voxel_size).astype(int)
+        self.vol_bounds = vol_bounds
+        self.vol_dim = vol_dim
+
+        # 初始化TSDF值和权重
+        self.voxel_grid_tsdf = np.ones(vol_dim) * 1.0
+        self.voxel_grid_weight = np.zeros(vol_dim)
+
+        # 计算体素中心坐标
+        self._compute_voxel_centers()
+
+    def _compute_voxel_centers(self):
+        """计算体素中心坐标"""
+        # 创建体素中心坐标网格
+        xv, yv, zv = np.meshgrid(
+            np.arange(0, self.vol_dim[0]),
+            np.arange(0, self.vol_dim[1]),
+            np.arange(0, self.vol_dim[2]))
+
+        # 转换为世界坐标
+        self.voxel_centers = np.stack([xv, yv, zv], axis=-1) * self.voxel_size + self.vol_bounds[:, 0]
+
+    def integrate(self, depth_img, K, pose):
+        """将深度图融合到TSDF体素网格中"""
+        # 将体素中心投影到深度图
+        cam_pts = self.voxel_centers.reshape(-1, 3)
+        cam_pts = np.matmul(cam_pts - pose[:3, 3], pose[:3, :3].T)
+
+        # 投影到图像平面
+        pix_x = np.round(cam_pts[:, 0] * K[0, 0] / cam_pts[:, 2] + K[0, 2]).astype(int)
+        pix_y = np.round(cam_pts[:, 1] * K[1, 1] / cam_pts[:, 2] + K[1, 2]).astype(int)
+
+        # 检查像素是否在图像范围内
+        valid_pix = (pix_x >= 0) & (pix_x < depth_img.shape[1]) & \
+                    (pix_y >= 0) & (pix_y < depth_img.shape[0]) & \
+                    (cam_pts[:, 2] > 0)
+
+        # 获取有效像素的深度值
+        depth_values = np.zeros(pix_x.shape)
+        depth_values[valid_pix] = depth_img[pix_y[valid_pix], pix_x[valid_pix]]
+
+        # 计算TSDF值
+        dist = depth_values - cam_pts[:, 2]
+        tsdf_values = np.minimum(1.0, dist / self.trunc_margin)
+        tsdf_values = np.maximum(-1.0, tsdf_values)
+
+        # 计算权重
+        weights = (depth_values > 0).astype(float)
+
+        # 更新TSDF值和权重
+        tsdf_vol_new = self.voxel_grid_tsdf.reshape(-1)
+        weight_vol_new = self.voxel_grid_weight.reshape(-1)
+
+        # 融合TSDF值
+        mask = valid_pix & (depth_values > 0) & (dist > -self.trunc_margin)
+        tsdf_vol_new[mask] = (weight_vol_new[mask] * tsdf_vol_new[mask] + weights[mask] * tsdf_values[mask]) / \
+                             (weight_vol_new[mask] + weights[mask])
+
+        # 更新权重
+        weight_vol_new[mask] += weights[mask]
+
+        # 重塑回原始形状
+        self.voxel_grid_tsdf = tsdf_vol_new.reshape(self.vol_dim)
+        self.voxel_grid_weight = weight_vol_new.reshape(self.vol_dim)
+```
+
+### NeRF的核心算法实现
+
+NeRF使用PyTorch实现，核心是神经网络模型和体渲染算法：
+
+```python
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class NeRF(nn.Module):
+    """神经辐射场核心网络"""
+    def __init__(self, D=8, W=256, input_ch=3, input_ch_views=3, output_ch=4):
+        super(NeRF, self).__init__()
+        self.D = D
+        self.W = W
+        self.input_ch = input_ch
+        self.input_ch_views = input_ch_views
+        self.output_ch = output_ch
+
+        # 位置编码后的输入维度
+        input_ch = self.input_ch
+
+        # 主干网络
+        self.pts_linears = nn.ModuleList(
+            [nn.Linear(input_ch, W)] +
+            [nn.Linear(W, W) for _ in range(D-1)])
+
+        # 密度输出层
+        self.alpha_linear = nn.Linear(W, 1)
+
+        # 视角相关特征
+        self.feature_linear = nn.Linear(W, W)
+        self.views_linears = nn.ModuleList([nn.Linear(W + input_ch_views, W//2)])
+
+        # RGB输出层
+        self.rgb_linear = nn.Linear(W//2, 3)
+
+    def forward(self, x):
+        """前向传播"""
+        # 分离位置和方向输入
+        input_pts, input_views = torch.split(
+            x, [self.input_ch, self.input_ch_views], dim=-1)
+
+        # 处理位置信息
+        h = input_pts
+        for i, l in enumerate(self.pts_linears):
+            h = self.pts_linears[i](h)
+            h = F.relu(h)
+
+        # 密度预测
+        alpha = self.alpha_linear(h)
+
+        # 特征向量
+        feature = self.feature_linear(h)
+
+        # 处理视角信息
+        h = torch.cat([feature, input_views], -1)
+        for i, l in enumerate(self.views_linears):
+            h = self.views_linears[i](h)
+            h = F.relu(h)
+
+        # RGB预测
+        rgb = self.rgb_linear(h)
+        rgb = torch.sigmoid(rgb)
+
+        # 输出RGB和密度
+        outputs = torch.cat([rgb, alpha], -1)
+        return outputs
+
+def render_rays(model, rays_o, rays_d, near, far, N_samples):
+    """体渲染核心算法"""
+    # 在光线上采样点
+    t_vals = torch.linspace(0., 1., steps=N_samples)
+    z_vals = near * (1.-t_vals) + far * t_vals
+
+    # 扰动采样点位置（分层采样）
+    z_vals = z_vals.expand([rays_o.shape[0], N_samples])
+    mids = .5 * (z_vals[...,1:] + z_vals[...,:-1])
+    upper = torch.cat([mids, z_vals[...,-1:]], -1)
+    lower = torch.cat([z_vals[...,:1], mids], -1)
+    t_rand = torch.rand(z_vals.shape)
+    z_vals = lower + (upper - lower) * t_rand
+
+    # 计算采样点的3D坐标
+    pts = rays_o[...,None,:] + rays_d[...,None,:] * z_vals[...,:,None]
+
+    # 查询网络
+    raw = model(pts)
+
+    # 体渲染积分
+    dists = z_vals[...,1:] - z_vals[...,:-1]
+    dists = torch.cat([dists, torch.ones_like(dists[...,:1]) * 1e10], -1)
+
+    # 计算alpha值
+    alpha = 1.0 - torch.exp(-raw[...,3] * dists)
+
+    # 计算权重
+    weights = alpha * torch.cumprod(
+        torch.cat([torch.ones_like(alpha[...,:1]), 1.-alpha[...,:-1]], -1), -1)
+
+    # 计算颜色
+    rgb = torch.sum(weights[...,None] * raw[...,:3], -2)
+
+    # 计算深度
+    depth = torch.sum(weights * z_vals, -1)
+
+    return rgb, depth, weights
+```
+## 重建质量评估
+
+三维重建算法的效果可以从重建精度、计算效率和应用场景适应性等多个维度进行评估。
+
+### 方法性能对比
+
+```{mermaid}
+graph TD
+    subgraph 传统SfM方法
+        A["COLMAP<br/>精度: 高<br/>速度: 慢<br/>内存: 中"]
+        B["OpenMVG<br/>精度: 中<br/>速度: 中<br/>内存: 低"]
+        C["VisualSFM<br/>精度: 中<br/>速度: 快<br/>内存: 低"]
+    end
+
+    subgraph RGB-D重建方法
+        D["KinectFusion<br/>精度: 中<br/>速度: 快<br/>内存: 高"]
+        E["ElasticFusion<br/>精度: 高<br/>速度: 中<br/>内存: 高"]
+        F["BundleFusion<br/>精度: 很高<br/>速度: 慢<br/>内存: 很高"]
+    end
+
+    subgraph 神经网络方法
+        G["NeRF<br/>精度: 很高<br/>速度: 很慢<br/>内存: 中"]
+        H["Instant-NGP<br/>精度: 高<br/>速度: 快<br/>内存: 低"]
+        I["DVGO<br/>精度: 高<br/>速度: 中<br/>内存: 高"]
+    end
+
+    subgraph 评估指标
+        J["重建精度<br/>几何误差"]
+        K["纹理质量<br/>视觉效果"]
+        L["计算效率<br/>时间复杂度"]
+    end
+
+    A --> J
+    B --> J
+    C --> J
+    D --> J
+    E --> J
+    F --> J
+    G --> J
+    H --> J
+    I --> J
+
+    J --> M["SfM: mm级<br/>RGB-D: cm级<br/>NeRF: sub-mm级"]
+    K --> N["SfM: 中等<br/>RGB-D: 低<br/>NeRF: 很高"]
+    L --> O["SfM: 小时级<br/>RGB-D: 实时<br/>NeRF: 天级"]
+
+    classDef sfmNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef rgbdNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef neuralNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef metricNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef resultNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+
+    classDef sfmSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold
+    classDef rgbdSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold
+    classDef neuralSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+
+    class A,B,C sfmNode
+    class D,E,F rgbdNode
+    class G,H,I neuralNode
+    class J,K,L metricNode
+    class M,N,O resultNode
+
+    class 传统SfM方法 sfmSubgraph
+    class RGB-D重建方法 rgbdSubgraph
+    class 神经网络方法 neuralSubgraph
+
+    linkStyle 0,1,2,3,4,5,6,7,8 stroke:#1565c0,stroke-width:1.5px
+    linkStyle 9,10,11 stroke:#4caf50,stroke-width:1.5px
+```
+*图11.14：不同三维重建方法的性能对比分析*
+
+### 应用场景适应性
+
+```{mermaid}
+graph LR
+    subgraph 室外大场景
+        A["文化遗产保护<br/>高精度要求"]
+        B["城市建模<br/>大规模重建"]
+        C["地形测绘<br/>几何精度优先"]
+    end
+
+    subgraph 室内小场景
+        D["AR/VR应用<br/>实时性要求"]
+        E["机器人导航<br/>动态更新"]
+        F["医疗重建<br/>高精度要求"]
+    end
+
+    subgraph 特殊场景
+        G["弱纹理环境<br/>几何约束"]
+        H["动态场景<br/>时序一致性"]
+        I["稀疏视图<br/>先验知识"]
+    end
+
+    A --> J["SfM + 摄影测量<br/>精度: 很高<br/>成本: 低"]
+    B --> K["SfM + 航拍<br/>精度: 高<br/>成本: 中"]
+    C --> J
+
+    D --> L["RGB-D实时重建<br/>精度: 中<br/>成本: 中"]
+    E --> L
+    F --> M["高精度RGB-D<br/>精度: 很高<br/>成本: 高"]
+
+    G --> N["几何约束SfM<br/>精度: 中<br/>成本: 低"]
+    H --> O["动态NeRF<br/>精度: 高<br/>成本: 很高"]
+    I --> P["NeRF + 先验<br/>精度: 很高<br/>成本: 高"]
+
+    classDef outdoorNode fill:#4db6ac,stroke:#00796b,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef indoorNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef specialNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef solutionNode fill:#90caf9,stroke:#1976d2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+
+    classDef outdoorSubgraph fill:#e0f2f1,stroke:#00796b,stroke-width:2px,color:#004d40,font-weight:bold
+    classDef indoorSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold
+    classDef specialSubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold
+
+    class A,B,C outdoorNode
+    class D,E,F indoorNode
+    class G,H,I specialNode
+    class J,K,L,M,N,O,P solutionNode
+
+    class 室外大场景 outdoorSubgraph
+    class 室内小场景 indoorSubgraph
+    class 特殊场景 specialSubgraph
+
+    linkStyle 0,1,2,3,4,5,6,7,8 stroke-width:1.5px
+```
+*图11.15：三维重建方法在不同应用场景中的适应性*
+
+### 技术发展趋势
+
+``` {mermaid}
+graph TD
+    subgraph 传统方法演进
+        A[早期SfM<br/>2000-2010]
+        B[增量式SfM<br/>2010-2015]
+        C[全局SfM<br/>2015-2020]
+    end
+
+    subgraph 深度传感器融合
+        D[KinectFusion<br/>2011]
+        E[ElasticFusion<br/>2015]
+        F[BundleFusion<br/>2017]
+    end
+
+    subgraph 神经网络革命
+        G[NeRF<br/>2020]
+        H[Instant-NGP<br/>2022]
+        I[3D Gaussian<br/>2023]
+    end
+
+    subgraph 未来发展方向
+        J[实时神经重建]
+        K[多模态融合]
+        L[语义感知重建]
+        M[自监督学习]
+    end
+
+    A --> B --> C
+    D --> E --> F
+    G --> H --> I
+
+    C --> J
+    F --> K
+    I --> L
+    I --> M
+
+    classDef tradNode fill:#64b5f6,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef rgbdNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef neuralNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+    classDef futureNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px
+
+    class A,B,C tradNode
+    class D,E,F rgbdNode
+    class G,H,I neuralNode
+    class J,K,L,M futureNode
+```
+
+*图11.16：三维重建技术的发展历程和未来趋势*
+
+## 小结
+
+三维重建是计算机视觉的核心技术之一，经历了从传统几何方法到现代神经网络方法的重要演进。传统SfM方法基于多视图几何，能够从普通图像中恢复三维结构，但需要丰富的纹理特征；RGB-D重建利用深度传感器，实现了实时重建，但受限于传感器范围；神经辐射场等深度学习方法则能够生成高质量的三维表示，但计算成本较高。
+
+本节的核心贡献在于：**理论层面**，系统阐述了从多视图几何到神经隐式表示的理论基础；**技术层面**，对比了SfM、TSDF融合和NeRF的核心算法差异；**应用层面**，分析了不同方法在各类场景中的适应性和发展趋势。
+
+三维重建技术与前面章节的相机标定和立体匹配紧密相连：相机标定提供了准确的几何参数，立体匹配提供了深度信息，而三维重建则将这些信息整合为完整的三维模型。随着神经网络技术的发展，三维重建正朝着更高质量、更高效率、更强泛化能力的方向发展，在数字孪生、元宇宙等新兴应用中发挥着越来越重要的作用。
