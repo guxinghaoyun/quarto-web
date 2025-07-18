@@ -153,21 +153,64 @@ ul.sidebar-section:focus,
   border: none !important;
 }
 
-/* 移除当前页面的蓝色背景，改为更简洁的样式 */
+/* 移除当前页面的蓝色背景，改为更简洁的样式 - 增强版本 */
 .sidebar-item.active,
 .sidebar-item .active,
 .sidebar-link.active,
-.sidebar-item-text.active {
+.sidebar-item-text.active,
+.sidebar-item.active > .sidebar-item-container,
+.sidebar-item.active > .sidebar-item-container > .sidebar-item-text,
+.sidebar-item-container.active,
+.sidebar-item-container.active > .sidebar-item-text,
+ul.sidebar-section .sidebar-item.active,
+ul.sidebar-section .sidebar-item .active,
+ul.sidebar-section .sidebar-link.active,
+.quarto-sidebar .sidebar-item.active,
+.quarto-sidebar .sidebar-item .active,
+.quarto-sidebar .sidebar-link.active,
+#quarto-sidebar .sidebar-item.active,
+#quarto-sidebar .sidebar-item .active,
+#quarto-sidebar .sidebar-link.active {
   background: transparent !important;
   background-color: transparent !important;
 }
 
-/* 自定义当前页面的样式（可选） */
+/* 自定义当前页面的样式（可选） - 增强版本 */
 .sidebar-item.active .sidebar-item-text,
-.sidebar-link.active {
+.sidebar-link.active,
+.sidebar-item.active > .sidebar-item-container > .sidebar-item-text,
+.sidebar-item-container.active > .sidebar-item-text,
+ul.sidebar-section .sidebar-item.active .sidebar-item-text,
+ul.sidebar-section .sidebar-link.active,
+.quarto-sidebar .sidebar-item.active .sidebar-item-text,
+.quarto-sidebar .sidebar-link.active,
+#quarto-sidebar .sidebar-item.active .sidebar-item-text,
+#quarto-sidebar .sidebar-link.active {
   color: #2980b9 !important;
   font-weight: 500 !important;
   background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* 额外的Bootstrap和Quarto特定样式覆盖 */
+.list-group-item.active,
+.nav-link.active,
+.navbar-nav .nav-link.active,
+.sidebar-navigation .nav-link.active,
+.collapse.show .sidebar-item.active,
+.collapse.show .sidebar-link.active {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+
+/* 运行时动态添加的样式覆盖 */
+[data-bs-theme="light"] .sidebar-item.active,
+[data-bs-theme="dark"] .sidebar-item.active,
+.quarto-color-scheme .sidebar-item.active,
+.quarto-color-scheme-extra .sidebar-item.active {
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 
