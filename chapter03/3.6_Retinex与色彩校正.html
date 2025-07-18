@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; 概述 – 现代计算机视觉</title>
+<title>7&nbsp; Retinex与色彩校正 – 现代计算机视觉</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapter11/11.1_相机标定与几何.html" rel="next">
-<link href="../chapter03/3.7_小结与实践建议.html" rel="prev">
+<link href="../chapter03/3.7_小结与实践建议.html" rel="next">
+<link href="../chapter03/3.5_频域增强技术.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -250,7 +285,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter03/3.0_概述.html">第三章：图像预处理与增强技术</a></li><li class="breadcrumb-item"><a href="../chapter03/3.6_Retinex与色彩校正.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Retinex与色彩校正</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -287,13 +322,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">第三章：图像预处理与增强技术</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter03/3.0_概述.html" class="sidebar-item-text sidebar-link">
@@ -332,7 +367,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapter03/3.6_Retinex与色彩校正.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapter03/3.6_Retinex与色彩校正.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Retinex与色彩校正</span></span></a>
   </div>
 </li>
@@ -346,16 +381,16 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">第十一章：三维视觉与点云处理</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></span></a>
   </div>
 </li>
@@ -419,19 +454,42 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#从二维到三维构建计算机的空间感知体系" id="toc-从二维到三维构建计算机的空间感知体系" class="nav-link active" data-scroll-target="#从二维到三维构建计算机的空间感知体系"><span class="header-section-number">9.1</span> 从二维到三维：构建计算机的空间感知体系</a></li>
-  <li><a href="#破解维度诅咒计算机三维感知的核心挑战" id="toc-破解维度诅咒计算机三维感知的核心挑战" class="nav-link" data-scroll-target="#破解维度诅咒计算机三维感知的核心挑战"><span class="header-section-number">9.2</span> 破解维度诅咒：计算机三维感知的核心挑战</a></li>
-  <li><a href="#智能时代的空间革命三维视觉的广阔应用前景" id="toc-智能时代的空间革命三维视觉的广阔应用前景" class="nav-link" data-scroll-target="#智能时代的空间革命三维视觉的广阔应用前景"><span class="header-section-number">9.3</span> 智能时代的空间革命：三维视觉的广阔应用前景</a></li>
+  <li><a href="#retinex与色彩校正的基础知识" id="toc-retinex与色彩校正的基础知识" class="nav-link active" data-scroll-target="#retinex与色彩校正的基础知识"><span class="header-section-number">7.1</span> Retinex与色彩校正的基础知识</a></li>
+  <li><a href="#单尺度retinexssr" id="toc-单尺度retinexssr" class="nav-link" data-scroll-target="#单尺度retinexssr"><span class="header-section-number">7.2</span> 单尺度Retinex（SSR）</a>
+  <ul class="collapse">
+  <li><a href="#基本原理" id="toc-基本原理" class="nav-link" data-scroll-target="#基本原理"><span class="header-section-number">7.2.1</span> 基本原理</a></li>
+  <li><a href="#实现方法" id="toc-实现方法" class="nav-link" data-scroll-target="#实现方法"><span class="header-section-number">7.2.2</span> 实现方法</a></li>
+  <li><a href="#优点与缺点" id="toc-优点与缺点" class="nav-link" data-scroll-target="#优点与缺点"><span class="header-section-number">7.2.3</span> 优点与缺点</a></li>
+  </ul></li>
+  <li><a href="#多尺度retinexmsr" id="toc-多尺度retinexmsr" class="nav-link" data-scroll-target="#多尺度retinexmsr"><span class="header-section-number">7.3</span> 多尺度Retinex（MSR）</a>
+  <ul class="collapse">
+  <li><a href="#基本原理-1" id="toc-基本原理-1" class="nav-link" data-scroll-target="#基本原理-1"><span class="header-section-number">7.3.1</span> 基本原理</a></li>
+  <li><a href="#实现方法-1" id="toc-实现方法-1" class="nav-link" data-scroll-target="#实现方法-1"><span class="header-section-number">7.3.2</span> 实现方法</a></li>
+  <li><a href="#优点与缺点-1" id="toc-优点与缺点-1" class="nav-link" data-scroll-target="#优点与缺点-1"><span class="header-section-number">7.3.3</span> 优点与缺点</a></li>
+  </ul></li>
+  <li><a href="#白平衡" id="toc-白平衡" class="nav-link" data-scroll-target="#白平衡"><span class="header-section-number">7.4</span> 白平衡</a>
+  <ul class="collapse">
+  <li><a href="#基本原理-2" id="toc-基本原理-2" class="nav-link" data-scroll-target="#基本原理-2"><span class="header-section-number">7.4.1</span> 基本原理</a></li>
+  <li><a href="#实现方法-2" id="toc-实现方法-2" class="nav-link" data-scroll-target="#实现方法-2"><span class="header-section-number">7.4.2</span> 实现方法</a></li>
+  <li><a href="#优点与缺点-2" id="toc-优点与缺点-2" class="nav-link" data-scroll-target="#优点与缺点-2"><span class="header-section-number">7.4.3</span> 优点与缺点</a></li>
+  </ul></li>
+  <li><a href="#色彩恒常性" id="toc-色彩恒常性" class="nav-link" data-scroll-target="#色彩恒常性"><span class="header-section-number">7.5</span> 色彩恒常性</a>
+  <ul class="collapse">
+  <li><a href="#基本原理-3" id="toc-基本原理-3" class="nav-link" data-scroll-target="#基本原理-3"><span class="header-section-number">7.5.1</span> 基本原理</a></li>
+  <li><a href="#实现方法-3" id="toc-实现方法-3" class="nav-link" data-scroll-target="#实现方法-3"><span class="header-section-number">7.5.2</span> 实现方法</a></li>
+  <li><a href="#优点与缺点-3" id="toc-优点与缺点-3" class="nav-link" data-scroll-target="#优点与缺点-3"><span class="header-section-number">7.5.3</span> 优点与缺点</a></li>
+  </ul></li>
+  <li><a href="#四种方法的比较" id="toc-四种方法的比较" class="nav-link" data-scroll-target="#四种方法的比较"><span class="header-section-number">7.6</span> 四种方法的比较</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.0_概述.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter03/3.6_Retinex与色彩校正.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter03/3.0_概述.html">第三章：图像预处理与增强技术</a></li><li class="breadcrumb-item"><a href="../chapter03/3.6_Retinex与色彩校正.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Retinex与色彩校正</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Retinex与色彩校正</span></h1>
 </div>
 
 
@@ -448,27 +506,370 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="从二维到三维构建计算机的空间感知体系" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="从二维到三维构建计算机的空间感知体系"><span class="header-section-number">9.1</span> 从二维到三维：构建计算机的空间感知体系</h2>
-<p>三维视觉技术是计算机视觉领域的重要分支，旨在让计算机理解和重建真实世界的三维结构。经过几十年的发展，该领域已形成了完整的技术体系：</p>
-<p><strong>传统几何方法</strong>构成了三维视觉的理论基础。相机标定建立了图像与现实世界的几何关系；立体匹配通过双目视觉恢复深度信息；三维重建则从多个视角的图像中恢复完整的三维场景。这些方法基于严格的几何理论，具有可解释性强、精度高的特点。</p>
-<p><strong>深度学习方法</strong>则代表了该领域的最新发展。点云处理网络如PointNet系列直接处理三维点云数据；3D目标检测网络能够在三维空间中定位和识别物体。这些方法具有强大的特征学习能力，在复杂场景下表现出色。</p>
-<p>两类方法并非对立关系，而是相互补充。传统方法提供了坚实的理论基础和几何约束，深度学习方法则提供了强大的特征表达和泛化能力。现代三维视觉系统往往将两者结合，发挥各自优势。</p>
+<p>Retinex理论和色彩校正技术是计算机视觉和图像处理中的核心方法，旨在恢复图像的真实色彩、增强视觉效果以及模拟人类视觉系统的色彩恒常性。本章节将详细介绍单尺度Retinex、多尺度Retinex、白平衡和色彩恒常性的基本原理、算法实现、应用场景及优缺点比较，为研究生提供深入的理论和实践指导。</p>
+<section id="retinex与色彩校正的基础知识" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="retinex与色彩校正的基础知识"><span class="header-section-number">7.1</span> Retinex与色彩校正的基础知识</h2>
+<p>Retinex（Retina + Cortex）理论由Edwin Land提出，旨在模拟人类视觉系统对光照和物体反射属性的分离能力。色彩校正的目标是消除光照、设备或环境因素对图像色彩的影响，恢复真实色彩或增强视觉效果。Retinex和色彩校正技术在图像增强、去雾、医学影像处理等领域有广泛应用。</p>
+<ol type="1">
+<li>Retinex理论</li>
+</ol>
+<p>Retinex理论认为，图像的像素值是光照和反射的乘积：</p>
+<p>[ I(x, y) = L(x, y) R(x, y) ]</p>
+<ul>
+<li><strong>光照 ( L(x, y) )</strong>：表示环境光的影响，通常变化较平滑，属于低频分量。</li>
+<li><strong>反射 ( R(x, y) )</strong>：表示物体本身的固有属性，包含细节和边缘，属于高频分量。</li>
+</ul>
+<p>Retinex的目标是通过估计光照分量并将其移除，得到反射分量，从而增强图像的色彩和细节。实际中，通常对对数域进行操作：</p>
+<p>[ I(x, y) = L(x, y) + R(x, y) ]</p>
+<ol start="2" type="1">
+<li>色彩校正的意义</li>
+</ol>
+<p>色彩校正旨在消除光源色温、设备响应或环境因素导致的色彩偏差，恢复图像的真实颜色。常见方法包括：</p>
+<ul>
+<li><strong>白平衡</strong>：调整图像以消除光源色温的影响。</li>
+<li><strong>色彩恒常性</strong>：模拟人类视觉系统，使物体颜色在不同光照下保持一致。</li>
+<li><strong>Retinex方法</strong>：通过分离光照和反射，增强色彩和对比度。</li>
+</ul>
 </section>
-<section id="破解维度诅咒计算机三维感知的核心挑战" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="破解维度诅咒计算机三维感知的核心挑战"><span class="header-section-number">9.2</span> 破解维度诅咒：计算机三维感知的核心挑战</h2>
-<p>人类视觉系统能够轻松感知三维世界：判断物体的远近、估计空间的大小、理解场景的布局。这种能力如此自然，以至于我们很少意识到其复杂性。然而，对于计算机来说，从二维图像中恢复三维信息是一个极具挑战性的问题。</p>
-<p><strong>深度信息的缺失</strong>是核心挑战。当三维世界投影到二维图像平面时，深度信息不可避免地丢失了。一个像素点可能对应三维空间中的任意一点，这种一对多的映射关系使得深度恢复成为一个病态问题。</p>
-<p><strong>视角变化的复杂性</strong>进一步增加了难度。同一个物体从不同角度观察会呈现完全不同的外观，相机的位置、姿态、内部参数都会影响成像结果。如何建立图像与现实世界之间的准确对应关系，是三维视觉必须解决的基础问题。</p>
-<p><strong>数据表示的多样性</strong>也带来了挑战。三维信息可以用深度图、点云、体素、网格等多种形式表示，每种表示都有其优缺点。如何选择合适的表示方法，如何在不同表示之间转换，都需要深入思考。</p>
+<section id="单尺度retinexssr" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="单尺度retinexssr"><span class="header-section-number">7.2</span> 单尺度Retinex（SSR）</h2>
+<section id="基本原理" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="基本原理"><span class="header-section-number">7.2.1</span> 基本原理</h3>
+<p>单尺度Retinex（Single-Scale Retinex, SSR）通过使用高斯核估计光照分量来实现图像增强。其核心步骤如下：</p>
+<ol type="1">
+<li>对图像取对数，转换为加法模型。</li>
+<li>使用高斯滤波估计光照分量 ( L(x, y) )。</li>
+<li>从对数图像中减去光照分量，得到反射分量 ( R(x, y) ).</li>
+</ol>
+<p>数学表达式为：</p>
+<p>[ R(x, y) = I(x, y) - ]</p>
+<p>其中：</p>
+<ul>
+<li>( G(x, y) )：高斯核，定义为：</li>
+</ul>
+<p>[ G(x, y) = e^{-} ]</p>
+<ul>
+<li>( * )：卷积操作。</li>
+<li>( ): 高斯核的标准差，控制光照估计的尺度。</li>
+</ul>
+<p>最终输出通过指数变换和归一化恢复到像素值范围：</p>
+<p>[ I_{}(x, y) = 255 ]</p>
 </section>
-<section id="智能时代的空间革命三维视觉的广阔应用前景" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="智能时代的空间革命三维视觉的广阔应用前景"><span class="header-section-number">9.3</span> 智能时代的空间革命：三维视觉的广阔应用前景</h2>
-<p>三维视觉技术在现代科技中发挥着越来越重要的作用，其应用领域广泛且影响深远。</p>
-<p><strong>自动驾驶</strong>是三维视觉最具挑战性的应用之一。车载传感器需要实时感知周围环境的三维结构：前方车辆的距离、行人的位置、道路的坡度、障碍物的形状。这些信息直接关系到行车安全。现代自动驾驶系统通常融合摄像头、激光雷达、毫米波雷达等多种传感器，构建精确的三维环境地图。特斯拉的纯视觉方案展示了基于摄像头的三维感知能力，而Waymo的激光雷达方案则体现了点云处理的重要性。</p>
-<p><strong>增强现实（AR）和虚拟现实（VR）</strong>技术的核心是虚实融合。AR应用需要准确理解真实场景的三维结构，才能将虚拟物体自然地放置在现实环境中。苹果的ARKit、谷歌的ARCore都大量使用了三维视觉技术。VR应用则需要实时追踪用户的头部和手部姿态，构建沉浸式的三维体验。</p>
-<p><strong>机器人技术</strong>中，三维视觉是实现智能操作的关键。工业机器人需要精确定位零件的位置和姿态；服务机器人需要理解室内环境的布局；手术机器人需要重建人体器官的三维结构。波士顿动力的机器人能够在复杂地形中稳定行走，很大程度上依赖于先进的三维感知能力。</p>
-<p><strong>医疗影像</strong>领域，三维重建技术帮助医生更好地诊断疾病。CT、MRI扫描产生的二维切片可以重建为三维模型，为手术规划提供直观的参考。计算机辅助手术系统能够实时追踪手术器械的位置，提高手术精度。</p>
+<section id="实现方法" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="实现方法"><span class="header-section-number">7.2.2</span> 实现方法</h3>
+<p>以下是基于 Python 和 NumPy 的单尺度Retinex实现：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> cv2</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">def</span> single_scale_retinex(image, sigma<span class="op">=</span><span class="dv">30</span>):</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="co"># 转换为浮点数并取对数</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    image <span class="op">=</span> image.astype(np.float32) <span class="op">+</span> <span class="fl">1.0</span>  <span class="co"># 避免log(0)</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>    log_image <span class="op">=</span> np.log(image)</span>
+<span id="cb1-8"><a href="#cb1-8"></a>    </span>
+<span id="cb1-9"><a href="#cb1-9"></a>    <span class="co"># 高斯滤波估计光照</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>    log_light <span class="op">=</span> cv2.GaussianBlur(log_image, (<span class="dv">0</span>, <span class="dv">0</span>), sigma)</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    </span>
+<span id="cb1-12"><a href="#cb1-12"></a>    <span class="co"># 计算反射分量</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a>    log_retinex <span class="op">=</span> log_image <span class="op">-</span> log_light</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    </span>
+<span id="cb1-15"><a href="#cb1-15"></a>    <span class="co"># 指数变换并归一化</span></span>
+<span id="cb1-16"><a href="#cb1-16"></a>    retinex <span class="op">=</span> np.exp(log_retinex)</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    retinex <span class="op">=</span> (retinex <span class="op">-</span> np.<span class="bu">min</span>(retinex)) <span class="op">/</span> (np.<span class="bu">max</span>(retinex) <span class="op">-</span> np.<span class="bu">min</span>(retinex)) <span class="op">*</span> <span class="dv">255</span></span>
+<span id="cb1-18"><a href="#cb1-18"></a>    <span class="cf">return</span> retinex.astype(np.uint8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="优点与缺点" class="level3" data-number="7.2.3">
+<h3 data-number="7.2.3" class="anchored" data-anchor-id="优点与缺点"><span class="header-section-number">7.2.3</span> 优点与缺点</h3>
+<p>(1)优点：</p>
+<ul>
+<li>实现简单，计算效率较高。</li>
+<li>能有效增强对比度和色彩，适合低光照图像。</li>
+<li>对光照不均的图像有较好的校正效果。</li>
+</ul>
+<p>(2)缺点：</p>
+<ul>
+<li>单尺度高斯核可能无法适应复杂光照变化。</li>
+<li>可能引入光晕效应（halo artifacts），尤其在边缘区域。</li>
+<li>对噪声敏感，可能放大噪声。</li>
+</ul>
+</section>
+</section>
+<section id="多尺度retinexmsr" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="多尺度retinexmsr"><span class="header-section-number">7.3</span> 多尺度Retinex（MSR）</h2>
+<section id="基本原理-1" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="基本原理-1"><span class="header-section-number">7.3.1</span> 基本原理</h3>
+<p>多尺度Retinex（Multi-Scale Retinex, MSR）是对单尺度Retinex的扩展，通过结合多个尺度的高斯核来估计光照分量，适应不同光照变化的场景。MSR 对不同 ( ) 的 SSR 结果加权平均，综合考虑多种尺度的光照信息：</p>
+<p>[ R_{}(x, y) = _{i=1}^N w_i ( I(x, y) - ) ]</p>
+<p>其中：</p>
+<ul>
+<li>( N )：高斯核的尺度数。</li>
+<li>( G_i(x, y) )：第 ( i ) 个高斯核，标准差为 ( _i )。</li>
+<li>( w_i )：权重，通常满足 ( w_i = 1 ).</li>
+</ul>
+<p>MSR 通过多尺度融合，平衡局部和全局光照估计，提高增强效果。</p>
+</section>
+<section id="实现方法-1" class="level3" data-number="7.3.2">
+<h3 data-number="7.3.2" class="anchored" data-anchor-id="实现方法-1"><span class="header-section-number">7.3.2</span> 实现方法</h3>
+<p>以下是基于 Python 和 NumPy 的多尺度Retinex实现：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> cv2</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">def</span> multi_scale_retinex(image, sigmas<span class="op">=</span>[<span class="dv">15</span>, <span class="dv">80</span>, <span class="dv">250</span>], weights<span class="op">=</span><span class="va">None</span>):</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="cf">if</span> weights <span class="kw">is</span> <span class="va">None</span>:</span>
+<span id="cb2-6"><a href="#cb2-6"></a>        weights <span class="op">=</span> [<span class="fl">1.0</span> <span class="op">/</span> <span class="bu">len</span>(sigmas)] <span class="op">*</span> <span class="bu">len</span>(sigmas)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    </span>
+<span id="cb2-8"><a href="#cb2-8"></a>    <span class="co"># 转换为浮点数并取对数</span></span>
+<span id="cb2-9"><a href="#cb2-9"></a>    image <span class="op">=</span> image.astype(np.float32) <span class="op">+</span> <span class="fl">1.0</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>    log_image <span class="op">=</span> np.log(image)</span>
+<span id="cb2-11"><a href="#cb2-11"></a>    retinex <span class="op">=</span> np.zeros_like(log_image)</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    </span>
+<span id="cb2-13"><a href="#cb2-13"></a>    <span class="co"># 多个尺度的高斯滤波</span></span>
+<span id="cb2-14"><a href="#cb2-14"></a>    <span class="cf">for</span> sigma, weight <span class="kw">in</span> <span class="bu">zip</span>(sigmas, weights):</span>
+<span id="cb2-15"><a href="#cb2-15"></a>        log_light <span class="op">=</span> cv2.GaussianBlur(log_image, (<span class="dv">0</span>, <span class="dv">0</span>), sigma)</span>
+<span id="cb2-16"><a href="#cb2-16"></a>        retinex <span class="op">+=</span> weight <span class="op">*</span> (log_image <span class="op">-</span> log_light)</span>
+<span id="cb2-17"><a href="#cb2-17"></a>    </span>
+<span id="cb2-18"><a href="#cb2-18"></a>    <span class="co"># 指数变换并归一化</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>    retinex <span class="op">=</span> np.exp(retinex)</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    retinex <span class="op">=</span> (retinex <span class="op">-</span> np.<span class="bu">min</span>(retinex)) <span class="op">/</span> (np.<span class="bu">max</span>(retinex) <span class="op">-</span> np.<span class="bu">min</span>(retinex)) <span class="op">*</span> <span class="dv">255</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>    <span class="cf">return</span> retinex.astype(np.uint8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="优点与缺点-1" class="level3" data-number="7.3.3">
+<h3 data-number="7.3.3" class="anchored" data-anchor-id="优点与缺点-1"><span class="header-section-number">7.3.3</span> 优点与缺点</h3>
+<ol type="1">
+<li>优点：</li>
+</ol>
+<ul>
+<li>通过多尺度融合，适应复杂光照场景。</li>
+<li>减少光晕效应，增强效果更自然。</li>
+<li>提高色彩和细节的恢复能力。</li>
+</ul>
+<ol start="2" type="1">
+<li>缺点：</li>
+</ol>
+<ul>
+<li>计算复杂度高于SSR，需多次高斯滤波。</li>
+<li>参数（尺度数、权重、( _i )）选择需经验或实验。</li>
+<li>对强噪声仍可能敏感。</li>
+</ul>
+</section>
+</section>
+<section id="白平衡" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="白平衡"><span class="header-section-number">7.4</span> 白平衡</h2>
+<section id="基本原理-2" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="基本原理-2"><span class="header-section-number">7.4.1</span> 基本原理</h3>
+<p>白平衡（White Balance）是一种色彩校正技术，旨在消除光源色温对图像色彩的影响，使白色物体在任何光照下呈现为白色。白平衡假设图像中存在参考白色区域，通过调整 RGB 通道的增益，使白色区域的 RGB 值相等。</p>
+<p>常见的白平衡方法包括：</p>
+<ul>
+<li>灰度世界假设（Gray World Assumption）：假设图像的平均颜色为灰色，调整 RGB 通道的增益使平均值相等。</li>
+<li>白点法（White Patch）：选择图像中最亮的区域作为参考白点，调整 RGB 增益。</li>
+<li>完美反射法：假设最大 RGB 值对应白色，基于此校正。</li>
+</ul>
+<p>灰度世界假设的数学表达式为：</p>
+<p>[ R_{} = R , G_{} = G , B_{} = B ]</p>
+<p>其中，( _I = ) 是图像所有通道的平均值。</p>
+</section>
+<section id="实现方法-2" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="实现方法-2"><span class="header-section-number">7.4.2</span> 实现方法</h3>
+<p>以下是基于 Python 和 NumPy 的灰度世界白平衡实现：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> cv2</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">def</span> gray_world_white_balance(image):</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="co"># 分离 RGB 通道</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    R, G, B <span class="op">=</span> cv2.split(image.astype(np.float32))</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    </span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="co"># 计算各通道平均值</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    avg_R <span class="op">=</span> np.mean(R)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    avg_G <span class="op">=</span> np.mean(G)</span>
+<span id="cb3-11"><a href="#cb3-11"></a>    avg_B <span class="op">=</span> np.mean(B)</span>
+<span id="cb3-12"><a href="#cb3-12"></a>    avg_I <span class="op">=</span> (avg_R <span class="op">+</span> avg_G <span class="op">+</span> avg_B) <span class="op">/</span> <span class="fl">3.0</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>    </span>
+<span id="cb3-14"><a href="#cb3-14"></a>    <span class="co"># 调整增益</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>    R_out <span class="op">=</span> R <span class="op">*</span> (avg_I <span class="op">/</span> avg_R)</span>
+<span id="cb3-16"><a href="#cb3-16"></a>    G_out <span class="op">=</span> G <span class="op">*</span> (avg_I <span class="op">/</span> avg_G)</span>
+<span id="cb3-17"><a href="#cb3-17"></a>    B_out <span class="op">=</span> B <span class="op">*</span> (avg_I <span class="op">/</span> avg_B)</span>
+<span id="cb3-18"><a href="#cb3-18"></a>    </span>
+<span id="cb3-19"><a href="#cb3-19"></a>    <span class="co"># 合并通道并归一化</span></span>
+<span id="cb3-20"><a href="#cb3-20"></a>    output <span class="op">=</span> cv2.merge([R_out, G_out, B_out])</span>
+<span id="cb3-21"><a href="#cb3-21"></a>    output <span class="op">=</span> np.clip(output, <span class="dv">0</span>, <span class="dv">255</span>).astype(np.uint8)</span>
+<span id="cb3-22"><a href="#cb3-22"></a>    <span class="cf">return</span> output</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="优点与缺点-2" class="level3" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="优点与缺点-2"><span class="header-section-number">7.4.3</span> 优点与缺点</h3>
+<ol type="1">
+<li>优点：</li>
+</ol>
+<ul>
+<li>实现简单，计算效率高。</li>
+<li>能有效校正光源色温偏差。</li>
+<li>适合均匀光照场景。</li>
+</ul>
+<ol start="2" type="1">
+<li>缺点：</li>
+</ol>
+<ul>
+<li>依赖假设（如灰度世界），在复杂光照下可能失效。</li>
+<li>可能改变图像的整体色调。</li>
+<li>对单色或色彩分布不均的图像效果有限。</li>
+</ul>
+</section>
+</section>
+<section id="色彩恒常性" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="色彩恒常性"><span class="header-section-number">7.5</span> 色彩恒常性</h2>
+<section id="基本原理-3" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="基本原理-3"><span class="header-section-number">7.5.1</span> 基本原理</h3>
+<p>色彩恒常性（Color Constancy）是人类视觉系统的一种能力，使物体在不同光照条件下呈现相似的颜色。计算机视觉中的色彩恒常性算法旨在模拟这一特性，估计光照颜色并校正图像。Retinex理论是实现色彩恒常性的一种方法，而其他方法（如灰度世界、白点法）也常用于此。</p>
+<p>高级色彩恒常性算法通常基于统计或机器学习模型，估计全局光照颜色。一种简单的方法是基于最大值假设（Max-RGB），认为图像中最大 RGB 值对应光照颜色：</p>
+<p>[ e = ((R), (G), (B)) ]</p>
+<p>校正后的图像为：</p>
+<p>[ R_{} = , G_{} = , B_{} = ]</p>
+</section>
+<section id="实现方法-3" class="level3" data-number="7.5.2">
+<h3 data-number="7.5.2" class="anchored" data-anchor-id="实现方法-3"><span class="header-section-number">7.5.2</span> 实现方法</h3>
+<p>以下是基于 Python 和 NumPy 的 Max-RGB 色彩恒常性实现：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> cv2</span>
+<span id="cb4-3"><a href="#cb4-3"></a></span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="kw">def</span> max_rgb_color_constancy(image):</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="co"># 分离 RGB 通道</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    R, G, B <span class="op">=</span> cv2.split(image.astype(np.float32))</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    </span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="co"># 计算各通道最大值</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>    max_R <span class="op">=</span> np.<span class="bu">max</span>(R)</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    max_G <span class="op">=</span> np.<span class="bu">max</span>(G)</span>
+<span id="cb4-11"><a href="#cb4-11"></a>    max_B <span class="op">=</span> np.<span class="bu">max</span>(B)</span>
+<span id="cb4-12"><a href="#cb4-12"></a>    </span>
+<span id="cb4-13"><a href="#cb4-13"></a>    <span class="co"># 校正</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>    R_out <span class="op">=</span> R <span class="op">/</span> max_R <span class="op">*</span> <span class="dv">255</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>    G_out <span class="op">=</span> G <span class="op">/</span> max_G <span class="op">*</span> <span class="dv">255</span></span>
+<span id="cb4-16"><a href="#cb4-16"></a>    B_out <span class="op">=</span> B <span class="op">/</span> max_B <span class="op">*</span> <span class="dv">255</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>    </span>
+<span id="cb4-18"><a href="#cb4-18"></a>    <span class="co"># 合并通道</span></span>
+<span id="cb4-19"><a href="#cb4-19"></a>    output <span class="op">=</span> cv2.merge([R_out, G_out, B_out])</span>
+<span id="cb4-20"><a href="#cb4-20"></a>    output <span class="op">=</span> np.clip(output, <span class="dv">0</span>, <span class="dv">255</span>).astype(np.uint8)</span>
+<span id="cb4-21"><a href="#cb4-21"></a>    <span class="cf">return</span> output</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="优点与缺点-3" class="level3" data-number="7.5.3">
+<h3 data-number="7.5.3" class="anchored" data-anchor-id="优点与缺点-3"><span class="header-section-number">7.5.3</span> 优点与缺点</h3>
+<ol type="1">
+<li>优点：</li>
+</ol>
+<ul>
+<li>简单直观，适合快速处理。</li>
+<li>能有效校正全局光照偏差。</li>
+<li>对单一光源场景效果较好。</li>
+</ul>
+<ol start="2" type="1">
+<li>缺点：</li>
+</ol>
+<ul>
+<li>假设最大值对应光照，可能在复杂场景下失效。</li>
+<li>对噪声敏感，可能导致颜色失真。</li>
+<li>不适用于多光源或复杂光照环境。</li>
+</ul>
+</section>
+</section>
+<section id="四种方法的比较" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="四种方法的比较"><span class="header-section-number">7.6</span> 四种方法的比较</h2>
+<ol type="1">
+<li>数学特性</li>
+</ol>
+<ul>
+<li><strong>单尺度Retinex</strong>：基于单尺度高斯核，分离光照和反射，增强对比度。</li>
+<li><strong>多尺度Retinex</strong>：结合多尺度高斯核，适应复杂光照。</li>
+<li><strong>白平衡</strong>：基于全局或局部颜色假设，调整 RGB 增益。</li>
+<li><strong>色彩恒常性</strong>：估计光照颜色，校正全局色彩。</li>
+</ul>
+<ol start="2" type="1">
+<li>增强效果</li>
+</ol>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>色彩校正</th>
+<th>细节增强</th>
+<th>光照适应性</th>
+<th>计算复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>单尺度Retinex</td>
+<td>良好</td>
+<td>良好</td>
+<td>一般</td>
+<td>中等</td>
+</tr>
+<tr class="even">
+<td>多尺度Retinex</td>
+<td>优秀</td>
+<td>优秀</td>
+<td>优秀</td>
+<td>高</td>
+</tr>
+<tr class="odd">
+<td>白平衡</td>
+<td>优秀</td>
+<td>一般</td>
+<td>一般</td>
+<td>低</td>
+</tr>
+<tr class="even">
+<td>色彩恒常性</td>
+<td>良好</td>
+<td>一般</td>
+<td>一般</td>
+<td>低</td>
+</tr>
+</tbody>
+</table>
+<ol start="3" type="1">
+<li>应用选择</li>
+</ol>
+<ul>
+<li><strong>单尺度Retinex</strong>：适合简单光照场景的快速增强。</li>
+<li><strong>多尺度Retinex</strong>：适合复杂光照环境，效果更自然。</li>
+<li><strong>白平衡</strong>：适合校正单一光源色温偏差。</li>
+<li><strong>色彩恒常性</strong>：适合模拟人类视觉，校正全局光照。</li>
+</ul>
+<ol start="4" type="1">
+<li>实际实现与效果分析</li>
+</ol>
+<p>以下是一个完整的 Python 示例，展示如何对含光照偏差的图像应用四种方法并比较效果：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> cv2</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co"># 加载图像</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>image <span class="op">=</span> cv2.imread(<span class="st">'color_cast_image.jpg'</span>)</span>
+<span id="cb5-7"><a href="#cb5-7"></a>image_rgb <span class="op">=</span> cv2.cvtColor(image, cv2.COLOR_BGR2RGB)</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co"># 分离灰度图像用于 Retinex</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>gray_image <span class="op">=</span> cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)</span>
+<span id="cb5-11"><a href="#cb5-11"></a></span>
+<span id="cb5-12"><a href="#cb5-12"></a><span class="co"># 应用四种方法</span></span>
+<span id="cb5-13"><a href="#cb5-13"></a>ssr <span class="op">=</span> single_scale_retinex(gray_image, sigma<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb5-14"><a href="#cb5-14"></a>msr <span class="op">=</span> multi_scale_retinex(gray_image, sigmas<span class="op">=</span>[<span class="dv">15</span>, <span class="dv">80</span>, <span class="dv">250</span>])</span>
+<span id="cb5-15"><a href="#cb5-15"></a>wb <span class="op">=</span> gray_world_white_balance(image_rgb)</span>
+<span id="cb5-16"><a href="#cb5-16"></a>cc <span class="op">=</span> max_rgb_color_constancy(image_rgb)</span>
+<span id="cb5-17"><a href="#cb5-17"></a></span>
+<span id="cb5-18"><a href="#cb5-18"></a><span class="co"># 显示结果</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>))</span>
+<span id="cb5-20"><a href="#cb5-20"></a>plt.subplot(<span class="dv">231</span>), plt.imshow(image_rgb), plt.title(<span class="st">'Original Image'</span>)</span>
+<span id="cb5-21"><a href="#cb5-21"></a>plt.subplot(<span class="dv">232</span>), plt.imshow(ssr, cmap<span class="op">=</span><span class="st">'gray'</span>), plt.title(<span class="st">'Single-Scale Retinex'</span>)</span>
+<span id="cb5-22"><a href="#cb5-22"></a>plt.subplot(<span class="dv">233</span>), plt.imshow(msr, cmap<span class="op">=</span><span class="st">'gray'</span>), plt.title(<span class="st">'Multi-Scale Retinex'</span>)</span>
+<span id="cb5-23"><a href="#cb5-23"></a>plt.subplot(<span class="dv">234</span>), plt.imshow(wb), plt.title(<span class="st">'Gray World White Balance'</span>)</span>
+<span id="cb5-24"><a href="#cb5-24"></a>plt.subplot(<span class="dv">235</span>), plt.imshow(cc), plt.title(<span class="st">'Max-RGB Color Constancy'</span>)</span>
+<span id="cb5-25"><a href="#cb5-25"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol start="5" type="1">
+<li>效果分析</li>
+</ol>
+<ul>
+<li><strong>单尺度Retinex</strong>：增强对比度和细节，但可能引入光晕效应。</li>
+<li><strong>多尺度Retinex</strong>：色彩和细节增强更自然，适应复杂光照。</li>
+<li><strong>白平衡</strong>：有效校正色温偏差，但细节增强有限。</li>
+<li><strong>色彩恒常性</strong>：校正全局光照，效果简单但可能失真。</li>
+</ul>
 
 
 </section>
@@ -977,13 +1378,13 @@ if (typeof bootstrap === 'undefined') {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapter03/3.7_小结与实践建议.html" class="pagination-link" aria-label="小结与实践建议">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">小结与实践建议</span></span>
+      <a href="../chapter03/3.5_频域增强技术.html" class="pagination-link" aria-label="频域增强技术">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">频域增强技术</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapter11/11.1_相机标定与几何.html" class="pagination-link" aria-label="相机标定与几何">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapter03/3.7_小结与实践建议.html" class="pagination-link" aria-label="小结与实践建议">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">小结与实践建议</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -995,7 +1396,7 @@ if (typeof bootstrap === 'undefined') {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.0_概述.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter03/3.6_Retinex与色彩校正.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>使用 <a href="https://quarto.org/">Quarto</a> 构建</p>
 </div>

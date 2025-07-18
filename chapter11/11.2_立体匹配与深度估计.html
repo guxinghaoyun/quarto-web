@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>3&nbsp; 立体匹配与深度估计 – 现代计算机视觉</title>
+<title>11&nbsp; 立体匹配与深度估计 – 现代计算机视觉</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,9 +78,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-43a518227082ac35b3113d490d8c8312.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-6ba6813c27d4e98062636b1311a23212.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-43a518227082ac35b3113d490d8c8312.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6fcac39c9284576018a90f9233d38a57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d93707d35e9eb4f9c74ea739720dc72e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6fcac39c9284576018a90f9233d38a57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -95,17 +95,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "没有结果",
-    "search-matching-documents-text": "匹配的文档",
-    "search-copy-link-title": "复制搜索链接",
-    "search-hide-matches-text": "隐藏其它匹配结果",
-    "search-more-match-text": "更多匹配结果",
-    "search-more-matches-text": "更多匹配结果",
-    "search-clear-button-title": "清除",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "取消",
-    "search-submit-button-title": "提交",
-    "search-label": "搜索"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
@@ -329,13 +329,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.2_立体匹配与深度估计.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.2_立体匹配与深度估计.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -349,14 +349,14 @@ window.Quarto = {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">现代计算机视觉</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/guxinghaoyun/quarto-web" title="源代码" class="quarto-navigation-tool px-1" aria-label="源代码"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="切换深色模式"><i class="bi"></i></a>
+    <a href="https://github.com/guxinghaoyun/quarto-web" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="搜索"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -369,59 +369,118 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">第十一章：三维视觉与点云处理</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">第三章：图像预处理与增强技术</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapter03/3.0_概述.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">概述</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.1_图像噪声模型与评估.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">图像噪声模型与评估</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.2_空域平滑滤波.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">空域平滑滤波</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.3_边缘保留滤波.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">边缘保留滤波</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.4_对比度增强与直方图均衡.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">对比度增强与直方图均衡</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.5_频域增强技术.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">频域增强技术</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.6_Retinex与色彩校正.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Retinex与色彩校正</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.7_小结与实践建议.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">小结与实践建议</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">第十一章：三维视觉与点云处理</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../chapter11/11.1_相机标定与几何.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.2_立体匹配与深度估计.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.3_三维重建.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">三维重建</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">三维重建</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.4_点云基础与处理.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">点云基础与处理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">点云基础与处理</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.5_PointNet系列网络.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PointNet系列网络</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">PointNet系列网络</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.6_3D目标检测.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">3D目标检测</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">3D目标检测</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.7_应用案例分析.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">应用案例分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">应用案例分析</span></span></a>
   </div>
 </li>
       </ul>
@@ -439,29 +498,29 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">目录</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#引言从双目视觉到深度感知" id="toc-引言从双目视觉到深度感知" class="nav-link active" data-scroll-target="#引言从双目视觉到深度感知"><span class="header-section-number">3.1</span> 引言：从双目视觉到深度感知</a></li>
-  <li><a href="#核心概念" id="toc-核心概念" class="nav-link" data-scroll-target="#核心概念"><span class="header-section-number">3.2</span> 核心概念</a></li>
-  <li><a href="#理论基础从几何约束到深度学习" id="toc-理论基础从几何约束到深度学习" class="nav-link" data-scroll-target="#理论基础从几何约束到深度学习"><span class="header-section-number">3.3</span> 理论基础：从几何约束到深度学习</a>
+  <li><a href="#引言从双目视觉到深度感知" id="toc-引言从双目视觉到深度感知" class="nav-link active" data-scroll-target="#引言从双目视觉到深度感知"><span class="header-section-number">11.1</span> 引言：从双目视觉到深度感知</a></li>
+  <li><a href="#核心概念" id="toc-核心概念" class="nav-link" data-scroll-target="#核心概念"><span class="header-section-number">11.2</span> 核心概念</a></li>
+  <li><a href="#理论基础从几何约束到深度学习" id="toc-理论基础从几何约束到深度学习" class="nav-link" data-scroll-target="#理论基础从几何约束到深度学习"><span class="header-section-number">11.3</span> 理论基础：从几何约束到深度学习</a>
   <ul class="collapse">
-  <li><a href="#传统几何方法的理论基础" id="toc-传统几何方法的理论基础" class="nav-link" data-scroll-target="#传统几何方法的理论基础"><span class="header-section-number">3.3.1</span> 传统几何方法的理论基础</a></li>
-  <li><a href="#深度学习方法的理论基础" id="toc-深度学习方法的理论基础" class="nav-link" data-scroll-target="#深度学习方法的理论基础"><span class="header-section-number">3.3.2</span> 深度学习方法的理论基础</a></li>
+  <li><a href="#传统几何方法的理论基础" id="toc-传统几何方法的理论基础" class="nav-link" data-scroll-target="#传统几何方法的理论基础"><span class="header-section-number">11.3.1</span> 传统几何方法的理论基础</a></li>
+  <li><a href="#深度学习方法的理论基础" id="toc-深度学习方法的理论基础" class="nav-link" data-scroll-target="#深度学习方法的理论基础"><span class="header-section-number">11.3.2</span> 深度学习方法的理论基础</a></li>
   </ul></li>
-  <li><a href="#算法实现" id="toc-算法实现" class="nav-link" data-scroll-target="#算法实现"><span class="header-section-number">3.4</span> 算法实现</a></li>
-  <li><a href="#性能对比分析" id="toc-性能对比分析" class="nav-link" data-scroll-target="#性能对比分析"><span class="header-section-number">3.5</span> 性能对比分析</a></li>
-  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">3.6</span> 小结</a></li>
+  <li><a href="#算法实现" id="toc-算法实现" class="nav-link" data-scroll-target="#算法实现"><span class="header-section-number">11.4</span> 算法实现</a></li>
+  <li><a href="#性能对比分析" id="toc-性能对比分析" class="nav-link" data-scroll-target="#性能对比分析"><span class="header-section-number">11.5</span> 性能对比分析</a></li>
+  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">11.6</span> 小结</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.2_立体匹配与深度估计.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.2_立体匹配与深度估计.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.2_立体匹配与深度估计.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.2_立体匹配与深度估计.html"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></h1>
+<h1 class="title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></h1>
 </div>
 
 
@@ -478,16 +537,67 @@ window.Quarto = {
 </header>
 
 
-<section id="引言从双目视觉到深度感知" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="引言从双目视觉到深度感知"><span class="header-section-number">3.1</span> 引言：从双目视觉到深度感知</h2>
+<section id="引言从双目视觉到深度感知" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="引言从双目视觉到深度感知"><span class="header-section-number">11.1</span> 引言：从双目视觉到深度感知</h2>
 <p>当我们用双眼观察世界时，左右眼看到的图像存在微小差异。大脑正是利用这种差异来感知深度，判断物体的远近。立体匹配算法正是模拟了人类双目视觉的这一机制：通过计算两幅图像中对应点的视差（位置差异），恢复场景的深度信息。</p>
 <p>随着深度学习的发展，深度估计技术已经从传统的几何方法扩展到基于神经网络的端到端学习方法。现代深度估计系统不仅能处理标准的双目图像对，还能从单目图像直接预测深度，在自动驾驶、机器人导航、增强现实等领域发挥着关键作用。</p>
 </section>
-<section id="核心概念" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="核心概念"><span class="header-section-number">3.2</span> 核心概念</h2>
+<section id="核心概念" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="核心概念"><span class="header-section-number">11.2</span> 核心概念</h2>
 <p><strong>传统立体匹配</strong>基于几何约束和相似性度量。双目立体视觉系统通常由两个平行放置的相机组成，相机之间的距离称为基线（baseline）。传统方法通过在极线约束下搜索对应点，计算视差来恢复深度。这类方法计算效率高，但在弱纹理、遮挡区域容易失效。</p>
 <p><strong>深度学习方法</strong>则将深度估计视为回归问题，通过端到端训练学习从图像到深度的映射关系。现代深度网络如PSMNet能够处理复杂场景，在准确性和鲁棒性方面显著超越传统方法。这类方法能够利用语义信息和全局上下文，在困难区域也能给出合理的深度估计。</p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>graph TD</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    subgraph 双目相机系统</span>
+<span id="cb1-3"><a href="#cb1-3"></a>        A["左相机&lt;br/&gt;Camera_L"]</span>
+<span id="cb1-4"><a href="#cb1-4"></a>        B["右相机&lt;br/&gt;Camera_R"]</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    end</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    </span>
+<span id="cb1-7"><a href="#cb1-7"></a>    subgraph 图像获取</span>
+<span id="cb1-8"><a href="#cb1-8"></a>        C["左图像&lt;br/&gt;Image_L"]</span>
+<span id="cb1-9"><a href="#cb1-9"></a>        D["右图像&lt;br/&gt;Image_R"]</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    end</span>
+<span id="cb1-11"><a href="#cb1-11"></a>    </span>
+<span id="cb1-12"><a href="#cb1-12"></a>    subgraph 立体匹配</span>
+<span id="cb1-13"><a href="#cb1-13"></a>        E["视差计算&lt;br/&gt;Disparity Map"]</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    end</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    </span>
+<span id="cb1-16"><a href="#cb1-16"></a>    subgraph 深度重建</span>
+<span id="cb1-17"><a href="#cb1-17"></a>        F["深度图&lt;br/&gt;Depth Map"]</span>
+<span id="cb1-18"><a href="#cb1-18"></a>    end</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    </span>
+<span id="cb1-20"><a href="#cb1-20"></a>    A --&gt; C</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    B --&gt; D</span>
+<span id="cb1-22"><a href="#cb1-22"></a>    C --&gt; E</span>
+<span id="cb1-23"><a href="#cb1-23"></a>    D --&gt; E</span>
+<span id="cb1-24"><a href="#cb1-24"></a>    E --&gt; F</span>
+<span id="cb1-25"><a href="#cb1-25"></a>    </span>
+<span id="cb1-26"><a href="#cb1-26"></a>    classDef cameraNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb1-27"><a href="#cb1-27"></a>    classDef imageNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    classDef disparityNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb1-29"><a href="#cb1-29"></a>    classDef depthNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb1-30"><a href="#cb1-30"></a>    </span>
+<span id="cb1-31"><a href="#cb1-31"></a>    classDef cameraSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb1-32"><a href="#cb1-32"></a>    classDef imageSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold</span>
+<span id="cb1-33"><a href="#cb1-33"></a>    classDef disparitySubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold</span>
+<span id="cb1-34"><a href="#cb1-34"></a>    classDef depthSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold</span>
+<span id="cb1-35"><a href="#cb1-35"></a>    </span>
+<span id="cb1-36"><a href="#cb1-36"></a>    class A,B cameraNode</span>
+<span id="cb1-37"><a href="#cb1-37"></a>    class C,D imageNode</span>
+<span id="cb1-38"><a href="#cb1-38"></a>    class E disparityNode</span>
+<span id="cb1-39"><a href="#cb1-39"></a>    class F depthNode</span>
+<span id="cb1-40"><a href="#cb1-40"></a>    </span>
+<span id="cb1-41"><a href="#cb1-41"></a>    class 双目相机系统 cameraSubgraph</span>
+<span id="cb1-42"><a href="#cb1-42"></a>    class 图像获取 imageSubgraph</span>
+<span id="cb1-43"><a href="#cb1-43"></a>    class 立体匹配 disparitySubgraph</span>
+<span id="cb1-44"><a href="#cb1-44"></a>    class 深度重建 depthSubgraph</span>
+<span id="cb1-45"><a href="#cb1-45"></a>    </span>
+<span id="cb1-46"><a href="#cb1-46"></a>    linkStyle 0,1 stroke:#1565c0,stroke-width:2px</span>
+<span id="cb1-47"><a href="#cb1-47"></a>    linkStyle 2,3 stroke:#2e7d32,stroke-width:2px</span>
+<span id="cb1-48"><a href="#cb1-48"></a>    linkStyle 4 stroke:#e65100,stroke-width:2px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -550,6 +660,55 @@ window.Quarto = {
 <p><strong>视差（Disparity）</strong>是立体匹配的核心概念。它指的是同一物体在左右图像中对应点的水平位置差异。视差与深度成反比关系：距离相机越近的物体，其视差越大；距离相机越远的物体，其视差越小。无穷远处的物体（如天空）视差接近于零。</p>
 <p><strong>对应点问题</strong>是立体匹配的核心挑战。给定左图中的一个点，如何在右图中找到与之对应的点？这个看似简单的问题实际上非常复杂，尤其是在纹理缺乏、重复模式、遮挡区域等情况下。立体匹配算法的主要差异就在于如何解决这个对应点问题。</p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1"></a>graph LR</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    subgraph 左图像</span>
+<span id="cb2-3"><a href="#cb2-3"></a>        A["参考点&lt;br/&gt;(x, y)"]</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    end</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    </span>
+<span id="cb2-6"><a href="#cb2-6"></a>    subgraph 右图像</span>
+<span id="cb2-7"><a href="#cb2-7"></a>        B["匹配点&lt;br/&gt;(x-d, y)"]</span>
+<span id="cb2-8"><a href="#cb2-8"></a>        C["非匹配点"]</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    end</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    </span>
+<span id="cb2-11"><a href="#cb2-11"></a>    A --&gt;|"匹配搜索"| B</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    A -.-&gt;|"错误匹配"| C</span>
+<span id="cb2-13"><a href="#cb2-13"></a>    </span>
+<span id="cb2-14"><a href="#cb2-14"></a>    subgraph 匹配约束</span>
+<span id="cb2-15"><a href="#cb2-15"></a>        D["极线约束"]</span>
+<span id="cb2-16"><a href="#cb2-16"></a>        E["唯一性约束"]</span>
+<span id="cb2-17"><a href="#cb2-17"></a>        F["顺序一致性约束"]</span>
+<span id="cb2-18"><a href="#cb2-18"></a>        G["视差平滑约束"]</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    end</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    </span>
+<span id="cb2-21"><a href="#cb2-21"></a>    D --&gt; A</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    E --&gt; A</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    F --&gt; A</span>
+<span id="cb2-24"><a href="#cb2-24"></a>    G --&gt; A</span>
+<span id="cb2-25"><a href="#cb2-25"></a>    </span>
+<span id="cb2-26"><a href="#cb2-26"></a>    classDef leftNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb2-27"><a href="#cb2-27"></a>    classDef rightNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb2-28"><a href="#cb2-28"></a>    classDef wrongNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb2-29"><a href="#cb2-29"></a>    classDef constraintNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb2-30"><a href="#cb2-30"></a>    </span>
+<span id="cb2-31"><a href="#cb2-31"></a>    classDef leftSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb2-32"><a href="#cb2-32"></a>    classDef rightSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold</span>
+<span id="cb2-33"><a href="#cb2-33"></a>    classDef constraintSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold</span>
+<span id="cb2-34"><a href="#cb2-34"></a>    </span>
+<span id="cb2-35"><a href="#cb2-35"></a>    class A leftNode</span>
+<span id="cb2-36"><a href="#cb2-36"></a>    class B rightNode</span>
+<span id="cb2-37"><a href="#cb2-37"></a>    class C wrongNode</span>
+<span id="cb2-38"><a href="#cb2-38"></a>    class D,E,F,G constraintNode</span>
+<span id="cb2-39"><a href="#cb2-39"></a>    </span>
+<span id="cb2-40"><a href="#cb2-40"></a>    class 左图像 leftSubgraph</span>
+<span id="cb2-41"><a href="#cb2-41"></a>    class 右图像 rightSubgraph</span>
+<span id="cb2-42"><a href="#cb2-42"></a>    class 匹配约束 constraintSubgraph</span>
+<span id="cb2-43"><a href="#cb2-43"></a>    </span>
+<span id="cb2-44"><a href="#cb2-44"></a>    linkStyle 0 stroke:#4caf50,stroke-width:2px</span>
+<span id="cb2-45"><a href="#cb2-45"></a>    linkStyle 1 stroke:#f44336,stroke-width:2px,stroke-dasharray:5 5</span>
+<span id="cb2-46"><a href="#cb2-46"></a>    linkStyle 2,3,4,5 stroke:#9c27b0,stroke-width:1.5px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -608,11 +767,11 @@ window.Quarto = {
 </div>
 <p><em>图11.7：立体匹配中的对应点问题与匹配约束</em></p>
 </section>
-<section id="理论基础从几何约束到深度学习" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="理论基础从几何约束到深度学习"><span class="header-section-number">3.3</span> 理论基础：从几何约束到深度学习</h2>
+<section id="理论基础从几何约束到深度学习" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="理论基础从几何约束到深度学习"><span class="header-section-number">11.3</span> 理论基础：从几何约束到深度学习</h2>
 <p>立体匹配与深度估计的理论基础可以分为传统几何方法和现代深度学习方法两大类。</p>
-<section id="传统几何方法的理论基础" class="level3" data-number="3.3.1">
-<h3 data-number="3.3.1" class="anchored" data-anchor-id="传统几何方法的理论基础"><span class="header-section-number">3.3.1</span> 传统几何方法的理论基础</h3>
+<section id="传统几何方法的理论基础" class="level3" data-number="11.3.1">
+<h3 data-number="11.3.1" class="anchored" data-anchor-id="传统几何方法的理论基础"><span class="header-section-number">11.3.1</span> 传统几何方法的理论基础</h3>
 <p><strong>1. 立体相机几何关系</strong></p>
 <p>在标准立体配置中，两个相机的光轴平行，图像平面共面。设左右相机的光心分别为<span class="math inline">O_L</span>和<span class="math inline">O_R</span>，它们之间的距离（基线长度）为<span class="math inline">b</span>。对于空间中的点<span class="math inline">P(X,Y,Z)</span>，其在左右图像中的投影点分别为<span class="math inline">p_L(x_L,y_L)</span>和<span class="math inline">p_R(x_R,y_R)</span>。根据相似三角形原理：</p>
 <p><span class="math display">\frac{x_L - x_R}{b} = \frac{f}{Z}</span></p>
@@ -639,8 +798,8 @@ L_r(p-r,d+1) + P_1 \\
 \end{cases}</span></p>
 <p>其中<span class="math inline">L_r(p,d)</span>是沿方向<span class="math inline">r</span>的路径代价，<span class="math inline">C(p,d)</span>是像素<span class="math inline">p</span>处视差为<span class="math inline">d</span>的匹配代价，<span class="math inline">P_1</span>和<span class="math inline">P_2</span>是平滑性惩罚参数。</p>
 </section>
-<section id="深度学习方法的理论基础" class="level3" data-number="3.3.2">
-<h3 data-number="3.3.2" class="anchored" data-anchor-id="深度学习方法的理论基础"><span class="header-section-number">3.3.2</span> 深度学习方法的理论基础</h3>
+<section id="深度学习方法的理论基础" class="level3" data-number="11.3.2">
+<h3 data-number="11.3.2" class="anchored" data-anchor-id="深度学习方法的理论基础"><span class="header-section-number">11.3.2</span> 深度学习方法的理论基础</h3>
 <p><strong>1. 端到端深度估计框架</strong></p>
 <p>深度学习方法将立体匹配视为一个端到端的回归问题，网络架构通常包含四个关键组件：</p>
 <ul>
@@ -677,111 +836,164 @@ L_r(p-r,d+1) + P_1 \\
 <p>这些理论方法的核心区别在于：传统方法依赖手工设计的特征和几何约束，而深度学习方法能够自动学习特征表示和匹配策略，特别是在复杂场景中表现出更强的鲁棒性。</p>
 </section>
 </section>
-<section id="算法实现" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="算法实现"><span class="header-section-number">3.4</span> 算法实现</h2>
+<section id="算法实现" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="算法实现"><span class="header-section-number">11.4</span> 算法实现</h2>
 <p>立体匹配与深度估计的实现可以分为传统几何方法和现代深度学习方法两大类。</p>
 <p><strong>传统SGBM算法核心</strong>：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> cv2</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">def</span> sgbm_stereo_matching(left_img, right_img):</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="co">"""</span></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="co">    SGBM立体匹配核心算法</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a><span class="co">    核心思想：通过多方向路径聚合优化匹配代价</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="co">    """</span></span>
-<span id="cb1-9"><a href="#cb1-9"></a>    <span class="co"># 核心参数设置</span></span>
-<span id="cb1-10"><a href="#cb1-10"></a>    stereo <span class="op">=</span> cv2.StereoSGBM_create(</span>
-<span id="cb1-11"><a href="#cb1-11"></a>        minDisparity<span class="op">=</span><span class="dv">0</span>,</span>
-<span id="cb1-12"><a href="#cb1-12"></a>        numDisparities<span class="op">=</span><span class="dv">64</span>,          <span class="co"># 视差搜索范围</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>        blockSize<span class="op">=</span><span class="dv">5</span>,                <span class="co"># 匹配窗口大小</span></span>
-<span id="cb1-14"><a href="#cb1-14"></a>        P1<span class="op">=</span><span class="dv">8</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span><span class="op">**</span><span class="dv">2</span>,           <span class="co"># 平滑性惩罚参数1</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a>        P2<span class="op">=</span><span class="dv">32</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span><span class="op">**</span><span class="dv">2</span>,          <span class="co"># 平滑性惩罚参数2</span></span>
-<span id="cb1-16"><a href="#cb1-16"></a>        uniquenessRatio<span class="op">=</span><span class="dv">10</span>,         <span class="co"># 唯一性比率</span></span>
-<span id="cb1-17"><a href="#cb1-17"></a>        speckleWindowSize<span class="op">=</span><span class="dv">100</span>,      <span class="co"># 斑点滤波窗口</span></span>
-<span id="cb1-18"><a href="#cb1-18"></a>        speckleRange<span class="op">=</span><span class="dv">32</span>             <span class="co"># 斑点滤波范围</span></span>
-<span id="cb1-19"><a href="#cb1-19"></a>    )</span>
-<span id="cb1-20"><a href="#cb1-20"></a></span>
-<span id="cb1-21"><a href="#cb1-21"></a>    <span class="co"># 计算视差图</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a>    disparity <span class="op">=</span> stereo.compute(left_img, right_img)</span>
-<span id="cb1-23"><a href="#cb1-23"></a>    <span class="cf">return</span> disparity.astype(np.float32) <span class="op">/</span> <span class="fl">16.0</span>  <span class="co"># 转换为真实视差值</span></span>
-<span id="cb1-24"><a href="#cb1-24"></a></span>
-<span id="cb1-25"><a href="#cb1-25"></a><span class="kw">def</span> disparity_to_depth(disparity, focal_length, baseline):</span>
-<span id="cb1-26"><a href="#cb1-26"></a>    <span class="co">"""视差转深度的核心公式"""</span></span>
-<span id="cb1-27"><a href="#cb1-27"></a>    <span class="cf">return</span> (focal_length <span class="op">*</span> baseline) <span class="op">/</span> (disparity <span class="op">+</span> <span class="fl">1e-6</span>)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> cv2</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">def</span> sgbm_stereo_matching(left_img, right_img):</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="co">"""</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">    SGBM立体匹配核心算法</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">    核心思想：通过多方向路径聚合优化匹配代价</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">    """</span></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="co"># 核心参数设置</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>    stereo <span class="op">=</span> cv2.StereoSGBM_create(</span>
+<span id="cb3-11"><a href="#cb3-11"></a>        minDisparity<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb3-12"><a href="#cb3-12"></a>        numDisparities<span class="op">=</span><span class="dv">64</span>,          <span class="co"># 视差搜索范围</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>        blockSize<span class="op">=</span><span class="dv">5</span>,                <span class="co"># 匹配窗口大小</span></span>
+<span id="cb3-14"><a href="#cb3-14"></a>        P1<span class="op">=</span><span class="dv">8</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span><span class="op">**</span><span class="dv">2</span>,           <span class="co"># 平滑性惩罚参数1</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>        P2<span class="op">=</span><span class="dv">32</span> <span class="op">*</span> <span class="dv">3</span> <span class="op">*</span> <span class="dv">5</span><span class="op">**</span><span class="dv">2</span>,          <span class="co"># 平滑性惩罚参数2</span></span>
+<span id="cb3-16"><a href="#cb3-16"></a>        uniquenessRatio<span class="op">=</span><span class="dv">10</span>,         <span class="co"># 唯一性比率</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>        speckleWindowSize<span class="op">=</span><span class="dv">100</span>,      <span class="co"># 斑点滤波窗口</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>        speckleRange<span class="op">=</span><span class="dv">32</span>             <span class="co"># 斑点滤波范围</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>    )</span>
+<span id="cb3-20"><a href="#cb3-20"></a></span>
+<span id="cb3-21"><a href="#cb3-21"></a>    <span class="co"># 计算视差图</span></span>
+<span id="cb3-22"><a href="#cb3-22"></a>    disparity <span class="op">=</span> stereo.compute(left_img, right_img)</span>
+<span id="cb3-23"><a href="#cb3-23"></a>    <span class="cf">return</span> disparity.astype(np.float32) <span class="op">/</span> <span class="fl">16.0</span>  <span class="co"># 转换为真实视差值</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a></span>
+<span id="cb3-25"><a href="#cb3-25"></a><span class="kw">def</span> disparity_to_depth(disparity, focal_length, baseline):</span>
+<span id="cb3-26"><a href="#cb3-26"></a>    <span class="co">"""视差转深度的核心公式"""</span></span>
+<span id="cb3-27"><a href="#cb3-27"></a>    <span class="cf">return</span> (focal_length <span class="op">*</span> baseline) <span class="op">/</span> (disparity <span class="op">+</span> <span class="fl">1e-6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>现代PSMNet深度网络</strong>：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> torch</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
-<span id="cb2-4"><a href="#cb2-4"></a></span>
-<span id="cb2-5"><a href="#cb2-5"></a><span class="kw">class</span> PSMNet(nn.Module):</span>
-<span id="cb2-6"><a href="#cb2-6"></a>    <span class="co">"""</span></span>
-<span id="cb2-7"><a href="#cb2-7"></a><span class="co">    PSMNet核心架构</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a><span class="co">    核心思想：构建4D代价体积，通过3D CNN进行代价聚合</span></span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co">    """</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, maxdisp<span class="op">=</span><span class="dv">192</span>):</span>
-<span id="cb2-11"><a href="#cb2-11"></a>        <span class="bu">super</span>(PSMNet, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
-<span id="cb2-12"><a href="#cb2-12"></a>        <span class="va">self</span>.maxdisp <span class="op">=</span> maxdisp</span>
-<span id="cb2-13"><a href="#cb2-13"></a></span>
-<span id="cb2-14"><a href="#cb2-14"></a>        <span class="co"># 特征提取网络</span></span>
-<span id="cb2-15"><a href="#cb2-15"></a>        <span class="va">self</span>.feature_extraction <span class="op">=</span> <span class="va">self</span>._make_feature_extractor()</span>
-<span id="cb2-16"><a href="#cb2-16"></a></span>
-<span id="cb2-17"><a href="#cb2-17"></a>        <span class="co"># 代价体积构建</span></span>
-<span id="cb2-18"><a href="#cb2-18"></a>        <span class="va">self</span>.cost_volume_filter <span class="op">=</span> <span class="va">self</span>._make_cost_volume_filter()</span>
-<span id="cb2-19"><a href="#cb2-19"></a></span>
-<span id="cb2-20"><a href="#cb2-20"></a>        <span class="co"># 视差回归</span></span>
-<span id="cb2-21"><a href="#cb2-21"></a>        <span class="va">self</span>.disparity_regression <span class="op">=</span> <span class="va">self</span>._make_disparity_regression()</span>
-<span id="cb2-22"><a href="#cb2-22"></a></span>
-<span id="cb2-23"><a href="#cb2-23"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, left, right):</span>
-<span id="cb2-24"><a href="#cb2-24"></a>        <span class="co"># 1. 特征提取</span></span>
-<span id="cb2-25"><a href="#cb2-25"></a>        left_features <span class="op">=</span> <span class="va">self</span>.feature_extraction(left)</span>
-<span id="cb2-26"><a href="#cb2-26"></a>        right_features <span class="op">=</span> <span class="va">self</span>.feature_extraction(right)</span>
-<span id="cb2-27"><a href="#cb2-27"></a></span>
-<span id="cb2-28"><a href="#cb2-28"></a>        <span class="co"># 2. 构建代价体积</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a>        cost_volume <span class="op">=</span> <span class="va">self</span>.build_cost_volume(left_features, right_features)</span>
-<span id="cb2-30"><a href="#cb2-30"></a></span>
-<span id="cb2-31"><a href="#cb2-31"></a>        <span class="co"># 3. 代价聚合</span></span>
-<span id="cb2-32"><a href="#cb2-32"></a>        cost_volume <span class="op">=</span> <span class="va">self</span>.cost_volume_filter(cost_volume)</span>
-<span id="cb2-33"><a href="#cb2-33"></a></span>
-<span id="cb2-34"><a href="#cb2-34"></a>        <span class="co"># 4. 视差回归</span></span>
-<span id="cb2-35"><a href="#cb2-35"></a>        disparity <span class="op">=</span> <span class="va">self</span>.disparity_regression(cost_volume)</span>
-<span id="cb2-36"><a href="#cb2-36"></a></span>
-<span id="cb2-37"><a href="#cb2-37"></a>        <span class="cf">return</span> disparity</span>
-<span id="cb2-38"><a href="#cb2-38"></a></span>
-<span id="cb2-39"><a href="#cb2-39"></a>    <span class="kw">def</span> build_cost_volume(<span class="va">self</span>, left_feat, right_feat):</span>
-<span id="cb2-40"><a href="#cb2-40"></a>        <span class="co">"""构建4D代价体积的核心逻辑"""</span></span>
-<span id="cb2-41"><a href="#cb2-41"></a>        B, C, H, W <span class="op">=</span> left_feat.shape</span>
-<span id="cb2-42"><a href="#cb2-42"></a>        cost_volume <span class="op">=</span> torch.zeros(B, C<span class="op">*</span><span class="dv">2</span>, <span class="va">self</span>.maxdisp<span class="op">//</span><span class="dv">4</span>, H, W)</span>
-<span id="cb2-43"><a href="#cb2-43"></a></span>
-<span id="cb2-44"><a href="#cb2-44"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.maxdisp<span class="op">//</span><span class="dv">4</span>):</span>
-<span id="cb2-45"><a href="#cb2-45"></a>            <span class="cf">if</span> i <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb2-46"><a href="#cb2-46"></a>                cost_volume[:, :C, i, :, i:] <span class="op">=</span> left_feat[:, :, :, i:]</span>
-<span id="cb2-47"><a href="#cb2-47"></a>                cost_volume[:, C:, i, :, i:] <span class="op">=</span> right_feat[:, :, :, :<span class="op">-</span>i]</span>
-<span id="cb2-48"><a href="#cb2-48"></a>            <span class="cf">else</span>:</span>
-<span id="cb2-49"><a href="#cb2-49"></a>                cost_volume[:, :C, i, :, :] <span class="op">=</span> left_feat</span>
-<span id="cb2-50"><a href="#cb2-50"></a>                cost_volume[:, C:, i, :, :] <span class="op">=</span> right_feat</span>
-<span id="cb2-51"><a href="#cb2-51"></a></span>
-<span id="cb2-52"><a href="#cb2-52"></a>        <span class="cf">return</span> cost_volume</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> torch</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="im">import</span> torch.nn.functional <span class="im">as</span> F</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="kw">class</span> PSMNet(nn.Module):</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="co">"""</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">    PSMNet核心架构</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">    核心思想：构建4D代价体积，通过3D CNN进行代价聚合</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a><span class="co">    """</span></span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, maxdisp<span class="op">=</span><span class="dv">192</span>):</span>
+<span id="cb4-11"><a href="#cb4-11"></a>        <span class="bu">super</span>(PSMNet, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb4-12"><a href="#cb4-12"></a>        <span class="va">self</span>.maxdisp <span class="op">=</span> maxdisp</span>
+<span id="cb4-13"><a href="#cb4-13"></a></span>
+<span id="cb4-14"><a href="#cb4-14"></a>        <span class="co"># 特征提取网络</span></span>
+<span id="cb4-15"><a href="#cb4-15"></a>        <span class="va">self</span>.feature_extraction <span class="op">=</span> <span class="va">self</span>._make_feature_extractor()</span>
+<span id="cb4-16"><a href="#cb4-16"></a></span>
+<span id="cb4-17"><a href="#cb4-17"></a>        <span class="co"># 代价体积构建</span></span>
+<span id="cb4-18"><a href="#cb4-18"></a>        <span class="va">self</span>.cost_volume_filter <span class="op">=</span> <span class="va">self</span>._make_cost_volume_filter()</span>
+<span id="cb4-19"><a href="#cb4-19"></a></span>
+<span id="cb4-20"><a href="#cb4-20"></a>        <span class="co"># 视差回归</span></span>
+<span id="cb4-21"><a href="#cb4-21"></a>        <span class="va">self</span>.disparity_regression <span class="op">=</span> <span class="va">self</span>._make_disparity_regression()</span>
+<span id="cb4-22"><a href="#cb4-22"></a></span>
+<span id="cb4-23"><a href="#cb4-23"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, left, right):</span>
+<span id="cb4-24"><a href="#cb4-24"></a>        <span class="co"># 1. 特征提取</span></span>
+<span id="cb4-25"><a href="#cb4-25"></a>        left_features <span class="op">=</span> <span class="va">self</span>.feature_extraction(left)</span>
+<span id="cb4-26"><a href="#cb4-26"></a>        right_features <span class="op">=</span> <span class="va">self</span>.feature_extraction(right)</span>
+<span id="cb4-27"><a href="#cb4-27"></a></span>
+<span id="cb4-28"><a href="#cb4-28"></a>        <span class="co"># 2. 构建代价体积</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a>        cost_volume <span class="op">=</span> <span class="va">self</span>.build_cost_volume(left_features, right_features)</span>
+<span id="cb4-30"><a href="#cb4-30"></a></span>
+<span id="cb4-31"><a href="#cb4-31"></a>        <span class="co"># 3. 代价聚合</span></span>
+<span id="cb4-32"><a href="#cb4-32"></a>        cost_volume <span class="op">=</span> <span class="va">self</span>.cost_volume_filter(cost_volume)</span>
+<span id="cb4-33"><a href="#cb4-33"></a></span>
+<span id="cb4-34"><a href="#cb4-34"></a>        <span class="co"># 4. 视差回归</span></span>
+<span id="cb4-35"><a href="#cb4-35"></a>        disparity <span class="op">=</span> <span class="va">self</span>.disparity_regression(cost_volume)</span>
+<span id="cb4-36"><a href="#cb4-36"></a></span>
+<span id="cb4-37"><a href="#cb4-37"></a>        <span class="cf">return</span> disparity</span>
+<span id="cb4-38"><a href="#cb4-38"></a></span>
+<span id="cb4-39"><a href="#cb4-39"></a>    <span class="kw">def</span> build_cost_volume(<span class="va">self</span>, left_feat, right_feat):</span>
+<span id="cb4-40"><a href="#cb4-40"></a>        <span class="co">"""构建4D代价体积的核心逻辑"""</span></span>
+<span id="cb4-41"><a href="#cb4-41"></a>        B, C, H, W <span class="op">=</span> left_feat.shape</span>
+<span id="cb4-42"><a href="#cb4-42"></a>        cost_volume <span class="op">=</span> torch.zeros(B, C<span class="op">*</span><span class="dv">2</span>, <span class="va">self</span>.maxdisp<span class="op">//</span><span class="dv">4</span>, H, W)</span>
+<span id="cb4-43"><a href="#cb4-43"></a></span>
+<span id="cb4-44"><a href="#cb4-44"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.maxdisp<span class="op">//</span><span class="dv">4</span>):</span>
+<span id="cb4-45"><a href="#cb4-45"></a>            <span class="cf">if</span> i <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb4-46"><a href="#cb4-46"></a>                cost_volume[:, :C, i, :, i:] <span class="op">=</span> left_feat[:, :, :, i:]</span>
+<span id="cb4-47"><a href="#cb4-47"></a>                cost_volume[:, C:, i, :, i:] <span class="op">=</span> right_feat[:, :, :, :<span class="op">-</span>i]</span>
+<span id="cb4-48"><a href="#cb4-48"></a>            <span class="cf">else</span>:</span>
+<span id="cb4-49"><a href="#cb4-49"></a>                cost_volume[:, :C, i, :, :] <span class="op">=</span> left_feat</span>
+<span id="cb4-50"><a href="#cb4-50"></a>                cost_volume[:, C:, i, :, :] <span class="op">=</span> right_feat</span>
+<span id="cb4-51"><a href="#cb4-51"></a></span>
+<span id="cb4-52"><a href="#cb4-52"></a>        <span class="cf">return</span> cost_volume</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>单目深度估计核心</strong>：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">class</span> MonoDepthNet(nn.Module):</span>
-<span id="cb3-2"><a href="#cb3-2"></a>    <span class="co">"""</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a><span class="co">    单目深度估计网络核心</span></span>
-<span id="cb3-4"><a href="#cb3-4"></a><span class="co">    核心思想：从单张图像直接回归深度图</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="co">    """</span></span>
-<span id="cb3-6"><a href="#cb3-6"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
-<span id="cb3-7"><a href="#cb3-7"></a>        <span class="bu">super</span>(MonoDepthNet, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
-<span id="cb3-8"><a href="#cb3-8"></a>        <span class="co"># 编码器：提取多尺度特征</span></span>
-<span id="cb3-9"><a href="#cb3-9"></a>        <span class="va">self</span>.encoder <span class="op">=</span> <span class="va">self</span>._make_encoder()</span>
-<span id="cb3-10"><a href="#cb3-10"></a>        <span class="co"># 解码器：逐步上采样恢复分辨率</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>        <span class="va">self</span>.decoder <span class="op">=</span> <span class="va">self</span>._make_decoder()</span>
-<span id="cb3-12"><a href="#cb3-12"></a></span>
-<span id="cb3-13"><a href="#cb3-13"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
-<span id="cb3-14"><a href="#cb3-14"></a>        <span class="co"># 多尺度特征提取</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a>        features <span class="op">=</span> <span class="va">self</span>.encoder(x)</span>
-<span id="cb3-16"><a href="#cb3-16"></a>        <span class="co"># 深度图回归</span></span>
-<span id="cb3-17"><a href="#cb3-17"></a>        depth <span class="op">=</span> <span class="va">self</span>.decoder(features)</span>
-<span id="cb3-18"><a href="#cb3-18"></a>        <span class="cf">return</span> depth</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">class</span> MonoDepthNet(nn.Module):</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="co">"""</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="co">    单目深度估计网络核心</span></span>
+<span id="cb5-4"><a href="#cb5-4"></a><span class="co">    核心思想：从单张图像直接回归深度图</span></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co">    """</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb5-7"><a href="#cb5-7"></a>        <span class="bu">super</span>(MonoDepthNet, <span class="va">self</span>).<span class="fu">__init__</span>()</span>
+<span id="cb5-8"><a href="#cb5-8"></a>        <span class="co"># 编码器：提取多尺度特征</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>        <span class="va">self</span>.encoder <span class="op">=</span> <span class="va">self</span>._make_encoder()</span>
+<span id="cb5-10"><a href="#cb5-10"></a>        <span class="co"># 解码器：逐步上采样恢复分辨率</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>        <span class="va">self</span>.decoder <span class="op">=</span> <span class="va">self</span>._make_decoder()</span>
+<span id="cb5-12"><a href="#cb5-12"></a></span>
+<span id="cb5-13"><a href="#cb5-13"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb5-14"><a href="#cb5-14"></a>        <span class="co"># 多尺度特征提取</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>        features <span class="op">=</span> <span class="va">self</span>.encoder(x)</span>
+<span id="cb5-16"><a href="#cb5-16"></a>        <span class="co"># 深度图回归</span></span>
+<span id="cb5-17"><a href="#cb5-17"></a>        depth <span class="op">=</span> <span class="va">self</span>.decoder(features)</span>
+<span id="cb5-18"><a href="#cb5-18"></a>        <span class="cf">return</span> depth</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>这些算法的核心区别在于：SGBM基于几何约束和手工特征，PSMNet通过学习特征和代价聚合，单目方法则完全依赖语义理解。现代方法在复杂场景下表现更佳，但计算成本也更高。</p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1"></a>flowchart TD</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    A["输入立体图像对"] --&gt; B["图像预处理&lt;br/&gt;灰度转换、滤波"]</span>
+<span id="cb6-3"><a href="#cb6-3"></a>    B --&gt; C["特征提取&lt;br/&gt;梯度、Census变换等"]</span>
+<span id="cb6-4"><a href="#cb6-4"></a>    C --&gt; D["代价计算&lt;br/&gt;SAD/SSD/Census等"]</span>
+<span id="cb6-5"><a href="#cb6-5"></a>    D --&gt; E["代价聚合&lt;br/&gt;窗口聚合/路径聚合"]</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    E --&gt; F["视差优化&lt;br/&gt;赢家通吃/动态规划"]</span>
+<span id="cb6-7"><a href="#cb6-7"></a>    F --&gt; G["视差细化&lt;br/&gt;亚像素插值、滤波"]</span>
+<span id="cb6-8"><a href="#cb6-8"></a>    G --&gt; H["深度转换&lt;br/&gt;Z = f·b/d"]</span>
+<span id="cb6-9"><a href="#cb6-9"></a></span>
+<span id="cb6-10"><a href="#cb6-10"></a>    subgraph 预处理阶段</span>
+<span id="cb6-11"><a href="#cb6-11"></a>        A</span>
+<span id="cb6-12"><a href="#cb6-12"></a>        B</span>
+<span id="cb6-13"><a href="#cb6-13"></a>    end</span>
+<span id="cb6-14"><a href="#cb6-14"></a></span>
+<span id="cb6-15"><a href="#cb6-15"></a>    subgraph 匹配代价阶段</span>
+<span id="cb6-16"><a href="#cb6-16"></a>        C</span>
+<span id="cb6-17"><a href="#cb6-17"></a>        D</span>
+<span id="cb6-18"><a href="#cb6-18"></a>    end</span>
+<span id="cb6-19"><a href="#cb6-19"></a></span>
+<span id="cb6-20"><a href="#cb6-20"></a>    subgraph 优化阶段</span>
+<span id="cb6-21"><a href="#cb6-21"></a>        E</span>
+<span id="cb6-22"><a href="#cb6-22"></a>        F</span>
+<span id="cb6-23"><a href="#cb6-23"></a>        G</span>
+<span id="cb6-24"><a href="#cb6-24"></a>    end</span>
+<span id="cb6-25"><a href="#cb6-25"></a></span>
+<span id="cb6-26"><a href="#cb6-26"></a>    subgraph 后处理阶段</span>
+<span id="cb6-27"><a href="#cb6-27"></a>        H</span>
+<span id="cb6-28"><a href="#cb6-28"></a>    end</span>
+<span id="cb6-29"><a href="#cb6-29"></a></span>
+<span id="cb6-30"><a href="#cb6-30"></a>    classDef prepNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,border-radius:8px</span>
+<span id="cb6-31"><a href="#cb6-31"></a>    classDef costNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,border-radius:8px</span>
+<span id="cb6-32"><a href="#cb6-32"></a>    classDef optNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,border-radius:8px</span>
+<span id="cb6-33"><a href="#cb6-33"></a>    classDef postNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,border-radius:8px</span>
+<span id="cb6-34"><a href="#cb6-34"></a></span>
+<span id="cb6-35"><a href="#cb6-35"></a>    classDef prepSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb6-36"><a href="#cb6-36"></a>    classDef costSubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold</span>
+<span id="cb6-37"><a href="#cb6-37"></a>    classDef optSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold</span>
+<span id="cb6-38"><a href="#cb6-38"></a>    classDef postSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold</span>
+<span id="cb6-39"><a href="#cb6-39"></a></span>
+<span id="cb6-40"><a href="#cb6-40"></a>    class A,B prepNode</span>
+<span id="cb6-41"><a href="#cb6-41"></a>    class C,D costNode</span>
+<span id="cb6-42"><a href="#cb6-42"></a>    class E,F,G optNode</span>
+<span id="cb6-43"><a href="#cb6-43"></a>    class H postNode</span>
+<span id="cb6-44"><a href="#cb6-44"></a></span>
+<span id="cb6-45"><a href="#cb6-45"></a>    class 预处理阶段 prepSubgraph</span>
+<span id="cb6-46"><a href="#cb6-46"></a>    class 匹配代价阶段 costSubgraph</span>
+<span id="cb6-47"><a href="#cb6-47"></a>    class 优化阶段 optSubgraph</span>
+<span id="cb6-48"><a href="#cb6-48"></a>    class 后处理阶段 postSubgraph</span>
+<span id="cb6-49"><a href="#cb6-49"></a></span>
+<span id="cb6-50"><a href="#cb6-50"></a>    linkStyle 0,1,2,3,4,5,6 stroke-width:2px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -844,11 +1056,64 @@ L_r(p-r,d+1) + P_1 \\
 </div>
 <p><em>图11.8：立体匹配算法的通用流程</em></p>
 </section>
-<section id="性能对比分析" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="性能对比分析"><span class="header-section-number">3.5</span> 性能对比分析</h2>
+<section id="性能对比分析" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="性能对比分析"><span class="header-section-number">11.5</span> 性能对比分析</h2>
 <p>深度估计算法的效果可以通过视差图和深度图的质量来评估。下面我们分析传统方法和深度学习方法在不同场景下的表现。</p>
 <p><strong>算法性能对比</strong>：</p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1"></a>graph TD</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    subgraph 传统方法</span>
+<span id="cb7-3"><a href="#cb7-3"></a>        A["块匹配(BM)&lt;br/&gt;速度: 快&lt;br/&gt;精度: 低&lt;br/&gt;内存: 低"]</span>
+<span id="cb7-4"><a href="#cb7-4"></a>        B["半全局匹配(SGBM)&lt;br/&gt;速度: 中&lt;br/&gt;精度: 中&lt;br/&gt;内存: 低"]</span>
+<span id="cb7-5"><a href="#cb7-5"></a>        C["全局匹配(GC/BP)&lt;br/&gt;速度: 慢&lt;br/&gt;精度: 高&lt;br/&gt;内存: 中"]</span>
+<span id="cb7-6"><a href="#cb7-6"></a>    end</span>
+<span id="cb7-7"><a href="#cb7-7"></a></span>
+<span id="cb7-8"><a href="#cb7-8"></a>    subgraph 深度学习方法</span>
+<span id="cb7-9"><a href="#cb7-9"></a>        D["PSMNet&lt;br/&gt;速度: 慢&lt;br/&gt;精度: 很高&lt;br/&gt;内存: 高"]</span>
+<span id="cb7-10"><a href="#cb7-10"></a>        E["GANet&lt;br/&gt;速度: 很慢&lt;br/&gt;精度: 最高&lt;br/&gt;内存: 很高"]</span>
+<span id="cb7-11"><a href="#cb7-11"></a>        F["单目深度估计&lt;br/&gt;速度: 中&lt;br/&gt;精度: 中&lt;br/&gt;内存: 中"]</span>
+<span id="cb7-12"><a href="#cb7-12"></a>    end</span>
+<span id="cb7-13"><a href="#cb7-13"></a></span>
+<span id="cb7-14"><a href="#cb7-14"></a>    subgraph 性能指标</span>
+<span id="cb7-15"><a href="#cb7-15"></a>        G["KITTI 3px错误率"]</span>
+<span id="cb7-16"><a href="#cb7-16"></a>        H["Middlebury平均误差"]</span>
+<span id="cb7-17"><a href="#cb7-17"></a>        I["ETH3D完整性"]</span>
+<span id="cb7-18"><a href="#cb7-18"></a>    end</span>
+<span id="cb7-19"><a href="#cb7-19"></a></span>
+<span id="cb7-20"><a href="#cb7-20"></a>    A --&gt; G</span>
+<span id="cb7-21"><a href="#cb7-21"></a>    B --&gt; G</span>
+<span id="cb7-22"><a href="#cb7-22"></a>    C --&gt; G</span>
+<span id="cb7-23"><a href="#cb7-23"></a>    D --&gt; G</span>
+<span id="cb7-24"><a href="#cb7-24"></a>    E --&gt; G</span>
+<span id="cb7-25"><a href="#cb7-25"></a>    F --&gt; G</span>
+<span id="cb7-26"><a href="#cb7-26"></a></span>
+<span id="cb7-27"><a href="#cb7-27"></a>    G --&gt; J["传统: 5-15%&lt;br/&gt;深度学习: 2-5%"]</span>
+<span id="cb7-28"><a href="#cb7-28"></a>    H --&gt; K["传统: 1-3px&lt;br/&gt;深度学习: 0.5-1px"]</span>
+<span id="cb7-29"><a href="#cb7-29"></a>    I --&gt; L["传统: 70-90%&lt;br/&gt;深度学习: 90-98%"]</span>
+<span id="cb7-30"><a href="#cb7-30"></a></span>
+<span id="cb7-31"><a href="#cb7-31"></a>    classDef tradNode fill:#64b5f6,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb7-32"><a href="#cb7-32"></a>    classDef dlNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb7-33"><a href="#cb7-33"></a>    classDef metricNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb7-34"><a href="#cb7-34"></a>    classDef resultNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb7-35"><a href="#cb7-35"></a></span>
+<span id="cb7-36"><a href="#cb7-36"></a>    classDef tradSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb7-37"><a href="#cb7-37"></a>    classDef dlSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold</span>
+<span id="cb7-38"><a href="#cb7-38"></a>    classDef metricSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold</span>
+<span id="cb7-39"><a href="#cb7-39"></a></span>
+<span id="cb7-40"><a href="#cb7-40"></a>    class A,B,C tradNode</span>
+<span id="cb7-41"><a href="#cb7-41"></a>    class D,E,F dlNode</span>
+<span id="cb7-42"><a href="#cb7-42"></a>    class G,H,I metricNode</span>
+<span id="cb7-43"><a href="#cb7-43"></a>    class J,K,L resultNode</span>
+<span id="cb7-44"><a href="#cb7-44"></a></span>
+<span id="cb7-45"><a href="#cb7-45"></a>    class 传统方法 tradSubgraph</span>
+<span id="cb7-46"><a href="#cb7-46"></a>    class 深度学习方法 dlSubgraph</span>
+<span id="cb7-47"><a href="#cb7-47"></a>    class 性能指标 metricSubgraph</span>
+<span id="cb7-48"><a href="#cb7-48"></a></span>
+<span id="cb7-49"><a href="#cb7-49"></a>    linkStyle 0,1,2,3,4,5 stroke:#1565c0,stroke-width:1.5px</span>
+<span id="cb7-50"><a href="#cb7-50"></a>    linkStyle 6,7,8 stroke:#4caf50,stroke-width:1.5px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -912,6 +1177,55 @@ L_r(p-r,d+1) + P_1 \\
 <p><em>图11.9：传统方法与深度学习方法的性能对比</em></p>
 <p><strong>场景适应性分析</strong>：</p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1"></a>graph TD</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    subgraph 场景特征</span>
+<span id="cb8-3"><a href="#cb8-3"></a>        A["纹理丰富&lt;br/&gt;结构清晰"]</span>
+<span id="cb8-4"><a href="#cb8-4"></a>        B["弱纹理区域&lt;br/&gt;重复模式"]</span>
+<span id="cb8-5"><a href="#cb8-5"></a>        C["反光表面&lt;br/&gt;透明物体"]</span>
+<span id="cb8-6"><a href="#cb8-6"></a>        D["遮挡区域&lt;br/&gt;边界不连续"]</span>
+<span id="cb8-7"><a href="#cb8-7"></a>    end</span>
+<span id="cb8-8"><a href="#cb8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9"></a>    subgraph 传统方法表现</span>
+<span id="cb8-10"><a href="#cb8-10"></a>        E["SGBM&lt;br/&gt;准确度: 高&lt;br/&gt;鲁棒性: 中"]</span>
+<span id="cb8-11"><a href="#cb8-11"></a>        F["BM&lt;br/&gt;准确度: 中&lt;br/&gt;鲁棒性: 低"]</span>
+<span id="cb8-12"><a href="#cb8-12"></a>        G["GC&lt;br/&gt;准确度: 高&lt;br/&gt;鲁棒性: 中"]</span>
+<span id="cb8-13"><a href="#cb8-13"></a>    end</span>
+<span id="cb8-14"><a href="#cb8-14"></a></span>
+<span id="cb8-15"><a href="#cb8-15"></a>    subgraph 深度学习方法表现</span>
+<span id="cb8-16"><a href="#cb8-16"></a>        H["PSMNet&lt;br/&gt;准确度: 很高&lt;br/&gt;鲁棒性: 高"]</span>
+<span id="cb8-17"><a href="#cb8-17"></a>        I["GANet&lt;br/&gt;准确度: 最高&lt;br/&gt;鲁棒性: 很高"]</span>
+<span id="cb8-18"><a href="#cb8-18"></a>        J["单目深度&lt;br/&gt;准确度: 中&lt;br/&gt;鲁棒性: 高"]</span>
+<span id="cb8-19"><a href="#cb8-19"></a>    end</span>
+<span id="cb8-20"><a href="#cb8-20"></a></span>
+<span id="cb8-21"><a href="#cb8-21"></a>    A --&gt; E</span>
+<span id="cb8-22"><a href="#cb8-22"></a>    A --&gt; H</span>
+<span id="cb8-23"><a href="#cb8-23"></a>    B --&gt; G</span>
+<span id="cb8-24"><a href="#cb8-24"></a>    B --&gt; I</span>
+<span id="cb8-25"><a href="#cb8-25"></a>    C --&gt; F</span>
+<span id="cb8-26"><a href="#cb8-26"></a>    C --&gt; J</span>
+<span id="cb8-27"><a href="#cb8-27"></a>    D --&gt; G</span>
+<span id="cb8-28"><a href="#cb8-28"></a>    D --&gt; I</span>
+<span id="cb8-29"><a href="#cb8-29"></a></span>
+<span id="cb8-30"><a href="#cb8-30"></a>    classDef sceneNode fill:#4db6ac,stroke:#00796b,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb8-31"><a href="#cb8-31"></a>    classDef tradNode fill:#64b5f6,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb8-32"><a href="#cb8-32"></a>    classDef dlNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb8-33"><a href="#cb8-33"></a></span>
+<span id="cb8-34"><a href="#cb8-34"></a>    classDef sceneSubgraph fill:#e0f2f1,stroke:#00796b,stroke-width:2px,color:#004d40,font-weight:bold</span>
+<span id="cb8-35"><a href="#cb8-35"></a>    classDef tradSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb8-36"><a href="#cb8-36"></a>    classDef dlSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold</span>
+<span id="cb8-37"><a href="#cb8-37"></a></span>
+<span id="cb8-38"><a href="#cb8-38"></a>    class A,B,C,D sceneNode</span>
+<span id="cb8-39"><a href="#cb8-39"></a>    class E,F,G tradNode</span>
+<span id="cb8-40"><a href="#cb8-40"></a>    class H,I,J dlNode</span>
+<span id="cb8-41"><a href="#cb8-41"></a></span>
+<span id="cb8-42"><a href="#cb8-42"></a>    class 场景特征 sceneSubgraph</span>
+<span id="cb8-43"><a href="#cb8-43"></a>    class 传统方法表现 tradSubgraph</span>
+<span id="cb8-44"><a href="#cb8-44"></a>    class 深度学习方法表现 dlSubgraph</span>
+<span id="cb8-45"><a href="#cb8-45"></a></span>
+<span id="cb8-46"><a href="#cb8-46"></a>    linkStyle 0,1,2,3,4,5,6,7 stroke-width:1.5px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -971,6 +1285,47 @@ L_r(p-r,d+1) + P_1 \\
 <p><em>图11.10：不同方法在各类场景中的适应性分析</em></p>
 <p><strong>深度学习方法的进展</strong>：</p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1"></a>graph LR</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    subgraph 网络架构演进</span>
+<span id="cb9-3"><a href="#cb9-3"></a>        A["2D CNN&lt;br/&gt;(DispNet, 2016)"]</span>
+<span id="cb9-4"><a href="#cb9-4"></a>        B["3D CNN&lt;br/&gt;(PSMNet, 2018)"]</span>
+<span id="cb9-5"><a href="#cb9-5"></a>        C["GNN&lt;br/&gt;(GwcNet, 2019)"]</span>
+<span id="cb9-6"><a href="#cb9-6"></a>        D["Transformer&lt;br/&gt;(STTR, 2021)"]</span>
+<span id="cb9-7"><a href="#cb9-7"></a>    end</span>
+<span id="cb9-8"><a href="#cb9-8"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a>    subgraph 关键技术创新</span>
+<span id="cb9-10"><a href="#cb9-10"></a>        E["代价体积构建"]</span>
+<span id="cb9-11"><a href="#cb9-11"></a>        F["多尺度特征融合"]</span>
+<span id="cb9-12"><a href="#cb9-12"></a>        G["注意力机制"]</span>
+<span id="cb9-13"><a href="#cb9-13"></a>        H["自监督学习"]</span>
+<span id="cb9-14"><a href="#cb9-14"></a>    end</span>
+<span id="cb9-15"><a href="#cb9-15"></a></span>
+<span id="cb9-16"><a href="#cb9-16"></a>    A --&gt; B</span>
+<span id="cb9-17"><a href="#cb9-17"></a>    B --&gt; C</span>
+<span id="cb9-18"><a href="#cb9-18"></a>    C --&gt; D</span>
+<span id="cb9-19"><a href="#cb9-19"></a></span>
+<span id="cb9-20"><a href="#cb9-20"></a>    A --&gt; E</span>
+<span id="cb9-21"><a href="#cb9-21"></a>    B --&gt; F</span>
+<span id="cb9-22"><a href="#cb9-22"></a>    C --&gt; G</span>
+<span id="cb9-23"><a href="#cb9-23"></a>    D --&gt; H</span>
+<span id="cb9-24"><a href="#cb9-24"></a></span>
+<span id="cb9-25"><a href="#cb9-25"></a>    classDef archNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb9-26"><a href="#cb9-26"></a>    classDef techNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb9-27"><a href="#cb9-27"></a></span>
+<span id="cb9-28"><a href="#cb9-28"></a>    classDef archSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold</span>
+<span id="cb9-29"><a href="#cb9-29"></a>    classDef techSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold</span>
+<span id="cb9-30"><a href="#cb9-30"></a></span>
+<span id="cb9-31"><a href="#cb9-31"></a>    class A,B,C,D archNode</span>
+<span id="cb9-32"><a href="#cb9-32"></a>    class E,F,G,H techNode</span>
+<span id="cb9-33"><a href="#cb9-33"></a></span>
+<span id="cb9-34"><a href="#cb9-34"></a>    class 网络架构演进 archSubgraph</span>
+<span id="cb9-35"><a href="#cb9-35"></a>    class 关键技术创新 techSubgraph</span>
+<span id="cb9-36"><a href="#cb9-36"></a></span>
+<span id="cb9-37"><a href="#cb9-37"></a>    linkStyle 0,1,2 stroke:#f44336,stroke-width:1.5px</span>
+<span id="cb9-38"><a href="#cb9-38"></a>    linkStyle 3,4,5,6 stroke:#4caf50,stroke-width:1.5px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -1021,8 +1376,8 @@ L_r(p-r,d+1) + P_1 \\
 </div>
 <p><em>图11.11：深度学习立体匹配方法的技术演进</em></p>
 </section>
-<section id="小结" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="小结"><span class="header-section-number">3.6</span> 小结</h2>
+<section id="小结" class="level2" data-number="11.6">
+<h2 data-number="11.6" class="anchored" data-anchor-id="小结"><span class="header-section-number">11.6</span> 小结</h2>
 <p>立体匹配与深度估计是三维视觉的核心技术，经历了从传统几何方法到深度学习方法的重要演进。传统方法如SGBM基于几何约束和手工特征，计算效率高但在复杂场景下容易失效。现代深度学习方法如PSMNet通过端到端学习，在准确性和鲁棒性方面显著超越传统方法。</p>
 <p>本节的核心贡献在于：<strong>理论层面</strong>，阐述了从视差计算到深度回归的算法演进逻辑；<strong>技术层面</strong>，对比了传统方法和深度学习方法的核心差异；<strong>应用层面</strong>，分析了不同方法在各类场景中的适应性。</p>
 <p>深度估计技术与相机标定紧密相连：准确的相机标定是高质量深度估计的前提。同时，深度估计也为后续的三维重建和点云处理提供了基础数据。随着Transformer等新架构的引入，深度估计正朝着更高精度、更强泛化能力的方向发展，在自动驾驶、机器人等领域发挥着越来越重要的作用。</p>
@@ -1031,6 +1386,88 @@ L_r(p-r,d+1) + P_1 \\
 </section>
 
 </main> <!-- /main -->
+<script>
+// 侧边栏手风琴效果 - 确保只有一个章节展开
+document.addEventListener('DOMContentLoaded', function() {
+    // 等待页面完全加载后初始化
+    setTimeout(initSidebarAccordion, 1000);
+});
+
+function initSidebarAccordion() {
+    const sidebar = document.querySelector('#quarto-sidebar');
+    if (!sidebar) {
+        console.log('侧边栏未找到，重试...');
+        setTimeout(initSidebarAccordion, 500);
+        return;
+    }
+    
+    // 查找所有章节的折叠按钮
+    const collapseButtons = sidebar.querySelectorAll('[data-bs-toggle="collapse"]');
+    
+    if (collapseButtons.length === 0) {
+        console.log('折叠按钮未找到，重试...');
+        setTimeout(initSidebarAccordion, 500);
+        return;
+    }
+    
+    console.log(`找到 ${collapseButtons.length} 个折叠按钮`);
+    
+    // 为每个折叠按钮添加点击事件
+    collapseButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('data-bs-target') || this.getAttribute('href');
+            if (!targetId) return;
+            
+            // 延迟执行，确保Bootstrap的折叠动画开始后再处理
+            setTimeout(() => {
+                handleAccordionEffect(targetId, collapseButtons);
+            }, 50);
+        });
+    });
+    
+    console.log('侧边栏手风琴效果已初始化');
+}
+
+function handleAccordionEffect(currentTargetId, allButtons) {
+    // 获取当前点击的目标元素
+    const currentTarget = document.querySelector(currentTargetId);
+    if (!currentTarget) return;
+    
+    // 检查当前目标是否正在展开
+    const isExpanding = currentTarget.classList.contains('show') || 
+                       currentTarget.classList.contains('collapsing');
+    
+    if (isExpanding) {
+        // 如果当前章节正在展开，则收起其他所有章节
+        allButtons.forEach(otherButton => {
+            const otherTargetId = otherButton.getAttribute('data-bs-target') || 
+                                 otherButton.getAttribute('href');
+            
+            if (otherTargetId && otherTargetId !== currentTargetId) {
+                const otherTarget = document.querySelector(otherTargetId);
+                if (otherTarget && (otherTarget.classList.contains('show') || 
+                                   otherTarget.classList.contains('collapsing'))) {
+                    // 触发折叠
+                    const bsCollapse = new bootstrap.Collapse(otherTarget, {
+                        toggle: false
+                    });
+                    bsCollapse.hide();
+                }
+            }
+        });
+    }
+}
+
+// 如果Bootstrap还没有加载，等待加载完成
+if (typeof bootstrap === 'undefined') {
+    const checkBootstrap = setInterval(() => {
+        if (typeof bootstrap !== 'undefined') {
+            clearInterval(checkBootstrap);
+            initSidebarAccordion();
+        }
+    }, 100);
+}
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1069,12 +1506,12 @@ L_r(p-r,d+1) + P_1 \\
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "已复制");
+      button.setAttribute("title", "Copied!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "已复制");
+        button.setAttribute("data-bs-title", "Copied!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -1453,12 +1890,12 @@ L_r(p-r,d+1) + P_1 \\
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapter11/11.1_相机标定与几何.html" class="pagination-link" aria-label="相机标定与几何">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapter11/11.3_三维重建.html" class="pagination-link" aria-label="三维重建">
-        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">三维重建</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">三维重建</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1470,7 +1907,7 @@ L_r(p-r,d+1) + P_1 \\
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.2_立体匹配与深度估计.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.2_立体匹配与深度估计.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>使用 <a href="https://quarto.org/">Quarto</a> 构建</p>
 </div>

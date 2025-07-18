@@ -1,5 +1,58 @@
 /* 现代计算机视觉技术书籍样式 */
 
+/* 自定义文本选中效果 - 移除蓝色背景，使用更优雅的样式 */
+::selection {
+  background: rgba(52, 152, 219, 0.15); /* 淡蓝色半透明背景 */
+  color: inherit; /* 保持原文本颜色 */
+  text-shadow: none; /* 移除文本阴影 */
+}
+
+::-moz-selection {
+  background: rgba(52, 152, 219, 0.15); /* Firefox 兼容 */
+  color: inherit;
+  text-shadow: none;
+}
+
+/* 代码块中的选中效果 */
+pre ::selection,
+code ::selection {
+  background: rgba(46, 125, 50, 0.2); /* 代码块使用绿色调 */
+  color: inherit;
+}
+
+pre ::-moz-selection,
+code ::-moz-selection {
+  background: rgba(46, 125, 50, 0.2);
+  color: inherit;
+}
+
+/* 优化点击和焦点效果 - 移除蓝色高亮但保持可访问性 */
+/* 移除移动设备上的点击高亮 */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-focus-ring-color: transparent;
+}
+
+/* 移除所有元素的默认焦点轮廓 */
+*:focus,
+*:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* 特别针对链接和按钮 */
+a:focus,
+a:active,
+button:focus,
+button:active,
+input:focus,
+input:active,
+select:focus,
+textarea:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* 改进中文字体渲染 */
 body {
   font-family: "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
@@ -62,6 +115,59 @@ div.sourceCode {
 
 /* 目录改进 */
 .sidebar-navigation .sidebar-item:hover {
-  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  background: transparent !important;
   transform: translateX(2px);
 }
+
+/* 移除侧边栏所有状态的蓝色框 - 简洁解决方案 */
+#quarto-sidebar *,
+.sidebar-navigation *,
+.quarto-sidebar *,
+ul.collapse,
+ul.list-unstyled,
+ul.sidebar-section,
+.sidebar-item,
+.sidebar-link,
+.sidebar-item-container,
+.sidebar-item-text {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+#quarto-sidebar *:focus,
+#quarto-sidebar *:hover,
+#quarto-sidebar *:active,
+.sidebar-navigation *:focus,
+.sidebar-navigation *:hover,
+.sidebar-navigation *:active,
+ul.collapse:focus,
+ul.list-unstyled:focus,
+ul.sidebar-section:focus,
+.sidebar-item:focus,
+.sidebar-link:focus,
+.sidebar-item-container:focus,
+.sidebar-item-text:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* 移除当前页面的蓝色背景，改为更简洁的样式 */
+.sidebar-item.active,
+.sidebar-item .active,
+.sidebar-link.active,
+.sidebar-item-text.active {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* 自定义当前页面的样式（可选） */
+.sidebar-item.active .sidebar-item-text,
+.sidebar-link.active {
+  color: #2980b9 !important;
+  font-weight: 500 !important;
+  background: transparent !important;
+}
+
+

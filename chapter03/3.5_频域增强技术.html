@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; 概述 – 现代计算机视觉</title>
+<title>6&nbsp; 频域增强技术 – 现代计算机视觉</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapter11/11.1_相机标定与几何.html" rel="next">
-<link href="../chapter03/3.7_小结与实践建议.html" rel="prev">
+<link href="../chapter03/3.6_Retinex与色彩校正.html" rel="next">
+<link href="../chapter03/3.4_对比度增强与直方图均衡.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -75,6 +110,49 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../assets/cv-book.css">
 </head>
@@ -250,7 +328,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter03/3.0_概述.html">第三章：图像预处理与增强技术</a></li><li class="breadcrumb-item"><a href="../chapter03/3.5_频域增强技术.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">频域增强技术</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -287,13 +365,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">第三章：图像预处理与增强技术</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter03/3.0_概述.html" class="sidebar-item-text sidebar-link">
@@ -326,7 +404,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapter03/3.5_频域增强技术.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapter03/3.5_频域增强技术.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">频域增强技术</span></span></a>
   </div>
 </li>
@@ -346,16 +424,16 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">第十一章：三维视觉与点云处理</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></span></a>
   </div>
 </li>
@@ -419,19 +497,36 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#从二维到三维构建计算机的空间感知体系" id="toc-从二维到三维构建计算机的空间感知体系" class="nav-link active" data-scroll-target="#从二维到三维构建计算机的空间感知体系"><span class="header-section-number">9.1</span> 从二维到三维：构建计算机的空间感知体系</a></li>
-  <li><a href="#破解维度诅咒计算机三维感知的核心挑战" id="toc-破解维度诅咒计算机三维感知的核心挑战" class="nav-link" data-scroll-target="#破解维度诅咒计算机三维感知的核心挑战"><span class="header-section-number">9.2</span> 破解维度诅咒：计算机三维感知的核心挑战</a></li>
-  <li><a href="#智能时代的空间革命三维视觉的广阔应用前景" id="toc-智能时代的空间革命三维视觉的广阔应用前景" class="nav-link" data-scroll-target="#智能时代的空间革命三维视觉的广阔应用前景"><span class="header-section-number">9.3</span> 智能时代的空间革命：三维视觉的广阔应用前景</a></li>
+  <li><a href="#频域增强的基础知识" id="toc-频域增强的基础知识" class="nav-link active" data-scroll-target="#频域增强的基础知识"><span class="header-section-number">6.1</span> 频域增强的基础知识</a></li>
+  <li><a href="#低通滤波" id="toc-低通滤波" class="nav-link" data-scroll-target="#低通滤波"><span class="header-section-number">6.2</span> 低通滤波</a>
+  <ul class="collapse">
+  <li><a href="#基本原理" id="toc-基本原理" class="nav-link" data-scroll-target="#基本原理"><span class="header-section-number">6.2.1</span> 基本原理</a></li>
+  <li><a href="#实现方法" id="toc-实现方法" class="nav-link" data-scroll-target="#实现方法"><span class="header-section-number">6.2.2</span> 实现方法</a></li>
+  <li><a href="#优点与缺点" id="toc-优点与缺点" class="nav-link" data-scroll-target="#优点与缺点"><span class="header-section-number">6.2.3</span> 优点与缺点</a></li>
+  </ul></li>
+  <li><a href="#高通滤波" id="toc-高通滤波" class="nav-link" data-scroll-target="#高通滤波"><span class="header-section-number">6.3</span> 高通滤波</a>
+  <ul class="collapse">
+  <li><a href="#基本原理-1" id="toc-基本原理-1" class="nav-link" data-scroll-target="#基本原理-1"><span class="header-section-number">6.3.1</span> 基本原理</a></li>
+  <li><a href="#实现方法-1" id="toc-实现方法-1" class="nav-link" data-scroll-target="#实现方法-1"><span class="header-section-number">6.3.2</span> 实现方法</a></li>
+  <li><a href="#优点与缺点-1" id="toc-优点与缺点-1" class="nav-link" data-scroll-target="#优点与缺点-1"><span class="header-section-number">6.3.3</span> 优点与缺点</a></li>
+  </ul></li>
+  <li><a href="#频域锐化" id="toc-频域锐化" class="nav-link" data-scroll-target="#频域锐化"><span class="header-section-number">6.4</span> 频域锐化</a>
+  <ul class="collapse">
+  <li><a href="#基本原理-2" id="toc-基本原理-2" class="nav-link" data-scroll-target="#基本原理-2"><span class="header-section-number">6.4.1</span> 基本原理</a></li>
+  <li><a href="#实现方法-2" id="toc-实现方法-2" class="nav-link" data-scroll-target="#实现方法-2"><span class="header-section-number">6.4.2</span> 实现方法</a></li>
+  <li><a href="#优点与缺点-2" id="toc-优点与缺点-2" class="nav-link" data-scroll-target="#优点与缺点-2"><span class="header-section-number">6.4.3</span> 优点与缺点</a></li>
+  </ul></li>
+  <li><a href="#三种方法的比较" id="toc-三种方法的比较" class="nav-link" data-scroll-target="#三种方法的比较"><span class="header-section-number">6.5</span> 三种方法的比较</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.0_概述.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter03/3.5_频域增强技术.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter03/3.0_概述.html">第三章：图像预处理与增强技术</a></li><li class="breadcrumb-item"><a href="../chapter03/3.5_频域增强技术.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">频域增强技术</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></h1>
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">频域增强技术</span></h1>
 </div>
 
 
@@ -448,27 +543,251 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="从二维到三维构建计算机的空间感知体系" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="从二维到三维构建计算机的空间感知体系"><span class="header-section-number">9.1</span> 从二维到三维：构建计算机的空间感知体系</h2>
-<p>三维视觉技术是计算机视觉领域的重要分支，旨在让计算机理解和重建真实世界的三维结构。经过几十年的发展，该领域已形成了完整的技术体系：</p>
-<p><strong>传统几何方法</strong>构成了三维视觉的理论基础。相机标定建立了图像与现实世界的几何关系；立体匹配通过双目视觉恢复深度信息；三维重建则从多个视角的图像中恢复完整的三维场景。这些方法基于严格的几何理论，具有可解释性强、精度高的特点。</p>
-<p><strong>深度学习方法</strong>则代表了该领域的最新发展。点云处理网络如PointNet系列直接处理三维点云数据；3D目标检测网络能够在三维空间中定位和识别物体。这些方法具有强大的特征学习能力，在复杂场景下表现出色。</p>
-<p>两类方法并非对立关系，而是相互补充。传统方法提供了坚实的理论基础和几何约束，深度学习方法则提供了强大的特征表达和泛化能力。现代三维视觉系统往往将两者结合，发挥各自优势。</p>
+<p>频域增强技术是计算机视觉和图像处理中的重要方法，通过将图像从空域转换到频域进行操作，以实现噪声去除、细节增强或特征提取等目标。本章节将详细介绍三种频域增强技术：低通滤波、高通滤波和频域锐化。我们将从基本概念出发，深入探讨其数学原理、算法实现、应用场景及优缺点比较，为研究生提供全面的理论和实践指导。</p>
+<section id="频域增强的基础知识" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="频域增强的基础知识"><span class="header-section-number">6.1</span> 频域增强的基础知识</h2>
+<p>频域增强技术基于傅里叶变换（Fourier Transform），将图像从空域（像素值分布）转换到频域（频率分量分布），通过操作频率分量实现图像增强。频域方法的核心思想是：图像的不同特征（如平滑区域、边缘、噪声）对应不同的频率分量，低频对应平滑区域，高频对应边缘和细节。</p>
+<p>(1)傅里叶变换</p>
+<p>傅里叶变换是频域处理的基础，将图像表示为不同频率正弦波的叠加。对于二维图像 (I(x, y))，其离散傅里叶变换（DFT）定义为：</p>
+<p>[ F(u, v) = <em>{x=0}^{M-1} </em>{y=0}^{N-1} I(x, y) e^{-j2( + )} ]</p>
+<p>其中： - (M, N)：图像的宽和高。 - (u, v)：频域坐标。 - (F(u, v))：频域表示，包含幅度和相位信息。</p>
+<p>逆傅里叶变换（IDFT）将频域信号转换回空域：</p>
+<p>[ I(x, y) = <em>{u=0}^{M-1} </em>{v=0}^{N-1} F(u, v) e^{j2( + )} ]</p>
+<p>实际中，通常使用快速傅里叶变换（FFT）算法降低计算复杂度。</p>
+<p>(2)频域中的图像特征</p>
+<ul>
+<li>低频分量（靠近频域中心）：对应图像的平滑区域，如背景或大尺度结构。</li>
+<li>高频分量（远离频域中心）：对应图像的边缘、细节或噪声。</li>
+<li>零频分量（频域中心）：表示图像的平均亮度。</li>
+</ul>
+<p>频域增强通过设计滤波器（低通、高通或带通）操作这些频率分量，实现去噪、锐化或特征提取。</p>
 </section>
-<section id="破解维度诅咒计算机三维感知的核心挑战" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="破解维度诅咒计算机三维感知的核心挑战"><span class="header-section-number">9.2</span> 破解维度诅咒：计算机三维感知的核心挑战</h2>
-<p>人类视觉系统能够轻松感知三维世界：判断物体的远近、估计空间的大小、理解场景的布局。这种能力如此自然，以至于我们很少意识到其复杂性。然而，对于计算机来说，从二维图像中恢复三维信息是一个极具挑战性的问题。</p>
-<p><strong>深度信息的缺失</strong>是核心挑战。当三维世界投影到二维图像平面时，深度信息不可避免地丢失了。一个像素点可能对应三维空间中的任意一点，这种一对多的映射关系使得深度恢复成为一个病态问题。</p>
-<p><strong>视角变化的复杂性</strong>进一步增加了难度。同一个物体从不同角度观察会呈现完全不同的外观，相机的位置、姿态、内部参数都会影响成像结果。如何建立图像与现实世界之间的准确对应关系，是三维视觉必须解决的基础问题。</p>
-<p><strong>数据表示的多样性</strong>也带来了挑战。三维信息可以用深度图、点云、体素、网格等多种形式表示，每种表示都有其优缺点。如何选择合适的表示方法，如何在不同表示之间转换，都需要深入思考。</p>
+<section id="低通滤波" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="低通滤波"><span class="header-section-number">6.2</span> 低通滤波</h2>
+<section id="基本原理" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="基本原理"><span class="header-section-number">6.2.1</span> 基本原理</h3>
+<p>低通滤波（Low-Pass Filtering）允许低频分量通过，抑制高频分量，用于平滑图像、去除高频噪声（如椒盐噪声或高斯噪声）。低通滤波器的频域响应 (H(u, v)) 在中心值较高，远离中心逐渐衰减。输出图像为：</p>
+<p>[ G(u, v) = F(u, v) H(u, v) ]</p>
+<p>其中，(F(u, v)) 是输入图像的傅里叶变换，(G(u, v)) 是滤波后的频域表示。</p>
+常见的低通滤波器包括： - 理想低通滤波器： [ H(u, v) =
+<span class="math display">\begin{cases}
+  1 &amp; \text{if } D(u, v) \leq D_0 \\
+  0 &amp; \text{otherwise}
+  \end{cases}</span>
+<p>] 其中，(D(u, v) = ) 是到频域中心的距离，(D_0) 是截止频率。 - 高斯低通滤波器： [ H(u, v) = e^{-} ] 高斯滤波器具有平滑的过渡，避免了理想滤波器的振铃效应（ringing artifacts）。</p>
 </section>
-<section id="智能时代的空间革命三维视觉的广阔应用前景" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="智能时代的空间革命三维视觉的广阔应用前景"><span class="header-section-number">9.3</span> 智能时代的空间革命：三维视觉的广阔应用前景</h2>
-<p>三维视觉技术在现代科技中发挥着越来越重要的作用，其应用领域广泛且影响深远。</p>
-<p><strong>自动驾驶</strong>是三维视觉最具挑战性的应用之一。车载传感器需要实时感知周围环境的三维结构：前方车辆的距离、行人的位置、道路的坡度、障碍物的形状。这些信息直接关系到行车安全。现代自动驾驶系统通常融合摄像头、激光雷达、毫米波雷达等多种传感器，构建精确的三维环境地图。特斯拉的纯视觉方案展示了基于摄像头的三维感知能力，而Waymo的激光雷达方案则体现了点云处理的重要性。</p>
-<p><strong>增强现实（AR）和虚拟现实（VR）</strong>技术的核心是虚实融合。AR应用需要准确理解真实场景的三维结构，才能将虚拟物体自然地放置在现实环境中。苹果的ARKit、谷歌的ARCore都大量使用了三维视觉技术。VR应用则需要实时追踪用户的头部和手部姿态，构建沉浸式的三维体验。</p>
-<p><strong>机器人技术</strong>中，三维视觉是实现智能操作的关键。工业机器人需要精确定位零件的位置和姿态；服务机器人需要理解室内环境的布局；手术机器人需要重建人体器官的三维结构。波士顿动力的机器人能够在复杂地形中稳定行走，很大程度上依赖于先进的三维感知能力。</p>
-<p><strong>医疗影像</strong>领域，三维重建技术帮助医生更好地诊断疾病。CT、MRI扫描产生的二维切片可以重建为三维模型，为手术规划提供直观的参考。计算机辅助手术系统能够实时追踪手术器械的位置，提高手术精度。</p>
+<section id="实现方法" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="实现方法"><span class="header-section-number">6.2.2</span> 实现方法</h3>
+<p>以下是基于 Python 和 NumPy 的高斯低通滤波实现：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> cv2</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="kw">def</span> gaussian_low_pass_filter(image, D0<span class="op">=</span><span class="dv">30</span>):</span>
+<span id="cb1-5"><a href="#cb1-5"></a>    <span class="co"># 获取图像尺寸</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    M, N <span class="op">=</span> image.shape</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    <span class="co"># 计算傅里叶变换</span></span>
+<span id="cb1-8"><a href="#cb1-8"></a>    f <span class="op">=</span> np.fft.fft2(image)</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    fshift <span class="op">=</span> np.fft.fftshift(f)</span>
+<span id="cb1-10"><a href="#cb1-10"></a>    </span>
+<span id="cb1-11"><a href="#cb1-11"></a>    <span class="co"># 创建高斯低通滤波器</span></span>
+<span id="cb1-12"><a href="#cb1-12"></a>    u <span class="op">=</span> np.arange(<span class="op">-</span>M<span class="op">//</span><span class="dv">2</span>, M<span class="op">//</span><span class="dv">2</span>)</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    v <span class="op">=</span> np.arange(<span class="op">-</span>N<span class="op">//</span><span class="dv">2</span>, N<span class="op">//</span><span class="dv">2</span>)</span>
+<span id="cb1-14"><a href="#cb1-14"></a>    U, V <span class="op">=</span> np.meshgrid(v, u)</span>
+<span id="cb1-15"><a href="#cb1-15"></a>    D <span class="op">=</span> np.sqrt(U<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> V<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    H <span class="op">=</span> np.exp(<span class="op">-</span>(D<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> (D0<span class="op">**</span><span class="dv">2</span>)))</span>
+<span id="cb1-17"><a href="#cb1-17"></a>    </span>
+<span id="cb1-18"><a href="#cb1-18"></a>    <span class="co"># 应用滤波器</span></span>
+<span id="cb1-19"><a href="#cb1-19"></a>    G <span class="op">=</span> fshift <span class="op">*</span> H</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    <span class="co"># 逆傅里叶变换</span></span>
+<span id="cb1-21"><a href="#cb1-21"></a>    f_ishift <span class="op">=</span> np.fft.ifftshift(G)</span>
+<span id="cb1-22"><a href="#cb1-22"></a>    img_back <span class="op">=</span> np.fft.ifft2(f_ishift)</span>
+<span id="cb1-23"><a href="#cb1-23"></a>    img_back <span class="op">=</span> np.<span class="bu">abs</span>(img_back)</span>
+<span id="cb1-24"><a href="#cb1-24"></a>    </span>
+<span id="cb1-25"><a href="#cb1-25"></a>    <span class="cf">return</span> img_back.astype(np.uint8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="优点与缺点" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="优点与缺点"><span class="header-section-number">6.2.3</span> 优点与缺点</h3>
+<p>(1)优点： - 有效去除高频噪声，平滑图像。 - 高斯低通滤波避免了振铃效应。 - 适合处理高频噪声占主导的图像。</p>
+<p>(2)缺点： - 抑制高频分量会导致边缘和细节模糊。 - 理想低通滤波器可能引入振铃效应。 - 计算复杂度较高（依赖 FFT）。</p>
+</section>
+</section>
+<section id="高通滤波" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="高通滤波"><span class="header-section-number">6.3</span> 高通滤波</h2>
+<section id="基本原理-1" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="基本原理-1"><span class="header-section-number">6.3.1</span> 基本原理</h3>
+<p>高通滤波（High-Pass Filtering）允许高频分量通过，抑制低频分量，用于增强图像的边缘和细节。高通滤波器的频域响应 (H(u, v)) 在中心值较低，远离中心值较高。输出图像为：</p>
+<p>[ G(u, v) = F(u, v) H(u, v) ]</p>
+常见的的高通滤波器包括： - <strong>理想高通滤波器</strong>： [ H(u, v) =
+<span class="math display">\begin{cases}
+  0 &amp; \text{if } D(u, v) \leq D_0 \\
+  1 &amp; \text{otherwise}
+  \end{cases}</span>
+<p>] - <strong>高斯高通滤波器</strong>： [ H(u, v) = 1 - e^{-} ]</p>
+<p>高斯高通滤波器通过平滑过渡减少振铃效应。</p>
+</section>
+<section id="实现方法-1" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="实现方法-1"><span class="header-section-number">6.3.2</span> 实现方法</h3>
+<p>以下是基于 Python 和 NumPy 的高斯高通滤波实现：</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> cv2</span>
+<span id="cb2-3"><a href="#cb2-3"></a></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="kw">def</span> gaussian_high_pass_filter(image, D0<span class="op">=</span><span class="dv">30</span>):</span>
+<span id="cb2-5"><a href="#cb2-5"></a>    <span class="co"># 获取图像尺寸</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    M, N <span class="op">=</span> image.shape</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    <span class="co"># 计算傅里叶变换</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>    f <span class="op">=</span> np.fft.fft2(image)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>    fshift <span class="op">=</span> np.fft.fftshift(f)</span>
+<span id="cb2-10"><a href="#cb2-10"></a>    </span>
+<span id="cb2-11"><a href="#cb2-11"></a>    <span class="co"># 创建高斯高通滤波器</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>    u <span class="op">=</span> np.arange(<span class="op">-</span>M<span class="op">//</span><span class="dv">2</span>, M<span class="op">//</span><span class="dv">2</span>)</span>
+<span id="cb2-13"><a href="#cb2-13"></a>    v <span class="op">=</span> np.arange(<span class="op">-</span>N<span class="op">//</span><span class="dv">2</span>, N<span class="op">//</span><span class="dv">2</span>)</span>
+<span id="cb2-14"><a href="#cb2-14"></a>    U, V <span class="op">=</span> np.meshgrid(v, u)</span>
+<span id="cb2-15"><a href="#cb2-15"></a>    D <span class="op">=</span> np.sqrt(U<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> V<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb2-16"><a href="#cb2-16"></a>    H <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> np.exp(<span class="op">-</span>(D<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> (D0<span class="op">**</span><span class="dv">2</span>)))</span>
+<span id="cb2-17"><a href="#cb2-17"></a>    </span>
+<span id="cb2-18"><a href="#cb2-18"></a>    <span class="co"># 应用滤波器</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a>    G <span class="op">=</span> fshift <span class="op">*</span> H</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    <span class="co"># 逆傅里叶变换</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>    f_ishift <span class="op">=</span> np.fft.ifftshift(G)</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    img_back <span class="op">=</span> np.fft.ifft2(f_ishift)</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    img_back <span class="op">=</span> np.<span class="bu">abs</span>(img_back)</span>
+<span id="cb2-24"><a href="#cb2-24"></a>    </span>
+<span id="cb2-25"><a href="#cb2-25"></a>    <span class="cf">return</span> img_back.astype(np.uint8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="优点与缺点-1" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="优点与缺点-1"><span class="header-section-number">6.3.3</span> 优点与缺点</h3>
+<p>(1)优点： - 增强边缘和细节，突出图像特征。 - 适合边缘检测和特征提取任务。 - 高斯高通滤波减少振铃效应。</p>
+<p>(2)缺点： - 可能放大高频噪声。 - 低频信息丢失，导致背景信息减少。 - 计算复杂度较高。</p>
+</section>
+</section>
+<section id="频域锐化" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="频域锐化"><span class="header-section-number">6.4</span> 频域锐化</h2>
+<section id="基本原理-2" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="基本原理-2"><span class="header-section-number">6.4.1</span> 基本原理</h3>
+<p>频域锐化通过增强高频分量来突出图像的边缘和细节，常用的方法是高提升滤波（High-Boost Filtering）。高提升滤波在保留部分低频信息的基础上增强高频分量，其滤波器定义为：</p>
+<p>[ H_{hb}(u, v) = A + H_{hp}(u, v) ]</p>
+<p>其中： - (H_{hp}(u, v))：高通滤波器。 - (A)：增益因子，通常 (A )，控制低频分量保留程度。</p>
+<p>锐化后的图像为：</p>
+<p>[ O(x, y) = I(x, y) + k (I(x, y) - I_{lp}(x, y)) ]</p>
+<p>其中，(I_{lp}(x, y)) 是低通滤波后的图像，(k) 是锐化强度。</p>
+</section>
+<section id="实现方法-2" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2" class="anchored" data-anchor-id="实现方法-2"><span class="header-section-number">6.4.2</span> 实现方法</h3>
+<p>以下是基于 Python 和 NumPy 的高提升滤波实现：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> cv2</span>
+<span id="cb3-3"><a href="#cb3-3"></a></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="kw">def</span> high_boost_filter(image, D0<span class="op">=</span><span class="dv">30</span>, A<span class="op">=</span><span class="fl">1.5</span>):</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="co"># 获取图像尺寸</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a>    M, N <span class="op">=</span> image.shape</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="co"># 计算傅里叶变换</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a>    f <span class="op">=</span> np.fft.fft2(image)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>    fshift <span class="op">=</span> np.fft.fftshift(f)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>    </span>
+<span id="cb3-11"><a href="#cb3-11"></a>    <span class="co"># 创建高提升滤波器</span></span>
+<span id="cb3-12"><a href="#cb3-12"></a>    u <span class="op">=</span> np.arange(<span class="op">-</span>M<span class="op">//</span><span class="dv">2</span>, M<span class="op">//</span><span class="dv">2</span>)</span>
+<span id="cb3-13"><a href="#cb3-13"></a>    v <span class="op">=</span> np.arange(<span class="op">-</span>N<span class="op">//</span><span class="dv">2</span>, N<span class="op">//</span><span class="dv">2</span>)</span>
+<span id="cb3-14"><a href="#cb3-14"></a>    U, V <span class="op">=</span> np.meshgrid(v, u)</span>
+<span id="cb3-15"><a href="#cb3-15"></a>    D <span class="op">=</span> np.sqrt(U<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> V<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb3-16"><a href="#cb3-16"></a>    H_lp <span class="op">=</span> np.exp(<span class="op">-</span>(D<span class="op">**</span><span class="dv">2</span>) <span class="op">/</span> (<span class="dv">2</span> <span class="op">*</span> (D0<span class="op">**</span><span class="dv">2</span>)))  <span class="co"># 低通滤波器</span></span>
+<span id="cb3-17"><a href="#cb3-17"></a>    H_hp <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> H_lp  <span class="co"># 高通滤波器</span></span>
+<span id="cb3-18"><a href="#cb3-18"></a>    H_hb <span class="op">=</span> A <span class="op">+</span> H_hp  <span class="co"># 高提升滤波器</span></span>
+<span id="cb3-19"><a href="#cb3-19"></a>    </span>
+<span id="cb3-20"><a href="#cb3-20"></a>    <span class="co"># 应用滤波器</span></span>
+<span id="cb3-21"><a href="#cb3-21"></a>    G <span class="op">=</span> fshift <span class="op">*</span> H_hb</span>
+<span id="cb3-22"><a href="#cb3-22"></a>    <span class="co"># 逆傅里叶变换</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a>    f_ishift <span class="op">=</span> np.fft.ifftshift(G)</span>
+<span id="cb3-24"><a href="#cb3-24"></a>    img_back <span class="op">=</span> np.fft.ifft2(f_ishift)</span>
+<span id="cb3-25"><a href="#cb3-25"></a>    img_back <span class="op">=</span> np.<span class="bu">abs</span>(img_back)</span>
+<span id="cb3-26"><a href="#cb3-26"></a>    </span>
+<span id="cb3-27"><a href="#cb3-27"></a>    <span class="cf">return</span> img_back.astype(np.uint8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="优点与缺点-2" class="level3" data-number="6.4.3">
+<h3 data-number="6.4.3" class="anchored" data-anchor-id="优点与缺点-2"><span class="header-section-number">6.4.3</span> 优点与缺点</h3>
+<p>(1)优点： - 增强边缘和细节，同时保留部分低频信息。 - 参数 (A) 可调，灵活控制锐化程度。 - 适合需要突出细节的场景。</p>
+<p>(2)缺点： - 可能放大高频噪声。 - 参数选择需谨慎，过高的 (A) 可能导致伪影。 - 计算复杂度较高。</p>
+</section>
+</section>
+<section id="三种方法的比较" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="三种方法的比较"><span class="header-section-number">6.5</span> 三种方法的比较</h2>
+<p>(1)数学特性</p>
+<ul>
+<li><strong>低通滤波</strong>：抑制高频分量，平滑图像，适合去噪。</li>
+<li><strong>高通滤波</strong>：增强高频分量，突出边缘，适合特征提取。</li>
+<li><strong>频域锐化</strong>：结合低频和高频，增强细节同时保留整体结构。</li>
+</ul>
+<p>(2)增强效果</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>去噪效果</th>
+<th>边缘增强</th>
+<th>细节保留</th>
+<th>计算复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>低通滤波</td>
+<td>优秀</td>
+<td>较差</td>
+<td>较差</td>
+<td>中等</td>
+</tr>
+<tr class="even">
+<td>高通滤波</td>
+<td>较差</td>
+<td>优秀</td>
+<td>良好</td>
+<td>中等</td>
+</tr>
+<tr class="odd">
+<td>频域锐化</td>
+<td>一般</td>
+<td>优秀</td>
+<td>优秀</td>
+<td>中等</td>
+</tr>
+</tbody>
+</table>
+<p>(3)应用选择</p>
+<ul>
+<li><strong>低通滤波</strong>：适合去除高频噪声，平滑图像。</li>
+<li><strong>高通滤波</strong>：适合边缘检测和特征提取。</li>
+<li><strong>频域锐化</strong>：适合需要增强细节的场景，如图像增强。</li>
+</ul>
+<p>(4)实际实现与效果分析</p>
+<p>以下是一个完整的 Python 示例，展示如何对含噪图像应用三种频域增强方法并比较效果：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> cv2</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co"># 加载图像</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>image <span class="op">=</span> cv2.imread(<span class="st">'image.jpg'</span>, cv2.IMREAD_GRAYSCALE)</span>
+<span id="cb4-7"><a href="#cb4-7"></a></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co"># 添加高斯噪声</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>noisy_image <span class="op">=</span> image <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="dv">20</span>, image.shape).astype(np.uint8)</span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a><span class="co"># 应用三种方法</span></span>
+<span id="cb4-12"><a href="#cb4-12"></a>low_pass <span class="op">=</span> gaussian_low_pass_filter(noisy_image, D0<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb4-13"><a href="#cb4-13"></a>high_pass <span class="op">=</span> gaussian_high_pass_filter(noisy_image, D0<span class="op">=</span><span class="dv">30</span>)</span>
+<span id="cb4-14"><a href="#cb4-14"></a>high_boost <span class="op">=</span> high_boost_filter(noisy_image, D0<span class="op">=</span><span class="dv">30</span>, A<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="co"># 显示结果</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>))</span>
+<span id="cb4-18"><a href="#cb4-18"></a>plt.subplot(<span class="dv">231</span>), plt.imshow(image, cmap<span class="op">=</span><span class="st">'gray'</span>), plt.title(<span class="st">'Original Image'</span>)</span>
+<span id="cb4-19"><a href="#cb4-19"></a>plt.subplot(<span class="dv">232</span>), plt.imshow(noisy_image, cmap<span class="op">=</span><span class="st">'gray'</span>), plt.title(<span class="st">'Noisy Image'</span>)</span>
+<span id="cb4-20"><a href="#cb4-20"></a>plt.subplot(<span class="dv">233</span>), plt.imshow(low_pass, cmap<span class="op">=</span><span class="st">'gray'</span>), plt.title(<span class="st">'Low-Pass Filter'</span>)</span>
+<span id="cb4-21"><a href="#cb4-21"></a>plt.subplot(<span class="dv">234</span>), plt.imshow(high_pass, cmap<span class="op">=</span><span class="st">'gray'</span>), plt.title(<span class="st">'High-Pass Filter'</span>)</span>
+<span id="cb4-22"><a href="#cb4-22"></a>plt.subplot(<span class="dv">235</span>), plt.imshow(high_boost, cmap<span class="op">=</span><span class="st">'gray'</span>), plt.title(<span class="st">'High-Boost Filter'</span>)</span>
+<span id="cb4-23"><a href="#cb4-23"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(5)效果分析</p>
+<ul>
+<li><strong>低通滤波</strong>：有效去除高频噪声，但边缘和细节模糊。</li>
+<li><strong>高通滤波</strong>：突出边缘和细节，但可能放大噪声，背景信息丢失。</li>
+<li><strong>频域锐化</strong>：平衡边缘增强和背景保留，细节突出，适合增强任务。</li>
+</ul>
 
 
 </section>
@@ -977,13 +1296,13 @@ if (typeof bootstrap === 'undefined') {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapter03/3.7_小结与实践建议.html" class="pagination-link" aria-label="小结与实践建议">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">小结与实践建议</span></span>
+      <a href="../chapter03/3.4_对比度增强与直方图均衡.html" class="pagination-link" aria-label="对比度增强与直方图均衡">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">对比度增强与直方图均衡</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapter11/11.1_相机标定与几何.html" class="pagination-link" aria-label="相机标定与几何">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapter03/3.6_Retinex与色彩校正.html" class="pagination-link" aria-label="Retinex与色彩校正">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Retinex与色彩校正</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -995,7 +1314,7 @@ if (typeof bootstrap === 'undefined') {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.0_概述.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter03/3.5_频域增强技术.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>使用 <a href="https://quarto.org/">Quarto</a> 构建</p>
 </div>

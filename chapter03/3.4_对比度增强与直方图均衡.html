@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>9&nbsp; 概述 – 现代计算机视觉</title>
+<title>5&nbsp; 对比度增强与直方图均衡 – 现代计算机视觉</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,8 +65,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../chapter11/11.1_相机标定与几何.html" rel="next">
-<link href="../chapter03/3.7_小结与实践建议.html" rel="prev">
+<link href="../chapter03/3.5_频域增强技术.html" rel="next">
+<link href="../chapter03/3.3_边缘保留滤波.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -46,6 +81,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-6fcac39c9284576018a90f9233d38a57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/bootstrap/bootstrap-dark-d93707d35e9eb4f9c74ea739720dc72e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="../site_libs/bootstrap/bootstrap-6fcac39c9284576018a90f9233d38a57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -250,7 +288,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter03/3.0_概述.html">第三章：图像预处理与增强技术</a></li><li class="breadcrumb-item"><a href="../chapter03/3.4_对比度增强与直方图均衡.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">对比度增强与直方图均衡</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -287,13 +325,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
  <span class="menu-text">第三章：图像预处理与增强技术</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter03/3.0_概述.html" class="sidebar-item-text sidebar-link">
@@ -320,7 +358,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapter03/3.4_对比度增强与直方图均衡.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapter03/3.4_对比度增强与直方图均衡.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">对比度增强与直方图均衡</span></span></a>
   </div>
 </li>
@@ -346,16 +384,16 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
  <span class="menu-text">第十一章：三维视觉与点云处理</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link active">
+  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></span></a>
   </div>
 </li>
@@ -419,19 +457,34 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#从二维到三维构建计算机的空间感知体系" id="toc-从二维到三维构建计算机的空间感知体系" class="nav-link active" data-scroll-target="#从二维到三维构建计算机的空间感知体系"><span class="header-section-number">9.1</span> 从二维到三维：构建计算机的空间感知体系</a></li>
-  <li><a href="#破解维度诅咒计算机三维感知的核心挑战" id="toc-破解维度诅咒计算机三维感知的核心挑战" class="nav-link" data-scroll-target="#破解维度诅咒计算机三维感知的核心挑战"><span class="header-section-number">9.2</span> 破解维度诅咒：计算机三维感知的核心挑战</a></li>
-  <li><a href="#智能时代的空间革命三维视觉的广阔应用前景" id="toc-智能时代的空间革命三维视觉的广阔应用前景" class="nav-link" data-scroll-target="#智能时代的空间革命三维视觉的广阔应用前景"><span class="header-section-number">9.3</span> 智能时代的空间革命：三维视觉的广阔应用前景</a></li>
+  <li><a href="#直方图均衡" id="toc-直方图均衡" class="nav-link active" data-scroll-target="#直方图均衡"><span class="header-section-number">5.1</span> 直方图均衡</a>
+  <ul class="collapse">
+  <li><a href="#基本原理" id="toc-基本原理" class="nav-link" data-scroll-target="#基本原理"><span class="header-section-number">5.1.1</span> 基本原理</a></li>
+  <li><a href="#实现方法" id="toc-实现方法" class="nav-link" data-scroll-target="#实现方法"><span class="header-section-number">5.1.2</span> 实现方法</a></li>
+  </ul></li>
+  <li><a href="#对比度受限自适应直方图均衡clahe" id="toc-对比度受限自适应直方图均衡clahe" class="nav-link" data-scroll-target="#对比度受限自适应直方图均衡clahe"><span class="header-section-number">5.2</span> 对比度受限自适应直方图均衡（CLAHE）</a>
+  <ul class="collapse">
+  <li><a href="#基本原理-1" id="toc-基本原理-1" class="nav-link" data-scroll-target="#基本原理-1"><span class="header-section-number">5.2.1</span> 基本原理</a></li>
+  <li><a href="#实现方法-1" id="toc-实现方法-1" class="nav-link" data-scroll-target="#实现方法-1"><span class="header-section-number">5.2.2</span> 实现方法</a></li>
+  <li><a href="#优点与缺点" id="toc-优点与缺点" class="nav-link" data-scroll-target="#优点与缺点"><span class="header-section-number">5.2.3</span> 优点与缺点</a></li>
+  </ul></li>
+  <li><a href="#gamma-校正" id="toc-gamma-校正" class="nav-link" data-scroll-target="#gamma-校正"><span class="header-section-number">5.3</span> Gamma 校正</a>
+  <ul class="collapse">
+  <li><a href="#基本原理-2" id="toc-基本原理-2" class="nav-link" data-scroll-target="#基本原理-2"><span class="header-section-number">5.3.1</span> 基本原理</a></li>
+  <li><a href="#实现方法-2" id="toc-实现方法-2" class="nav-link" data-scroll-target="#实现方法-2"><span class="header-section-number">5.3.2</span> 实现方法</a></li>
+  <li><a href="#优点与缺点-1" id="toc-优点与缺点-1" class="nav-link" data-scroll-target="#优点与缺点-1"><span class="header-section-number">5.3.3</span> 优点与缺点</a></li>
+  </ul></li>
+  <li><a href="#三种方法的比较" id="toc-三种方法的比较" class="nav-link" data-scroll-target="#三种方法的比较"><span class="header-section-number">5.4</span> 三种方法的比较</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.0_概述.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter03/3.4_对比度增强与直方图均衡.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter03/3.0_概述.html">第三章：图像预处理与增强技术</a></li><li class="breadcrumb-item"><a href="../chapter03/3.4_对比度增强与直方图均衡.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">对比度增强与直方图均衡</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">对比度增强与直方图均衡</span></h1>
 </div>
 
 
@@ -448,27 +501,191 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="从二维到三维构建计算机的空间感知体系" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="从二维到三维构建计算机的空间感知体系"><span class="header-section-number">9.1</span> 从二维到三维：构建计算机的空间感知体系</h2>
-<p>三维视觉技术是计算机视觉领域的重要分支，旨在让计算机理解和重建真实世界的三维结构。经过几十年的发展，该领域已形成了完整的技术体系：</p>
-<p><strong>传统几何方法</strong>构成了三维视觉的理论基础。相机标定建立了图像与现实世界的几何关系；立体匹配通过双目视觉恢复深度信息；三维重建则从多个视角的图像中恢复完整的三维场景。这些方法基于严格的几何理论，具有可解释性强、精度高的特点。</p>
-<p><strong>深度学习方法</strong>则代表了该领域的最新发展。点云处理网络如PointNet系列直接处理三维点云数据；3D目标检测网络能够在三维空间中定位和识别物体。这些方法具有强大的特征学习能力，在复杂场景下表现出色。</p>
-<p>两类方法并非对立关系，而是相互补充。传统方法提供了坚实的理论基础和几何约束，深度学习方法则提供了强大的特征表达和泛化能力。现代三维视觉系统往往将两者结合，发挥各自优势。</p>
+<p>对比度是指图像中亮度或灰度级别的差异程度。高对比度图像具有更明显的明暗差异，细节更易辨识；低对比度图像则显得平淡，细节可能被掩盖。对比度增强是计算机视觉和图像处理中的重要技术，旨在提高图像的视觉质量，使其细节更清晰、特征更突出。对比度增强的目标是通过调整像素值分布，扩大亮度范围或重新分配灰度值，从而提高图像的视觉质量和后续处理效果。</p>
+<p>图像对比度可以通过灰度值范围或直方图分布来量化： - 全局对比度：由图像整体灰度值范围决定，通常用最大灰度值与最小灰度值之差表示。 - 局部对比度：由局部区域内像素值的变化程度决定，常用于纹理分析。</p>
+<p>基于此，对比度增强方法通常分为两类： - 点操作：如 Gamma 校正，直接对每个像素值进行变换。 - 全局/局部变换：如直方图均衡和 CLAHE，基于灰度值分布调整像素值。</p>
+<p>本章节将详细介绍三种常见的对比度增强方法：直方图均衡、对比度受限自适应直方图均衡（CLAHE）和 Gamma 校正。</p>
+<section id="直方图均衡" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="直方图均衡"><span class="header-section-number">5.1</span> 直方图均衡</h2>
+<section id="基本原理" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="基本原理"><span class="header-section-number">5.1.1</span> 基本原理</h3>
+<p>图像直方图是表示图像灰度值分布的统计工具。对于灰度图像，直方图显示每个灰度级别（通常 0 到 255）的像素数量。直方图的形状反映了图像的对比度和亮度特性： - 集中于低灰度值：图像偏暗。 - 集中于高灰度值：图像偏亮。 - 分布狭窄：对比度低。 - 分布均匀：对比度较高。</p>
+<p>通过调整直方图分布，可以使灰度值更均匀或更有针对性地增强特定区域。</p>
+<p>直方图均衡（Histogram Equalization）是一种全局对比度增强方法，通过重新分配灰度值使直方图尽可能均匀，从而扩大图像的动态范围。其核心思想是将原始灰度值的累积分布函数（CDF）映射到输出灰度值。</p>
+<p>对于灰度图像 (I)（灰度范围 [0, L-1]，通常 (L=256)），直方图均衡的步骤如下： 1. 计算灰度直方图 (h(r))，表示灰度值 (r) 的像素数量。 2. 计算累积分布函数： [ (r) = <em>{k=0}^{r} h(k) ] 3. 归一化 CDF： [ s(r) = (L-1) ] 其中，(</em>{}) 是非零的最小 CDF 值。 4. 将原始灰度值 (r) 映射到新灰度值： [ r’ = s(r) ]<br>
+<img src="./chapter3/image-7.png" class="img-fluid" alt="alt text"> 图像中直方图横坐标是表示灰度值，左边暗右边亮，纵坐标表示像素分布的数量。根据图像形态，可以初步判断照片的暴光情况，直方图是照片曝光情况最好的反馈。从理论上说，一张曝光良好的照片，各亮度值上都有像素分布。 把直方图划分为5个区：每个区代表一个亮度范围，左边为黑部、暗部，中间为中间调，右边是亮部和高亮，如果覆盖了整个区域说明曝光情况正好且细节清晰可见。<br>
+<img src="./chapter3/image-8.png" class="img-fluid" alt="alt text"></p>
+<p>1.1.2颜色直方图 颜色直方图，是一种能快速描述图像整体像素值分布的统计信息图表。图表能显示出某一像素值范围的像素点的个数，X轴为像素值，Y为个数。颜色直方图只能描述颜色的分布，不能描述数据几何上的信息。即只知道这个像素值范围的点的个数有多少个，但无法知道这个点在哪个位置上多。 绘制颜色直方图方法：用numpy的histogram()函数得到直方图的信息，再用matplotlib绘制出图像。下面是核心的函数功能信息。 img.ravel()：把多维数组转化成一维数组。 matplotlib.pyplot.hist(X, BINS)：X：数据源，必须是一维的。通常二维图像，需要使用ravel()函数将图像处理为一维数据源。BINS：表示灰度级的分组情况。 plt.hist(img.ravel(),256,[0,256],facecolor =‘black’)：hist：hist函数只支持一维的数组。256：256 表示横坐标的最大值为256，有256条柱。[0,256]：[0,256]表示数据显示范围，横坐标超过256的数据也归到256处。facecolor：facecolor 表示柱状图的颜色。完整代码如下。</p>
 </section>
-<section id="破解维度诅咒计算机三维感知的核心挑战" class="level2" data-number="9.2">
-<h2 data-number="9.2" class="anchored" data-anchor-id="破解维度诅咒计算机三维感知的核心挑战"><span class="header-section-number">9.2</span> 破解维度诅咒：计算机三维感知的核心挑战</h2>
-<p>人类视觉系统能够轻松感知三维世界：判断物体的远近、估计空间的大小、理解场景的布局。这种能力如此自然，以至于我们很少意识到其复杂性。然而，对于计算机来说，从二维图像中恢复三维信息是一个极具挑战性的问题。</p>
-<p><strong>深度信息的缺失</strong>是核心挑战。当三维世界投影到二维图像平面时，深度信息不可避免地丢失了。一个像素点可能对应三维空间中的任意一点，这种一对多的映射关系使得深度恢复成为一个病态问题。</p>
-<p><strong>视角变化的复杂性</strong>进一步增加了难度。同一个物体从不同角度观察会呈现完全不同的外观，相机的位置、姿态、内部参数都会影响成像结果。如何建立图像与现实世界之间的准确对应关系，是三维视觉必须解决的基础问题。</p>
-<p><strong>数据表示的多样性</strong>也带来了挑战。三维信息可以用深度图、点云、体素、网格等多种形式表示，每种表示都有其优缺点。如何选择合适的表示方法，如何在不同表示之间转换，都需要深入思考。</p>
+<section id="实现方法" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="实现方法"><span class="header-section-number">5.1.2</span> 实现方法</h3>
+<p>以下是基于 Python 和 OpenCV 的直方图均衡实现：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> cv2</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4"></a>img <span class="op">=</span> cv2.imread(<span class="vs">r'girl2aa</span><span class="dv">.</span><span class="vs">jpg'</span>) <span class="co">#读入图像</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a>hist, bins <span class="op">=</span> np.histogram(img.ravel(), bins<span class="op">=</span><span class="dv">50</span>) </span>
+<span id="cb1-6"><a href="#cb1-6"></a>plt.hist(img.ravel(), bins<span class="op">=</span><span class="dv">50</span>)<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>cv2.imshow(<span class="st">'img'</span>, img)</span>
+<span id="cb1-8"><a href="#cb1-8"></a>cv2.waitKey(<span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="./chapter3/image-9.png" class="img-fluid" alt="alt text"> <img src="./chapter3/image-10.png" class="img-fluid" alt="alt text"></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> cv2</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-3"><a href="#cb2-3"></a>img_bgr_data <span class="op">=</span> cv2.imread(<span class="vs">r'girl2aaa</span><span class="dv">.</span><span class="vs">jpg'</span>) <span class="co"># 彩色图像直方图</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">5</span>)) <span class="co">#设置画布的大小</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a>ax1 <span class="op">=</span> plt.subplot(<span class="dv">131</span>) <span class="co"># B通道 直方图</span></span>
+<span id="cb2-6"><a href="#cb2-6"></a>ax1.hist(img_bgr_data[:, :, <span class="dv">0</span>].ravel(), bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">'b'</span>)</span>
+<span id="cb2-7"><a href="#cb2-7"></a>ax2 <span class="op">=</span> plt.subplot(<span class="dv">132</span>) <span class="co"># G通道 直方图</span></span>
+<span id="cb2-8"><a href="#cb2-8"></a>ax2.hist(img_bgr_data[:, :, <span class="dv">1</span>].ravel(), bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">'g'</span>)</span>
+<span id="cb2-9"><a href="#cb2-9"></a>ax3 <span class="op">=</span> plt.subplot(<span class="dv">133</span>) <span class="co"># R通道 直方图</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a>ax3.hist(img_bgr_data[:, :, <span class="dv">2</span>].ravel(), bins<span class="op">=</span><span class="dv">50</span>, color<span class="op">=</span><span class="st">'r'</span>)</span>
+<span id="cb2-11"><a href="#cb2-11"></a>cv2.waitKey(<span class="dv">0</span>)</span>
+<span id="cb2-12"><a href="#cb2-12"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p><img src="./chapter3/image-11.png" class="img-fluid" alt="alt text"> ### 优点与缺点</p>
+<p>(1)优点： - 简单高效，自动增强全局对比度。 - 适合低对比度图像。</p>
+<p>(2)缺点： - 可能放大噪声或导致过曝。 - 不适合局部对比度增强。</p>
 </section>
-<section id="智能时代的空间革命三维视觉的广阔应用前景" class="level2" data-number="9.3">
-<h2 data-number="9.3" class="anchored" data-anchor-id="智能时代的空间革命三维视觉的广阔应用前景"><span class="header-section-number">9.3</span> 智能时代的空间革命：三维视觉的广阔应用前景</h2>
-<p>三维视觉技术在现代科技中发挥着越来越重要的作用，其应用领域广泛且影响深远。</p>
-<p><strong>自动驾驶</strong>是三维视觉最具挑战性的应用之一。车载传感器需要实时感知周围环境的三维结构：前方车辆的距离、行人的位置、道路的坡度、障碍物的形状。这些信息直接关系到行车安全。现代自动驾驶系统通常融合摄像头、激光雷达、毫米波雷达等多种传感器，构建精确的三维环境地图。特斯拉的纯视觉方案展示了基于摄像头的三维感知能力，而Waymo的激光雷达方案则体现了点云处理的重要性。</p>
-<p><strong>增强现实（AR）和虚拟现实（VR）</strong>技术的核心是虚实融合。AR应用需要准确理解真实场景的三维结构，才能将虚拟物体自然地放置在现实环境中。苹果的ARKit、谷歌的ARCore都大量使用了三维视觉技术。VR应用则需要实时追踪用户的头部和手部姿态，构建沉浸式的三维体验。</p>
-<p><strong>机器人技术</strong>中，三维视觉是实现智能操作的关键。工业机器人需要精确定位零件的位置和姿态；服务机器人需要理解室内环境的布局；手术机器人需要重建人体器官的三维结构。波士顿动力的机器人能够在复杂地形中稳定行走，很大程度上依赖于先进的三维感知能力。</p>
-<p><strong>医疗影像</strong>领域，三维重建技术帮助医生更好地诊断疾病。CT、MRI扫描产生的二维切片可以重建为三维模型，为手术规划提供直观的参考。计算机辅助手术系统能够实时追踪手术器械的位置，提高手术精度。</p>
+</section>
+<section id="对比度受限自适应直方图均衡clahe" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="对比度受限自适应直方图均衡clahe"><span class="header-section-number">5.2</span> 对比度受限自适应直方图均衡（CLAHE）</h2>
+<section id="基本原理-1" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="基本原理-1"><span class="header-section-number">5.2.1</span> 基本原理</h3>
+<p>自适应直方图均衡化(AHE)用来提升图像的对比度的一种计算机图像处理技术。和普通的直方图均衡算法不同，AHE算法通过计算图像的局部直方图，然后重新分布亮度来来改变图像对比度。因此，该算法更适合于改进图像的局部对比度以及获得更多的图像细节。</p>
+<p>对比度受限自适应直方图均衡（Contrast Limited Adaptive Histogram Equalization, CLAHE）是AHE的改进版本，通过限制对比度来避免噪声的过度放大。它在增强局部对比度的同时，能够有效控制噪声。CLAHE同普通的自适应直方图均衡不同的地方主要是其对比度限幅。这个特性也可以应用到全局直方图均衡化中，即构成所谓的限制对比度直方图均衡（CLAHE），但这在实际中很少使用。在CLAHE中，对于每个小区域都必须使用对比度限幅。CLAHE主要是用来克服AHE的过度放大噪音的问题。 这主要是通过限制AHE算法的对比提高程度来达到的。在指定的像素值周边的对比度放大主要是由变换函数的斜度决定的。这个斜度和领域的累积直方图的斜度成比例。CLAHE通过在计算CDF前用预先定义的阈值来裁剪直方图以达到限制放大幅度的目的。这限制了CDF的斜度。因此，也限制了变换函数的斜度。直方图被裁剪的值，也就是所谓的裁剪限幅，取决于直方图的分布因此也取决于领域大小的取值。</p>
+</section>
+<section id="实现方法-1" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="实现方法-1"><span class="header-section-number">5.2.2</span> 实现方法</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> cv2</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3"></a>img <span class="op">=</span> cv2.imread(<span class="vs">r'img/tihu</span><span class="dv">.</span><span class="vs">jpeg'</span>,<span class="dv">0</span>) <span class="co"># 读取图像</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>clahe <span class="op">=</span> cv2.createCLAHE(clipLimit<span class="op">=</span><span class="fl">2.0</span>, tileGridSize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb3-5"><a href="#cb3-5"></a>clahe_img <span class="op">=</span> clahe.<span class="bu">apply</span>(img)</span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co"># 显示结果</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb3-8"><a href="#cb3-8"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">1</span>)</span>
+<span id="cb3-9"><a href="#cb3-9"></a>plt.title(<span class="st">'Original Image'</span>)</span>
+<span id="cb3-10"><a href="#cb3-10"></a>plt.imshow(img, cmap<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb3-11"><a href="#cb3-11"></a>plt.subplot(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb3-12"><a href="#cb3-12"></a>plt.title(<span class="st">'CLAHE Image'</span>)</span>
+<span id="cb3-13"><a href="#cb3-13"></a>plt.imshow(clahe_img, cmap<span class="op">=</span><span class="st">'gray'</span>)</span>
+<span id="cb3-14"><a href="#cb3-14"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="./chapter3/image-13.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="alt text"><img src="./chapter3/image-13.png" class="img-fluid figure-img" alt="alt text"></a></p>
+<figcaption>alt text</figcaption>
+</figure>
+</div>
+</section>
+<section id="优点与缺点" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="优点与缺点"><span class="header-section-number">5.2.3</span> 优点与缺点</h3>
+<p>(1)优点： - 局部增强，保留细节，适合复杂场景。 - 对比度限制有效抑制噪声放大。 - 参数（clip limit 和 tile size）可调，灵活性高。</p>
+<p>(2)缺点： - 计算复杂度高于全局直方图均衡。 - 块边界可能引入轻微伪影。 - 参数选择需经验或实验优化。</p>
+</section>
+</section>
+<section id="gamma-校正" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="gamma-校正"><span class="header-section-number">5.3</span> Gamma 校正</h2>
+<section id="基本原理-2" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="基本原理-2"><span class="header-section-number">5.3.1</span> 基本原理</h3>
+<p>Gamma 校正是一种非线性点操作，通过幂律变换调整图像的亮度和对比度。其数学表达式为：</p>
+<p>[ O = I^{} ]</p>
+<p>其中： - (I)：输入像素值（通常归一化到 [0, 1]）。 - (O)：输出像素值。 - ()：Gamma 值，控制亮度调整。 - (&lt; 1)：增强暗部细节，图像变亮。 - (&gt; 1)：增强亮部细节，图像变暗。</p>
+</section>
+<section id="实现方法-2" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="实现方法-2"><span class="header-section-number">5.3.2</span> 实现方法</h3>
+<p>以下是基于 Python 和 NumPy 的 Gamma 校正实现：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2"></a></span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="kw">def</span> gamma_correction(image, gamma<span class="op">=</span><span class="fl">1.0</span>):</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="co"># 归一化到 [0, 1]</span></span>
+<span id="cb4-5"><a href="#cb4-5"></a>    image_norm <span class="op">=</span> image <span class="op">/</span> <span class="fl">255.0</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="co"># 应用 Gamma 变换</span></span>
+<span id="cb4-7"><a href="#cb4-7"></a>    output <span class="op">=</span> np.power(image_norm, gamma)</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="co"># 恢复到 [0, 255]</span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>    output <span class="op">=</span> (output <span class="op">*</span> <span class="dv">255</span>).astype(np.uint8)</span>
+<span id="cb4-10"><a href="#cb4-10"></a>    <span class="cf">return</span> output</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="优点与缺点-1" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="优点与缺点-1"><span class="header-section-number">5.3.3</span> 优点与缺点</h3>
+<p>()优点： - 实现简单，计算效率高。 - 可通过调整 () 灵活控制亮度。 - 适用于实时处理。</p>
+<p>(2)缺点： - 不基于图像内容，可能导致局部区域细节丢失。 - 对噪声敏感，可能放大噪声。 - 单一参数限制了复杂场景的适应性。</p>
+</section>
+</section>
+<section id="三种方法的比较" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="三种方法的比较"><span class="header-section-number">5.4</span> 三种方法的比较</h2>
+<p>(1)数学特性</p>
+<ul>
+<li>直方图均衡：全局变换，基于累积分布函数，自动均匀化灰度分布。</li>
+<li>CLAHE：局部变换，基于块直方图均衡和对比度限制，适合复杂场景。</li>
+<li>Gamma 校正：点操作，非线性变换，直接调整像素值。</li>
+</ul>
+<p>(2)增强效果</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>方法</th>
+<th>全局对比度</th>
+<th>局部细节</th>
+<th>噪声放大</th>
+<th>计算复杂度</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>直方图均衡</td>
+<td>优秀</td>
+<td>一般</td>
+<td>高</td>
+<td>低</td>
+</tr>
+<tr class="even">
+<td>CLAHE</td>
+<td>良好</td>
+<td>优秀</td>
+<td>低</td>
+<td>中等</td>
+</tr>
+<tr class="odd">
+<td>Gamma 校正</td>
+<td>一般</td>
+<td>一般</td>
+<td>中等</td>
+<td>低</td>
+</tr>
+</tbody>
+</table>
+<p>(3)应用选择</p>
+<ul>
+<li><strong>直方图均衡</strong>：适合低对比度、灰度分布集中的图像，快速增强全局对比度。</li>
+<li><strong>CLAHE</strong>：适合需要保留局部细节的复杂场景，如医学图像。</li>
+<li><strong>Gamma 校正</strong>：适合快速调整亮度或校准显示效果。</li>
+</ul>
+<p>(4)实际实现与效果分析</p>
+<p>以下是一个完整的 Python 示例，展示如何对低对比度图像应用三种方法并比较效果：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="im">import</span> cv2</span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co"># 加载图像</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>image <span class="op">=</span> cv2.imread(<span class="st">'low_contrast_image.jpg'</span>, cv2.IMREAD_GRAYSCALE)</span>
+<span id="cb5-7"><a href="#cb5-7"></a></span>
+<span id="cb5-8"><a href="#cb5-8"></a><span class="co"># 应用三种方法</span></span>
+<span id="cb5-9"><a href="#cb5-9"></a>hist_eq <span class="op">=</span> histogram_equalization(image)</span>
+<span id="cb5-10"><a href="#cb5-10"></a>clahe_img <span class="op">=</span> clahe(image, clip_limit<span class="op">=</span><span class="fl">2.0</span>, tile_grid_size<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">8</span>))</span>
+<span id="cb5-11"><a href="#cb5-11"></a>gamma_img <span class="op">=</span> gamma_correction(image, gamma<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb5-12"><a href="#cb5-12"></a></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co"># 显示结果</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">10</span>))</span>
+<span id="cb5-15"><a href="#cb5-15"></a>plt.subplot(<span class="dv">221</span>), plt.imshow(image, cmap<span class="op">=</span><span class="st">'gray'</span>), plt.title(<span class="st">'Original Image'</span>)</span>
+<span id="cb5-16"><a href="#cb5-16"></a>plt.subplot(<span class="dv">222</span>), plt.imshow(hist_eq, cmap<span class="op">=</span><span class="st">'gray'</span>), plt.title(<span class="st">'Histogram Equalization'</span>)</span>
+<span id="cb5-17"><a href="#cb5-17"></a>plt.subplot(<span class="dv">223</span>), plt.imshow(clahe_img, cmap<span class="op">=</span><span class="st">'gray'</span>), plt.title(<span class="st">'CLAHE'</span>)</span>
+<span id="cb5-18"><a href="#cb5-18"></a>plt.subplot(<span class="dv">224</span>), plt.imshow(gamma_img, cmap<span class="op">=</span><span class="st">'gray'</span>), plt.title(<span class="st">'Gamma Correction'</span>)</span>
+<span id="cb5-19"><a href="#cb5-19"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>(5)效果分析</p>
+<ul>
+<li>直方图均衡：显著提高全局对比度，但可能导致亮部过曝或噪声放大。</li>
+<li>CLAHE：局部细节增强效果最佳，噪声控制较好，适合复杂图像。</li>
+<li>Gamma 校正：有效调整亮度，但细节增强有限，可能丢失局部信息。</li>
+</ul>
 
 
 </section>
@@ -977,13 +1194,13 @@ if (typeof bootstrap === 'undefined') {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../chapter03/3.7_小结与实践建议.html" class="pagination-link" aria-label="小结与实践建议">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">小结与实践建议</span></span>
+      <a href="../chapter03/3.3_边缘保留滤波.html" class="pagination-link" aria-label="边缘保留滤波">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">边缘保留滤波</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../chapter11/11.1_相机标定与几何.html" class="pagination-link" aria-label="相机标定与几何">
-        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../chapter03/3.5_频域增强技术.html" class="pagination-link" aria-label="频域增强技术">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">频域增强技术</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -995,12 +1212,44 @@ if (typeof bootstrap === 'undefined') {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.0_概述.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter03/3.4_对比度增强与直方图均衡.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>使用 <a href="https://quarto.org/">Quarto</a> 构建</p>
 </div>
   </div>
 </footer>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script>
 
 
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>8&nbsp; 应用案例分析 – 现代计算机视觉</title>
+<title>16&nbsp; 应用案例分析 – 现代计算机视觉</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,9 +78,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-43a518227082ac35b3113d490d8c8312.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-6ba6813c27d4e98062636b1311a23212.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-43a518227082ac35b3113d490d8c8312.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6fcac39c9284576018a90f9233d38a57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d93707d35e9eb4f9c74ea739720dc72e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6fcac39c9284576018a90f9233d38a57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -95,17 +95,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "没有结果",
-    "search-matching-documents-text": "匹配的文档",
-    "search-copy-link-title": "复制搜索链接",
-    "search-hide-matches-text": "隐藏其它匹配结果",
-    "search-more-match-text": "更多匹配结果",
-    "search-more-matches-text": "更多匹配结果",
-    "search-clear-button-title": "清除",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "取消",
-    "search-submit-button-title": "提交",
-    "search-label": "搜索"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
@@ -329,13 +329,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.7_应用案例分析.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">应用案例分析</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.7_应用案例分析.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">应用案例分析</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -349,14 +349,14 @@ window.Quarto = {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">现代计算机视觉</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/guxinghaoyun/quarto-web" title="源代码" class="quarto-navigation-tool px-1" aria-label="源代码"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="切换深色模式"><i class="bi"></i></a>
+    <a href="https://github.com/guxinghaoyun/quarto-web" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="搜索"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -369,59 +369,118 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">第十一章：三维视觉与点云处理</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">第三章：图像预处理与增强技术</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapter03/3.0_概述.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">概述</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.1_图像噪声模型与评估.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">图像噪声模型与评估</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.2_空域平滑滤波.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">空域平滑滤波</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.3_边缘保留滤波.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">边缘保留滤波</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.4_对比度增强与直方图均衡.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">对比度增强与直方图均衡</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.5_频域增强技术.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">频域增强技术</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.6_Retinex与色彩校正.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Retinex与色彩校正</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.7_小结与实践建议.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">小结与实践建议</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">第十一章：三维视觉与点云处理</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../chapter11/11.1_相机标定与几何.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.2_立体匹配与深度估计.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.3_三维重建.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">三维重建</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">三维重建</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.4_点云基础与处理.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">点云基础与处理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">点云基础与处理</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.5_PointNet系列网络.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PointNet系列网络</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">PointNet系列网络</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.6_3D目标检测.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">3D目标检测</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">3D目标检测</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.7_应用案例分析.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">应用案例分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">应用案例分析</span></span></a>
   </div>
 </li>
       </ul>
@@ -439,41 +498,41 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">目录</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#引言从理论到实践的技术集成" id="toc-引言从理论到实践的技术集成" class="nav-link active" data-scroll-target="#引言从理论到实践的技术集成"><span class="header-section-number">8.1</span> 引言：从理论到实践的技术集成</a></li>
-  <li><a href="#核心概念" id="toc-核心概念" class="nav-link" data-scroll-target="#核心概念"><span class="header-section-number">8.2</span> 核心概念</a></li>
-  <li><a href="#理论基础系统集成与优化理论" id="toc-理论基础系统集成与优化理论" class="nav-link" data-scroll-target="#理论基础系统集成与优化理论"><span class="header-section-number">8.3</span> 理论基础：系统集成与优化理论</a>
+  <li><a href="#引言从理论到实践的技术集成" id="toc-引言从理论到实践的技术集成" class="nav-link active" data-scroll-target="#引言从理论到实践的技术集成"><span class="header-section-number">16.1</span> 引言：从理论到实践的技术集成</a></li>
+  <li><a href="#核心概念" id="toc-核心概念" class="nav-link" data-scroll-target="#核心概念"><span class="header-section-number">16.2</span> 核心概念</a></li>
+  <li><a href="#理论基础系统集成与优化理论" id="toc-理论基础系统集成与优化理论" class="nav-link" data-scroll-target="#理论基础系统集成与优化理论"><span class="header-section-number">16.3</span> 理论基础：系统集成与优化理论</a>
   <ul class="collapse">
-  <li><a href="#实时系统理论" id="toc-实时系统理论" class="nav-link" data-scroll-target="#实时系统理论"><span class="header-section-number">8.3.1</span> 实时系统理论</a></li>
-  <li><a href="#多传感器融合理论" id="toc-多传感器融合理论" class="nav-link" data-scroll-target="#多传感器融合理论"><span class="header-section-number">8.3.2</span> 多传感器融合理论</a></li>
-  <li><a href="#系统优化理论" id="toc-系统优化理论" class="nav-link" data-scroll-target="#系统优化理论"><span class="header-section-number">8.3.3</span> 系统优化理论</a></li>
+  <li><a href="#实时系统理论" id="toc-实时系统理论" class="nav-link" data-scroll-target="#实时系统理论"><span class="header-section-number">16.3.1</span> 实时系统理论</a></li>
+  <li><a href="#多传感器融合理论" id="toc-多传感器融合理论" class="nav-link" data-scroll-target="#多传感器融合理论"><span class="header-section-number">16.3.2</span> 多传感器融合理论</a></li>
+  <li><a href="#系统优化理论" id="toc-系统优化理论" class="nav-link" data-scroll-target="#系统优化理论"><span class="header-section-number">16.3.3</span> 系统优化理论</a></li>
   </ul></li>
-  <li><a href="#算法实现" id="toc-算法实现" class="nav-link" data-scroll-target="#算法实现"><span class="header-section-number">8.4</span> 算法实现</a>
+  <li><a href="#算法实现" id="toc-算法实现" class="nav-link" data-scroll-target="#算法实现"><span class="header-section-number">16.4</span> 算法实现</a>
   <ul class="collapse">
-  <li><a href="#自动驾驶感知系统" id="toc-自动驾驶感知系统" class="nav-link" data-scroll-target="#自动驾驶感知系统"><span class="header-section-number">8.4.1</span> 自动驾驶感知系统</a></li>
-  <li><a href="#机器人导航系统" id="toc-机器人导航系统" class="nav-link" data-scroll-target="#机器人导航系统"><span class="header-section-number">8.4.2</span> 机器人导航系统</a></li>
-  <li><a href="#工业质量检测系统" id="toc-工业质量检测系统" class="nav-link" data-scroll-target="#工业质量检测系统"><span class="header-section-number">8.4.3</span> 工业质量检测系统</a></li>
+  <li><a href="#自动驾驶感知系统" id="toc-自动驾驶感知系统" class="nav-link" data-scroll-target="#自动驾驶感知系统"><span class="header-section-number">16.4.1</span> 自动驾驶感知系统</a></li>
+  <li><a href="#机器人导航系统" id="toc-机器人导航系统" class="nav-link" data-scroll-target="#机器人导航系统"><span class="header-section-number">16.4.2</span> 机器人导航系统</a></li>
+  <li><a href="#工业质量检测系统" id="toc-工业质量检测系统" class="nav-link" data-scroll-target="#工业质量检测系统"><span class="header-section-number">16.4.3</span> 工业质量检测系统</a></li>
   </ul></li>
-  <li><a href="#应用效果评估" id="toc-应用效果评估" class="nav-link" data-scroll-target="#应用效果评估"><span class="header-section-number">8.5</span> 应用效果评估</a>
+  <li><a href="#应用效果评估" id="toc-应用效果评估" class="nav-link" data-scroll-target="#应用效果评估"><span class="header-section-number">16.5</span> 应用效果评估</a>
   <ul class="collapse">
-  <li><a href="#应用系统性能对比" id="toc-应用系统性能对比" class="nav-link" data-scroll-target="#应用系统性能对比"><span class="header-section-number">8.5.1</span> 应用系统性能对比</a></li>
-  <li><a href="#技术集成效果分析" id="toc-技术集成效果分析" class="nav-link" data-scroll-target="#技术集成效果分析"><span class="header-section-number">8.5.2</span> 技术集成效果分析</a></li>
-  <li><a href="#部署成本与效益分析" id="toc-部署成本与效益分析" class="nav-link" data-scroll-target="#部署成本与效益分析"><span class="header-section-number">8.5.3</span> 部署成本与效益分析</a></li>
-  <li><a href="#未来发展趋势与挑战" id="toc-未来发展趋势与挑战" class="nav-link" data-scroll-target="#未来发展趋势与挑战"><span class="header-section-number">8.5.4</span> 未来发展趋势与挑战</a></li>
+  <li><a href="#应用系统性能对比" id="toc-应用系统性能对比" class="nav-link" data-scroll-target="#应用系统性能对比"><span class="header-section-number">16.5.1</span> 应用系统性能对比</a></li>
+  <li><a href="#技术集成效果分析" id="toc-技术集成效果分析" class="nav-link" data-scroll-target="#技术集成效果分析"><span class="header-section-number">16.5.2</span> 技术集成效果分析</a></li>
+  <li><a href="#部署成本与效益分析" id="toc-部署成本与效益分析" class="nav-link" data-scroll-target="#部署成本与效益分析"><span class="header-section-number">16.5.3</span> 部署成本与效益分析</a></li>
+  <li><a href="#未来发展趋势与挑战" id="toc-未来发展趋势与挑战" class="nav-link" data-scroll-target="#未来发展趋势与挑战"><span class="header-section-number">16.5.4</span> 未来发展趋势与挑战</a></li>
   </ul></li>
-  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">8.6</span> 小结</a></li>
+  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">16.6</span> 小结</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.7_应用案例分析.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.7_应用案例分析.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.7_应用案例分析.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">应用案例分析</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.7_应用案例分析.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">应用案例分析</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">应用案例分析</span></h1>
+<h1 class="title"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">应用案例分析</span></h1>
 </div>
 
 
@@ -490,18 +549,75 @@ window.Quarto = {
 </header>
 
 
-<section id="引言从理论到实践的技术集成" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="引言从理论到实践的技术集成"><span class="header-section-number">8.1</span> 引言：从理论到实践的技术集成</h2>
+<section id="引言从理论到实践的技术集成" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="引言从理论到实践的技术集成"><span class="header-section-number">16.1</span> 引言：从理论到实践的技术集成</h2>
 <p>三维视觉与点云处理技术的最终价值体现在实际应用中。经过前面章节对相机标定、立体匹配、三维重建、点云处理、PointNet网络和3D目标检测等核心技术的深入学习，我们已经构建了完整的三维视觉技术栈。本节将通过三个典型的应用案例——自动驾驶感知系统、机器人导航系统和工业质量检测系统，展示这些技术在实际工程中的集成应用。</p>
 <p><strong>自动驾驶感知系统</strong>代表了三维视觉技术的最高水平应用。现代自动驾驶车辆需要实时感知周围环境，包括车辆、行人、交通标志、车道线等多种目标的精确定位和识别。这要求系统能够融合LiDAR点云、摄像头图像、雷达数据等多模态信息，在毫秒级时间内完成复杂的三维场景理解。</p>
 <p><strong>机器人导航系统</strong>则展示了三维视觉在动态环境中的应用。移动机器人需要在未知或部分已知的环境中自主导航，这涉及同时定位与建图（SLAM）、路径规划、障碍物避让等多个技术环节。三维视觉技术为机器人提供了精确的环境感知能力，使其能够在复杂的三维空间中安全、高效地移动。</p>
 <p><strong>工业质量检测系统</strong>体现了三维视觉在精密制造中的价值。现代工业生产对产品质量的要求越来越高，传统的二维检测方法已无法满足复杂三维形状的检测需求。基于三维视觉的检测系统能够精确测量产品的几何尺寸、表面缺陷、装配精度等关键质量指标。</p>
 <p>这些应用案例不仅展示了三维视觉技术的实用价值，也揭示了从实验室研究到工程应用的技术挑战：实时性要求、鲁棒性保证、成本控制、系统集成等问题都需要在实际部署中得到妥善解决。</p>
 </section>
-<section id="核心概念" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="核心概念"><span class="header-section-number">8.2</span> 核心概念</h2>
+<section id="核心概念" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="核心概念"><span class="header-section-number">16.2</span> 核心概念</h2>
 <p><strong>系统架构设计</strong>是三维视觉应用的基础。不同于单一算法的研究，实际应用系统需要考虑多个技术模块的协调工作、数据流的高效传输、计算资源的合理分配等系统性问题。</p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>graph TD</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    subgraph 感知层</span>
+<span id="cb1-3"><a href="#cb1-3"></a>        A["传感器数据&lt;br/&gt;LiDAR/Camera/Radar"]</span>
+<span id="cb1-4"><a href="#cb1-4"></a>        B["数据预处理&lt;br/&gt;滤波/校准/同步"]</span>
+<span id="cb1-5"><a href="#cb1-5"></a>        C["特征提取&lt;br/&gt;点云/图像特征"]</span>
+<span id="cb1-6"><a href="#cb1-6"></a>    end</span>
+<span id="cb1-7"><a href="#cb1-7"></a>    </span>
+<span id="cb1-8"><a href="#cb1-8"></a>    subgraph 处理层</span>
+<span id="cb1-9"><a href="#cb1-9"></a>        D["多模态融合&lt;br/&gt;传感器数据融合"]</span>
+<span id="cb1-10"><a href="#cb1-10"></a>        E["目标检测&lt;br/&gt;3D检测/分类"]</span>
+<span id="cb1-11"><a href="#cb1-11"></a>        F["场景理解&lt;br/&gt;语义分割/建图"]</span>
+<span id="cb1-12"><a href="#cb1-12"></a>    end</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    </span>
+<span id="cb1-14"><a href="#cb1-14"></a>    subgraph 决策层</span>
+<span id="cb1-15"><a href="#cb1-15"></a>        G["路径规划&lt;br/&gt;轨迹生成"]</span>
+<span id="cb1-16"><a href="#cb1-16"></a>        H["行为决策&lt;br/&gt;动作选择"]</span>
+<span id="cb1-17"><a href="#cb1-17"></a>        I["控制执行&lt;br/&gt;底层控制"]</span>
+<span id="cb1-18"><a href="#cb1-18"></a>    end</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    </span>
+<span id="cb1-20"><a href="#cb1-20"></a>    subgraph 系统支撑</span>
+<span id="cb1-21"><a href="#cb1-21"></a>        J["计算平台&lt;br/&gt;GPU/FPGA/边缘计算"]</span>
+<span id="cb1-22"><a href="#cb1-22"></a>        K["通信网络&lt;br/&gt;实时数据传输"]</span>
+<span id="cb1-23"><a href="#cb1-23"></a>        L["存储系统&lt;br/&gt;数据管理"]</span>
+<span id="cb1-24"><a href="#cb1-24"></a>    end</span>
+<span id="cb1-25"><a href="#cb1-25"></a>    </span>
+<span id="cb1-26"><a href="#cb1-26"></a>    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F</span>
+<span id="cb1-27"><a href="#cb1-27"></a>    F --&gt; G --&gt; H --&gt; I</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    </span>
+<span id="cb1-29"><a href="#cb1-29"></a>    J --&gt; D</span>
+<span id="cb1-30"><a href="#cb1-30"></a>    J --&gt; E</span>
+<span id="cb1-31"><a href="#cb1-31"></a>    K --&gt; B</span>
+<span id="cb1-32"><a href="#cb1-32"></a>    L --&gt; F</span>
+<span id="cb1-33"><a href="#cb1-33"></a>    </span>
+<span id="cb1-34"><a href="#cb1-34"></a>    classDef perceptionNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb1-35"><a href="#cb1-35"></a>    classDef processingNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb1-36"><a href="#cb1-36"></a>    classDef decisionNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb1-37"><a href="#cb1-37"></a>    classDef supportNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb1-38"><a href="#cb1-38"></a>    </span>
+<span id="cb1-39"><a href="#cb1-39"></a>    classDef perceptionSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb1-40"><a href="#cb1-40"></a>    classDef processingSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold</span>
+<span id="cb1-41"><a href="#cb1-41"></a>    classDef decisionSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold</span>
+<span id="cb1-42"><a href="#cb1-42"></a>    classDef supportSubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold</span>
+<span id="cb1-43"><a href="#cb1-43"></a>    </span>
+<span id="cb1-44"><a href="#cb1-44"></a>    class A,B,C perceptionNode</span>
+<span id="cb1-45"><a href="#cb1-45"></a>    class D,E,F processingNode</span>
+<span id="cb1-46"><a href="#cb1-46"></a>    class G,H,I decisionNode</span>
+<span id="cb1-47"><a href="#cb1-47"></a>    class J,K,L supportNode</span>
+<span id="cb1-48"><a href="#cb1-48"></a>    </span>
+<span id="cb1-49"><a href="#cb1-49"></a>    class 感知层 perceptionSubgraph</span>
+<span id="cb1-50"><a href="#cb1-50"></a>    class 处理层 processingSubgraph</span>
+<span id="cb1-51"><a href="#cb1-51"></a>    class 决策层 decisionSubgraph</span>
+<span id="cb1-52"><a href="#cb1-52"></a>    class 系统支撑 supportSubgraph</span>
+<span id="cb1-53"><a href="#cb1-53"></a>    </span>
+<span id="cb1-54"><a href="#cb1-54"></a>    linkStyle 0,1,2,3,4,5,6,7,8,9,10,11 stroke-width:1.5px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -571,6 +687,42 @@ window.Quarto = {
 <p><strong>鲁棒性设计</strong>确保系统在各种环境条件下稳定工作。实际应用环境往往比实验室条件更加复杂和多变，系统需要应对光照变化、天气影响、传感器故障等各种异常情况。</p>
 <p><strong>多模态数据融合</strong>是提高系统性能的重要策略。现代应用系统通常配备多种传感器，如何有效融合不同模态的数据，发挥各自优势，是系统设计的核心问题。</p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1"></a>graph LR</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    subgraph 数据层融合</span>
+<span id="cb2-3"><a href="#cb2-3"></a>        A[原始数据&lt;br/&gt;点云+图像+雷达]</span>
+<span id="cb2-4"><a href="#cb2-4"></a>        B[时空对齐&lt;br/&gt;坐标统一]</span>
+<span id="cb2-5"><a href="#cb2-5"></a>        C[联合处理&lt;br/&gt;统一表示]</span>
+<span id="cb2-6"><a href="#cb2-6"></a>    end</span>
+<span id="cb2-7"><a href="#cb2-7"></a>    </span>
+<span id="cb2-8"><a href="#cb2-8"></a>    subgraph 特征层融合</span>
+<span id="cb2-9"><a href="#cb2-9"></a>        D[独立特征&lt;br/&gt;各模态特征]</span>
+<span id="cb2-10"><a href="#cb2-10"></a>        E[特征对齐&lt;br/&gt;维度匹配]</span>
+<span id="cb2-11"><a href="#cb2-11"></a>        F[特征融合&lt;br/&gt;加权组合]</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    end</span>
+<span id="cb2-13"><a href="#cb2-13"></a>    </span>
+<span id="cb2-14"><a href="#cb2-14"></a>    subgraph 决策层融合</span>
+<span id="cb2-15"><a href="#cb2-15"></a>        G[独立决策&lt;br/&gt;各模态结果]</span>
+<span id="cb2-16"><a href="#cb2-16"></a>        H[置信度评估&lt;br/&gt;可靠性分析]</span>
+<span id="cb2-17"><a href="#cb2-17"></a>        I[决策融合&lt;br/&gt;最终结果]</span>
+<span id="cb2-18"><a href="#cb2-18"></a>    end</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    </span>
+<span id="cb2-20"><a href="#cb2-20"></a>    A --&gt; B --&gt; C</span>
+<span id="cb2-21"><a href="#cb2-21"></a>    D --&gt; E --&gt; F</span>
+<span id="cb2-22"><a href="#cb2-22"></a>    G --&gt; H --&gt; I</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    </span>
+<span id="cb2-24"><a href="#cb2-24"></a>    C --&gt; D</span>
+<span id="cb2-25"><a href="#cb2-25"></a>    F --&gt; G</span>
+<span id="cb2-26"><a href="#cb2-26"></a>    </span>
+<span id="cb2-27"><a href="#cb2-27"></a>    classDef dataNode fill:#4db6ac,stroke:#00796b,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb2-28"><a href="#cb2-28"></a>    classDef featureNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb2-29"><a href="#cb2-29"></a>    classDef decisionNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb2-30"><a href="#cb2-30"></a>    </span>
+<span id="cb2-31"><a href="#cb2-31"></a>    class A,B,C dataNode</span>
+<span id="cb2-32"><a href="#cb2-32"></a>    class D,E,F featureNode</span>
+<span id="cb2-33"><a href="#cb2-33"></a>    class G,H,I decisionNode</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -616,11 +768,11 @@ window.Quarto = {
 </div>
 <p><em>图11.36：多模态数据融合的三个层次</em></p>
 </section>
-<section id="理论基础系统集成与优化理论" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="理论基础系统集成与优化理论"><span class="header-section-number">8.3</span> 理论基础：系统集成与优化理论</h2>
+<section id="理论基础系统集成与优化理论" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="理论基础系统集成与优化理论"><span class="header-section-number">16.3</span> 理论基础：系统集成与优化理论</h2>
 <p>应用系统的理论基础涉及系统工程、实时计算、多传感器融合等多个领域的理论知识。</p>
-<section id="实时系统理论" class="level3" data-number="8.3.1">
-<h3 data-number="8.3.1" class="anchored" data-anchor-id="实时系统理论"><span class="header-section-number">8.3.1</span> 实时系统理论</h3>
+<section id="实时系统理论" class="level3" data-number="16.3.1">
+<h3 data-number="16.3.1" class="anchored" data-anchor-id="实时系统理论"><span class="header-section-number">16.3.1</span> 实时系统理论</h3>
 <p><strong>1. 实时性约束建模</strong></p>
 <p>对于实时三维视觉系统，我们需要建立时间约束模型。设系统的处理流水线包含<span class="math inline">n</span>个阶段，每个阶段<span class="math inline">i</span>的处理时间为<span class="math inline">t_i</span>，则总处理时间为：</p>
 <p><span class="math display">T_{total} = \sum_{i=1}^{n} t_i + \sum_{i=1}^{n-1} t_{comm,i}</span></p>
@@ -632,8 +784,8 @@ window.Quarto = {
 <p><span class="math display">S = \frac{1}{(1-p) + \frac{p}{n}}</span></p>
 <p>其中<span class="math inline">p</span>是可并行部分的比例，<span class="math inline">n</span>是处理器数量。</p>
 </section>
-<section id="多传感器融合理论" class="level3" data-number="8.3.2">
-<h3 data-number="8.3.2" class="anchored" data-anchor-id="多传感器融合理论"><span class="header-section-number">8.3.2</span> 多传感器融合理论</h3>
+<section id="多传感器融合理论" class="level3" data-number="16.3.2">
+<h3 data-number="16.3.2" class="anchored" data-anchor-id="多传感器融合理论"><span class="header-section-number">16.3.2</span> 多传感器融合理论</h3>
 <p><strong>1. 贝叶斯融合框架</strong></p>
 <p>多传感器数据融合可以建模为贝叶斯推理问题。设有<span class="math inline">m</span>个传感器，观测数据为<span class="math inline">\{z_1, z_2, ..., z_m\}</span>，状态估计为：</p>
 <p><span class="math display">P(x|z_1, ..., z_m) = \frac{P(z_1, ..., z_m|x)P(x)}{P(z_1, ..., z_m)}</span></p>
@@ -646,8 +798,8 @@ window.Quarto = {
 <li><p><strong>更新步骤</strong>： <span class="math display">K_k = P_{k|k-1} H_k^T (H_k P_{k|k-1} H_k^T + R_k)^{-1}</span> <span class="math display">\hat{x}_{k|k} = \hat{x}_{k|k-1} + K_k(z_k - H_k \hat{x}_{k|k-1})</span> <span class="math display">P_{k|k} = (I - K_k H_k) P_{k|k-1}</span></p></li>
 </ul>
 </section>
-<section id="系统优化理论" class="level3" data-number="8.3.3">
-<h3 data-number="8.3.3" class="anchored" data-anchor-id="系统优化理论"><span class="header-section-number">8.3.3</span> 系统优化理论</h3>
+<section id="系统优化理论" class="level3" data-number="16.3.3">
+<h3 data-number="16.3.3" class="anchored" data-anchor-id="系统优化理论"><span class="header-section-number">16.3.3</span> 系统优化理论</h3>
 <p><strong>1. 计算资源分配</strong></p>
 <p>对于有限的计算资源，需要在精度和实时性之间进行权衡。设系统有<span class="math inline">R</span>个计算单元，第<span class="math inline">i</span>个任务需要<span class="math inline">r_i</span>个单元，处理时间为<span class="math inline">t_i(r_i)</span>，则优化问题为：</p>
 <p><span class="math display">\min \sum_{i=1}^{n} w_i t_i(r_i)</span></p>
@@ -659,357 +811,417 @@ window.Quarto = {
 <p>其中<span class="math inline">\alpha, \beta, \gamma</span>是权衡参数。</p>
 </section>
 </section>
-<section id="算法实现" class="level2" data-number="8.4">
-<h2 data-number="8.4" class="anchored" data-anchor-id="算法实现"><span class="header-section-number">8.4</span> 算法实现</h2>
+<section id="算法实现" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="算法实现"><span class="header-section-number">16.4</span> 算法实现</h2>
 <p>下面我们通过三个典型应用案例的核心算法实现，展示三维视觉技术的系统集成。</p>
-<section id="自动驾驶感知系统" class="level3" data-number="8.4.1">
-<h3 data-number="8.4.1" class="anchored" data-anchor-id="自动驾驶感知系统"><span class="header-section-number">8.4.1</span> 自动驾驶感知系统</h3>
+<section id="自动驾驶感知系统" class="level3" data-number="16.4.1">
+<h3 data-number="16.4.1" class="anchored" data-anchor-id="自动驾驶感知系统"><span class="header-section-number">16.4.1</span> 自动驾驶感知系统</h3>
 <p>自动驾驶系统需要集成多种三维视觉技术，实现实时的环境感知：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> torch</span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> open3d <span class="im">as</span> o3d</span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="im">from</span> typing <span class="im">import</span> Dict, List, Tuple</span>
-<span id="cb1-5"><a href="#cb1-5"></a></span>
-<span id="cb1-6"><a href="#cb1-6"></a><span class="kw">class</span> AutonomousDrivingPerception:</span>
-<span id="cb1-7"><a href="#cb1-7"></a>    <span class="co">"""自动驾驶感知系统核心实现"""</span></span>
-<span id="cb1-8"><a href="#cb1-8"></a></span>
-<span id="cb1-9"><a href="#cb1-9"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, config: Dict):</span>
-<span id="cb1-10"><a href="#cb1-10"></a>        <span class="va">self</span>.config <span class="op">=</span> config</span>
-<span id="cb1-11"><a href="#cb1-11"></a></span>
-<span id="cb1-12"><a href="#cb1-12"></a>        <span class="co"># 初始化各个模块</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a>        <span class="va">self</span>.calibration <span class="op">=</span> CameraLidarCalibration(config[<span class="st">'calibration'</span>])</span>
-<span id="cb1-14"><a href="#cb1-14"></a>        <span class="va">self</span>.detector_3d <span class="op">=</span> PointPillars3DDetector(config[<span class="st">'detection'</span>])</span>
-<span id="cb1-15"><a href="#cb1-15"></a>        <span class="va">self</span>.tracker <span class="op">=</span> MultiObjectTracker(config[<span class="st">'tracking'</span>])</span>
-<span id="cb1-16"><a href="#cb1-16"></a>        <span class="va">self</span>.mapper <span class="op">=</span> SemanticMapper(config[<span class="st">'mapping'</span>])</span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a>    <span class="kw">def</span> process_frame(<span class="va">self</span>, lidar_points: np.ndarray,</span>
-<span id="cb1-19"><a href="#cb1-19"></a>                     camera_images: List[np.ndarray],</span>
-<span id="cb1-20"><a href="#cb1-20"></a>                     timestamps: List[<span class="bu">float</span>]) <span class="op">-&gt;</span> Dict:</span>
-<span id="cb1-21"><a href="#cb1-21"></a>        <span class="co">"""处理单帧数据的核心流程"""</span></span>
-<span id="cb1-22"><a href="#cb1-22"></a></span>
-<span id="cb1-23"><a href="#cb1-23"></a>        <span class="co"># 1. 数据预处理和同步</span></span>
-<span id="cb1-24"><a href="#cb1-24"></a>        synchronized_data <span class="op">=</span> <span class="va">self</span>.synchronize_sensors(</span>
-<span id="cb1-25"><a href="#cb1-25"></a>            lidar_points, camera_images, timestamps)</span>
-<span id="cb1-26"><a href="#cb1-26"></a></span>
-<span id="cb1-27"><a href="#cb1-27"></a>        <span class="co"># 2. 多模态特征提取</span></span>
-<span id="cb1-28"><a href="#cb1-28"></a>        lidar_features <span class="op">=</span> <span class="va">self</span>.extract_lidar_features(synchronized_data[<span class="st">'lidar'</span>])</span>
-<span id="cb1-29"><a href="#cb1-29"></a>        camera_features <span class="op">=</span> <span class="va">self</span>.extract_camera_features(synchronized_data[<span class="st">'cameras'</span>])</span>
-<span id="cb1-30"><a href="#cb1-30"></a></span>
-<span id="cb1-31"><a href="#cb1-31"></a>        <span class="co"># 3. 传感器融合</span></span>
-<span id="cb1-32"><a href="#cb1-32"></a>        fused_features <span class="op">=</span> <span class="va">self</span>.sensor_fusion(lidar_features, camera_features)</span>
-<span id="cb1-33"><a href="#cb1-33"></a></span>
-<span id="cb1-34"><a href="#cb1-34"></a>        <span class="co"># 4. 3D目标检测</span></span>
-<span id="cb1-35"><a href="#cb1-35"></a>        detections <span class="op">=</span> <span class="va">self</span>.detector_3d.detect(fused_features)</span>
-<span id="cb1-36"><a href="#cb1-36"></a></span>
-<span id="cb1-37"><a href="#cb1-37"></a>        <span class="co"># 5. 多目标跟踪</span></span>
-<span id="cb1-38"><a href="#cb1-38"></a>        tracks <span class="op">=</span> <span class="va">self</span>.tracker.update(detections, timestamps[<span class="op">-</span><span class="dv">1</span>])</span>
-<span id="cb1-39"><a href="#cb1-39"></a></span>
-<span id="cb1-40"><a href="#cb1-40"></a>        <span class="co"># 6. 语义建图</span></span>
-<span id="cb1-41"><a href="#cb1-41"></a>        semantic_map <span class="op">=</span> <span class="va">self</span>.mapper.update(synchronized_data, detections)</span>
-<span id="cb1-42"><a href="#cb1-42"></a></span>
-<span id="cb1-43"><a href="#cb1-43"></a>        <span class="cf">return</span> {</span>
-<span id="cb1-44"><a href="#cb1-44"></a>            <span class="st">'detections'</span>: detections,</span>
-<span id="cb1-45"><a href="#cb1-45"></a>            <span class="st">'tracks'</span>: tracks,</span>
-<span id="cb1-46"><a href="#cb1-46"></a>            <span class="st">'semantic_map'</span>: semantic_map,</span>
-<span id="cb1-47"><a href="#cb1-47"></a>            <span class="st">'processing_time'</span>: <span class="va">self</span>.get_processing_time()</span>
-<span id="cb1-48"><a href="#cb1-48"></a>        }</span>
-<span id="cb1-49"><a href="#cb1-49"></a></span>
-<span id="cb1-50"><a href="#cb1-50"></a>    <span class="kw">def</span> sensor_fusion(<span class="va">self</span>, lidar_features: torch.Tensor,</span>
-<span id="cb1-51"><a href="#cb1-51"></a>                     camera_features: List[torch.Tensor]) <span class="op">-&gt;</span> torch.Tensor:</span>
-<span id="cb1-52"><a href="#cb1-52"></a>        <span class="co">"""多模态传感器融合核心算法"""</span></span>
-<span id="cb1-53"><a href="#cb1-53"></a></span>
-<span id="cb1-54"><a href="#cb1-54"></a>        <span class="co"># 将相机特征投影到LiDAR坐标系</span></span>
-<span id="cb1-55"><a href="#cb1-55"></a>        projected_features <span class="op">=</span> []</span>
-<span id="cb1-56"><a href="#cb1-56"></a>        <span class="cf">for</span> i, cam_feat <span class="kw">in</span> <span class="bu">enumerate</span>(camera_features):</span>
-<span id="cb1-57"><a href="#cb1-57"></a>            <span class="co"># 使用标定参数进行坐标变换</span></span>
-<span id="cb1-58"><a href="#cb1-58"></a>            proj_feat <span class="op">=</span> <span class="va">self</span>.calibration.project_camera_to_lidar(</span>
-<span id="cb1-59"><a href="#cb1-59"></a>                cam_feat, camera_id<span class="op">=</span>i)</span>
-<span id="cb1-60"><a href="#cb1-60"></a>            projected_features.append(proj_feat)</span>
-<span id="cb1-61"><a href="#cb1-61"></a></span>
-<span id="cb1-62"><a href="#cb1-62"></a>        <span class="co"># 特征融合：注意力机制加权</span></span>
-<span id="cb1-63"><a href="#cb1-63"></a>        attention_weights <span class="op">=</span> <span class="va">self</span>.compute_attention_weights(</span>
-<span id="cb1-64"><a href="#cb1-64"></a>            lidar_features, projected_features)</span>
-<span id="cb1-65"><a href="#cb1-65"></a></span>
-<span id="cb1-66"><a href="#cb1-66"></a>        fused_features <span class="op">=</span> lidar_features</span>
-<span id="cb1-67"><a href="#cb1-67"></a>        <span class="cf">for</span> i, (feat, weight) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(projected_features, attention_weights)):</span>
-<span id="cb1-68"><a href="#cb1-68"></a>            fused_features <span class="op">=</span> fused_features <span class="op">+</span> weight <span class="op">*</span> feat</span>
-<span id="cb1-69"><a href="#cb1-69"></a></span>
-<span id="cb1-70"><a href="#cb1-70"></a>        <span class="cf">return</span> fused_features</span>
-<span id="cb1-71"><a href="#cb1-71"></a></span>
-<span id="cb1-72"><a href="#cb1-72"></a>    <span class="kw">def</span> compute_attention_weights(<span class="va">self</span>, lidar_feat: torch.Tensor,</span>
-<span id="cb1-73"><a href="#cb1-73"></a>                                camera_feats: List[torch.Tensor]) <span class="op">-&gt;</span> List[<span class="bu">float</span>]:</span>
-<span id="cb1-74"><a href="#cb1-74"></a>        <span class="co">"""计算多模态注意力权重"""</span></span>
-<span id="cb1-75"><a href="#cb1-75"></a>        weights <span class="op">=</span> []</span>
-<span id="cb1-76"><a href="#cb1-76"></a>        <span class="cf">for</span> cam_feat <span class="kw">in</span> camera_feats:</span>
-<span id="cb1-77"><a href="#cb1-77"></a>            <span class="co"># 计算特征相似度</span></span>
-<span id="cb1-78"><a href="#cb1-78"></a>            similarity <span class="op">=</span> torch.cosine_similarity(</span>
-<span id="cb1-79"><a href="#cb1-79"></a>                lidar_feat.flatten(), cam_feat.flatten(), dim<span class="op">=</span><span class="dv">0</span>)</span>
-<span id="cb1-80"><a href="#cb1-80"></a>            weights.append(torch.sigmoid(similarity).item())</span>
-<span id="cb1-81"><a href="#cb1-81"></a></span>
-<span id="cb1-82"><a href="#cb1-82"></a>        <span class="co"># 归一化权重</span></span>
-<span id="cb1-83"><a href="#cb1-83"></a>        total_weight <span class="op">=</span> <span class="bu">sum</span>(weights)</span>
-<span id="cb1-84"><a href="#cb1-84"></a>        <span class="cf">return</span> [w <span class="op">/</span> total_weight <span class="cf">for</span> w <span class="kw">in</span> weights]</span>
-<span id="cb1-85"><a href="#cb1-85"></a></span>
-<span id="cb1-86"><a href="#cb1-86"></a><span class="kw">class</span> RealTimeOptimizer:</span>
-<span id="cb1-87"><a href="#cb1-87"></a>    <span class="co">"""实时性能优化器"""</span></span>
-<span id="cb1-88"><a href="#cb1-88"></a></span>
-<span id="cb1-89"><a href="#cb1-89"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, target_fps: <span class="bu">float</span> <span class="op">=</span> <span class="fl">10.0</span>):</span>
-<span id="cb1-90"><a href="#cb1-90"></a>        <span class="va">self</span>.target_fps <span class="op">=</span> target_fps</span>
-<span id="cb1-91"><a href="#cb1-91"></a>        <span class="va">self</span>.target_latency <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> target_fps</span>
-<span id="cb1-92"><a href="#cb1-92"></a>        <span class="va">self</span>.processing_times <span class="op">=</span> []</span>
-<span id="cb1-93"><a href="#cb1-93"></a></span>
-<span id="cb1-94"><a href="#cb1-94"></a>    <span class="kw">def</span> adaptive_quality_control(<span class="va">self</span>, current_latency: <span class="bu">float</span>) <span class="op">-&gt;</span> Dict:</span>
-<span id="cb1-95"><a href="#cb1-95"></a>        <span class="co">"""自适应质量控制"""</span></span>
-<span id="cb1-96"><a href="#cb1-96"></a>        <span class="va">self</span>.processing_times.append(current_latency)</span>
-<span id="cb1-97"><a href="#cb1-97"></a></span>
-<span id="cb1-98"><a href="#cb1-98"></a>        <span class="co"># 计算平均延迟</span></span>
-<span id="cb1-99"><a href="#cb1-99"></a>        avg_latency <span class="op">=</span> np.mean(<span class="va">self</span>.processing_times[<span class="op">-</span><span class="dv">10</span>:])</span>
-<span id="cb1-100"><a href="#cb1-100"></a></span>
-<span id="cb1-101"><a href="#cb1-101"></a>        <span class="co"># 动态调整处理参数</span></span>
-<span id="cb1-102"><a href="#cb1-102"></a>        <span class="cf">if</span> avg_latency <span class="op">&gt;</span> <span class="va">self</span>.target_latency <span class="op">*</span> <span class="fl">1.2</span>:</span>
-<span id="cb1-103"><a href="#cb1-103"></a>            <span class="co"># 延迟过高，降低质量</span></span>
-<span id="cb1-104"><a href="#cb1-104"></a>            <span class="cf">return</span> {</span>
-<span id="cb1-105"><a href="#cb1-105"></a>                <span class="st">'point_cloud_downsample_ratio'</span>: <span class="fl">0.5</span>,</span>
-<span id="cb1-106"><a href="#cb1-106"></a>                <span class="st">'detection_confidence_threshold'</span>: <span class="fl">0.7</span>,</span>
-<span id="cb1-107"><a href="#cb1-107"></a>                <span class="st">'max_detection_range'</span>: <span class="fl">50.0</span></span>
-<span id="cb1-108"><a href="#cb1-108"></a>            }</span>
-<span id="cb1-109"><a href="#cb1-109"></a>        <span class="cf">elif</span> avg_latency <span class="op">&lt;</span> <span class="va">self</span>.target_latency <span class="op">*</span> <span class="fl">0.8</span>:</span>
-<span id="cb1-110"><a href="#cb1-110"></a>            <span class="co"># 延迟较低，提高质量</span></span>
-<span id="cb1-111"><a href="#cb1-111"></a>            <span class="cf">return</span> {</span>
-<span id="cb1-112"><a href="#cb1-112"></a>                <span class="st">'point_cloud_downsample_ratio'</span>: <span class="fl">1.0</span>,</span>
-<span id="cb1-113"><a href="#cb1-113"></a>                <span class="st">'detection_confidence_threshold'</span>: <span class="fl">0.5</span>,</span>
-<span id="cb1-114"><a href="#cb1-114"></a>                <span class="st">'max_detection_range'</span>: <span class="fl">100.0</span></span>
-<span id="cb1-115"><a href="#cb1-115"></a>            }</span>
-<span id="cb1-116"><a href="#cb1-116"></a>        <span class="cf">else</span>:</span>
-<span id="cb1-117"><a href="#cb1-117"></a>            <span class="co"># 保持当前设置</span></span>
-<span id="cb1-118"><a href="#cb1-118"></a>            <span class="cf">return</span> {</span>
-<span id="cb1-119"><a href="#cb1-119"></a>                <span class="st">'point_cloud_downsample_ratio'</span>: <span class="fl">0.8</span>,</span>
-<span id="cb1-120"><a href="#cb1-120"></a>                <span class="st">'detection_confidence_threshold'</span>: <span class="fl">0.6</span>,</span>
-<span id="cb1-121"><a href="#cb1-121"></a>                <span class="st">'max_detection_range'</span>: <span class="fl">75.0</span></span>
-<span id="cb1-122"><a href="#cb1-122"></a>            }</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="机器人导航系统" class="level3" data-number="8.4.2">
-<h3 data-number="8.4.2" class="anchored" data-anchor-id="机器人导航系统"><span class="header-section-number">8.4.2</span> 机器人导航系统</h3>
-<p>机器人导航系统展示了SLAM和路径规划的集成应用：</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> rospy</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="im">from</span> sensor_msgs.msg <span class="im">import</span> PointCloud2</span>
-<span id="cb2-3"><a href="#cb2-3"></a><span class="im">from</span> geometry_msgs.msg <span class="im">import</span> PoseStamped</span>
-<span id="cb2-4"><a href="#cb2-4"></a><span class="im">from</span> nav_msgs.msg <span class="im">import</span> OccupancyGrid</span>
-<span id="cb2-5"><a href="#cb2-5"></a></span>
-<span id="cb2-6"><a href="#cb2-6"></a><span class="kw">class</span> RobotNavigationSystem:</span>
-<span id="cb2-7"><a href="#cb2-7"></a>    <span class="co">"""机器人导航系统核心实现"""</span></span>
-<span id="cb2-8"><a href="#cb2-8"></a></span>
-<span id="cb2-9"><a href="#cb2-9"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
-<span id="cb2-10"><a href="#cb2-10"></a>        <span class="co"># 初始化ROS节点</span></span>
-<span id="cb2-11"><a href="#cb2-11"></a>        rospy.init_node(<span class="st">'robot_navigation'</span>)</span>
-<span id="cb2-12"><a href="#cb2-12"></a></span>
-<span id="cb2-13"><a href="#cb2-13"></a>        <span class="co"># SLAM模块</span></span>
-<span id="cb2-14"><a href="#cb2-14"></a>        <span class="va">self</span>.slam <span class="op">=</span> VisualSLAM()</span>
-<span id="cb2-15"><a href="#cb2-15"></a></span>
-<span id="cb2-16"><a href="#cb2-16"></a>        <span class="co"># 路径规划模块</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a>        <span class="va">self</span>.planner <span class="op">=</span> PathPlanner()</span>
-<span id="cb2-18"><a href="#cb2-18"></a></span>
-<span id="cb2-19"><a href="#cb2-19"></a>        <span class="co"># 障碍物检测模块</span></span>
-<span id="cb2-20"><a href="#cb2-20"></a>        <span class="va">self</span>.obstacle_detector <span class="op">=</span> ObstacleDetector()</span>
-<span id="cb2-21"><a href="#cb2-21"></a></span>
-<span id="cb2-22"><a href="#cb2-22"></a>        <span class="co"># 订阅传感器数据</span></span>
-<span id="cb2-23"><a href="#cb2-23"></a>        <span class="va">self</span>.pc_sub <span class="op">=</span> rospy.Subscriber(<span class="st">'/velodyne_points'</span>, PointCloud2,</span>
-<span id="cb2-24"><a href="#cb2-24"></a>                                      <span class="va">self</span>.pointcloud_callback)</span>
-<span id="cb2-25"><a href="#cb2-25"></a>        <span class="va">self</span>.goal_sub <span class="op">=</span> rospy.Subscriber(<span class="st">'/move_base_simple/goal'</span>, PoseStamped,</span>
-<span id="cb2-26"><a href="#cb2-26"></a>                                        <span class="va">self</span>.goal_callback)</span>
-<span id="cb2-27"><a href="#cb2-27"></a></span>
-<span id="cb2-28"><a href="#cb2-28"></a>        <span class="co"># 发布导航指令</span></span>
-<span id="cb2-29"><a href="#cb2-29"></a>        <span class="va">self</span>.cmd_pub <span class="op">=</span> rospy.Publisher(<span class="st">'/cmd_vel'</span>, Twist, queue_size<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb2-30"><a href="#cb2-30"></a>        <span class="va">self</span>.map_pub <span class="op">=</span> rospy.Publisher(<span class="st">'/map'</span>, OccupancyGrid, queue_size<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb2-31"><a href="#cb2-31"></a></span>
-<span id="cb2-32"><a href="#cb2-32"></a>    <span class="kw">def</span> pointcloud_callback(<span class="va">self</span>, msg: PointCloud2):</span>
-<span id="cb2-33"><a href="#cb2-33"></a>        <span class="co">"""点云数据处理回调函数"""</span></span>
-<span id="cb2-34"><a href="#cb2-34"></a></span>
-<span id="cb2-35"><a href="#cb2-35"></a>        <span class="co"># 转换点云格式</span></span>
-<span id="cb2-36"><a href="#cb2-36"></a>        points <span class="op">=</span> <span class="va">self</span>.pointcloud2_to_array(msg)</span>
-<span id="cb2-37"><a href="#cb2-37"></a></span>
-<span id="cb2-38"><a href="#cb2-38"></a>        <span class="co"># SLAM处理</span></span>
-<span id="cb2-39"><a href="#cb2-39"></a>        pose, map_update <span class="op">=</span> <span class="va">self</span>.slam.process_scan(points)</span>
-<span id="cb2-40"><a href="#cb2-40"></a></span>
-<span id="cb2-41"><a href="#cb2-41"></a>        <span class="co"># 障碍物检测</span></span>
-<span id="cb2-42"><a href="#cb2-42"></a>        obstacles <span class="op">=</span> <span class="va">self</span>.obstacle_detector.detect(points)</span>
-<span id="cb2-43"><a href="#cb2-43"></a></span>
-<span id="cb2-44"><a href="#cb2-44"></a>        <span class="co"># 更新占用栅格地图</span></span>
-<span id="cb2-45"><a href="#cb2-45"></a>        occupancy_grid <span class="op">=</span> <span class="va">self</span>.update_occupancy_grid(map_update, obstacles)</span>
-<span id="cb2-46"><a href="#cb2-46"></a></span>
-<span id="cb2-47"><a href="#cb2-47"></a>        <span class="co"># 发布地图</span></span>
-<span id="cb2-48"><a href="#cb2-48"></a>        <span class="va">self</span>.publish_map(occupancy_grid)</span>
-<span id="cb2-49"><a href="#cb2-49"></a></span>
-<span id="cb2-50"><a href="#cb2-50"></a>        <span class="co"># 路径重规划（如果需要）</span></span>
-<span id="cb2-51"><a href="#cb2-51"></a>        <span class="cf">if</span> <span class="va">self</span>.should_replan(obstacles):</span>
-<span id="cb2-52"><a href="#cb2-52"></a>            <span class="va">self</span>.replan_path()</span>
-<span id="cb2-53"><a href="#cb2-53"></a></span>
-<span id="cb2-54"><a href="#cb2-54"></a>    <span class="kw">def</span> goal_callback(<span class="va">self</span>, msg: PoseStamped):</span>
-<span id="cb2-55"><a href="#cb2-55"></a>        <span class="co">"""目标点设置回调函数"""</span></span>
-<span id="cb2-56"><a href="#cb2-56"></a>        target_pose <span class="op">=</span> msg.pose</span>
-<span id="cb2-57"><a href="#cb2-57"></a></span>
-<span id="cb2-58"><a href="#cb2-58"></a>        <span class="co"># 路径规划</span></span>
-<span id="cb2-59"><a href="#cb2-59"></a>        path <span class="op">=</span> <span class="va">self</span>.planner.plan_path(</span>
-<span id="cb2-60"><a href="#cb2-60"></a>            start<span class="op">=</span><span class="va">self</span>.slam.get_current_pose(),</span>
-<span id="cb2-61"><a href="#cb2-61"></a>            goal<span class="op">=</span>target_pose,</span>
-<span id="cb2-62"><a href="#cb2-62"></a>            occupancy_grid<span class="op">=</span><span class="va">self</span>.slam.get_map()</span>
-<span id="cb2-63"><a href="#cb2-63"></a>        )</span>
-<span id="cb2-64"><a href="#cb2-64"></a></span>
-<span id="cb2-65"><a href="#cb2-65"></a>        <span class="co"># 执行路径跟踪</span></span>
-<span id="cb2-66"><a href="#cb2-66"></a>        <span class="va">self</span>.execute_path(path)</span>
-<span id="cb2-67"><a href="#cb2-67"></a></span>
-<span id="cb2-68"><a href="#cb2-68"></a>    <span class="kw">def</span> execute_path(<span class="va">self</span>, path: List[PoseStamped]):</span>
-<span id="cb2-69"><a href="#cb2-69"></a>        <span class="co">"""路径执行控制"""</span></span>
-<span id="cb2-70"><a href="#cb2-70"></a>        <span class="cf">for</span> waypoint <span class="kw">in</span> path:</span>
-<span id="cb2-71"><a href="#cb2-71"></a>            <span class="co"># 计算控制指令</span></span>
-<span id="cb2-72"><a href="#cb2-72"></a>            cmd <span class="op">=</span> <span class="va">self</span>.compute_control_command(waypoint)</span>
-<span id="cb2-73"><a href="#cb2-73"></a></span>
-<span id="cb2-74"><a href="#cb2-74"></a>            <span class="co"># 发布控制指令</span></span>
-<span id="cb2-75"><a href="#cb2-75"></a>            <span class="va">self</span>.cmd_pub.publish(cmd)</span>
-<span id="cb2-76"><a href="#cb2-76"></a></span>
-<span id="cb2-77"><a href="#cb2-77"></a>            <span class="co"># 等待到达检查</span></span>
-<span id="cb2-78"><a href="#cb2-78"></a>            <span class="cf">while</span> <span class="kw">not</span> <span class="va">self</span>.reached_waypoint(waypoint):</span>
-<span id="cb2-79"><a href="#cb2-79"></a>                rospy.sleep(<span class="fl">0.1</span>)</span>
-<span id="cb2-80"><a href="#cb2-80"></a></span>
-<span id="cb2-81"><a href="#cb2-81"></a><span class="kw">class</span> VisualSLAM:</span>
-<span id="cb2-82"><a href="#cb2-82"></a>    <span class="co">"""视觉SLAM核心算法"""</span></span>
-<span id="cb2-83"><a href="#cb2-83"></a></span>
-<span id="cb2-84"><a href="#cb2-84"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
-<span id="cb2-85"><a href="#cb2-85"></a>        <span class="va">self</span>.keyframes <span class="op">=</span> []</span>
-<span id="cb2-86"><a href="#cb2-86"></a>        <span class="va">self</span>.map_points <span class="op">=</span> []</span>
-<span id="cb2-87"><a href="#cb2-87"></a>        <span class="va">self</span>.current_pose <span class="op">=</span> np.eye(<span class="dv">4</span>)</span>
-<span id="cb2-88"><a href="#cb2-88"></a></span>
-<span id="cb2-89"><a href="#cb2-89"></a>    <span class="kw">def</span> process_scan(<span class="va">self</span>, points: np.ndarray) <span class="op">-&gt;</span> Tuple[np.ndarray, Dict]:</span>
-<span id="cb2-90"><a href="#cb2-90"></a>        <span class="co">"""处理激光扫描数据"""</span></span>
-<span id="cb2-91"><a href="#cb2-91"></a></span>
-<span id="cb2-92"><a href="#cb2-92"></a>        <span class="co"># 特征提取</span></span>
-<span id="cb2-93"><a href="#cb2-93"></a>        features <span class="op">=</span> <span class="va">self</span>.extract_features(points)</span>
-<span id="cb2-94"><a href="#cb2-94"></a></span>
-<span id="cb2-95"><a href="#cb2-95"></a>        <span class="co"># 数据关联</span></span>
-<span id="cb2-96"><a href="#cb2-96"></a>        matches <span class="op">=</span> <span class="va">self</span>.data_association(features)</span>
-<span id="cb2-97"><a href="#cb2-97"></a></span>
-<span id="cb2-98"><a href="#cb2-98"></a>        <span class="co"># 位姿估计</span></span>
-<span id="cb2-99"><a href="#cb2-99"></a>        pose_delta <span class="op">=</span> <span class="va">self</span>.estimate_motion(matches)</span>
-<span id="cb2-100"><a href="#cb2-100"></a>        <span class="va">self</span>.current_pose <span class="op">=</span> <span class="va">self</span>.current_pose <span class="op">@</span> pose_delta</span>
-<span id="cb2-101"><a href="#cb2-101"></a></span>
-<span id="cb2-102"><a href="#cb2-102"></a>        <span class="co"># 地图更新</span></span>
-<span id="cb2-103"><a href="#cb2-103"></a>        map_update <span class="op">=</span> <span class="va">self</span>.update_map(points, <span class="va">self</span>.current_pose)</span>
-<span id="cb2-104"><a href="#cb2-104"></a></span>
-<span id="cb2-105"><a href="#cb2-105"></a>        <span class="co"># 回环检测</span></span>
-<span id="cb2-106"><a href="#cb2-106"></a>        <span class="cf">if</span> <span class="va">self</span>.detect_loop_closure():</span>
-<span id="cb2-107"><a href="#cb2-107"></a>            <span class="va">self</span>.optimize_graph()</span>
-<span id="cb2-108"><a href="#cb2-108"></a></span>
-<span id="cb2-109"><a href="#cb2-109"></a>        <span class="cf">return</span> <span class="va">self</span>.current_pose, map_update</span>
-<span id="cb2-110"><a href="#cb2-110"></a></span>
-<span id="cb2-111"><a href="#cb2-111"></a>    <span class="kw">def</span> extract_features(<span class="va">self</span>, points: np.ndarray) <span class="op">-&gt;</span> np.ndarray:</span>
-<span id="cb2-112"><a href="#cb2-112"></a>        <span class="co">"""从点云中提取特征点"""</span></span>
-<span id="cb2-113"><a href="#cb2-113"></a>        <span class="co"># 使用ISS特征检测器</span></span>
-<span id="cb2-114"><a href="#cb2-114"></a>        pcd <span class="op">=</span> o3d.geometry.PointCloud()</span>
-<span id="cb2-115"><a href="#cb2-115"></a>        pcd.points <span class="op">=</span> o3d.utility.Vector3dVector(points)</span>
-<span id="cb2-116"><a href="#cb2-116"></a></span>
-<span id="cb2-117"><a href="#cb2-117"></a>        <span class="co"># 计算法向量</span></span>
-<span id="cb2-118"><a href="#cb2-118"></a>        pcd.estimate_normals()</span>
-<span id="cb2-119"><a href="#cb2-119"></a></span>
-<span id="cb2-120"><a href="#cb2-120"></a>        <span class="co"># ISS特征检测</span></span>
-<span id="cb2-121"><a href="#cb2-121"></a>        iss_keypoints <span class="op">=</span> o3d.geometry.keypoint.compute_iss_keypoints(pcd)</span>
-<span id="cb2-122"><a href="#cb2-122"></a></span>
-<span id="cb2-123"><a href="#cb2-123"></a>        <span class="cf">return</span> np.asarray(iss_keypoints.points)</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="工业质量检测系统" class="level3" data-number="8.4.3">
-<h3 data-number="8.4.3" class="anchored" data-anchor-id="工业质量检测系统"><span class="header-section-number">8.4.3</span> 工业质量检测系统</h3>
-<p>工业检测系统展示了高精度三维测量的应用：</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">class</span> IndustrialQualityInspection:</span>
-<span id="cb3-2"><a href="#cb3-2"></a>    <span class="co">"""工业质量检测系统"""</span></span>
-<span id="cb3-3"><a href="#cb3-3"></a></span>
-<span id="cb3-4"><a href="#cb3-4"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, config: Dict):</span>
-<span id="cb3-5"><a href="#cb3-5"></a>        <span class="va">self</span>.config <span class="op">=</span> config</span>
-<span id="cb3-6"><a href="#cb3-6"></a></span>
-<span id="cb3-7"><a href="#cb3-7"></a>        <span class="co"># 三维重建模块</span></span>
-<span id="cb3-8"><a href="#cb3-8"></a>        <span class="va">self</span>.reconstructor <span class="op">=</span> StructuredLightReconstructor(config[<span class="st">'reconstruction'</span>])</span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a>        <span class="co"># 缺陷检测模块</span></span>
-<span id="cb3-11"><a href="#cb3-11"></a>        <span class="va">self</span>.defect_detector <span class="op">=</span> DefectDetector(config[<span class="st">'defect_detection'</span>])</span>
-<span id="cb3-12"><a href="#cb3-12"></a></span>
-<span id="cb3-13"><a href="#cb3-13"></a>        <span class="co"># 尺寸测量模块</span></span>
-<span id="cb3-14"><a href="#cb3-14"></a>        <span class="va">self</span>.dimension_measurer <span class="op">=</span> DimensionMeasurer(config[<span class="st">'measurement'</span>])</span>
-<span id="cb3-15"><a href="#cb3-15"></a></span>
-<span id="cb3-16"><a href="#cb3-16"></a>    <span class="kw">def</span> inspect_product(<span class="va">self</span>, images: List[np.ndarray],</span>
-<span id="cb3-17"><a href="#cb3-17"></a>                       cad_model: <span class="bu">str</span>) <span class="op">-&gt;</span> Dict:</span>
-<span id="cb3-18"><a href="#cb3-18"></a>        <span class="co">"""产品质量检测主流程"""</span></span>
-<span id="cb3-19"><a href="#cb3-19"></a></span>
-<span id="cb3-20"><a href="#cb3-20"></a>        <span class="co"># 1. 三维重建</span></span>
-<span id="cb3-21"><a href="#cb3-21"></a>        point_cloud <span class="op">=</span> <span class="va">self</span>.reconstructor.reconstruct(images)</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="im">import</span> torch</span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="im">import</span> open3d <span class="im">as</span> o3d</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="im">from</span> typing <span class="im">import</span> Dict, List, Tuple</span>
+<span id="cb3-5"><a href="#cb3-5"></a></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="kw">class</span> AutonomousDrivingPerception:</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="co">"""自动驾驶感知系统核心实现"""</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a></span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, config: Dict):</span>
+<span id="cb3-10"><a href="#cb3-10"></a>        <span class="va">self</span>.config <span class="op">=</span> config</span>
+<span id="cb3-11"><a href="#cb3-11"></a></span>
+<span id="cb3-12"><a href="#cb3-12"></a>        <span class="co"># 初始化各个模块</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a>        <span class="va">self</span>.calibration <span class="op">=</span> CameraLidarCalibration(config[<span class="st">'calibration'</span>])</span>
+<span id="cb3-14"><a href="#cb3-14"></a>        <span class="va">self</span>.detector_3d <span class="op">=</span> PointPillars3DDetector(config[<span class="st">'detection'</span>])</span>
+<span id="cb3-15"><a href="#cb3-15"></a>        <span class="va">self</span>.tracker <span class="op">=</span> MultiObjectTracker(config[<span class="st">'tracking'</span>])</span>
+<span id="cb3-16"><a href="#cb3-16"></a>        <span class="va">self</span>.mapper <span class="op">=</span> SemanticMapper(config[<span class="st">'mapping'</span>])</span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a>    <span class="kw">def</span> process_frame(<span class="va">self</span>, lidar_points: np.ndarray,</span>
+<span id="cb3-19"><a href="#cb3-19"></a>                     camera_images: List[np.ndarray],</span>
+<span id="cb3-20"><a href="#cb3-20"></a>                     timestamps: List[<span class="bu">float</span>]) <span class="op">-&gt;</span> Dict:</span>
+<span id="cb3-21"><a href="#cb3-21"></a>        <span class="co">"""处理单帧数据的核心流程"""</span></span>
 <span id="cb3-22"><a href="#cb3-22"></a></span>
-<span id="cb3-23"><a href="#cb3-23"></a>        <span class="co"># 2. 点云预处理</span></span>
-<span id="cb3-24"><a href="#cb3-24"></a>        cleaned_pc <span class="op">=</span> <span class="va">self</span>.preprocess_pointcloud(point_cloud)</span>
-<span id="cb3-25"><a href="#cb3-25"></a></span>
-<span id="cb3-26"><a href="#cb3-26"></a>        <span class="co"># 3. CAD模型配准</span></span>
-<span id="cb3-27"><a href="#cb3-27"></a>        transformation <span class="op">=</span> <span class="va">self</span>.register_to_cad(cleaned_pc, cad_model)</span>
-<span id="cb3-28"><a href="#cb3-28"></a>        aligned_pc <span class="op">=</span> <span class="va">self</span>.apply_transformation(cleaned_pc, transformation)</span>
-<span id="cb3-29"><a href="#cb3-29"></a></span>
-<span id="cb3-30"><a href="#cb3-30"></a>        <span class="co"># 4. 缺陷检测</span></span>
-<span id="cb3-31"><a href="#cb3-31"></a>        defects <span class="op">=</span> <span class="va">self</span>.defect_detector.detect(aligned_pc, cad_model)</span>
-<span id="cb3-32"><a href="#cb3-32"></a></span>
-<span id="cb3-33"><a href="#cb3-33"></a>        <span class="co"># 5. 尺寸测量</span></span>
-<span id="cb3-34"><a href="#cb3-34"></a>        dimensions <span class="op">=</span> <span class="va">self</span>.dimension_measurer.measure(aligned_pc)</span>
-<span id="cb3-35"><a href="#cb3-35"></a></span>
-<span id="cb3-36"><a href="#cb3-36"></a>        <span class="co"># 6. 质量评估</span></span>
-<span id="cb3-37"><a href="#cb3-37"></a>        quality_score <span class="op">=</span> <span class="va">self</span>.evaluate_quality(defects, dimensions)</span>
-<span id="cb3-38"><a href="#cb3-38"></a></span>
-<span id="cb3-39"><a href="#cb3-39"></a>        <span class="cf">return</span> {</span>
-<span id="cb3-40"><a href="#cb3-40"></a>            <span class="st">'defects'</span>: defects,</span>
-<span id="cb3-41"><a href="#cb3-41"></a>            <span class="st">'dimensions'</span>: dimensions,</span>
-<span id="cb3-42"><a href="#cb3-42"></a>            <span class="st">'quality_score'</span>: quality_score,</span>
-<span id="cb3-43"><a href="#cb3-43"></a>            <span class="st">'pass_fail'</span>: quality_score <span class="op">&gt;</span> <span class="va">self</span>.config[<span class="st">'quality_threshold'</span>]</span>
-<span id="cb3-44"><a href="#cb3-44"></a>        }</span>
-<span id="cb3-45"><a href="#cb3-45"></a></span>
-<span id="cb3-46"><a href="#cb3-46"></a>    <span class="kw">def</span> register_to_cad(<span class="va">self</span>, point_cloud: np.ndarray,</span>
-<span id="cb3-47"><a href="#cb3-47"></a>                       cad_model: <span class="bu">str</span>) <span class="op">-&gt;</span> np.ndarray:</span>
-<span id="cb3-48"><a href="#cb3-48"></a>        <span class="co">"""点云与CAD模型配准"""</span></span>
+<span id="cb3-23"><a href="#cb3-23"></a>        <span class="co"># 1. 数据预处理和同步</span></span>
+<span id="cb3-24"><a href="#cb3-24"></a>        synchronized_data <span class="op">=</span> <span class="va">self</span>.synchronize_sensors(</span>
+<span id="cb3-25"><a href="#cb3-25"></a>            lidar_points, camera_images, timestamps)</span>
+<span id="cb3-26"><a href="#cb3-26"></a></span>
+<span id="cb3-27"><a href="#cb3-27"></a>        <span class="co"># 2. 多模态特征提取</span></span>
+<span id="cb3-28"><a href="#cb3-28"></a>        lidar_features <span class="op">=</span> <span class="va">self</span>.extract_lidar_features(synchronized_data[<span class="st">'lidar'</span>])</span>
+<span id="cb3-29"><a href="#cb3-29"></a>        camera_features <span class="op">=</span> <span class="va">self</span>.extract_camera_features(synchronized_data[<span class="st">'cameras'</span>])</span>
+<span id="cb3-30"><a href="#cb3-30"></a></span>
+<span id="cb3-31"><a href="#cb3-31"></a>        <span class="co"># 3. 传感器融合</span></span>
+<span id="cb3-32"><a href="#cb3-32"></a>        fused_features <span class="op">=</span> <span class="va">self</span>.sensor_fusion(lidar_features, camera_features)</span>
+<span id="cb3-33"><a href="#cb3-33"></a></span>
+<span id="cb3-34"><a href="#cb3-34"></a>        <span class="co"># 4. 3D目标检测</span></span>
+<span id="cb3-35"><a href="#cb3-35"></a>        detections <span class="op">=</span> <span class="va">self</span>.detector_3d.detect(fused_features)</span>
+<span id="cb3-36"><a href="#cb3-36"></a></span>
+<span id="cb3-37"><a href="#cb3-37"></a>        <span class="co"># 5. 多目标跟踪</span></span>
+<span id="cb3-38"><a href="#cb3-38"></a>        tracks <span class="op">=</span> <span class="va">self</span>.tracker.update(detections, timestamps[<span class="op">-</span><span class="dv">1</span>])</span>
+<span id="cb3-39"><a href="#cb3-39"></a></span>
+<span id="cb3-40"><a href="#cb3-40"></a>        <span class="co"># 6. 语义建图</span></span>
+<span id="cb3-41"><a href="#cb3-41"></a>        semantic_map <span class="op">=</span> <span class="va">self</span>.mapper.update(synchronized_data, detections)</span>
+<span id="cb3-42"><a href="#cb3-42"></a></span>
+<span id="cb3-43"><a href="#cb3-43"></a>        <span class="cf">return</span> {</span>
+<span id="cb3-44"><a href="#cb3-44"></a>            <span class="st">'detections'</span>: detections,</span>
+<span id="cb3-45"><a href="#cb3-45"></a>            <span class="st">'tracks'</span>: tracks,</span>
+<span id="cb3-46"><a href="#cb3-46"></a>            <span class="st">'semantic_map'</span>: semantic_map,</span>
+<span id="cb3-47"><a href="#cb3-47"></a>            <span class="st">'processing_time'</span>: <span class="va">self</span>.get_processing_time()</span>
+<span id="cb3-48"><a href="#cb3-48"></a>        }</span>
 <span id="cb3-49"><a href="#cb3-49"></a></span>
-<span id="cb3-50"><a href="#cb3-50"></a>        <span class="co"># 加载CAD模型点云</span></span>
-<span id="cb3-51"><a href="#cb3-51"></a>        cad_points <span class="op">=</span> <span class="va">self</span>.load_cad_model(cad_model)</span>
-<span id="cb3-52"><a href="#cb3-52"></a></span>
-<span id="cb3-53"><a href="#cb3-53"></a>        <span class="co"># ICP配准</span></span>
-<span id="cb3-54"><a href="#cb3-54"></a>        source <span class="op">=</span> o3d.geometry.PointCloud()</span>
-<span id="cb3-55"><a href="#cb3-55"></a>        source.points <span class="op">=</span> o3d.utility.Vector3dVector(point_cloud)</span>
-<span id="cb3-56"><a href="#cb3-56"></a></span>
-<span id="cb3-57"><a href="#cb3-57"></a>        target <span class="op">=</span> o3d.geometry.PointCloud()</span>
-<span id="cb3-58"><a href="#cb3-58"></a>        target.points <span class="op">=</span> o3d.utility.Vector3dVector(cad_points)</span>
-<span id="cb3-59"><a href="#cb3-59"></a></span>
-<span id="cb3-60"><a href="#cb3-60"></a>        <span class="co"># 粗配准：FPFH特征匹配</span></span>
-<span id="cb3-61"><a href="#cb3-61"></a>        source_fpfh <span class="op">=</span> <span class="va">self</span>.compute_fpfh_features(source)</span>
-<span id="cb3-62"><a href="#cb3-62"></a>        target_fpfh <span class="op">=</span> <span class="va">self</span>.compute_fpfh_features(target)</span>
-<span id="cb3-63"><a href="#cb3-63"></a></span>
-<span id="cb3-64"><a href="#cb3-64"></a>        result_ransac <span class="op">=</span> o3d.pipelines.registration.registration_ransac_based_on_feature_matching(</span>
-<span id="cb3-65"><a href="#cb3-65"></a>            source, target, source_fpfh, target_fpfh,</span>
-<span id="cb3-66"><a href="#cb3-66"></a>            mutual_filter<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb3-67"><a href="#cb3-67"></a>            max_correspondence_distance<span class="op">=</span><span class="fl">0.05</span>,</span>
-<span id="cb3-68"><a href="#cb3-68"></a>            estimation_method<span class="op">=</span>o3d.pipelines.registration.TransformationEstimationPointToPoint(<span class="va">False</span>),</span>
-<span id="cb3-69"><a href="#cb3-69"></a>            ransac_n<span class="op">=</span><span class="dv">3</span>,</span>
-<span id="cb3-70"><a href="#cb3-70"></a>            checkers<span class="op">=</span>[</span>
-<span id="cb3-71"><a href="#cb3-71"></a>                o3d.pipelines.registration.CorrespondenceCheckerBasedOnEdgeLength(<span class="fl">0.9</span>),</span>
-<span id="cb3-72"><a href="#cb3-72"></a>                o3d.pipelines.registration.CorrespondenceCheckerBasedOnDistance(<span class="fl">0.05</span>)</span>
-<span id="cb3-73"><a href="#cb3-73"></a>            ],</span>
-<span id="cb3-74"><a href="#cb3-74"></a>            criteria<span class="op">=</span>o3d.pipelines.registration.RANSACConvergenceCriteria(<span class="dv">100000</span>, <span class="fl">0.999</span>)</span>
-<span id="cb3-75"><a href="#cb3-75"></a>        )</span>
-<span id="cb3-76"><a href="#cb3-76"></a></span>
-<span id="cb3-77"><a href="#cb3-77"></a>        <span class="co"># 精配准：ICP</span></span>
-<span id="cb3-78"><a href="#cb3-78"></a>        result_icp <span class="op">=</span> o3d.pipelines.registration.registration_icp(</span>
-<span id="cb3-79"><a href="#cb3-79"></a>            source, target, <span class="fl">0.02</span>, result_ransac.transformation,</span>
-<span id="cb3-80"><a href="#cb3-80"></a>            o3d.pipelines.registration.TransformationEstimationPointToPoint()</span>
-<span id="cb3-81"><a href="#cb3-81"></a>        )</span>
-<span id="cb3-82"><a href="#cb3-82"></a></span>
-<span id="cb3-83"><a href="#cb3-83"></a>        <span class="cf">return</span> result_icp.transformation</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-50"><a href="#cb3-50"></a>    <span class="kw">def</span> sensor_fusion(<span class="va">self</span>, lidar_features: torch.Tensor,</span>
+<span id="cb3-51"><a href="#cb3-51"></a>                     camera_features: List[torch.Tensor]) <span class="op">-&gt;</span> torch.Tensor:</span>
+<span id="cb3-52"><a href="#cb3-52"></a>        <span class="co">"""多模态传感器融合核心算法"""</span></span>
+<span id="cb3-53"><a href="#cb3-53"></a></span>
+<span id="cb3-54"><a href="#cb3-54"></a>        <span class="co"># 将相机特征投影到LiDAR坐标系</span></span>
+<span id="cb3-55"><a href="#cb3-55"></a>        projected_features <span class="op">=</span> []</span>
+<span id="cb3-56"><a href="#cb3-56"></a>        <span class="cf">for</span> i, cam_feat <span class="kw">in</span> <span class="bu">enumerate</span>(camera_features):</span>
+<span id="cb3-57"><a href="#cb3-57"></a>            <span class="co"># 使用标定参数进行坐标变换</span></span>
+<span id="cb3-58"><a href="#cb3-58"></a>            proj_feat <span class="op">=</span> <span class="va">self</span>.calibration.project_camera_to_lidar(</span>
+<span id="cb3-59"><a href="#cb3-59"></a>                cam_feat, camera_id<span class="op">=</span>i)</span>
+<span id="cb3-60"><a href="#cb3-60"></a>            projected_features.append(proj_feat)</span>
+<span id="cb3-61"><a href="#cb3-61"></a></span>
+<span id="cb3-62"><a href="#cb3-62"></a>        <span class="co"># 特征融合：注意力机制加权</span></span>
+<span id="cb3-63"><a href="#cb3-63"></a>        attention_weights <span class="op">=</span> <span class="va">self</span>.compute_attention_weights(</span>
+<span id="cb3-64"><a href="#cb3-64"></a>            lidar_features, projected_features)</span>
+<span id="cb3-65"><a href="#cb3-65"></a></span>
+<span id="cb3-66"><a href="#cb3-66"></a>        fused_features <span class="op">=</span> lidar_features</span>
+<span id="cb3-67"><a href="#cb3-67"></a>        <span class="cf">for</span> i, (feat, weight) <span class="kw">in</span> <span class="bu">enumerate</span>(<span class="bu">zip</span>(projected_features, attention_weights)):</span>
+<span id="cb3-68"><a href="#cb3-68"></a>            fused_features <span class="op">=</span> fused_features <span class="op">+</span> weight <span class="op">*</span> feat</span>
+<span id="cb3-69"><a href="#cb3-69"></a></span>
+<span id="cb3-70"><a href="#cb3-70"></a>        <span class="cf">return</span> fused_features</span>
+<span id="cb3-71"><a href="#cb3-71"></a></span>
+<span id="cb3-72"><a href="#cb3-72"></a>    <span class="kw">def</span> compute_attention_weights(<span class="va">self</span>, lidar_feat: torch.Tensor,</span>
+<span id="cb3-73"><a href="#cb3-73"></a>                                camera_feats: List[torch.Tensor]) <span class="op">-&gt;</span> List[<span class="bu">float</span>]:</span>
+<span id="cb3-74"><a href="#cb3-74"></a>        <span class="co">"""计算多模态注意力权重"""</span></span>
+<span id="cb3-75"><a href="#cb3-75"></a>        weights <span class="op">=</span> []</span>
+<span id="cb3-76"><a href="#cb3-76"></a>        <span class="cf">for</span> cam_feat <span class="kw">in</span> camera_feats:</span>
+<span id="cb3-77"><a href="#cb3-77"></a>            <span class="co"># 计算特征相似度</span></span>
+<span id="cb3-78"><a href="#cb3-78"></a>            similarity <span class="op">=</span> torch.cosine_similarity(</span>
+<span id="cb3-79"><a href="#cb3-79"></a>                lidar_feat.flatten(), cam_feat.flatten(), dim<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb3-80"><a href="#cb3-80"></a>            weights.append(torch.sigmoid(similarity).item())</span>
+<span id="cb3-81"><a href="#cb3-81"></a></span>
+<span id="cb3-82"><a href="#cb3-82"></a>        <span class="co"># 归一化权重</span></span>
+<span id="cb3-83"><a href="#cb3-83"></a>        total_weight <span class="op">=</span> <span class="bu">sum</span>(weights)</span>
+<span id="cb3-84"><a href="#cb3-84"></a>        <span class="cf">return</span> [w <span class="op">/</span> total_weight <span class="cf">for</span> w <span class="kw">in</span> weights]</span>
+<span id="cb3-85"><a href="#cb3-85"></a></span>
+<span id="cb3-86"><a href="#cb3-86"></a><span class="kw">class</span> RealTimeOptimizer:</span>
+<span id="cb3-87"><a href="#cb3-87"></a>    <span class="co">"""实时性能优化器"""</span></span>
+<span id="cb3-88"><a href="#cb3-88"></a></span>
+<span id="cb3-89"><a href="#cb3-89"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, target_fps: <span class="bu">float</span> <span class="op">=</span> <span class="fl">10.0</span>):</span>
+<span id="cb3-90"><a href="#cb3-90"></a>        <span class="va">self</span>.target_fps <span class="op">=</span> target_fps</span>
+<span id="cb3-91"><a href="#cb3-91"></a>        <span class="va">self</span>.target_latency <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> target_fps</span>
+<span id="cb3-92"><a href="#cb3-92"></a>        <span class="va">self</span>.processing_times <span class="op">=</span> []</span>
+<span id="cb3-93"><a href="#cb3-93"></a></span>
+<span id="cb3-94"><a href="#cb3-94"></a>    <span class="kw">def</span> adaptive_quality_control(<span class="va">self</span>, current_latency: <span class="bu">float</span>) <span class="op">-&gt;</span> Dict:</span>
+<span id="cb3-95"><a href="#cb3-95"></a>        <span class="co">"""自适应质量控制"""</span></span>
+<span id="cb3-96"><a href="#cb3-96"></a>        <span class="va">self</span>.processing_times.append(current_latency)</span>
+<span id="cb3-97"><a href="#cb3-97"></a></span>
+<span id="cb3-98"><a href="#cb3-98"></a>        <span class="co"># 计算平均延迟</span></span>
+<span id="cb3-99"><a href="#cb3-99"></a>        avg_latency <span class="op">=</span> np.mean(<span class="va">self</span>.processing_times[<span class="op">-</span><span class="dv">10</span>:])</span>
+<span id="cb3-100"><a href="#cb3-100"></a></span>
+<span id="cb3-101"><a href="#cb3-101"></a>        <span class="co"># 动态调整处理参数</span></span>
+<span id="cb3-102"><a href="#cb3-102"></a>        <span class="cf">if</span> avg_latency <span class="op">&gt;</span> <span class="va">self</span>.target_latency <span class="op">*</span> <span class="fl">1.2</span>:</span>
+<span id="cb3-103"><a href="#cb3-103"></a>            <span class="co"># 延迟过高，降低质量</span></span>
+<span id="cb3-104"><a href="#cb3-104"></a>            <span class="cf">return</span> {</span>
+<span id="cb3-105"><a href="#cb3-105"></a>                <span class="st">'point_cloud_downsample_ratio'</span>: <span class="fl">0.5</span>,</span>
+<span id="cb3-106"><a href="#cb3-106"></a>                <span class="st">'detection_confidence_threshold'</span>: <span class="fl">0.7</span>,</span>
+<span id="cb3-107"><a href="#cb3-107"></a>                <span class="st">'max_detection_range'</span>: <span class="fl">50.0</span></span>
+<span id="cb3-108"><a href="#cb3-108"></a>            }</span>
+<span id="cb3-109"><a href="#cb3-109"></a>        <span class="cf">elif</span> avg_latency <span class="op">&lt;</span> <span class="va">self</span>.target_latency <span class="op">*</span> <span class="fl">0.8</span>:</span>
+<span id="cb3-110"><a href="#cb3-110"></a>            <span class="co"># 延迟较低，提高质量</span></span>
+<span id="cb3-111"><a href="#cb3-111"></a>            <span class="cf">return</span> {</span>
+<span id="cb3-112"><a href="#cb3-112"></a>                <span class="st">'point_cloud_downsample_ratio'</span>: <span class="fl">1.0</span>,</span>
+<span id="cb3-113"><a href="#cb3-113"></a>                <span class="st">'detection_confidence_threshold'</span>: <span class="fl">0.5</span>,</span>
+<span id="cb3-114"><a href="#cb3-114"></a>                <span class="st">'max_detection_range'</span>: <span class="fl">100.0</span></span>
+<span id="cb3-115"><a href="#cb3-115"></a>            }</span>
+<span id="cb3-116"><a href="#cb3-116"></a>        <span class="cf">else</span>:</span>
+<span id="cb3-117"><a href="#cb3-117"></a>            <span class="co"># 保持当前设置</span></span>
+<span id="cb3-118"><a href="#cb3-118"></a>            <span class="cf">return</span> {</span>
+<span id="cb3-119"><a href="#cb3-119"></a>                <span class="st">'point_cloud_downsample_ratio'</span>: <span class="fl">0.8</span>,</span>
+<span id="cb3-120"><a href="#cb3-120"></a>                <span class="st">'detection_confidence_threshold'</span>: <span class="fl">0.6</span>,</span>
+<span id="cb3-121"><a href="#cb3-121"></a>                <span class="st">'max_detection_range'</span>: <span class="fl">75.0</span></span>
+<span id="cb3-122"><a href="#cb3-122"></a>            }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="机器人导航系统" class="level3" data-number="16.4.2">
+<h3 data-number="16.4.2" class="anchored" data-anchor-id="机器人导航系统"><span class="header-section-number">16.4.2</span> 机器人导航系统</h3>
+<p>机器人导航系统展示了SLAM和路径规划的集成应用：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="im">import</span> rospy</span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="im">from</span> sensor_msgs.msg <span class="im">import</span> PointCloud2</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="im">from</span> geometry_msgs.msg <span class="im">import</span> PoseStamped</span>
+<span id="cb4-4"><a href="#cb4-4"></a><span class="im">from</span> nav_msgs.msg <span class="im">import</span> OccupancyGrid</span>
+<span id="cb4-5"><a href="#cb4-5"></a></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">class</span> RobotNavigationSystem:</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="co">"""机器人导航系统核心实现"""</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a></span>
+<span id="cb4-9"><a href="#cb4-9"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb4-10"><a href="#cb4-10"></a>        <span class="co"># 初始化ROS节点</span></span>
+<span id="cb4-11"><a href="#cb4-11"></a>        rospy.init_node(<span class="st">'robot_navigation'</span>)</span>
+<span id="cb4-12"><a href="#cb4-12"></a></span>
+<span id="cb4-13"><a href="#cb4-13"></a>        <span class="co"># SLAM模块</span></span>
+<span id="cb4-14"><a href="#cb4-14"></a>        <span class="va">self</span>.slam <span class="op">=</span> VisualSLAM()</span>
+<span id="cb4-15"><a href="#cb4-15"></a></span>
+<span id="cb4-16"><a href="#cb4-16"></a>        <span class="co"># 路径规划模块</span></span>
+<span id="cb4-17"><a href="#cb4-17"></a>        <span class="va">self</span>.planner <span class="op">=</span> PathPlanner()</span>
+<span id="cb4-18"><a href="#cb4-18"></a></span>
+<span id="cb4-19"><a href="#cb4-19"></a>        <span class="co"># 障碍物检测模块</span></span>
+<span id="cb4-20"><a href="#cb4-20"></a>        <span class="va">self</span>.obstacle_detector <span class="op">=</span> ObstacleDetector()</span>
+<span id="cb4-21"><a href="#cb4-21"></a></span>
+<span id="cb4-22"><a href="#cb4-22"></a>        <span class="co"># 订阅传感器数据</span></span>
+<span id="cb4-23"><a href="#cb4-23"></a>        <span class="va">self</span>.pc_sub <span class="op">=</span> rospy.Subscriber(<span class="st">'/velodyne_points'</span>, PointCloud2,</span>
+<span id="cb4-24"><a href="#cb4-24"></a>                                      <span class="va">self</span>.pointcloud_callback)</span>
+<span id="cb4-25"><a href="#cb4-25"></a>        <span class="va">self</span>.goal_sub <span class="op">=</span> rospy.Subscriber(<span class="st">'/move_base_simple/goal'</span>, PoseStamped,</span>
+<span id="cb4-26"><a href="#cb4-26"></a>                                        <span class="va">self</span>.goal_callback)</span>
+<span id="cb4-27"><a href="#cb4-27"></a></span>
+<span id="cb4-28"><a href="#cb4-28"></a>        <span class="co"># 发布导航指令</span></span>
+<span id="cb4-29"><a href="#cb4-29"></a>        <span class="va">self</span>.cmd_pub <span class="op">=</span> rospy.Publisher(<span class="st">'/cmd_vel'</span>, Twist, queue_size<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-30"><a href="#cb4-30"></a>        <span class="va">self</span>.map_pub <span class="op">=</span> rospy.Publisher(<span class="st">'/map'</span>, OccupancyGrid, queue_size<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb4-31"><a href="#cb4-31"></a></span>
+<span id="cb4-32"><a href="#cb4-32"></a>    <span class="kw">def</span> pointcloud_callback(<span class="va">self</span>, msg: PointCloud2):</span>
+<span id="cb4-33"><a href="#cb4-33"></a>        <span class="co">"""点云数据处理回调函数"""</span></span>
+<span id="cb4-34"><a href="#cb4-34"></a></span>
+<span id="cb4-35"><a href="#cb4-35"></a>        <span class="co"># 转换点云格式</span></span>
+<span id="cb4-36"><a href="#cb4-36"></a>        points <span class="op">=</span> <span class="va">self</span>.pointcloud2_to_array(msg)</span>
+<span id="cb4-37"><a href="#cb4-37"></a></span>
+<span id="cb4-38"><a href="#cb4-38"></a>        <span class="co"># SLAM处理</span></span>
+<span id="cb4-39"><a href="#cb4-39"></a>        pose, map_update <span class="op">=</span> <span class="va">self</span>.slam.process_scan(points)</span>
+<span id="cb4-40"><a href="#cb4-40"></a></span>
+<span id="cb4-41"><a href="#cb4-41"></a>        <span class="co"># 障碍物检测</span></span>
+<span id="cb4-42"><a href="#cb4-42"></a>        obstacles <span class="op">=</span> <span class="va">self</span>.obstacle_detector.detect(points)</span>
+<span id="cb4-43"><a href="#cb4-43"></a></span>
+<span id="cb4-44"><a href="#cb4-44"></a>        <span class="co"># 更新占用栅格地图</span></span>
+<span id="cb4-45"><a href="#cb4-45"></a>        occupancy_grid <span class="op">=</span> <span class="va">self</span>.update_occupancy_grid(map_update, obstacles)</span>
+<span id="cb4-46"><a href="#cb4-46"></a></span>
+<span id="cb4-47"><a href="#cb4-47"></a>        <span class="co"># 发布地图</span></span>
+<span id="cb4-48"><a href="#cb4-48"></a>        <span class="va">self</span>.publish_map(occupancy_grid)</span>
+<span id="cb4-49"><a href="#cb4-49"></a></span>
+<span id="cb4-50"><a href="#cb4-50"></a>        <span class="co"># 路径重规划（如果需要）</span></span>
+<span id="cb4-51"><a href="#cb4-51"></a>        <span class="cf">if</span> <span class="va">self</span>.should_replan(obstacles):</span>
+<span id="cb4-52"><a href="#cb4-52"></a>            <span class="va">self</span>.replan_path()</span>
+<span id="cb4-53"><a href="#cb4-53"></a></span>
+<span id="cb4-54"><a href="#cb4-54"></a>    <span class="kw">def</span> goal_callback(<span class="va">self</span>, msg: PoseStamped):</span>
+<span id="cb4-55"><a href="#cb4-55"></a>        <span class="co">"""目标点设置回调函数"""</span></span>
+<span id="cb4-56"><a href="#cb4-56"></a>        target_pose <span class="op">=</span> msg.pose</span>
+<span id="cb4-57"><a href="#cb4-57"></a></span>
+<span id="cb4-58"><a href="#cb4-58"></a>        <span class="co"># 路径规划</span></span>
+<span id="cb4-59"><a href="#cb4-59"></a>        path <span class="op">=</span> <span class="va">self</span>.planner.plan_path(</span>
+<span id="cb4-60"><a href="#cb4-60"></a>            start<span class="op">=</span><span class="va">self</span>.slam.get_current_pose(),</span>
+<span id="cb4-61"><a href="#cb4-61"></a>            goal<span class="op">=</span>target_pose,</span>
+<span id="cb4-62"><a href="#cb4-62"></a>            occupancy_grid<span class="op">=</span><span class="va">self</span>.slam.get_map()</span>
+<span id="cb4-63"><a href="#cb4-63"></a>        )</span>
+<span id="cb4-64"><a href="#cb4-64"></a></span>
+<span id="cb4-65"><a href="#cb4-65"></a>        <span class="co"># 执行路径跟踪</span></span>
+<span id="cb4-66"><a href="#cb4-66"></a>        <span class="va">self</span>.execute_path(path)</span>
+<span id="cb4-67"><a href="#cb4-67"></a></span>
+<span id="cb4-68"><a href="#cb4-68"></a>    <span class="kw">def</span> execute_path(<span class="va">self</span>, path: List[PoseStamped]):</span>
+<span id="cb4-69"><a href="#cb4-69"></a>        <span class="co">"""路径执行控制"""</span></span>
+<span id="cb4-70"><a href="#cb4-70"></a>        <span class="cf">for</span> waypoint <span class="kw">in</span> path:</span>
+<span id="cb4-71"><a href="#cb4-71"></a>            <span class="co"># 计算控制指令</span></span>
+<span id="cb4-72"><a href="#cb4-72"></a>            cmd <span class="op">=</span> <span class="va">self</span>.compute_control_command(waypoint)</span>
+<span id="cb4-73"><a href="#cb4-73"></a></span>
+<span id="cb4-74"><a href="#cb4-74"></a>            <span class="co"># 发布控制指令</span></span>
+<span id="cb4-75"><a href="#cb4-75"></a>            <span class="va">self</span>.cmd_pub.publish(cmd)</span>
+<span id="cb4-76"><a href="#cb4-76"></a></span>
+<span id="cb4-77"><a href="#cb4-77"></a>            <span class="co"># 等待到达检查</span></span>
+<span id="cb4-78"><a href="#cb4-78"></a>            <span class="cf">while</span> <span class="kw">not</span> <span class="va">self</span>.reached_waypoint(waypoint):</span>
+<span id="cb4-79"><a href="#cb4-79"></a>                rospy.sleep(<span class="fl">0.1</span>)</span>
+<span id="cb4-80"><a href="#cb4-80"></a></span>
+<span id="cb4-81"><a href="#cb4-81"></a><span class="kw">class</span> VisualSLAM:</span>
+<span id="cb4-82"><a href="#cb4-82"></a>    <span class="co">"""视觉SLAM核心算法"""</span></span>
+<span id="cb4-83"><a href="#cb4-83"></a></span>
+<span id="cb4-84"><a href="#cb4-84"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb4-85"><a href="#cb4-85"></a>        <span class="va">self</span>.keyframes <span class="op">=</span> []</span>
+<span id="cb4-86"><a href="#cb4-86"></a>        <span class="va">self</span>.map_points <span class="op">=</span> []</span>
+<span id="cb4-87"><a href="#cb4-87"></a>        <span class="va">self</span>.current_pose <span class="op">=</span> np.eye(<span class="dv">4</span>)</span>
+<span id="cb4-88"><a href="#cb4-88"></a></span>
+<span id="cb4-89"><a href="#cb4-89"></a>    <span class="kw">def</span> process_scan(<span class="va">self</span>, points: np.ndarray) <span class="op">-&gt;</span> Tuple[np.ndarray, Dict]:</span>
+<span id="cb4-90"><a href="#cb4-90"></a>        <span class="co">"""处理激光扫描数据"""</span></span>
+<span id="cb4-91"><a href="#cb4-91"></a></span>
+<span id="cb4-92"><a href="#cb4-92"></a>        <span class="co"># 特征提取</span></span>
+<span id="cb4-93"><a href="#cb4-93"></a>        features <span class="op">=</span> <span class="va">self</span>.extract_features(points)</span>
+<span id="cb4-94"><a href="#cb4-94"></a></span>
+<span id="cb4-95"><a href="#cb4-95"></a>        <span class="co"># 数据关联</span></span>
+<span id="cb4-96"><a href="#cb4-96"></a>        matches <span class="op">=</span> <span class="va">self</span>.data_association(features)</span>
+<span id="cb4-97"><a href="#cb4-97"></a></span>
+<span id="cb4-98"><a href="#cb4-98"></a>        <span class="co"># 位姿估计</span></span>
+<span id="cb4-99"><a href="#cb4-99"></a>        pose_delta <span class="op">=</span> <span class="va">self</span>.estimate_motion(matches)</span>
+<span id="cb4-100"><a href="#cb4-100"></a>        <span class="va">self</span>.current_pose <span class="op">=</span> <span class="va">self</span>.current_pose <span class="op">@</span> pose_delta</span>
+<span id="cb4-101"><a href="#cb4-101"></a></span>
+<span id="cb4-102"><a href="#cb4-102"></a>        <span class="co"># 地图更新</span></span>
+<span id="cb4-103"><a href="#cb4-103"></a>        map_update <span class="op">=</span> <span class="va">self</span>.update_map(points, <span class="va">self</span>.current_pose)</span>
+<span id="cb4-104"><a href="#cb4-104"></a></span>
+<span id="cb4-105"><a href="#cb4-105"></a>        <span class="co"># 回环检测</span></span>
+<span id="cb4-106"><a href="#cb4-106"></a>        <span class="cf">if</span> <span class="va">self</span>.detect_loop_closure():</span>
+<span id="cb4-107"><a href="#cb4-107"></a>            <span class="va">self</span>.optimize_graph()</span>
+<span id="cb4-108"><a href="#cb4-108"></a></span>
+<span id="cb4-109"><a href="#cb4-109"></a>        <span class="cf">return</span> <span class="va">self</span>.current_pose, map_update</span>
+<span id="cb4-110"><a href="#cb4-110"></a></span>
+<span id="cb4-111"><a href="#cb4-111"></a>    <span class="kw">def</span> extract_features(<span class="va">self</span>, points: np.ndarray) <span class="op">-&gt;</span> np.ndarray:</span>
+<span id="cb4-112"><a href="#cb4-112"></a>        <span class="co">"""从点云中提取特征点"""</span></span>
+<span id="cb4-113"><a href="#cb4-113"></a>        <span class="co"># 使用ISS特征检测器</span></span>
+<span id="cb4-114"><a href="#cb4-114"></a>        pcd <span class="op">=</span> o3d.geometry.PointCloud()</span>
+<span id="cb4-115"><a href="#cb4-115"></a>        pcd.points <span class="op">=</span> o3d.utility.Vector3dVector(points)</span>
+<span id="cb4-116"><a href="#cb4-116"></a></span>
+<span id="cb4-117"><a href="#cb4-117"></a>        <span class="co"># 计算法向量</span></span>
+<span id="cb4-118"><a href="#cb4-118"></a>        pcd.estimate_normals()</span>
+<span id="cb4-119"><a href="#cb4-119"></a></span>
+<span id="cb4-120"><a href="#cb4-120"></a>        <span class="co"># ISS特征检测</span></span>
+<span id="cb4-121"><a href="#cb4-121"></a>        iss_keypoints <span class="op">=</span> o3d.geometry.keypoint.compute_iss_keypoints(pcd)</span>
+<span id="cb4-122"><a href="#cb4-122"></a></span>
+<span id="cb4-123"><a href="#cb4-123"></a>        <span class="cf">return</span> np.asarray(iss_keypoints.points)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="工业质量检测系统" class="level3" data-number="16.4.3">
+<h3 data-number="16.4.3" class="anchored" data-anchor-id="工业质量检测系统"><span class="header-section-number">16.4.3</span> 工业质量检测系统</h3>
+<p>工业检测系统展示了高精度三维测量的应用：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">class</span> IndustrialQualityInspection:</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    <span class="co">"""工业质量检测系统"""</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a></span>
+<span id="cb5-4"><a href="#cb5-4"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, config: Dict):</span>
+<span id="cb5-5"><a href="#cb5-5"></a>        <span class="va">self</span>.config <span class="op">=</span> config</span>
+<span id="cb5-6"><a href="#cb5-6"></a></span>
+<span id="cb5-7"><a href="#cb5-7"></a>        <span class="co"># 三维重建模块</span></span>
+<span id="cb5-8"><a href="#cb5-8"></a>        <span class="va">self</span>.reconstructor <span class="op">=</span> StructuredLightReconstructor(config[<span class="st">'reconstruction'</span>])</span>
+<span id="cb5-9"><a href="#cb5-9"></a></span>
+<span id="cb5-10"><a href="#cb5-10"></a>        <span class="co"># 缺陷检测模块</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>        <span class="va">self</span>.defect_detector <span class="op">=</span> DefectDetector(config[<span class="st">'defect_detection'</span>])</span>
+<span id="cb5-12"><a href="#cb5-12"></a></span>
+<span id="cb5-13"><a href="#cb5-13"></a>        <span class="co"># 尺寸测量模块</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>        <span class="va">self</span>.dimension_measurer <span class="op">=</span> DimensionMeasurer(config[<span class="st">'measurement'</span>])</span>
+<span id="cb5-15"><a href="#cb5-15"></a></span>
+<span id="cb5-16"><a href="#cb5-16"></a>    <span class="kw">def</span> inspect_product(<span class="va">self</span>, images: List[np.ndarray],</span>
+<span id="cb5-17"><a href="#cb5-17"></a>                       cad_model: <span class="bu">str</span>) <span class="op">-&gt;</span> Dict:</span>
+<span id="cb5-18"><a href="#cb5-18"></a>        <span class="co">"""产品质量检测主流程"""</span></span>
+<span id="cb5-19"><a href="#cb5-19"></a></span>
+<span id="cb5-20"><a href="#cb5-20"></a>        <span class="co"># 1. 三维重建</span></span>
+<span id="cb5-21"><a href="#cb5-21"></a>        point_cloud <span class="op">=</span> <span class="va">self</span>.reconstructor.reconstruct(images)</span>
+<span id="cb5-22"><a href="#cb5-22"></a></span>
+<span id="cb5-23"><a href="#cb5-23"></a>        <span class="co"># 2. 点云预处理</span></span>
+<span id="cb5-24"><a href="#cb5-24"></a>        cleaned_pc <span class="op">=</span> <span class="va">self</span>.preprocess_pointcloud(point_cloud)</span>
+<span id="cb5-25"><a href="#cb5-25"></a></span>
+<span id="cb5-26"><a href="#cb5-26"></a>        <span class="co"># 3. CAD模型配准</span></span>
+<span id="cb5-27"><a href="#cb5-27"></a>        transformation <span class="op">=</span> <span class="va">self</span>.register_to_cad(cleaned_pc, cad_model)</span>
+<span id="cb5-28"><a href="#cb5-28"></a>        aligned_pc <span class="op">=</span> <span class="va">self</span>.apply_transformation(cleaned_pc, transformation)</span>
+<span id="cb5-29"><a href="#cb5-29"></a></span>
+<span id="cb5-30"><a href="#cb5-30"></a>        <span class="co"># 4. 缺陷检测</span></span>
+<span id="cb5-31"><a href="#cb5-31"></a>        defects <span class="op">=</span> <span class="va">self</span>.defect_detector.detect(aligned_pc, cad_model)</span>
+<span id="cb5-32"><a href="#cb5-32"></a></span>
+<span id="cb5-33"><a href="#cb5-33"></a>        <span class="co"># 5. 尺寸测量</span></span>
+<span id="cb5-34"><a href="#cb5-34"></a>        dimensions <span class="op">=</span> <span class="va">self</span>.dimension_measurer.measure(aligned_pc)</span>
+<span id="cb5-35"><a href="#cb5-35"></a></span>
+<span id="cb5-36"><a href="#cb5-36"></a>        <span class="co"># 6. 质量评估</span></span>
+<span id="cb5-37"><a href="#cb5-37"></a>        quality_score <span class="op">=</span> <span class="va">self</span>.evaluate_quality(defects, dimensions)</span>
+<span id="cb5-38"><a href="#cb5-38"></a></span>
+<span id="cb5-39"><a href="#cb5-39"></a>        <span class="cf">return</span> {</span>
+<span id="cb5-40"><a href="#cb5-40"></a>            <span class="st">'defects'</span>: defects,</span>
+<span id="cb5-41"><a href="#cb5-41"></a>            <span class="st">'dimensions'</span>: dimensions,</span>
+<span id="cb5-42"><a href="#cb5-42"></a>            <span class="st">'quality_score'</span>: quality_score,</span>
+<span id="cb5-43"><a href="#cb5-43"></a>            <span class="st">'pass_fail'</span>: quality_score <span class="op">&gt;</span> <span class="va">self</span>.config[<span class="st">'quality_threshold'</span>]</span>
+<span id="cb5-44"><a href="#cb5-44"></a>        }</span>
+<span id="cb5-45"><a href="#cb5-45"></a></span>
+<span id="cb5-46"><a href="#cb5-46"></a>    <span class="kw">def</span> register_to_cad(<span class="va">self</span>, point_cloud: np.ndarray,</span>
+<span id="cb5-47"><a href="#cb5-47"></a>                       cad_model: <span class="bu">str</span>) <span class="op">-&gt;</span> np.ndarray:</span>
+<span id="cb5-48"><a href="#cb5-48"></a>        <span class="co">"""点云与CAD模型配准"""</span></span>
+<span id="cb5-49"><a href="#cb5-49"></a></span>
+<span id="cb5-50"><a href="#cb5-50"></a>        <span class="co"># 加载CAD模型点云</span></span>
+<span id="cb5-51"><a href="#cb5-51"></a>        cad_points <span class="op">=</span> <span class="va">self</span>.load_cad_model(cad_model)</span>
+<span id="cb5-52"><a href="#cb5-52"></a></span>
+<span id="cb5-53"><a href="#cb5-53"></a>        <span class="co"># ICP配准</span></span>
+<span id="cb5-54"><a href="#cb5-54"></a>        source <span class="op">=</span> o3d.geometry.PointCloud()</span>
+<span id="cb5-55"><a href="#cb5-55"></a>        source.points <span class="op">=</span> o3d.utility.Vector3dVector(point_cloud)</span>
+<span id="cb5-56"><a href="#cb5-56"></a></span>
+<span id="cb5-57"><a href="#cb5-57"></a>        target <span class="op">=</span> o3d.geometry.PointCloud()</span>
+<span id="cb5-58"><a href="#cb5-58"></a>        target.points <span class="op">=</span> o3d.utility.Vector3dVector(cad_points)</span>
+<span id="cb5-59"><a href="#cb5-59"></a></span>
+<span id="cb5-60"><a href="#cb5-60"></a>        <span class="co"># 粗配准：FPFH特征匹配</span></span>
+<span id="cb5-61"><a href="#cb5-61"></a>        source_fpfh <span class="op">=</span> <span class="va">self</span>.compute_fpfh_features(source)</span>
+<span id="cb5-62"><a href="#cb5-62"></a>        target_fpfh <span class="op">=</span> <span class="va">self</span>.compute_fpfh_features(target)</span>
+<span id="cb5-63"><a href="#cb5-63"></a></span>
+<span id="cb5-64"><a href="#cb5-64"></a>        result_ransac <span class="op">=</span> o3d.pipelines.registration.registration_ransac_based_on_feature_matching(</span>
+<span id="cb5-65"><a href="#cb5-65"></a>            source, target, source_fpfh, target_fpfh,</span>
+<span id="cb5-66"><a href="#cb5-66"></a>            mutual_filter<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb5-67"><a href="#cb5-67"></a>            max_correspondence_distance<span class="op">=</span><span class="fl">0.05</span>,</span>
+<span id="cb5-68"><a href="#cb5-68"></a>            estimation_method<span class="op">=</span>o3d.pipelines.registration.TransformationEstimationPointToPoint(<span class="va">False</span>),</span>
+<span id="cb5-69"><a href="#cb5-69"></a>            ransac_n<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb5-70"><a href="#cb5-70"></a>            checkers<span class="op">=</span>[</span>
+<span id="cb5-71"><a href="#cb5-71"></a>                o3d.pipelines.registration.CorrespondenceCheckerBasedOnEdgeLength(<span class="fl">0.9</span>),</span>
+<span id="cb5-72"><a href="#cb5-72"></a>                o3d.pipelines.registration.CorrespondenceCheckerBasedOnDistance(<span class="fl">0.05</span>)</span>
+<span id="cb5-73"><a href="#cb5-73"></a>            ],</span>
+<span id="cb5-74"><a href="#cb5-74"></a>            criteria<span class="op">=</span>o3d.pipelines.registration.RANSACConvergenceCriteria(<span class="dv">100000</span>, <span class="fl">0.999</span>)</span>
+<span id="cb5-75"><a href="#cb5-75"></a>        )</span>
+<span id="cb5-76"><a href="#cb5-76"></a></span>
+<span id="cb5-77"><a href="#cb5-77"></a>        <span class="co"># 精配准：ICP</span></span>
+<span id="cb5-78"><a href="#cb5-78"></a>        result_icp <span class="op">=</span> o3d.pipelines.registration.registration_icp(</span>
+<span id="cb5-79"><a href="#cb5-79"></a>            source, target, <span class="fl">0.02</span>, result_ransac.transformation,</span>
+<span id="cb5-80"><a href="#cb5-80"></a>            o3d.pipelines.registration.TransformationEstimationPointToPoint()</span>
+<span id="cb5-81"><a href="#cb5-81"></a>        )</span>
+<span id="cb5-82"><a href="#cb5-82"></a></span>
+<span id="cb5-83"><a href="#cb5-83"></a>        <span class="cf">return</span> result_icp.transformation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>这些核心实现展示了三维视觉技术在实际应用中的系统集成：自动驾驶系统展示了多模态融合和实时处理，机器人导航系统展示了SLAM和路径规划的结合，工业检测系统展示了高精度测量和质量评估的应用。</p>
 </section>
 </section>
-<section id="应用效果评估" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="应用效果评估"><span class="header-section-number">8.5</span> 应用效果评估</h2>
+<section id="应用效果评估" class="level2" data-number="16.5">
+<h2 data-number="16.5" class="anchored" data-anchor-id="应用效果评估"><span class="header-section-number">16.5</span> 应用效果评估</h2>
 <p>通过三个典型应用案例的实际部署和测试，我们可以评估三维视觉技术在实际工程中的性能表现。</p>
-<section id="应用系统性能对比" class="level3" data-number="8.5.1">
-<h3 data-number="8.5.1" class="anchored" data-anchor-id="应用系统性能对比"><span class="header-section-number">8.5.1</span> 应用系统性能对比</h3>
+<section id="应用系统性能对比" class="level3" data-number="16.5.1">
+<h3 data-number="16.5.1" class="anchored" data-anchor-id="应用系统性能对比"><span class="header-section-number">16.5.1</span> 应用系统性能对比</h3>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1"></a>graph TD</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    subgraph 自动驾驶系统</span>
+<span id="cb6-3"><a href="#cb6-3"></a>        A["检测精度&lt;br/&gt;mAP: 85.3%&lt;br/&gt;误检率: 2.1%"]</span>
+<span id="cb6-4"><a href="#cb6-4"></a>        B["实时性能&lt;br/&gt;延迟: 50ms&lt;br/&gt;帧率: 20FPS"]</span>
+<span id="cb6-5"><a href="#cb6-5"></a>        C["鲁棒性&lt;br/&gt;全天候: 95%&lt;br/&gt;复杂场景: 92%"]</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    end</span>
+<span id="cb6-7"><a href="#cb6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8"></a>    subgraph 机器人导航系统</span>
+<span id="cb6-9"><a href="#cb6-9"></a>        D["定位精度&lt;br/&gt;位置误差: 5cm&lt;br/&gt;角度误差: 1°"]</span>
+<span id="cb6-10"><a href="#cb6-10"></a>        E["建图质量&lt;br/&gt;地图精度: 2cm&lt;br/&gt;完整性: 98%"]</span>
+<span id="cb6-11"><a href="#cb6-11"></a>        F["导航成功率&lt;br/&gt;室内: 96%&lt;br/&gt;室外: 89%"]</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    end</span>
+<span id="cb6-13"><a href="#cb6-13"></a></span>
+<span id="cb6-14"><a href="#cb6-14"></a>    subgraph 工业检测系统</span>
+<span id="cb6-15"><a href="#cb6-15"></a>        G["测量精度&lt;br/&gt;尺寸误差: 0.1mm&lt;br/&gt;重复性: 0.05mm"]</span>
+<span id="cb6-16"><a href="#cb6-16"></a>        H["缺陷检测&lt;br/&gt;检出率: 99.2%&lt;br/&gt;误报率: 0.8%"]</span>
+<span id="cb6-17"><a href="#cb6-17"></a>        I["检测效率&lt;br/&gt;单件时间: 30s&lt;br/&gt;吞吐量: 120件/h"]</span>
+<span id="cb6-18"><a href="#cb6-18"></a>    end</span>
+<span id="cb6-19"><a href="#cb6-19"></a></span>
+<span id="cb6-20"><a href="#cb6-20"></a>    subgraph 技术挑战</span>
+<span id="cb6-21"><a href="#cb6-21"></a>        J["计算复杂度&lt;br/&gt;实时性要求"]</span>
+<span id="cb6-22"><a href="#cb6-22"></a>        K["环境适应性&lt;br/&gt;鲁棒性保证"]</span>
+<span id="cb6-23"><a href="#cb6-23"></a>        L["精度要求&lt;br/&gt;工程标准"]</span>
+<span id="cb6-24"><a href="#cb6-24"></a>        M["成本控制&lt;br/&gt;商业化部署"]</span>
+<span id="cb6-25"><a href="#cb6-25"></a>    end</span>
+<span id="cb6-26"><a href="#cb6-26"></a></span>
+<span id="cb6-27"><a href="#cb6-27"></a>    A --&gt; J</span>
+<span id="cb6-28"><a href="#cb6-28"></a>    B --&gt; J</span>
+<span id="cb6-29"><a href="#cb6-29"></a>    C --&gt; K</span>
+<span id="cb6-30"><a href="#cb6-30"></a>    D --&gt; L</span>
+<span id="cb6-31"><a href="#cb6-31"></a>    E --&gt; L</span>
+<span id="cb6-32"><a href="#cb6-32"></a>    F --&gt; K</span>
+<span id="cb6-33"><a href="#cb6-33"></a>    G --&gt; L</span>
+<span id="cb6-34"><a href="#cb6-34"></a>    H --&gt; L</span>
+<span id="cb6-35"><a href="#cb6-35"></a>    I --&gt; M</span>
+<span id="cb6-36"><a href="#cb6-36"></a></span>
+<span id="cb6-37"><a href="#cb6-37"></a>    classDef autoNode fill:#4db6ac,stroke:#00796b,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb6-38"><a href="#cb6-38"></a>    classDef robotNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb6-39"><a href="#cb6-39"></a>    classDef industrialNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb6-40"><a href="#cb6-40"></a>    classDef challengeNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb6-41"><a href="#cb6-41"></a></span>
+<span id="cb6-42"><a href="#cb6-42"></a>    classDef autoSubgraph fill:#e0f2f1,stroke:#00796b,stroke-width:2px,color:#004d40,font-weight:bold</span>
+<span id="cb6-43"><a href="#cb6-43"></a>    classDef robotSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold</span>
+<span id="cb6-44"><a href="#cb6-44"></a>    classDef industrialSubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold</span>
+<span id="cb6-45"><a href="#cb6-45"></a>    classDef challengeSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold</span>
+<span id="cb6-46"><a href="#cb6-46"></a></span>
+<span id="cb6-47"><a href="#cb6-47"></a>    class A,B,C autoNode</span>
+<span id="cb6-48"><a href="#cb6-48"></a>    class D,E,F robotNode</span>
+<span id="cb6-49"><a href="#cb6-49"></a>    class G,H,I industrialNode</span>
+<span id="cb6-50"><a href="#cb6-50"></a>    class J,K,L,M challengeNode</span>
+<span id="cb6-51"><a href="#cb6-51"></a></span>
+<span id="cb6-52"><a href="#cb6-52"></a>    class 自动驾驶系统 autoSubgraph</span>
+<span id="cb6-53"><a href="#cb6-53"></a>    class 机器人导航系统 robotSubgraph</span>
+<span id="cb6-54"><a href="#cb6-54"></a>    class 工业检测系统 industrialSubgraph</span>
+<span id="cb6-55"><a href="#cb6-55"></a>    class 技术挑战 challengeSubgraph</span>
+<span id="cb6-56"><a href="#cb6-56"></a></span>
+<span id="cb6-57"><a href="#cb6-57"></a>    linkStyle 0,1,2,3,4,5,6,7,8 stroke-width:1.5px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -1079,9 +1291,62 @@ window.Quarto = {
 </div>
 <p><em>图11.37：三个应用案例的性能表现与技术挑战</em></p>
 </section>
-<section id="技术集成效果分析" class="level3" data-number="8.5.2">
-<h3 data-number="8.5.2" class="anchored" data-anchor-id="技术集成效果分析"><span class="header-section-number">8.5.2</span> 技术集成效果分析</h3>
+<section id="技术集成效果分析" class="level3" data-number="16.5.2">
+<h3 data-number="16.5.2" class="anchored" data-anchor-id="技术集成效果分析"><span class="header-section-number">16.5.2</span> 技术集成效果分析</h3>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb7-1"><a href="#cb7-1"></a>graph LR</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    subgraph 技术模块贡献</span>
+<span id="cb7-3"><a href="#cb7-3"></a>        A["相机标定&lt;br/&gt;几何精度基础"]</span>
+<span id="cb7-4"><a href="#cb7-4"></a>        B["立体匹配&lt;br/&gt;深度信息获取"]</span>
+<span id="cb7-5"><a href="#cb7-5"></a>        C["三维重建&lt;br/&gt;场景建模"]</span>
+<span id="cb7-6"><a href="#cb7-6"></a>        D["点云处理&lt;br/&gt;数据预处理"]</span>
+<span id="cb7-7"><a href="#cb7-7"></a>        E["PointNet网络&lt;br/&gt;特征学习"]</span>
+<span id="cb7-8"><a href="#cb7-8"></a>        F["3D目标检测&lt;br/&gt;目标识别"]</span>
+<span id="cb7-9"><a href="#cb7-9"></a>    end</span>
+<span id="cb7-10"><a href="#cb7-10"></a></span>
+<span id="cb7-11"><a href="#cb7-11"></a>    subgraph 系统集成效果</span>
+<span id="cb7-12"><a href="#cb7-12"></a>        G["精度提升&lt;br/&gt;+25%"]</span>
+<span id="cb7-13"><a href="#cb7-13"></a>        H["鲁棒性增强&lt;br/&gt;+40%"]</span>
+<span id="cb7-14"><a href="#cb7-14"></a>        I["实时性优化&lt;br/&gt;+60%"]</span>
+<span id="cb7-15"><a href="#cb7-15"></a>    end</span>
+<span id="cb7-16"><a href="#cb7-16"></a></span>
+<span id="cb7-17"><a href="#cb7-17"></a>    subgraph 应用价值</span>
+<span id="cb7-18"><a href="#cb7-18"></a>        J["商业化部署&lt;br/&gt;产业应用"]</span>
+<span id="cb7-19"><a href="#cb7-19"></a>        K["技术标准&lt;br/&gt;行业规范"]</span>
+<span id="cb7-20"><a href="#cb7-20"></a>        L["创新驱动&lt;br/&gt;技术进步"]</span>
+<span id="cb7-21"><a href="#cb7-21"></a>    end</span>
+<span id="cb7-22"><a href="#cb7-22"></a></span>
+<span id="cb7-23"><a href="#cb7-23"></a>    A --&gt; G</span>
+<span id="cb7-24"><a href="#cb7-24"></a>    B --&gt; G</span>
+<span id="cb7-25"><a href="#cb7-25"></a>    C --&gt; H</span>
+<span id="cb7-26"><a href="#cb7-26"></a>    D --&gt; H</span>
+<span id="cb7-27"><a href="#cb7-27"></a>    E --&gt; I</span>
+<span id="cb7-28"><a href="#cb7-28"></a>    F --&gt; I</span>
+<span id="cb7-29"><a href="#cb7-29"></a></span>
+<span id="cb7-30"><a href="#cb7-30"></a>    G --&gt; J</span>
+<span id="cb7-31"><a href="#cb7-31"></a>    H --&gt; K</span>
+<span id="cb7-32"><a href="#cb7-32"></a>    I --&gt; L</span>
+<span id="cb7-33"><a href="#cb7-33"></a></span>
+<span id="cb7-34"><a href="#cb7-34"></a>    classDef techNode fill:#64b5f6,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb7-35"><a href="#cb7-35"></a>    classDef effectNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb7-36"><a href="#cb7-36"></a>    classDef valueNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb7-37"><a href="#cb7-37"></a></span>
+<span id="cb7-38"><a href="#cb7-38"></a>    classDef techSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb7-39"><a href="#cb7-39"></a>    classDef effectSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold</span>
+<span id="cb7-40"><a href="#cb7-40"></a>    classDef valueSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold</span>
+<span id="cb7-41"><a href="#cb7-41"></a></span>
+<span id="cb7-42"><a href="#cb7-42"></a>    class A,B,C,D,E,F techNode</span>
+<span id="cb7-43"><a href="#cb7-43"></a>    class G,H,I effectNode</span>
+<span id="cb7-44"><a href="#cb7-44"></a>    class J,K,L valueNode</span>
+<span id="cb7-45"><a href="#cb7-45"></a></span>
+<span id="cb7-46"><a href="#cb7-46"></a>    class 技术模块贡献 techSubgraph</span>
+<span id="cb7-47"><a href="#cb7-47"></a>    class 系统集成效果 effectSubgraph</span>
+<span id="cb7-48"><a href="#cb7-48"></a>    class 应用价值 valueSubgraph</span>
+<span id="cb7-49"><a href="#cb7-49"></a></span>
+<span id="cb7-50"><a href="#cb7-50"></a>    linkStyle 0,1,2,3,4,5,6,7,8 stroke-width:1.5px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -1144,9 +1409,60 @@ window.Quarto = {
 </div>
 <p><em>图11.38：技术模块集成对系统性能的贡献分析</em></p>
 </section>
-<section id="部署成本与效益分析" class="level3" data-number="8.5.3">
-<h3 data-number="8.5.3" class="anchored" data-anchor-id="部署成本与效益分析"><span class="header-section-number">8.5.3</span> 部署成本与效益分析</h3>
+<section id="部署成本与效益分析" class="level3" data-number="16.5.3">
+<h3 data-number="16.5.3" class="anchored" data-anchor-id="部署成本与效益分析"><span class="header-section-number">16.5.3</span> 部署成本与效益分析</h3>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb8-1"><a href="#cb8-1"></a>graph TD</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    subgraph 部署成本构成</span>
+<span id="cb8-3"><a href="#cb8-3"></a>        A["硬件成本&lt;br/&gt;传感器+计算平台"]</span>
+<span id="cb8-4"><a href="#cb8-4"></a>        B["软件开发&lt;br/&gt;算法+系统集成"]</span>
+<span id="cb8-5"><a href="#cb8-5"></a>        C["标定维护&lt;br/&gt;精度保证"]</span>
+<span id="cb8-6"><a href="#cb8-6"></a>        D["人员培训&lt;br/&gt;操作维护"]</span>
+<span id="cb8-7"><a href="#cb8-7"></a>    end</span>
+<span id="cb8-8"><a href="#cb8-8"></a></span>
+<span id="cb8-9"><a href="#cb8-9"></a>    subgraph 效益评估</span>
+<span id="cb8-10"><a href="#cb8-10"></a>        E["效率提升&lt;br/&gt;自动化程度"]</span>
+<span id="cb8-11"><a href="#cb8-11"></a>        F["质量改善&lt;br/&gt;精度可靠性"]</span>
+<span id="cb8-12"><a href="#cb8-12"></a>        G["成本节约&lt;br/&gt;人力替代"]</span>
+<span id="cb8-13"><a href="#cb8-13"></a>        H["风险降低&lt;br/&gt;安全保障"]</span>
+<span id="cb8-14"><a href="#cb8-14"></a>    end</span>
+<span id="cb8-15"><a href="#cb8-15"></a></span>
+<span id="cb8-16"><a href="#cb8-16"></a>    subgraph ROI分析</span>
+<span id="cb8-17"><a href="#cb8-17"></a>        I["短期回报&lt;br/&gt;1-2年"]</span>
+<span id="cb8-18"><a href="#cb8-18"></a>        J["中期回报&lt;br/&gt;3-5年"]</span>
+<span id="cb8-19"><a href="#cb8-19"></a>        K["长期回报&lt;br/&gt;5年以上"]</span>
+<span id="cb8-20"><a href="#cb8-20"></a>    end</span>
+<span id="cb8-21"><a href="#cb8-21"></a></span>
+<span id="cb8-22"><a href="#cb8-22"></a>    A --&gt; E</span>
+<span id="cb8-23"><a href="#cb8-23"></a>    B --&gt; F</span>
+<span id="cb8-24"><a href="#cb8-24"></a>    C --&gt; F</span>
+<span id="cb8-25"><a href="#cb8-25"></a>    D --&gt; G</span>
+<span id="cb8-26"><a href="#cb8-26"></a></span>
+<span id="cb8-27"><a href="#cb8-27"></a>    E --&gt; I</span>
+<span id="cb8-28"><a href="#cb8-28"></a>    F --&gt; J</span>
+<span id="cb8-29"><a href="#cb8-29"></a>    G --&gt; J</span>
+<span id="cb8-30"><a href="#cb8-30"></a>    H --&gt; K</span>
+<span id="cb8-31"><a href="#cb8-31"></a></span>
+<span id="cb8-32"><a href="#cb8-32"></a>    classDef costNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb8-33"><a href="#cb8-33"></a>    classDef benefitNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb8-34"><a href="#cb8-34"></a>    classDef roiNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb8-35"><a href="#cb8-35"></a></span>
+<span id="cb8-36"><a href="#cb8-36"></a>    classDef costSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold</span>
+<span id="cb8-37"><a href="#cb8-37"></a>    classDef benefitSubgraph fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold</span>
+<span id="cb8-38"><a href="#cb8-38"></a>    classDef roiSubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold</span>
+<span id="cb8-39"><a href="#cb8-39"></a></span>
+<span id="cb8-40"><a href="#cb8-40"></a>    class A,B,C,D costNode</span>
+<span id="cb8-41"><a href="#cb8-41"></a>    class E,F,G,H benefitNode</span>
+<span id="cb8-42"><a href="#cb8-42"></a>    class I,J,K roiNode</span>
+<span id="cb8-43"><a href="#cb8-43"></a></span>
+<span id="cb8-44"><a href="#cb8-44"></a>    class 部署成本构成 costSubgraph</span>
+<span id="cb8-45"><a href="#cb8-45"></a>    class 效益评估 benefitSubgraph</span>
+<span id="cb8-46"><a href="#cb8-46"></a>    class ROI分析 roiSubgraph</span>
+<span id="cb8-47"><a href="#cb8-47"></a></span>
+<span id="cb8-48"><a href="#cb8-48"></a>    linkStyle 0,1,2,3,4,5,6,7 stroke-width:1.5px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -1207,9 +1523,61 @@ window.Quarto = {
 </div>
 <p><em>图11.39：三维视觉系统部署的成本效益分析</em></p>
 </section>
-<section id="未来发展趋势与挑战" class="level3" data-number="8.5.4">
-<h3 data-number="8.5.4" class="anchored" data-anchor-id="未来发展趋势与挑战"><span class="header-section-number">8.5.4</span> 未来发展趋势与挑战</h3>
+<section id="未来发展趋势与挑战" class="level3" data-number="16.5.4">
+<h3 data-number="16.5.4" class="anchored" data-anchor-id="未来发展趋势与挑战"><span class="header-section-number">16.5.4</span> 未来发展趋势与挑战</h3>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb9-1"><a href="#cb9-1"></a>graph TD</span>
+<span id="cb9-2"><a href="#cb9-2"></a>    subgraph 技术发展趋势</span>
+<span id="cb9-3"><a href="#cb9-3"></a>        A["边缘计算&lt;br/&gt;本地化处理"]</span>
+<span id="cb9-4"><a href="#cb9-4"></a>        B["5G通信&lt;br/&gt;低延迟传输"]</span>
+<span id="cb9-5"><a href="#cb9-5"></a>        C["AI芯片&lt;br/&gt;专用硬件加速"]</span>
+<span id="cb9-6"><a href="#cb9-6"></a>        D["云端协同&lt;br/&gt;分布式计算"]</span>
+<span id="cb9-7"><a href="#cb9-7"></a>    end</span>
+<span id="cb9-8"><a href="#cb9-8"></a></span>
+<span id="cb9-9"><a href="#cb9-9"></a>    subgraph 应用拓展方向</span>
+<span id="cb9-10"><a href="#cb9-10"></a>        E["智慧城市&lt;br/&gt;城市级感知"]</span>
+<span id="cb9-11"><a href="#cb9-11"></a>        F["数字孪生&lt;br/&gt;虚实融合"]</span>
+<span id="cb9-12"><a href="#cb9-12"></a>        G["元宇宙&lt;br/&gt;沉浸式体验"]</span>
+<span id="cb9-13"><a href="#cb9-13"></a>        H["空间计算&lt;br/&gt;AR/VR应用"]</span>
+<span id="cb9-14"><a href="#cb9-14"></a>    end</span>
+<span id="cb9-15"><a href="#cb9-15"></a></span>
+<span id="cb9-16"><a href="#cb9-16"></a>    subgraph 技术挑战</span>
+<span id="cb9-17"><a href="#cb9-17"></a>        I["标准化&lt;br/&gt;互操作性"]</span>
+<span id="cb9-18"><a href="#cb9-18"></a>        J["隐私保护&lt;br/&gt;数据安全"]</span>
+<span id="cb9-19"><a href="#cb9-19"></a>        K["伦理规范&lt;br/&gt;责任界定"]</span>
+<span id="cb9-20"><a href="#cb9-20"></a>        L["可解释性&lt;br/&gt;决策透明"]</span>
+<span id="cb9-21"><a href="#cb9-21"></a>    end</span>
+<span id="cb9-22"><a href="#cb9-22"></a></span>
+<span id="cb9-23"><a href="#cb9-23"></a>    A --&gt; E</span>
+<span id="cb9-24"><a href="#cb9-24"></a>    B --&gt; F</span>
+<span id="cb9-25"><a href="#cb9-25"></a>    C --&gt; G</span>
+<span id="cb9-26"><a href="#cb9-26"></a>    D --&gt; H</span>
+<span id="cb9-27"><a href="#cb9-27"></a></span>
+<span id="cb9-28"><a href="#cb9-28"></a>    E --&gt; I</span>
+<span id="cb9-29"><a href="#cb9-29"></a>    F --&gt; J</span>
+<span id="cb9-30"><a href="#cb9-30"></a>    G --&gt; K</span>
+<span id="cb9-31"><a href="#cb9-31"></a>    H --&gt; L</span>
+<span id="cb9-32"><a href="#cb9-32"></a></span>
+<span id="cb9-33"><a href="#cb9-33"></a>    classDef trendNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb9-34"><a href="#cb9-34"></a>    classDef applicationNode fill:#ba68c8,stroke:#7b1fa2,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb9-35"><a href="#cb9-35"></a>    classDef challengeNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb9-36"><a href="#cb9-36"></a></span>
+<span id="cb9-37"><a href="#cb9-37"></a>    classDef trendSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb9-38"><a href="#cb9-38"></a>    classDef applicationSubgraph fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,font-weight:bold</span>
+<span id="cb9-39"><a href="#cb9-39"></a>    classDef challengeSubgraph fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c,font-weight:bold</span>
+<span id="cb9-40"><a href="#cb9-40"></a></span>
+<span id="cb9-41"><a href="#cb9-41"></a>    class A,B,C,D trendNode</span>
+<span id="cb9-42"><a href="#cb9-42"></a>    class E,F,G,H applicationNode</span>
+<span id="cb9-43"><a href="#cb9-43"></a>    class I,J,K,L challengeNode</span>
+<span id="cb9-44"><a href="#cb9-44"></a></span>
+<span id="cb9-45"><a href="#cb9-45"></a>    class 技术发展趋势 trendSubgraph</span>
+<span id="cb9-46"><a href="#cb9-46"></a>    class 应用拓展方向 applicationSubgraph</span>
+<span id="cb9-47"><a href="#cb9-47"></a>    class 技术挑战 challengeSubgraph</span>
+<span id="cb9-48"><a href="#cb9-48"></a></span>
+<span id="cb9-49"><a href="#cb9-49"></a>    linkStyle 0,1,2,3,4,5,6,7 stroke-width:1.5px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -1272,8 +1640,8 @@ window.Quarto = {
 <p><em>图11.40：三维视觉技术的未来发展趋势与挑战</em></p>
 </section>
 </section>
-<section id="小结" class="level2" data-number="8.6">
-<h2 data-number="8.6" class="anchored" data-anchor-id="小结"><span class="header-section-number">8.6</span> 小结</h2>
+<section id="小结" class="level2" data-number="16.6">
+<h2 data-number="16.6" class="anchored" data-anchor-id="小结"><span class="header-section-number">16.6</span> 小结</h2>
 <p>应用案例分析展示了三维视觉与点云处理技术从理论研究到工程实践的完整转化过程。通过自动驾驶感知系统、机器人导航系统和工业质量检测系统三个典型案例，我们深入了解了这些技术在实际应用中的系统集成、性能表现和部署挑战。</p>
 <p>本节的核心贡献在于：<strong>系统层面</strong>，展示了多技术模块的有机集成和协调工作；<strong>工程层面</strong>，分析了实时性、鲁棒性、精度等关键性能指标的实现方法；<strong>应用层面</strong>，评估了技术方案的商业价值和部署可行性。</p>
 <p>这些应用案例充分体现了前面章节所学技术的实用价值：相机标定为系统提供了几何精度基础，立体匹配和三维重建生成了高质量的三维数据，点云处理确保了数据的可靠性，PointNet系列网络实现了智能特征学习，3D目标检测完成了高级场景理解。这些技术的有机结合，构成了完整的三维视觉解决方案。</p>
@@ -1285,6 +1653,88 @@ window.Quarto = {
 </section>
 
 </main> <!-- /main -->
+<script>
+// 侧边栏手风琴效果 - 确保只有一个章节展开
+document.addEventListener('DOMContentLoaded', function() {
+    // 等待页面完全加载后初始化
+    setTimeout(initSidebarAccordion, 1000);
+});
+
+function initSidebarAccordion() {
+    const sidebar = document.querySelector('#quarto-sidebar');
+    if (!sidebar) {
+        console.log('侧边栏未找到，重试...');
+        setTimeout(initSidebarAccordion, 500);
+        return;
+    }
+    
+    // 查找所有章节的折叠按钮
+    const collapseButtons = sidebar.querySelectorAll('[data-bs-toggle="collapse"]');
+    
+    if (collapseButtons.length === 0) {
+        console.log('折叠按钮未找到，重试...');
+        setTimeout(initSidebarAccordion, 500);
+        return;
+    }
+    
+    console.log(`找到 ${collapseButtons.length} 个折叠按钮`);
+    
+    // 为每个折叠按钮添加点击事件
+    collapseButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('data-bs-target') || this.getAttribute('href');
+            if (!targetId) return;
+            
+            // 延迟执行，确保Bootstrap的折叠动画开始后再处理
+            setTimeout(() => {
+                handleAccordionEffect(targetId, collapseButtons);
+            }, 50);
+        });
+    });
+    
+    console.log('侧边栏手风琴效果已初始化');
+}
+
+function handleAccordionEffect(currentTargetId, allButtons) {
+    // 获取当前点击的目标元素
+    const currentTarget = document.querySelector(currentTargetId);
+    if (!currentTarget) return;
+    
+    // 检查当前目标是否正在展开
+    const isExpanding = currentTarget.classList.contains('show') || 
+                       currentTarget.classList.contains('collapsing');
+    
+    if (isExpanding) {
+        // 如果当前章节正在展开，则收起其他所有章节
+        allButtons.forEach(otherButton => {
+            const otherTargetId = otherButton.getAttribute('data-bs-target') || 
+                                 otherButton.getAttribute('href');
+            
+            if (otherTargetId && otherTargetId !== currentTargetId) {
+                const otherTarget = document.querySelector(otherTargetId);
+                if (otherTarget && (otherTarget.classList.contains('show') || 
+                                   otherTarget.classList.contains('collapsing'))) {
+                    // 触发折叠
+                    const bsCollapse = new bootstrap.Collapse(otherTarget, {
+                        toggle: false
+                    });
+                    bsCollapse.hide();
+                }
+            }
+        });
+    }
+}
+
+// 如果Bootstrap还没有加载，等待加载完成
+if (typeof bootstrap === 'undefined') {
+    const checkBootstrap = setInterval(() => {
+        if (typeof bootstrap !== 'undefined') {
+            clearInterval(checkBootstrap);
+            initSidebarAccordion();
+        }
+    }, 100);
+}
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -1323,12 +1773,12 @@ window.Quarto = {
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "已复制");
+      button.setAttribute("title", "Copied!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "已复制");
+        button.setAttribute("data-bs-title", "Copied!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -1707,7 +2157,7 @@ window.Quarto = {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapter11/11.6_3D目标检测.html" class="pagination-link" aria-label="3D目标检测">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">3D目标检测</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">3D目标检测</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -1724,7 +2174,7 @@ window.Quarto = {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.7_应用案例分析.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.7_应用案例分析.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>使用 <a href="https://quarto.org/">Quarto</a> 构建</p>
 </div>

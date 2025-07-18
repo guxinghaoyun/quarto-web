@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN" xml:lang="zh-CN"><head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
 <meta name="generator" content="quarto-1.7.32">
@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; 相机标定与几何 – 现代计算机视觉</title>
+<title>10&nbsp; 相机标定与几何 – 现代计算机视觉</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -78,9 +78,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-43a518227082ac35b3113d490d8c8312.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-6ba6813c27d4e98062636b1311a23212.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-43a518227082ac35b3113d490d8c8312.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6fcac39c9284576018a90f9233d38a57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-d93707d35e9eb4f9c74ea739720dc72e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6fcac39c9284576018a90f9233d38a57.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -95,17 +95,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "没有结果",
-    "search-matching-documents-text": "匹配的文档",
-    "search-copy-link-title": "复制搜索链接",
-    "search-hide-matches-text": "隐藏其它匹配结果",
-    "search-more-match-text": "更多匹配结果",
-    "search-more-matches-text": "更多匹配结果",
-    "search-clear-button-title": "清除",
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
     "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "取消",
-    "search-submit-button-title": "提交",
-    "search-label": "搜索"
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
@@ -329,13 +329,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.1_相机标定与几何.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">相机标定与几何</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="展开或折叠侧边栏导航" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.1_相机标定与几何.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">相机标定与几何</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="搜索" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -349,14 +349,14 @@ window.Quarto = {
     <div class="sidebar-title mb-0 py-0">
       <a href="../">现代计算机视觉</a> 
         <div class="sidebar-tools-main">
-    <a href="https://github.com/guxinghaoyun/quarto-web" title="源代码" class="quarto-navigation-tool px-1" aria-label="源代码"><i class="bi bi-github"></i></a>
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="切换深色模式"><i class="bi"></i></a>
+    <a href="https://github.com/guxinghaoyun/quarto-web" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
-        <div id="quarto-search" class="" title="搜索"></div>
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
         </div>
     <div class="sidebar-menu-container"> 
@@ -369,59 +369,118 @@ window.Quarto = {
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">第十一章：三维视觉与点云处理</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="展开或折叠此栏">
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">第三章：图像预处理与增强技术</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link">
+  <a href="../chapter03/3.0_概述.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">概述</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.1_图像噪声模型与评估.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">图像噪声模型与评估</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.2_空域平滑滤波.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">空域平滑滤波</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.3_边缘保留滤波.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">边缘保留滤波</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.4_对比度增强与直方图均衡.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">对比度增强与直方图均衡</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.5_频域增强技术.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">频域增强技术</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.6_Retinex与色彩校正.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Retinex与色彩校正</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter03/3.7_小结与实践建议.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">小结与实践建议</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">第十一章：三维视觉与点云处理</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapter11/11.0_概述.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../chapter11/11.1_相机标定与几何.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span></a>
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">相机标定与几何</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.2_立体匹配与深度估计.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></span></a>
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.3_三维重建.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">三维重建</span></span></a>
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">三维重建</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.4_点云基础与处理.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">点云基础与处理</span></span></a>
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">点云基础与处理</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.5_PointNet系列网络.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">PointNet系列网络</span></span></a>
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">PointNet系列网络</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.6_3D目标检测.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">3D目标检测</span></span></a>
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">3D目标检测</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../chapter11/11.7_应用案例分析.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">应用案例分析</span></span></a>
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">应用案例分析</span></span></a>
   </div>
 </li>
       </ul>
@@ -439,25 +498,25 @@ window.Quarto = {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">目录</h2>
+    <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#引言为什么需要相机标定" id="toc-引言为什么需要相机标定" class="nav-link active" data-scroll-target="#引言为什么需要相机标定"><span class="header-section-number">2.1</span> 引言：为什么需要相机标定？</a></li>
-  <li><a href="#核心概念" id="toc-核心概念" class="nav-link" data-scroll-target="#核心概念"><span class="header-section-number">2.2</span> 核心概念</a></li>
-  <li><a href="#理论基础分步推导" id="toc-理论基础分步推导" class="nav-link" data-scroll-target="#理论基础分步推导"><span class="header-section-number">2.3</span> 理论基础：分步推导</a></li>
-  <li><a href="#算法实现" id="toc-算法实现" class="nav-link" data-scroll-target="#算法实现"><span class="header-section-number">2.4</span> 算法实现</a></li>
-  <li><a href="#标定精度评估" id="toc-标定精度评估" class="nav-link" data-scroll-target="#标定精度评估"><span class="header-section-number">2.5</span> 标定精度评估</a></li>
-  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">2.6</span> 小结</a></li>
+  <li><a href="#引言为什么需要相机标定" id="toc-引言为什么需要相机标定" class="nav-link active" data-scroll-target="#引言为什么需要相机标定"><span class="header-section-number">10.1</span> 引言：为什么需要相机标定？</a></li>
+  <li><a href="#核心概念" id="toc-核心概念" class="nav-link" data-scroll-target="#核心概念"><span class="header-section-number">10.2</span> 核心概念</a></li>
+  <li><a href="#理论基础分步推导" id="toc-理论基础分步推导" class="nav-link" data-scroll-target="#理论基础分步推导"><span class="header-section-number">10.3</span> 理论基础：分步推导</a></li>
+  <li><a href="#算法实现" id="toc-算法实现" class="nav-link" data-scroll-target="#算法实现"><span class="header-section-number">10.4</span> 算法实现</a></li>
+  <li><a href="#标定精度评估" id="toc-标定精度评估" class="nav-link" data-scroll-target="#标定精度评估"><span class="header-section-number">10.5</span> 标定精度评估</a></li>
+  <li><a href="#小结" id="toc-小结" class="nav-link" data-scroll-target="#小结"><span class="header-section-number">10.6</span> 小结</a></li>
   </ul>
-<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.1_相机标定与几何.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></nav>
+<div class="toc-actions"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.1_相机标定与几何.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.1_相机标定与几何.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">相机标定与几何</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapter11/11.0_概述.html">第十一章：三维视觉与点云处理</a></li><li class="breadcrumb-item"><a href="../chapter11/11.1_相机标定与几何.html"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">相机标定与几何</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">相机标定与几何</span></h1>
+<h1 class="title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">相机标定与几何</span></h1>
 </div>
 
 
@@ -474,16 +533,52 @@ window.Quarto = {
 </header>
 
 
-<section id="引言为什么需要相机标定" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="引言为什么需要相机标定"><span class="header-section-number">2.1</span> 引言：为什么需要相机标定？</h2>
+<section id="引言为什么需要相机标定" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="引言为什么需要相机标定"><span class="header-section-number">10.1</span> 引言：为什么需要相机标定？</h2>
 <p>当我们用手机拍照时，很少思考这样一个问题：照片中的每个像素是如何与现实世界中的物体建立对应关系的？这个看似简单的问题，实际上涉及复杂的几何变换过程。相机标定正是要解决这个基础问题：建立图像坐标与现实世界坐标之间的精确映射关系。</p>
 </section>
-<section id="核心概念" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="核心概念"><span class="header-section-number">2.2</span> 核心概念</h2>
+<section id="核心概念" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="核心概念"><span class="header-section-number">10.2</span> 核心概念</h2>
 <p><strong>针孔相机模型</strong>是理解相机成像的基础。想象一个不透光的盒子，前面开一个小孔，后面放一块感光板。外界的光线通过小孔投射到感光板上，形成倒立的图像。这就是最简单的针孔相机模型。</p>
 <p>现代数码相机的工作原理与此类似，只是用透镜组替代了小孔，用图像传感器替代了感光板。透镜组的作用是聚焦光线，提高成像质量；图像传感器则将光信号转换为数字信号。</p>
 <p><strong>坐标系变换关系</strong>描述了从三维世界到二维图像的完整过程。这个过程涉及四个坐标系：世界坐标系、相机坐标系、图像坐标系和像素坐标系。理解这些坐标系之间的关系，是掌握相机几何的关键。</p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1"></a>graph LR</span>
+<span id="cb1-2"><a href="#cb1-2"></a>    subgraph 三维世界</span>
+<span id="cb1-3"><a href="#cb1-3"></a>        P["物体点P(X,Y,Z)"]</span>
+<span id="cb1-4"><a href="#cb1-4"></a>    end</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>    subgraph 相机系统</span>
+<span id="cb1-7"><a href="#cb1-7"></a>        O["光心O"]</span>
+<span id="cb1-8"><a href="#cb1-8"></a>        F["图像平面"]</span>
+<span id="cb1-9"><a href="#cb1-9"></a>    end</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a>    subgraph 成像结果</span>
+<span id="cb1-12"><a href="#cb1-12"></a>        P2["像点p(u,v)"]</span>
+<span id="cb1-13"><a href="#cb1-13"></a>    end</span>
+<span id="cb1-14"><a href="#cb1-14"></a></span>
+<span id="cb1-15"><a href="#cb1-15"></a>    P --&gt;|光线| O</span>
+<span id="cb1-16"><a href="#cb1-16"></a>    O --&gt;|投影| P2</span>
+<span id="cb1-17"><a href="#cb1-17"></a></span>
+<span id="cb1-18"><a href="#cb1-18"></a>    classDef worldNode fill:#5c6bc0,stroke:#3949ab,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb1-19"><a href="#cb1-19"></a>    classDef cameraNode fill:#26a69a,stroke:#00897b,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb1-20"><a href="#cb1-20"></a>    classDef imageNode fill:#ec407a,stroke:#d81b60,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb1-21"><a href="#cb1-21"></a>    classDef worldSubgraph fill:#e8eaf6,stroke:#3949ab,stroke-width:2px,color:#283593,font-weight:bold</span>
+<span id="cb1-22"><a href="#cb1-22"></a>    classDef cameraSubgraph fill:#e0f2f1,stroke:#00897b,stroke-width:2px,color:#00695c,font-weight:bold</span>
+<span id="cb1-23"><a href="#cb1-23"></a>    classDef imageSubgraph fill:#fce4ec,stroke:#d81b60,stroke-width:2px,color:#ad1457,font-weight:bold</span>
+<span id="cb1-24"><a href="#cb1-24"></a></span>
+<span id="cb1-25"><a href="#cb1-25"></a>    class P worldNode</span>
+<span id="cb1-26"><a href="#cb1-26"></a>    class O,F cameraNode</span>
+<span id="cb1-27"><a href="#cb1-27"></a>    class P2 imageNode</span>
+<span id="cb1-28"><a href="#cb1-28"></a>    class 三维世界 worldSubgraph</span>
+<span id="cb1-29"><a href="#cb1-29"></a>    class 相机系统 cameraSubgraph</span>
+<span id="cb1-30"><a href="#cb1-30"></a>    class 成像结果 imageSubgraph</span>
+<span id="cb1-31"><a href="#cb1-31"></a></span>
+<span id="cb1-32"><a href="#cb1-32"></a>    linkStyle 0 stroke:#5c6bc0,stroke-width:2px,stroke-dasharray:5 5</span>
+<span id="cb1-33"><a href="#cb1-33"></a>    linkStyle 1 stroke:#ec407a,stroke-width:2px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -529,6 +624,41 @@ window.Quarto = {
 </div>
 <p><em>图11.1：针孔相机模型展示了光线通过光心投射到图像平面的几何关系</em></p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1"></a>graph TD</span>
+<span id="cb2-2"><a href="#cb2-2"></a>    A["世界坐标系&lt;br/&gt;(Xw, Yw, Zw)"] --&gt;|旋转R + 平移t| B["相机坐标系&lt;br/&gt;(Xc, Yc, Zc)"]</span>
+<span id="cb2-3"><a href="#cb2-3"></a>    B --&gt;|透视投影&lt;br/&gt;除以Zc| C["归一化坐标系&lt;br/&gt;(x, y)"]</span>
+<span id="cb2-4"><a href="#cb2-4"></a>    C --&gt;|内参矩阵K&lt;br/&gt;fx, fy, cx, cy| D["像素坐标系&lt;br/&gt;(u, v)"]</span>
+<span id="cb2-5"><a href="#cb2-5"></a></span>
+<span id="cb2-6"><a href="#cb2-6"></a>    subgraph 外参变换</span>
+<span id="cb2-7"><a href="#cb2-7"></a>        E["刚体变换&lt;br/&gt;6个自由度"]</span>
+<span id="cb2-8"><a href="#cb2-8"></a>    end</span>
+<span id="cb2-9"><a href="#cb2-9"></a></span>
+<span id="cb2-10"><a href="#cb2-10"></a>    subgraph 内参变换</span>
+<span id="cb2-11"><a href="#cb2-11"></a>        F["传感器特性&lt;br/&gt;4个参数"]</span>
+<span id="cb2-12"><a href="#cb2-12"></a>    end</span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a>    A -.-&gt; E</span>
+<span id="cb2-15"><a href="#cb2-15"></a>    C -.-&gt; F</span>
+<span id="cb2-16"><a href="#cb2-16"></a></span>
+<span id="cb2-17"><a href="#cb2-17"></a>    classDef coordNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb2-18"><a href="#cb2-18"></a>    classDef paramNode fill:#9c27b0,stroke:#6a1b9a,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb2-19"><a href="#cb2-19"></a>    classDef extSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb2-20"><a href="#cb2-20"></a>    classDef intSubgraph fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px,color:#4a148c,font-weight:bold</span>
+<span id="cb2-21"><a href="#cb2-21"></a></span>
+<span id="cb2-22"><a href="#cb2-22"></a>    class A,B,C,D coordNode</span>
+<span id="cb2-23"><a href="#cb2-23"></a>    class E,F paramNode</span>
+<span id="cb2-24"><a href="#cb2-24"></a>    class 外参变换 extSubgraph</span>
+<span id="cb2-25"><a href="#cb2-25"></a>    class 内参变换 intSubgraph</span>
+<span id="cb2-26"><a href="#cb2-26"></a></span>
+<span id="cb2-27"><a href="#cb2-27"></a>    linkStyle 0 stroke:#1565c0,stroke-width:2px</span>
+<span id="cb2-28"><a href="#cb2-28"></a>    linkStyle 1 stroke:#0097a7,stroke-width:2px</span>
+<span id="cb2-29"><a href="#cb2-29"></a>    linkStyle 2 stroke:#ad1457,stroke-width:2px</span>
+<span id="cb2-30"><a href="#cb2-30"></a>    linkStyle 3,4 stroke:#6a1b9a,stroke-width:1.5px,stroke-dasharray:3 3</span>
+<span id="cb2-31"><a href="#cb2-31"></a></span>
+<span id="cb2-32"><a href="#cb2-32"></a>    %% 移除渐变定义，使用单色填充</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -573,8 +703,8 @@ window.Quarto = {
 </div>
 <p><em>图11.2：从世界坐标系到像素坐标系的完整变换链</em></p>
 </section>
-<section id="理论基础分步推导" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="理论基础分步推导"><span class="header-section-number">2.3</span> 理论基础：分步推导</h2>
+<section id="理论基础分步推导" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="理论基础分步推导"><span class="header-section-number">10.3</span> 理论基础：分步推导</h2>
 <p>相机投影变换可以分解为三个连续的步骤，每一步都有明确的几何意义。</p>
 <p><strong>步骤1：世界坐标到相机坐标</strong></p>
 <p>世界坐标系是我们建立的参考坐标系，通常选择场景中的某个固定点作为原点。相机坐标系则以相机光心为原点，光轴为Z轴。从世界坐标到相机坐标的变换包括旋转和平移：</p>
@@ -590,28 +720,85 @@ window.Quarto = {
 <p>其中，<span class="math inline">f_x</span>和<span class="math inline">f_y</span>是焦距在x和y方向的像素表示，<span class="math inline">c_x</span>和<span class="math inline">c_y</span>是主点坐标。这四个参数构成了相机的内参矩阵<span class="math inline">\mathbf{K}</span>：</p>
 <p><span class="math display">\mathbf{K} = \begin{bmatrix} f_x &amp; 0 &amp; c_x \\ 0 &amp; f_y &amp; c_y \\ 0 &amp; 0 &amp; 1 \end{bmatrix}</span></p>
 </section>
-<section id="算法实现" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="算法实现"><span class="header-section-number">2.4</span> 算法实现</h2>
+<section id="算法实现" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="算法实现"><span class="header-section-number">10.4</span> 算法实现</h2>
 <p>相机标定的核心是求解内参矩阵K和外参矩阵[R|t]。最常用的方法是基于棋盘格标定板的线性方法。</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">def</span> camera_calibration_core(object_points, image_points):</span>
-<span id="cb1-2"><a href="#cb1-2"></a>    <span class="co">"""相机标定核心算法逻辑"""</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a>    <span class="co"># 1. 构建齐次线性方程组：每个点对应两个约束方程</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a>    A <span class="op">=</span> []</span>
-<span id="cb1-5"><a href="#cb1-5"></a>    <span class="cf">for</span> (X, Y, Z), (u, v) <span class="kw">in</span> <span class="bu">zip</span>(object_points, image_points):</span>
-<span id="cb1-6"><a href="#cb1-6"></a>        <span class="co"># 投影方程的线性化：u = (p11*X + p12*Y + p13*Z + p14) / (p31*X + p32*Y + p33*Z + 1)</span></span>
-<span id="cb1-7"><a href="#cb1-7"></a>        A.append([X, Y, Z, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span>u<span class="op">*</span>X, <span class="op">-</span>u<span class="op">*</span>Y, <span class="op">-</span>u<span class="op">*</span>Z, <span class="op">-</span>u])</span>
-<span id="cb1-8"><a href="#cb1-8"></a>        A.append([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, X, Y, Z, <span class="dv">1</span>, <span class="op">-</span>v<span class="op">*</span>X, <span class="op">-</span>v<span class="op">*</span>Y, <span class="op">-</span>v<span class="op">*</span>Z, <span class="op">-</span>v])</span>
-<span id="cb1-9"><a href="#cb1-9"></a></span>
-<span id="cb1-10"><a href="#cb1-10"></a>    <span class="co"># 2. SVD求解最小二乘问题：Ah = 0</span></span>
-<span id="cb1-11"><a href="#cb1-11"></a>    U, S, Vt <span class="op">=</span> np.linalg.svd(np.array(A))</span>
-<span id="cb1-12"><a href="#cb1-12"></a>    h <span class="op">=</span> Vt[<span class="op">-</span><span class="dv">1</span>, :]  <span class="co"># 最小奇异值对应的解</span></span>
-<span id="cb1-13"><a href="#cb1-13"></a></span>
-<span id="cb1-14"><a href="#cb1-14"></a>    <span class="co"># 3. 重构投影矩阵并分解得到内外参</span></span>
-<span id="cb1-15"><a href="#cb1-15"></a>    P <span class="op">=</span> h.reshape(<span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb1-16"><a href="#cb1-16"></a>    K, R, t <span class="op">=</span> decompose_projection_matrix(P)</span>
-<span id="cb1-17"><a href="#cb1-17"></a></span>
-<span id="cb1-18"><a href="#cb1-18"></a>    <span class="cf">return</span> K, R, t</span></code><button title="复制到剪贴板" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a><span class="kw">def</span> camera_calibration_core(object_points, image_points):</span>
+<span id="cb3-2"><a href="#cb3-2"></a>    <span class="co">"""相机标定核心算法逻辑"""</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a>    <span class="co"># 1. 构建齐次线性方程组：每个点对应两个约束方程</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a>    A <span class="op">=</span> []</span>
+<span id="cb3-5"><a href="#cb3-5"></a>    <span class="cf">for</span> (X, Y, Z), (u, v) <span class="kw">in</span> <span class="bu">zip</span>(object_points, image_points):</span>
+<span id="cb3-6"><a href="#cb3-6"></a>        <span class="co"># 投影方程的线性化：u = (p11*X + p12*Y + p13*Z + p14) / (p31*X + p32*Y + p33*Z + 1)</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a>        A.append([X, Y, Z, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span>u<span class="op">*</span>X, <span class="op">-</span>u<span class="op">*</span>Y, <span class="op">-</span>u<span class="op">*</span>Z, <span class="op">-</span>u])</span>
+<span id="cb3-8"><a href="#cb3-8"></a>        A.append([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, X, Y, Z, <span class="dv">1</span>, <span class="op">-</span>v<span class="op">*</span>X, <span class="op">-</span>v<span class="op">*</span>Y, <span class="op">-</span>v<span class="op">*</span>Z, <span class="op">-</span>v])</span>
+<span id="cb3-9"><a href="#cb3-9"></a></span>
+<span id="cb3-10"><a href="#cb3-10"></a>    <span class="co"># 2. SVD求解最小二乘问题：Ah = 0</span></span>
+<span id="cb3-11"><a href="#cb3-11"></a>    U, S, Vt <span class="op">=</span> np.linalg.svd(np.array(A))</span>
+<span id="cb3-12"><a href="#cb3-12"></a>    h <span class="op">=</span> Vt[<span class="op">-</span><span class="dv">1</span>, :]  <span class="co"># 最小奇异值对应的解</span></span>
+<span id="cb3-13"><a href="#cb3-13"></a></span>
+<span id="cb3-14"><a href="#cb3-14"></a>    <span class="co"># 3. 重构投影矩阵并分解得到内外参</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a>    P <span class="op">=</span> h.reshape(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb3-16"><a href="#cb3-16"></a>    K, R, t <span class="op">=</span> decompose_projection_matrix(P)</span>
+<span id="cb3-17"><a href="#cb3-17"></a></span>
+<span id="cb3-18"><a href="#cb3-18"></a>    <span class="cf">return</span> K, R, t</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb4-1"><a href="#cb4-1"></a>flowchart TD</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    A["采集标定图像&lt;br/&gt;多个角度的棋盘格"] --&gt; B["提取角点坐标&lt;br/&gt;亚像素精度"]</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    B --&gt; C["建立对应关系&lt;br/&gt;3D世界点 ↔ 2D图像点"]</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    C --&gt; D["构建线性方程组&lt;br/&gt;Ah = 0"]</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    D --&gt; E["SVD求解&lt;br/&gt;最小二乘解"]</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    E --&gt; F["分解投影矩阵&lt;br/&gt;提取内参和外参"]</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    F --&gt; G["非线性优化&lt;br/&gt;最小化重投影误差"]</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    G --&gt; H["畸变参数估计&lt;br/&gt;径向和切向畸变"]</span>
+<span id="cb4-9"><a href="#cb4-9"></a>    H --&gt; I["标定结果验证&lt;br/&gt;重投影误差分析"]</span>
+<span id="cb4-10"><a href="#cb4-10"></a></span>
+<span id="cb4-11"><a href="#cb4-11"></a>    subgraph 数据准备</span>
+<span id="cb4-12"><a href="#cb4-12"></a>        A</span>
+<span id="cb4-13"><a href="#cb4-13"></a>        B</span>
+<span id="cb4-14"><a href="#cb4-14"></a>        C</span>
+<span id="cb4-15"><a href="#cb4-15"></a>    end</span>
+<span id="cb4-16"><a href="#cb4-16"></a></span>
+<span id="cb4-17"><a href="#cb4-17"></a>    subgraph 线性求解</span>
+<span id="cb4-18"><a href="#cb4-18"></a>        D</span>
+<span id="cb4-19"><a href="#cb4-19"></a>        E</span>
+<span id="cb4-20"><a href="#cb4-20"></a>        F</span>
+<span id="cb4-21"><a href="#cb4-21"></a>    end</span>
+<span id="cb4-22"><a href="#cb4-22"></a></span>
+<span id="cb4-23"><a href="#cb4-23"></a>    subgraph 非线性优化</span>
+<span id="cb4-24"><a href="#cb4-24"></a>        G</span>
+<span id="cb4-25"><a href="#cb4-25"></a>        H</span>
+<span id="cb4-26"><a href="#cb4-26"></a>    end</span>
+<span id="cb4-27"><a href="#cb4-27"></a></span>
+<span id="cb4-28"><a href="#cb4-28"></a>    subgraph 结果验证</span>
+<span id="cb4-29"><a href="#cb4-29"></a>        I</span>
+<span id="cb4-30"><a href="#cb4-30"></a>    end</span>
+<span id="cb4-31"><a href="#cb4-31"></a></span>
+<span id="cb4-32"><a href="#cb4-32"></a>    %% 移除渐变定义，使用单色填充</span>
+<span id="cb4-33"><a href="#cb4-33"></a></span>
+<span id="cb4-34"><a href="#cb4-34"></a>    classDef prepNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,border-radius:8px</span>
+<span id="cb4-35"><a href="#cb4-35"></a>    classDef solveNode fill:#ffb74d,stroke:#e65100,color:white,stroke-width:2px,font-weight:bold,border-radius:8px</span>
+<span id="cb4-36"><a href="#cb4-36"></a>    classDef optNode fill:#66bb6a,stroke:#1b5e20,color:white,stroke-width:2px,font-weight:bold,border-radius:8px</span>
+<span id="cb4-37"><a href="#cb4-37"></a>    classDef valNode fill:#f48fb1,stroke:#880e4f,color:white,stroke-width:2px,font-weight:bold,border-radius:8px</span>
+<span id="cb4-38"><a href="#cb4-38"></a></span>
+<span id="cb4-39"><a href="#cb4-39"></a>    classDef prepSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb4-40"><a href="#cb4-40"></a>    classDef solveSubgraph fill:#fff3e0,stroke:#e65100,stroke-width:2px,color:#bf360c,font-weight:bold</span>
+<span id="cb4-41"><a href="#cb4-41"></a>    classDef optSubgraph fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px,color:#1b5e20,font-weight:bold</span>
+<span id="cb4-42"><a href="#cb4-42"></a>    classDef valSubgraph fill:#fce4ec,stroke:#880e4f,stroke-width:2px,color:#880e4f,font-weight:bold</span>
+<span id="cb4-43"><a href="#cb4-43"></a></span>
+<span id="cb4-44"><a href="#cb4-44"></a>    class A,B,C prepNode</span>
+<span id="cb4-45"><a href="#cb4-45"></a>    class D,E,F solveNode</span>
+<span id="cb4-46"><a href="#cb4-46"></a>    class G,H optNode</span>
+<span id="cb4-47"><a href="#cb4-47"></a>    class I valNode</span>
+<span id="cb4-48"><a href="#cb4-48"></a></span>
+<span id="cb4-49"><a href="#cb4-49"></a>    class 数据准备 prepSubgraph</span>
+<span id="cb4-50"><a href="#cb4-50"></a>    class 线性求解 solveSubgraph</span>
+<span id="cb4-51"><a href="#cb4-51"></a>    class 非线性优化 optSubgraph</span>
+<span id="cb4-52"><a href="#cb4-52"></a>    class 结果验证 valSubgraph</span>
+<span id="cb4-53"><a href="#cb4-53"></a></span>
+<span id="cb4-54"><a href="#cb4-54"></a>    linkStyle 0,1,2,3,4,5,6,7 stroke-width:2px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -678,12 +865,47 @@ window.Quarto = {
 </div>
 <p><em>图11.3：相机标定算法的主要步骤和数据流</em></p>
 </section>
-<section id="标定精度评估" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="标定精度评估"><span class="header-section-number">2.5</span> 标定精度评估</h2>
+<section id="标定精度评估" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="标定精度评估"><span class="header-section-number">10.5</span> 标定精度评估</h2>
 <p>相机标定的效果可以通过多个指标来评估。重投影误差是最直观的评价标准，它衡量了标定结果的几何精度。</p>
 <p><strong>畸变校正效果</strong>：未标定的图像往往存在明显的畸变，特别是广角镜头拍摄的图像。标定后可以有效校正这些畸变，恢复图像的真实几何关系。</p>
 <p><strong>重投影误差分析</strong>：优秀的标定结果应该具有较小且均匀分布的重投影误差。如果误差过大或分布不均，说明标定质量有问题，需要重新采集数据或调整标定方法。</p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1"></a>graph TD</span>
+<span id="cb5-2"><a href="#cb5-2"></a>    A["世界坐标系&lt;br/&gt;(Xw, Yw, Zw)"] --&gt;|旋转R + 平移t| B["相机坐标系&lt;br/&gt;(Xc, Yc, Zc)"]</span>
+<span id="cb5-3"><a href="#cb5-3"></a>    B --&gt;|透视投影&lt;br/&gt;除以Zc| C["归一化坐标系&lt;br/&gt;(x, y)"]</span>
+<span id="cb5-4"><a href="#cb5-4"></a>    C --&gt;|内参矩阵K&lt;br/&gt;fx, fy, cx, cy| D["像素坐标系&lt;br/&gt;(u, v)"]</span>
+<span id="cb5-5"><a href="#cb5-5"></a></span>
+<span id="cb5-6"><a href="#cb5-6"></a>    subgraph 外参变换</span>
+<span id="cb5-7"><a href="#cb5-7"></a>        E["刚体变换&lt;br/&gt;6个自由度"]</span>
+<span id="cb5-8"><a href="#cb5-8"></a>    end</span>
+<span id="cb5-9"><a href="#cb5-9"></a></span>
+<span id="cb5-10"><a href="#cb5-10"></a>    subgraph 内参变换</span>
+<span id="cb5-11"><a href="#cb5-11"></a>        F["传感器特性&lt;br/&gt;4个参数"]</span>
+<span id="cb5-12"><a href="#cb5-12"></a>    end</span>
+<span id="cb5-13"><a href="#cb5-13"></a></span>
+<span id="cb5-14"><a href="#cb5-14"></a>    A -.-&gt; E</span>
+<span id="cb5-15"><a href="#cb5-15"></a>    C -.-&gt; F</span>
+<span id="cb5-16"><a href="#cb5-16"></a></span>
+<span id="cb5-17"><a href="#cb5-17"></a>    classDef coordNode fill:#42a5f5,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb5-18"><a href="#cb5-18"></a>    classDef paramNode fill:#9c27b0,stroke:#6a1b9a,color:white,stroke-width:2px,font-weight:bold,font-size:14px,border-radius:8px</span>
+<span id="cb5-19"><a href="#cb5-19"></a>    classDef extSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb5-20"><a href="#cb5-20"></a>    classDef intSubgraph fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px,color:#4a148c,font-weight:bold</span>
+<span id="cb5-21"><a href="#cb5-21"></a></span>
+<span id="cb5-22"><a href="#cb5-22"></a>    class A,B,C,D coordNode</span>
+<span id="cb5-23"><a href="#cb5-23"></a>    class E,F paramNode</span>
+<span id="cb5-24"><a href="#cb5-24"></a>    class 外参变换 extSubgraph</span>
+<span id="cb5-25"><a href="#cb5-25"></a>    class 内参变换 intSubgraph</span>
+<span id="cb5-26"><a href="#cb5-26"></a></span>
+<span id="cb5-27"><a href="#cb5-27"></a>    linkStyle 0 stroke:#1565c0,stroke-width:2px</span>
+<span id="cb5-28"><a href="#cb5-28"></a>    linkStyle 1 stroke:#0097a7,stroke-width:2px</span>
+<span id="cb5-29"><a href="#cb5-29"></a>    linkStyle 2 stroke:#ad1457,stroke-width:2px</span>
+<span id="cb5-30"><a href="#cb5-30"></a>    linkStyle 3,4 stroke:#6a1b9a,stroke-width:1.5px,stroke-dasharray:3 3</span>
+<span id="cb5-31"><a href="#cb5-31"></a></span>
+<span id="cb5-32"><a href="#cb5-32"></a>    %% 移除渐变定义，使用单色填充</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -728,6 +950,64 @@ window.Quarto = {
 </div>
 <p><em>图11.4：镜头畸变校正前后的效果对比，注意图像边缘的几何变化</em></p>
 <div class="cell" data-layout-align="default">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource default number-lines code-with-copy"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1"></a>graph TD</span>
+<span id="cb6-2"><a href="#cb6-2"></a>    subgraph 误差计算</span>
+<span id="cb6-3"><a href="#cb6-3"></a>        A["观测点&lt;br/&gt;(u_obs, v_obs)"]</span>
+<span id="cb6-4"><a href="#cb6-4"></a>        B["重投影点&lt;br/&gt;(u_proj, v_proj)"]</span>
+<span id="cb6-5"><a href="#cb6-5"></a>        C["误差向量&lt;br/&gt;Δu = u_obs - u_proj&lt;br/&gt;Δv = v_obs - v_proj"]</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    end</span>
+<span id="cb6-7"><a href="#cb6-7"></a></span>
+<span id="cb6-8"><a href="#cb6-8"></a>    subgraph 误差分析</span>
+<span id="cb6-9"><a href="#cb6-9"></a>        D["均方根误差&lt;br/&gt;RMSE = √(Σ(Δu² + Δv²)/N)"]</span>
+<span id="cb6-10"><a href="#cb6-10"></a>        E["最大误差&lt;br/&gt;Max Error"]</span>
+<span id="cb6-11"><a href="#cb6-11"></a>        F["误差分布&lt;br/&gt;空间统计"]</span>
+<span id="cb6-12"><a href="#cb6-12"></a>    end</span>
+<span id="cb6-13"><a href="#cb6-13"></a></span>
+<span id="cb6-14"><a href="#cb6-14"></a>    subgraph 质量评估</span>
+<span id="cb6-15"><a href="#cb6-15"></a>        G["优秀: RMSE &lt; 0.5像素"]</span>
+<span id="cb6-16"><a href="#cb6-16"></a>        H["良好: 0.5 &lt; RMSE &lt; 1.0"]</span>
+<span id="cb6-17"><a href="#cb6-17"></a>        I["需改进: RMSE &gt; 1.0"]</span>
+<span id="cb6-18"><a href="#cb6-18"></a>    end</span>
+<span id="cb6-19"><a href="#cb6-19"></a></span>
+<span id="cb6-20"><a href="#cb6-20"></a>    A --&gt; C</span>
+<span id="cb6-21"><a href="#cb6-21"></a>    B --&gt; C</span>
+<span id="cb6-22"><a href="#cb6-22"></a>    C --&gt; D</span>
+<span id="cb6-23"><a href="#cb6-23"></a>    C --&gt; E</span>
+<span id="cb6-24"><a href="#cb6-24"></a>    C --&gt; F</span>
+<span id="cb6-25"><a href="#cb6-25"></a></span>
+<span id="cb6-26"><a href="#cb6-26"></a>    D --&gt; G</span>
+<span id="cb6-27"><a href="#cb6-27"></a>    D --&gt; H</span>
+<span id="cb6-28"><a href="#cb6-28"></a>    D --&gt; I</span>
+<span id="cb6-29"><a href="#cb6-29"></a></span>
+<span id="cb6-30"><a href="#cb6-30"></a>    %% 使用简单的填充色替代渐变</span>
+<span id="cb6-31"><a href="#cb6-31"></a>    classDef calcNode fill:#64b5f6,stroke:#1565c0,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb6-32"><a href="#cb6-32"></a>    classDef analysisNode fill:#ba68c8,stroke:#6a1b9a,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb6-33"><a href="#cb6-33"></a>    classDef excellentNode fill:#66bb6a,stroke:#2e7d32,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb6-34"><a href="#cb6-34"></a>    classDef goodNode fill:#ffb74d,stroke:#ef6c00,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb6-35"><a href="#cb6-35"></a>    classDef poorNode fill:#ef5350,stroke:#c62828,color:white,stroke-width:2px,font-weight:bold,font-size:13px,border-radius:8px</span>
+<span id="cb6-36"><a href="#cb6-36"></a></span>
+<span id="cb6-37"><a href="#cb6-37"></a>    classDef calcSubgraph fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,font-weight:bold</span>
+<span id="cb6-38"><a href="#cb6-38"></a>    classDef analysisSubgraph fill:#f3e5f5,stroke:#6a1b9a,stroke-width:2px,color:#4a148c,font-weight:bold</span>
+<span id="cb6-39"><a href="#cb6-39"></a>    classDef qualitySubgraph fill:#f1f8e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,font-weight:bold</span>
+<span id="cb6-40"><a href="#cb6-40"></a></span>
+<span id="cb6-41"><a href="#cb6-41"></a>    class A,B,C calcNode</span>
+<span id="cb6-42"><a href="#cb6-42"></a>    class D,E,F analysisNode</span>
+<span id="cb6-43"><a href="#cb6-43"></a>    class G excellentNode</span>
+<span id="cb6-44"><a href="#cb6-44"></a>    class H goodNode</span>
+<span id="cb6-45"><a href="#cb6-45"></a>    class I poorNode</span>
+<span id="cb6-46"><a href="#cb6-46"></a></span>
+<span id="cb6-47"><a href="#cb6-47"></a>    class 误差计算 calcSubgraph</span>
+<span id="cb6-48"><a href="#cb6-48"></a>    class 误差分析 analysisSubgraph</span>
+<span id="cb6-49"><a href="#cb6-49"></a>    class 质量评估 qualitySubgraph</span>
+<span id="cb6-50"><a href="#cb6-50"></a></span>
+<span id="cb6-51"><a href="#cb6-51"></a>    linkStyle 0,1 stroke:#7b1fa2,stroke-width:2px</span>
+<span id="cb6-52"><a href="#cb6-52"></a>    linkStyle 2,3,4 stroke:#7b1fa2,stroke-width:2px</span>
+<span id="cb6-53"><a href="#cb6-53"></a>    linkStyle 5 stroke:#4caf50,stroke-width:2px</span>
+<span id="cb6-54"><a href="#cb6-54"></a>    linkStyle 6 stroke:#ff9800,stroke-width:2px</span>
+<span id="cb6-55"><a href="#cb6-55"></a>    linkStyle 7 stroke:#f44336,stroke-width:2px</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
@@ -795,14 +1075,96 @@ window.Quarto = {
 </div>
 <p><em>图11.5：重投影误差的空间分布和质量评估标准</em></p>
 </section>
-<section id="小结" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="小结"><span class="header-section-number">2.6</span> 小结</h2>
+<section id="小结" class="level2" data-number="10.6">
+<h2 data-number="10.6" class="anchored" data-anchor-id="小结"><span class="header-section-number">10.6</span> 小结</h2>
 <p>相机标定是三维视觉的基础，它建立了图像与现实世界之间的几何桥梁。通过理解针孔相机模型和坐标变换关系，我们可以准确地从二维图像中提取三维信息。标定质量直接影响后续所有三维视觉算法的精度，因此必须给予足够重视。</p>
 
 
 </section>
 
 </main> <!-- /main -->
+<script>
+// 侧边栏手风琴效果 - 确保只有一个章节展开
+document.addEventListener('DOMContentLoaded', function() {
+    // 等待页面完全加载后初始化
+    setTimeout(initSidebarAccordion, 1000);
+});
+
+function initSidebarAccordion() {
+    const sidebar = document.querySelector('#quarto-sidebar');
+    if (!sidebar) {
+        console.log('侧边栏未找到，重试...');
+        setTimeout(initSidebarAccordion, 500);
+        return;
+    }
+    
+    // 查找所有章节的折叠按钮
+    const collapseButtons = sidebar.querySelectorAll('[data-bs-toggle="collapse"]');
+    
+    if (collapseButtons.length === 0) {
+        console.log('折叠按钮未找到，重试...');
+        setTimeout(initSidebarAccordion, 500);
+        return;
+    }
+    
+    console.log(`找到 ${collapseButtons.length} 个折叠按钮`);
+    
+    // 为每个折叠按钮添加点击事件
+    collapseButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('data-bs-target') || this.getAttribute('href');
+            if (!targetId) return;
+            
+            // 延迟执行，确保Bootstrap的折叠动画开始后再处理
+            setTimeout(() => {
+                handleAccordionEffect(targetId, collapseButtons);
+            }, 50);
+        });
+    });
+    
+    console.log('侧边栏手风琴效果已初始化');
+}
+
+function handleAccordionEffect(currentTargetId, allButtons) {
+    // 获取当前点击的目标元素
+    const currentTarget = document.querySelector(currentTargetId);
+    if (!currentTarget) return;
+    
+    // 检查当前目标是否正在展开
+    const isExpanding = currentTarget.classList.contains('show') || 
+                       currentTarget.classList.contains('collapsing');
+    
+    if (isExpanding) {
+        // 如果当前章节正在展开，则收起其他所有章节
+        allButtons.forEach(otherButton => {
+            const otherTargetId = otherButton.getAttribute('data-bs-target') || 
+                                 otherButton.getAttribute('href');
+            
+            if (otherTargetId && otherTargetId !== currentTargetId) {
+                const otherTarget = document.querySelector(otherTargetId);
+                if (otherTarget && (otherTarget.classList.contains('show') || 
+                                   otherTarget.classList.contains('collapsing'))) {
+                    // 触发折叠
+                    const bsCollapse = new bootstrap.Collapse(otherTarget, {
+                        toggle: false
+                    });
+                    bsCollapse.hide();
+                }
+            }
+        });
+    }
+}
+
+// 如果Bootstrap还没有加载，等待加载完成
+if (typeof bootstrap === 'undefined') {
+    const checkBootstrap = setInterval(() => {
+        if (typeof bootstrap !== 'undefined') {
+            clearInterval(checkBootstrap);
+            initSidebarAccordion();
+        }
+    }, 100);
+}
+</script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
@@ -841,12 +1203,12 @@ window.Quarto = {
       // flash "checked"
       button.classList.add('code-copy-button-checked');
       var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "已复制");
+      button.setAttribute("title", "Copied!");
       let tooltip;
       if (window.bootstrap) {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "已复制");
+        button.setAttribute("data-bs-title", "Copied!");
         tooltip = new bootstrap.Tooltip(button, 
           { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
@@ -1225,12 +1587,12 @@ window.Quarto = {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../chapter11/11.0_概述.html" class="pagination-link" aria-label="概述">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">概述</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">概述</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../chapter11/11.2_立体匹配与深度估计.html" class="pagination-link" aria-label="立体匹配与深度估计">
-        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">立体匹配与深度估计</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1242,7 +1604,7 @@ window.Quarto = {
 </div>   
     <div class="nav-footer-center">
       &nbsp;
-    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.1_相机标定与几何.qmd" class="toc-action"><i class="bi bi-github"></i>编辑该页面</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>反馈问题</a></li></ul></div></div>
+    <div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/guxinghaoyun/quarto-web/edit/main/chapter11/11.1_相机标定与几何.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/guxinghaoyun/quarto-web/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div>
     <div class="nav-footer-right">
 <p>使用 <a href="https://quarto.org/">Quarto</a> 构建</p>
 </div>
