@@ -8,11 +8,23 @@ book:
   date: "today"
   repo-url: "https://github.com/guxinghaoyun/quarto-web"
   repo-actions: [edit, issue]
-  page-footer: 
+  page-footer:
     left: "© 2024 现代计算机视觉教程"
     right: "使用 [Quarto](https://quarto.org/) 构建"
+  sidebar:
+    collapse-level: 1
   chapters:
     - index.qmd
+    - part: "第三章：图像预处理与增强技术"
+      chapters:
+        - chapter03/3.0_概述.qmd
+        - chapter03/3.1_图像噪声模型与评估.qmd
+        - chapter03/3.2_空域平滑滤波.qmd
+        - chapter03/3.3_边缘保留滤波.qmd
+        - chapter03/3.4_对比度增强与直方图均衡.qmd
+        - chapter03/3.5_频域增强技术.qmd
+        - chapter03/3.6_Retinex与色彩校正.qmd
+        - chapter03/3.7_小结与实践建议.qmd
     - part: "第十一章：三维视觉与点云处理"
       chapters:
         - chapter11/11.0_概述.qmd
@@ -25,49 +37,68 @@ book:
         - chapter11/11.7_应用案例分析.qmd
     - references.qmd
 
-lang: zh-CN
 bibliography: references.bib
 
 format:
   html:
+    # 主题和样式
     theme:
       light: cosmo
       dark: darkly
     highlight-style: github
+    css: assets/cv-book.css
+    include-after-body: assets/sidebar-accordion.html
+
+    
+    # 字体设置（中文优化）
+    mainfont: "PingFang SC, Microsoft YaHei, SimSun, serif"
+    monofont: "SF Mono, Consolas, Liberation Mono, Menlo, monospace"
+    
+    # 代码设置
     code-copy: true
     code-fold: show
     code-line-numbers: true
     code-overflow: scroll
-    mainfont: "PingFang SC"
+    
+    # 目录和导航
     toc: true
     toc-depth: 3
     toc-location: right
     number-sections: true
+    page-navigation: true
+
+
+    
+    # 图片设置
     fig-cap-location: bottom
+    fig-responsive: true
+    fig-format: retina
+    lightbox: true
+    
+    # 搜索和数学
     search: true
     html-math-method: katex
-    css: assets/cv-book.css
-    # 页面导航增强
-    page-navigation: true
-    # 图片与图表优化
-    fig-responsive: true
-    lightbox: true
-    # 交互体验改进
+    
+    # 交互体验
     smooth-scroll: true
     anchor-sections: true
     link-external-icon: true
     link-external-newwindow: true
-    # 引用和脚注增强
+    
+    # 引用和脚注
     citations-hover: true
     footnotes-hover: true
-    # 图表格式优化
-    fig-format: retina
-    # 阅读体验增强
+    
+    # 阅读体验
     reading-time: true
 
+# Mermaid图表支持
 mermaid:
   theme: default
 
+# 执行设置
 execute:
   freeze: false
   cache: false
+  echo: true
+  warning: false

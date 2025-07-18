@@ -1,0 +1,82 @@
+<script>
+// 侧边栏手风琴效果 - 确保只有一个章节展开
+document.addEventListener('DOMContentLoaded', function() {
+    // 等待页面完全加载后初始化
+    setTimeout(initSidebarAccordion, 1000);
+});
+
+function initSidebarAccordion() {
+    const sidebar = document.querySelector('#quarto-sidebar');
+    if (!sidebar) {
+        console.log('侧边栏未找到，重试...');
+        setTimeout(initSidebarAccordion, 500);
+        return;
+    }
+    
+    // 查找所有章节的折叠按钮
+    const collapseButtons = sidebar.querySelectorAll('[data-bs-toggle="collapse"]');
+    
+    if (collapseButtons.length === 0) {
+        console.log('折叠按钮未找到，重试...');
+        setTimeout(initSidebarAccordion, 500);
+        return;
+    }
+    
+    console.log(`找到 ${collapseButtons.length} 个折叠按钮`);
+    
+    // 为每个折叠按钮添加点击事件
+    collapseButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('data-bs-target') || this.getAttribute('href');
+            if (!targetId) return;
+            
+            // 延迟执行，确保Bootstrap的折叠动画开始后再处理
+            setTimeout(() => {
+                handleAccordionEffect(targetId, collapseButtons);
+            }, 50);
+        });
+    });
+    
+    console.log('侧边栏手风琴效果已初始化');
+}
+
+function handleAccordionEffect(currentTargetId, allButtons) {
+    // 获取当前点击的目标元素
+    const currentTarget = document.querySelector(currentTargetId);
+    if (!currentTarget) return;
+    
+    // 检查当前目标是否正在展开
+    const isExpanding = currentTarget.classList.contains('show') || 
+                       currentTarget.classList.contains('collapsing');
+    
+    if (isExpanding) {
+        // 如果当前章节正在展开，则收起其他所有章节
+        allButtons.forEach(otherButton => {
+            const otherTargetId = otherButton.getAttribute('data-bs-target') || 
+                                 otherButton.getAttribute('href');
+            
+            if (otherTargetId && otherTargetId !== currentTargetId) {
+                const otherTarget = document.querySelector(otherTargetId);
+                if (otherTarget && (otherTarget.classList.contains('show') || 
+                                   otherTarget.classList.contains('collapsing'))) {
+                    // 触发折叠
+                    const bsCollapse = new bootstrap.Collapse(otherTarget, {
+                        toggle: false
+                    });
+                    bsCollapse.hide();
+                }
+            }
+        });
+    }
+}
+
+// 如果Bootstrap还没有加载，等待加载完成
+if (typeof bootstrap === 'undefined') {
+    const checkBootstrap = setInterval(() => {
+        if (typeof bootstrap !== 'undefined') {
+            clearInterval(checkBootstrap);
+            initSidebarAccordion();
+        }
+    }, 100);
+}
+</script>
