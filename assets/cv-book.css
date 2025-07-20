@@ -1,216 +1,30 @@
-/* 现代计算机视觉技术书籍样式 */
+/* 现代计算机视觉技术书籍样式 - 最小化版本 */
 
-/* 自定义文本选中效果 - 移除蓝色背景，使用更优雅的样式 */
-::selection {
-  background: rgba(52, 152, 219, 0.15); /* 淡蓝色半透明背景 */
-  color: inherit; /* 保持原文本颜色 */
-  text-shadow: none; /* 移除文本阴影 */
-}
-
-::-moz-selection {
-  background: rgba(52, 152, 219, 0.15); /* Firefox 兼容 */
-  color: inherit;
-  text-shadow: none;
-}
-
-/* 代码块中的选中效果 */
-pre ::selection,
-code ::selection {
-  background: rgba(46, 125, 50, 0.2); /* 代码块使用绿色调 */
-  color: inherit;
-}
-
-pre ::-moz-selection,
-code ::-moz-selection {
-  background: rgba(46, 125, 50, 0.2);
-  color: inherit;
-}
-
-/* 优化点击和焦点效果 - 移除蓝色高亮但保持可访问性 */
-/* 移除移动设备上的点击高亮 */
-* {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-focus-ring-color: transparent;
-}
-
-/* 移除所有元素的默认焦点轮廓 */
-*:focus,
-*:active {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* 特别针对链接和按钮 */
-a:focus,
-a:active,
-button:focus,
-button:active,
-input:focus,
-input:active,
-select:focus,
-textarea:focus {
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-/* 改进中文字体渲染 */
+/* 中文字体优化 */
 body {
   font-family: "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
   line-height: 1.75;
   letter-spacing: 0.02em;
 }
 
-/* 改进标题层次 */
-h1 {
-  color: #2c3e50;
-  border-bottom: 3px solid #3498db;
-  padding-bottom: 0.5em;
-  font-weight: 600;
+/* 基础平滑滚动 */
+html {
+  scroll-behavior: smooth;
 }
 
-h2 {
-  color: #34495e;
-  border-left: 4px solid #e74c3c;
-  padding-left: 1em;
-  font-weight: 600;
-}
-
-h3 {
-  color: #2980b9;
-  font-weight: 500;
-}
-
-/* 简洁代码块样式 - 移除所有嵌套问题 */
-div.sourceCode {
-  margin: 1.5em 0;
-  overflow-x: auto;
-}
-
-.sourceCode {
-  border-left: none !important;
-  border-right: none !important;
-}
-
-/* Python 代码特殊标识 - 已移除左边框避免视觉干扰 */
-/* .sourceCode.python {
-  border-left: 4px solid #306998;
-} */
-
-/* 改进图片展示 */
+/* 图片展示优化 - 保持简洁 */
 .figure {
   text-align: center;
-  margin: 2.5em 0;
-  padding: 1.5em;
-  background: #fafbfc;
-  border-radius: 12px;
-  border: 1px solid #e1e4e8;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.07);
+  margin: 2em 0;
 }
 
 .figure img {
   max-width: 100%;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* 目录改进 */
-.sidebar-navigation .sidebar-item:hover {
-  background: transparent !important;
-  transform: translateX(2px);
+/* 代码块优化 - 保持简洁 */
+div.sourceCode {
+  margin: 1.5em 0;
+  overflow-x: auto;
 }
-
-/* 移除侧边栏所有状态的蓝色框 - 简洁解决方案 */
-#quarto-sidebar *,
-.sidebar-navigation *,
-.quarto-sidebar *,
-ul.collapse,
-ul.list-unstyled,
-ul.sidebar-section,
-.sidebar-item,
-.sidebar-link,
-.sidebar-item-container,
-.sidebar-item-text {
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-#quarto-sidebar *:focus,
-#quarto-sidebar *:hover,
-#quarto-sidebar *:active,
-.sidebar-navigation *:focus,
-.sidebar-navigation *:hover,
-.sidebar-navigation *:active,
-ul.collapse:focus,
-ul.list-unstyled:focus,
-ul.sidebar-section:focus,
-.sidebar-item:focus,
-.sidebar-link:focus,
-.sidebar-item-container:focus,
-.sidebar-item-text:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
-/* 移除当前页面的蓝色背景，改为更简洁的样式 - 增强版本 */
-.sidebar-item.active,
-.sidebar-item .active,
-.sidebar-link.active,
-.sidebar-item-text.active,
-.sidebar-item.active > .sidebar-item-container,
-.sidebar-item.active > .sidebar-item-container > .sidebar-item-text,
-.sidebar-item-container.active,
-.sidebar-item-container.active > .sidebar-item-text,
-ul.sidebar-section .sidebar-item.active,
-ul.sidebar-section .sidebar-item .active,
-ul.sidebar-section .sidebar-link.active,
-.quarto-sidebar .sidebar-item.active,
-.quarto-sidebar .sidebar-item .active,
-.quarto-sidebar .sidebar-link.active,
-#quarto-sidebar .sidebar-item.active,
-#quarto-sidebar .sidebar-item .active,
-#quarto-sidebar .sidebar-link.active {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-/* 自定义当前页面的样式（可选） - 增强版本 */
-.sidebar-item.active .sidebar-item-text,
-.sidebar-link.active,
-.sidebar-item.active > .sidebar-item-container > .sidebar-item-text,
-.sidebar-item-container.active > .sidebar-item-text,
-ul.sidebar-section .sidebar-item.active .sidebar-item-text,
-ul.sidebar-section .sidebar-link.active,
-.quarto-sidebar .sidebar-item.active .sidebar-item-text,
-.quarto-sidebar .sidebar-link.active,
-#quarto-sidebar .sidebar-item.active .sidebar-item-text,
-#quarto-sidebar .sidebar-link.active {
-  color: #2980b9 !important;
-  font-weight: 500 !important;
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-/* 额外的Bootstrap和Quarto特定样式覆盖 */
-.list-group-item.active,
-.nav-link.active,
-.navbar-nav .nav-link.active,
-.sidebar-navigation .nav-link.active,
-.collapse.show .sidebar-item.active,
-.collapse.show .sidebar-link.active {
-  background: transparent !important;
-  background-color: transparent !important;
-  border-color: transparent !important;
-}
-
-/* 运行时动态添加的样式覆盖 */
-[data-bs-theme="light"] .sidebar-item.active,
-[data-bs-theme="dark"] .sidebar-item.active,
-.quarto-color-scheme .sidebar-item.active,
-.quarto-color-scheme-extra .sidebar-item.active {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
-

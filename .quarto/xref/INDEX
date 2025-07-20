@@ -1,32 +1,20 @@
 {
+  "chapter12/chapter12.qmd": {
+    "chapter12.html": "08ea2487"
+  },
   "index.qmd": {
-    "index.html": "c0e5dbc4"
+    "index.html": "2a9bb4f5"
   },
-  "chapter11/11.0_概述.qmd": {
-    "11.0_概述.html": "79a4c2af"
+  "chapter01/chapter01.qmd": {
+    "chapter01.html": "d6fa5b9a"
   },
-  "chapter11/11.1_相机标定与几何.qmd": {
-    "11.1_相机标定与几何.html": "8c092dfc"
+  "chapter03/chapter03.qmd": {
+    "chapter03.html": "35689291"
+  },
+  "chapter11/chapter11.qmd": {
+    "chapter11.html": "01fe4883"
   },
   "references.qmd": {
-    "references.html": "cb73063c"
-  },
-  "chapter11/11.2_立体匹配与深度估计.qmd": {
-    "11.2_立体匹配与深度估计.html": "34f32a3e"
-  },
-  "chapter11/11.3_三维重建.qmd": {
-    "11.3_三维重建.html": "2dfbf7af"
-  },
-  "chapter11/11.4_点云基础与处理.qmd": {
-    "11.4_点云基础与处理.html": "8988e791"
-  },
-  "chapter11/11.5_PointNet系列网络.qmd": {
-    "11.5_PointNet系列网络.html": "182dca0a"
-  },
-  "chapter11/11.6_3D目标检测.qmd": {
-    "11.6_3D目标检测.html": "32bc2d63"
-  },
-  "chapter11/11.7_应用案例分析.qmd": {
-    "11.7_应用案例分析.html": "a867b47e"
+    "references.html": "c412b8a9"
   }
 }

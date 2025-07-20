@@ -9,32 +9,33 @@ book:
   repo-url: "https://github.com/guxinghaoyun/quarto-web"
   repo-actions: [edit, issue]
   page-footer:
-    left: "© 2024 现代计算机视觉教程"
+    left: "© 2025 现代计算机视觉教程"
     right: "使用 [Quarto](https://quarto.org/) 构建"
-  sidebar:
-    collapse-level: 1
   chapters:
+    # 前言（不编号）
     - index.qmd
-    - part: "第三章：图像预处理与增强技术"
+
+    # 第一部分：基础理论
+    - part: "第一部分：基础理论"
       chapters:
-        - chapter03/3.0_概述.qmd
-        - chapter03/3.1_图像噪声模型与评估.qmd
-        - chapter03/3.2_空域平滑滤波.qmd
-        - chapter03/3.3_边缘保留滤波.qmd
-        - chapter03/3.4_对比度增强与直方图均衡.qmd
-        - chapter03/3.5_频域增强技术.qmd
-        - chapter03/3.6_Retinex与色彩校正.qmd
-        - chapter03/3.7_小结与实践建议.qmd
-    - part: "第十一章：三维视觉与点云处理"
+        - chapter01/chapter01.qmd
+        - chapter03/chapter03.qmd
+
+    # # 第二部分：深度学习核心
+    # - part: "第二部分：深度学习核心"
+    #   chapters:
+
+    # 第三部分：前沿技术
+    - part: "第三部分：前沿技术"
+      chapters: 
+        - chapter11/chapter11.qmd
+
+    # 第四部分：工程实践
+    - part: "第四部分：工程实践"
       chapters:
-        - chapter11/11.0_概述.qmd
-        - chapter11/11.1_相机标定与几何.qmd
-        - chapter11/11.2_立体匹配与深度估计.qmd
-        - chapter11/11.3_三维重建.qmd
-        - chapter11/11.4_点云基础与处理.qmd
-        - chapter11/11.5_PointNet系列网络.qmd
-        - chapter11/11.6_3D目标检测.qmd
-        - chapter11/11.7_应用案例分析.qmd
+        - chapter12/chapter12.qmd
+
+    # 参考文献（不编号）
     - references.qmd
 
 bibliography: references.bib
@@ -45,30 +46,32 @@ format:
     theme:
       light: cosmo
       dark: darkly
-    highlight-style: github
+    highlight-style: arrow
     css: assets/cv-book.css
-    include-after-body: assets/sidebar-accordion.html
 
-    
     # 字体设置（中文优化）
     mainfont: "PingFang SC, Microsoft YaHei, SimSun, serif"
     monofont: "SF Mono, Consolas, Liberation Mono, Menlo, monospace"
-    
-    # 代码设置
+
+    # 代码设置（为Mermaid图表优化）
     code-copy: true
-    code-fold: show
-    code-line-numbers: true
+    code-fold: false
+    code-line-numbers: false
     code-overflow: scroll
     
     # 目录和导航
     toc: true
     toc-depth: 3
     toc-location: right
-    number-sections: true
+    number-sections: false
     page-navigation: true
 
+    # 侧边栏设置 - 使用Quarto原生配置
+    sidebar:
+      style: "docked"
+      search: false
+      collapse-level: 1
 
-    
     # 图片设置
     fig-cap-location: bottom
     fig-responsive: true
@@ -79,6 +82,13 @@ format:
     search: true
     html-math-method: katex
     
+    # 布局设置
+    page-layout: full
+    grid:
+      sidebar-width: 250px
+      body-width: 900px
+      margin-width: 300px
+
     # 交互体验
     smooth-scroll: true
     anchor-sections: true
@@ -92,7 +102,7 @@ format:
     # 阅读体验
     reading-time: true
 
-# Mermaid图表支持
+# 图表支持
 mermaid:
   theme: default
 
@@ -100,5 +110,5 @@ mermaid:
 execute:
   freeze: false
   cache: false
-  echo: true
+  echo: false
   warning: false
